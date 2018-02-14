@@ -428,7 +428,7 @@ namespace PokemonGoGUI.GoManager
             Stats.Experience += amount;
         }
 
-        public int RemainingPokeballs()
+        private int RemainingPokeballs()
         {
             int total = 0;
 

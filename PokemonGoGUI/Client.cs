@@ -488,42 +488,7 @@ namespace PokemonGoGUI
 
         private void SessionMapUpdate(object sender, EventArgs e)
         {
-            /*/Map Update
-            try
-            {
-                if (ClientManager.RemainingPokeballs() > 5 /*Bot need balls for snippe/)
-                {
-                    //Get for new pokestops
-                    //ClientManager.GetPokeStops();
-
-                    //Catch nearby pokemon
-                    ClientManager.CatchNeabyPokemon().Wait();
-
-                    //Catch incense pokemon
-                    ClientManager.CatchInsencePokemon().Wait();
-                }
-            }
-            catch (SessionStateException ex)
-            {
-                ClientManager.LogCaller(new LoggerEventArgs("SessionMapUpdate.", LoggerTypes.Warning, ex));
-            }
-            catch (SessionInvalidatedException ex)
-            {
-                ClientManager.LogCaller(new LoggerEventArgs("SessionMapUpdate.", LoggerTypes.Warning, ex));
-            }
-            catch (SessionUnknowException ex)
-            {
-                ClientManager.LogCaller(new LoggerEventArgs("SessionMapUpdate.", LoggerTypes.Warning, ex));
-            }
-            catch (InvalidPlatformException ex)
-            {
-                ClientManager.LogCaller(new LoggerEventArgs("SessionMapUpdate.", LoggerTypes.Warning, ex));
-            }
-            catch (Exception ex)
-            {
-                ClientManager.LogCaller(new LoggerEventArgs("SessionMapUpdate.", LoggerTypes.Warning, ex));
-            }
-            */
+            //Map Update
         }
 
         public void SessionOnCaptchaReceived(object sender, CaptchaEventArgs e)

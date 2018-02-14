@@ -31,7 +31,6 @@ namespace PokemonGoGUI.GoManager
                     if (UserSettings.EncounterWhileWalking && UserSettings.CatchPokemon)
                     {
                         walkingFunction = CatchNeabyPokemon;
-                        await CatchInsencePokemon();
                     }
 
                     MethodResult walkResponse = await WalkToLocation(location, walkingFunction);
@@ -128,11 +127,7 @@ namespace PokemonGoGUI.GoManager
                 if (functionExecutedWhileWalking != null)
                 {
                     MethodResult walkFunctionResult = await functionExecutedWhileWalking(); // look for pokemon
-
-                    if(!walkFunctionResult.Success)
-                    {
-                        return new MethodResult();
-                    }
+                    MethodResult IncenseResult = await CatchInsencePokemon(); // look for incense pokemon
                 }
             }
 
