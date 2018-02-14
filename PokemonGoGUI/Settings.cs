@@ -88,7 +88,7 @@ namespace PokemonGoGUI
         public bool StopOnAPIUpdate { get; set; }
 
         public int MaxLogs { get; set; }
-        public double RunForHours{ get; set; }
+        public double RunForHours { get; set; }
 
         //Humanization
         public bool EnableHumanization { get; set; }
@@ -105,7 +105,7 @@ namespace PokemonGoGUI
 
         public double WalkingSpeedOffset { get; set; }
         //End Humanization
-        
+
         public string ProxyIP { get; set; }
         public int ProxyPort { get; set; }
         public string ProxyUsername { get; set; }
@@ -124,14 +124,17 @@ namespace PokemonGoGUI
         public decimal ARBonusAwareness { get; set; }
         public bool CompleteTutorial { get; set; }
         public bool TransferAtOnce { get; set; }
-        public bool ShowDebugLogs { get; set; }        
+        public bool ShowDebugLogs { get; set; }
         public bool DownloadResources { get; set; }
 
         public AccountState StopAtMinAccountState { get; set; }
 
-        public ProxyEx Proxy {
-            get {
-                return new ProxyEx {
+        public ProxyEx Proxy
+        {
+            get
+            {
+                return new ProxyEx
+                {
                     Address = ProxyIP,
                     Port = ProxyPort,
                     Username = ProxyUsername,
@@ -215,18 +218,22 @@ namespace PokemonGoGUI
             GoOnlyToGyms = false;
             AutoFavoritShiny = true;
             SnipeAllPokemonsNoInPokedex = true;
+            EncounterWhileWalking = true;
         }
 
         public void LoadCatchSettings()
         {
             CatchSettings = new List<CatchSetting>();
 
-            foreach (PokemonId pokemon in Enum.GetValues(typeof(PokemonId))) {
-                if (pokemon == PokemonId.Missingno) {
+            foreach (PokemonId pokemon in Enum.GetValues(typeof(PokemonId)))
+            {
+                if (pokemon == PokemonId.Missingno)
+                {
                     continue;
                 }
 
-                var cSettings = new CatchSetting {
+                var cSettings = new CatchSetting
+                {
                     Id = pokemon
                 };
 
@@ -238,12 +245,15 @@ namespace PokemonGoGUI
         {
             ItemSettings = new List<InventoryItemSetting>();
 
-            foreach (ItemId item in Enum.GetValues(typeof(ItemId))) {
-                if (item == ItemId.ItemUnknown) {
+            foreach (ItemId item in Enum.GetValues(typeof(ItemId)))
+            {
+                if (item == ItemId.ItemUnknown)
+                {
                     continue;
                 }
 
-                var itemSetting = new InventoryItemSetting {
+                var itemSetting = new InventoryItemSetting
+                {
                     Id = item
                 };
 
@@ -255,12 +265,15 @@ namespace PokemonGoGUI
         {
             EvolveSettings = new List<EvolveSetting>();
 
-            foreach (PokemonId pokemon in Enum.GetValues(typeof(PokemonId))) {
-                if (pokemon == PokemonId.Missingno) {
+            foreach (PokemonId pokemon in Enum.GetValues(typeof(PokemonId)))
+            {
+                if (pokemon == PokemonId.Missingno)
+                {
                     continue;
                 }
 
-                var setting = new EvolveSetting {
+                var setting = new EvolveSetting
+                {
                     Id = pokemon
                 };
 
@@ -315,7 +328,7 @@ namespace PokemonGoGUI
             var device = DeviceInfoUtil.GetRandomDevice();
             DeviceId = device.DeviceInfo.DeviceId;
         }
-        
+
         public void RandomizeDevice()
         {
             var device = DeviceInfoUtil.GetRandomDevice();
@@ -331,7 +344,8 @@ namespace PokemonGoGUI
 
         private byte RandomByte()
         {
-            using (var randomizationProvider = new RNGCryptoServiceProvider()) {
+            using (var randomizationProvider = new RNGCryptoServiceProvider())
+            {
                 var randomBytes = new byte[1];
                 randomizationProvider.GetBytes(randomBytes);
                 return randomBytes.Single();

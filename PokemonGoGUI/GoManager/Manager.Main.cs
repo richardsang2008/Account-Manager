@@ -822,10 +822,6 @@ namespace PokemonGoGUI.GoManager
                             break;
                         }
 
-                        //Check account client session state
-                        if (AccountState != AccountState.CaptchaReceived && (_client.ClientSession.State == SessionState.Paused || _client.ClientSession.State == SessionState.Stopped))
-                            await _client.ClientSession.ResumeAsync();
-
                         // evolve, transfer, etc on first and every 10 stops
                         if (IsRunning && ((pokeStopNumber > 4 && pokeStopNumber % 10 == 0) || pokeStopNumber == 1))
                         {
