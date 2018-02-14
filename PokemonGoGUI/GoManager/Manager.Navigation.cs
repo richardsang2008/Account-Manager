@@ -27,10 +27,11 @@ namespace PokemonGoGUI.GoManager
                 try
                 {
                     Func<Task<MethodResult>> walkingFunction = null;
-
+ 
                     if (UserSettings.EncounterWhileWalking && UserSettings.CatchPokemon)
                     {
                         walkingFunction = CatchNeabyPokemon;
+                        await CatchInsencePokemon();
                     }
 
                     MethodResult walkResponse = await WalkToLocation(location, walkingFunction);

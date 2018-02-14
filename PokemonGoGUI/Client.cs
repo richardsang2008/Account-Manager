@@ -488,10 +488,10 @@ namespace PokemonGoGUI
 
         private void SessionMapUpdate(object sender, EventArgs e)
         {
-            //Map Update
+            /*/Map Update
             try
             {
-                if (ClientManager.RemainingPokeballs() > 5 /*Bot need balls for snippe*/)
+                if (ClientManager.RemainingPokeballs() > 5 /*Bot need balls for snippe/)
                 {
                     //Get for new pokestops
                     //ClientManager.GetPokeStops();
@@ -523,6 +523,7 @@ namespace PokemonGoGUI
             {
                 ClientManager.LogCaller(new LoggerEventArgs("SessionMapUpdate.", LoggerTypes.Warning, ex));
             }
+            */
         }
 
         public void SessionOnCaptchaReceived(object sender, CaptchaEventArgs e)
