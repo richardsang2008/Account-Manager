@@ -18,7 +18,6 @@ namespace PokemonGoGUI.GoManager
     {
         private ulong _lastPokeSniperId  = 0;
 
-        public bool ModeSnipe { get; private set; } = false;
         private bool AlreadySnipped { get; set; } = false;
 
         private MethodResult<List<NearbyPokemon>> RequestPokeSniperRares()
@@ -99,7 +98,6 @@ namespace PokemonGoGUI.GoManager
             //Long running, so can't let this continue
             while (pokemonToSnipe.Any() && IsRunning && !AlreadySnipped)
             {
-                ModeSnipe = true;
                 AlreadySnipped = false;
 
                 NearbyPokemon nearbyPokemon = pokemonToSnipe.First();
@@ -139,7 +137,6 @@ namespace PokemonGoGUI.GoManager
                 }
             }
 
-            ModeSnipe = false;
             AlreadySnipped = false;
 
             return new MethodResult

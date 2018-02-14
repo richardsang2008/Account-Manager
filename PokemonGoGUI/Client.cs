@@ -491,7 +491,7 @@ namespace PokemonGoGUI
             //Map Update
             try
             {
-                if (ClientManager.ModeSnipe && ClientManager.RemainingPokeballs() > 5 /*Bot need balls for snippe*/)
+                if (ClientManager.RemainingPokeballs() > 5 /*Bot need balls for snippe*/)
                 {
                     //Get for new pokestops
                     //ClientManager.GetPokeStops();
@@ -505,23 +505,23 @@ namespace PokemonGoGUI
             }
             catch (SessionStateException ex)
             {
-                ClientManager.LogCaller(new LoggerEventArgs("Snipe.", LoggerTypes.Warning, ex));
+                ClientManager.LogCaller(new LoggerEventArgs("SessionMapUpdate.", LoggerTypes.Warning, ex));
             }
             catch (SessionInvalidatedException ex)
             {
-                ClientManager.LogCaller(new LoggerEventArgs("Snipe.", LoggerTypes.Warning, ex));
+                ClientManager.LogCaller(new LoggerEventArgs("SessionMapUpdate.", LoggerTypes.Warning, ex));
             }
             catch (SessionUnknowException ex)
             {
-                ClientManager.LogCaller(new LoggerEventArgs("Snipe.", LoggerTypes.Warning, ex));
+                ClientManager.LogCaller(new LoggerEventArgs("SessionMapUpdate.", LoggerTypes.Warning, ex));
             }
             catch (InvalidPlatformException ex)
             {
-                ClientManager.LogCaller(new LoggerEventArgs("Snipe.", LoggerTypes.Warning, ex));
+                ClientManager.LogCaller(new LoggerEventArgs("SessionMapUpdate.", LoggerTypes.Warning, ex));
             }
             catch (Exception ex)
             {
-                ClientManager.LogCaller(new LoggerEventArgs("Snipe.", LoggerTypes.Warning, ex));
+                ClientManager.LogCaller(new LoggerEventArgs("SessionMapUpdate.", LoggerTypes.Warning, ex));
             }
         }
 
