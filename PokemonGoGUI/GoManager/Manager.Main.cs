@@ -520,37 +520,6 @@ namespace PokemonGoGUI.GoManager
                         if (UserSettings.GoOnlyToGyms && pokestop.Type != FortType.Gym)
                             continue;
 
-                        var currentLocation = new GeoCoordinate(_client.ClientSession.Player.Latitude, _client.ClientSession.Player.Longitude);
-                        var fortLocation = new GeoCoordinate(pokestop.Latitude, pokestop.Longitude);
-
-                        double distance = CalculateDistanceInMeters(currentLocation, fortLocation);
-
-                        string fort = "pokestop";
-                        LoggerTypes loggerTypes = LoggerTypes.Info;
-
-                        if (pokestop.Type == FortType.Gym && Level >= 5 && !UserSettings.DefaultTeam.Equals("Neutral") && !String.IsNullOrEmpty(UserSettings.DefaultTeam))
-                        {
-                            if (!UserSettings.SpinGyms)
-                                continue;
-
-                            fort = "Gym";
-                            loggerTypes = LoggerTypes.Gym;
-                        }
-
-                        LogCaller(new LoggerEventArgs(String.Format("Going to {0} {1} of {2}. Distance {3:0.00}m", fort, pokeStopNumber, totalStops, distance), loggerTypes));
-
-                        //Go to pokestops
-                        MethodResult walkResult = await GoToLocation(new GeoCoordinate(pokestop.Latitude, pokestop.Longitude));
-
-                        if (!walkResult.Success)
-                        {
-                            LogCaller(new LoggerEventArgs("Too many failed walking attempts. Restarting to fix ...", LoggerTypes.Warning));
-                            LogCaller(new LoggerEventArgs("Result: " + walkResult.Message, LoggerTypes.Debug));
-                            Stop();
-                        }
-
-                        await Task.Delay(CalculateDelay(UserSettings.GeneralDelay, UserSettings.GeneralDelayRandom));
-
                         if (CatchDisabled)
                         {
                             //Check delay if account not have balls
@@ -588,13 +557,13 @@ namespace PokemonGoGUI.GoManager
 
                                     //Check sniping NearyPokemon
                                     MethodResult Snipe = await SnipeAllNearyPokemon();
-                                    if (Snipe.Success)
-                                    {
-                                        await Task.Delay(CalculateDelay(UserSettings.GeneralDelay, UserSettings.GeneralDelayRandom));
-                                        pokestopsToFarm.Clear();
-                                        pokestopsToFarm = new Queue<FortData>(GetAllForts().Data);
-                                        continue;
-                                    }
+                                    //if (Snipe.Success)
+                                    //{
+                                    await Task.Delay(CalculateDelay(UserSettings.GeneralDelay, UserSettings.GeneralDelayRandom));
+                                    //    pokestopsToFarm.Clear();
+                                    //    pokestopsToFarm = new Queue<FortData>(GetAllForts().Data);
+                                    //    continue;
+                                    //}
                                 }
                                 else
                                 {
@@ -630,6 +599,37 @@ namespace PokemonGoGUI.GoManager
                         {
                             if (pokestop.CooldownCompleteTimestampMs < DateTime.UtcNow.ToUnixTime())
                             {
+                                var currentLocation = new GeoCoordinate(_client.ClientSession.Player.Latitude, _client.ClientSession.Player.Longitude);
+                                var fortLocation = new GeoCoordinate(pokestop.Latitude, pokestop.Longitude);
+
+                                double distance = CalculateDistanceInMeters(currentLocation, fortLocation);
+
+                                string fort = "pokestop";
+                                LoggerTypes loggerTypes = LoggerTypes.Info;
+
+                                if (pokestop.Type == FortType.Gym && Level >= 5 && !UserSettings.DefaultTeam.Equals("Neutral") && !String.IsNullOrEmpty(UserSettings.DefaultTeam))
+                                {
+                                    if (!UserSettings.SpinGyms)
+                                        continue;
+
+                                    fort = "Gym";
+                                    loggerTypes = LoggerTypes.Gym;
+                                }
+
+                                LogCaller(new LoggerEventArgs(String.Format("Going to {0} {1} of {2}. Distance {3:0.00}m", fort, pokeStopNumber, totalStops, distance), loggerTypes));
+
+                                //Go to pokestops
+                                MethodResult walkResult = await GoToLocation(new GeoCoordinate(pokestop.Latitude, pokestop.Longitude));
+
+                                if (!walkResult.Success)
+                                {
+                                    LogCaller(new LoggerEventArgs("Too many failed walking attempts. Restarting to fix ...", LoggerTypes.Warning));
+                                    LogCaller(new LoggerEventArgs("Result: " + walkResult.Message, LoggerTypes.Debug));
+                                    Stop();
+                                }
+
+                                await Task.Delay(CalculateDelay(UserSettings.GeneralDelay, UserSettings.GeneralDelayRandom));
+
                                 if (pokestop.Type == FortType.Gym && Level >= 5 && (!string.IsNullOrEmpty(UserSettings.DefaultTeam) || UserSettings.DefaultTeam != "Neutral"))
                                 {
                                     if (!PlayerData.TutorialState.Contains(TutorialState.GymTutorial))
