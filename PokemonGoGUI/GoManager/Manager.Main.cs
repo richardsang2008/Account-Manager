@@ -547,8 +547,6 @@ namespace PokemonGoGUI.GoManager
                             Stop();
                         }
 
-                        await Task.Delay(CalculateDelay(UserSettings.GeneralDelay, UserSettings.GeneralDelayRandom));
-
                         if (CatchDisabled)
                         {
                             //Check delay if account not have balls
@@ -589,8 +587,8 @@ namespace PokemonGoGUI.GoManager
                                     if (Snipe.Success)
                                     {
                                         await Task.Delay(CalculateDelay(UserSettings.GeneralDelay, UserSettings.GeneralDelayRandom));
-                                        pokestopsToFarm.Clear();
-                                        pokestopsToFarm = new Queue<FortData>(GetAllForts().Data);
+                                        //pokestopsToFarm.Clear();
+                                        //pokestopsToFarm = new Queue<FortData>(GetAllForts().Data);
                                         continue;
                                     }
                                 }
