@@ -375,11 +375,22 @@ namespace PokemonGoGUI.GoManager
                                 LogCaller(new LoggerEventArgs(String.Format("Unknown Error. {0}. Attempt #{1}. Status: {2}", pokemon, attemptCount, catchPokemonResponse.Status), LoggerTypes.Warning));
                                 continue;
                             case CatchPokemonResponse.Types.CatchStatus.CatchEscape:
-                                LogCaller(new LoggerEventArgs(String.Format("Escaped ball. {0}. Attempt #{1}.", pokemon, attemptCount), LoggerTypes.PokemonEscape));
-                                berryUsed = false;
+                                //If we get this response, means we're good
+                                _fleeingPokemonResponses = 0;
+                                _potentialPokemonBan = false;
+
+                                if (AccountState == AccountState.SoftBan || AccountState == AccountState.HashIssues)
+                                {
+                                    AccountState = AccountState.Good;
+
+                                    LogCaller(new LoggerEventArgs("Pokemon ban was lifted", LoggerTypes.Info));
+                                }
+
+                                LogCaller(new LoggerEventArgs(String.Format("Escaped ball. {0}. Attempt #{1}. Ball: {2}", pokemon, attemptCount, pokeBallName), LoggerTypes.PokemonEscape));
                                 continue;
                             case CatchPokemonResponse.Types.CatchStatus.CatchFlee:
-                                LogCaller(new LoggerEventArgs(String.Format("Pokemon fled. {0}. Attempt #{1}", pokemon, attemptCount), LoggerTypes.PokemonFlee));
+                                ++_fleeingPokemonResponses;
+                                LogCaller(new LoggerEventArgs(String.Format("Pokemon fled. {0}. Attempt #{1}. Ball: {2}", pokemon, attemptCount, pokeBallName), LoggerTypes.PokemonFlee));
                                 continue;
                             case CatchPokemonResponse.Types.CatchStatus.CatchMissed:
                                 LogCaller(new LoggerEventArgs(String.Format("Missed. {0}. Attempt #{1}. Status: {2}", pokemon, attemptCount, catchPokemonResponse.Status), LoggerTypes.Warning));
@@ -421,37 +432,17 @@ namespace PokemonGoGUI.GoManager
                     } while (catchPokemonResponse.Status == CatchPokemonResponse.Types.CatchStatus.CatchMissed || catchPokemonResponse.Status == CatchPokemonResponse.Types.CatchStatus.CatchEscape);
                     break;
                 case DiskEncounterResponse.Types.Result.EncounterAlreadyFinished:
-                    return new MethodResult
-                    {
-                        Message = "Encounter not available"
-                    };
+                    break;
                 case DiskEncounterResponse.Types.Result.NotAvailable:
-                    return new MethodResult
-                    {
-                        Message = "Encounter not available"
-                    };
+                    break;
                 case DiskEncounterResponse.Types.Result.NotInRange:
-                    LogCaller(new LoggerEventArgs(String.Format("Lured encounter failed with response {0}", eResponse.Result), LoggerTypes.Warning));
-                    return new MethodResult
-                    {
-                        Message = "Encounter failed"
-                    };
+                    break;
                 case DiskEncounterResponse.Types.Result.PokemonInventoryFull:
-                    LogCaller(new LoggerEventArgs("Encounter failed. Pokemon inventory full", LoggerTypes.Warning));
-
-                    return new MethodResult
-                    {
-                        Message = "Encounter failed. Pokemon inventory full"
-                    };
+                    break;
                 case DiskEncounterResponse.Types.Result.Unknown:
-                    LogCaller(new LoggerEventArgs(String.Format("Lured encounter failed with response {0}", eResponse.Result), LoggerTypes.Warning));
-
-                    return new MethodResult
-                    {
-                        Message = "Encounter failed"
-                    };
+                    break;
             }
-            return new MethodResult();
+            return new MethodResult() { Message = eResponse.Result.ToString() };
         }
 
         private async Task<MethodResult<EncounterResponse>> EncounterPokemon(MapPokemon mapPokemon)
@@ -500,45 +491,17 @@ namespace PokemonGoGUI.GoManager
             switch (eResponse.Status)
             {
                 case EncounterResponse.Types.Status.EncounterAlreadyHappened:
-                    return new MethodResult<EncounterResponse>
-                    {
-                        Message = "Encounter failed. Pokemon Already Happened"
-                    };
+                    break;
                 case EncounterResponse.Types.Status.EncounterClosed:
-                    LogCaller(new LoggerEventArgs(String.Format("Encounter failed with response {0}", eResponse.Status), LoggerTypes.Warning));
-
-                    return new MethodResult<EncounterResponse>
-                    {
-                        Message = "Encounter failed"
-                    };
+                    break;
                 case EncounterResponse.Types.Status.EncounterError:
-                    LogCaller(new LoggerEventArgs(String.Format("Encounter failed with response {0}", eResponse.Status), LoggerTypes.Warning));
-
-                    return new MethodResult<EncounterResponse>
-                    {
-                        Message = "Encounter failed"
-                    };
+                    break;
                 case EncounterResponse.Types.Status.EncounterNotFound:
-                    LogCaller(new LoggerEventArgs(String.Format("Encounter failed with response {0}", eResponse.Status), LoggerTypes.Warning));
-
-                    return new MethodResult<EncounterResponse>
-                    {
-                        Message = "Encounter failed"
-                    };
+                    break;
                 case EncounterResponse.Types.Status.EncounterNotInRange:
-                    LogCaller(new LoggerEventArgs(String.Format("Encounter failed with response {0}", eResponse.Status), LoggerTypes.Warning));
-
-                    return new MethodResult<EncounterResponse>
-                    {
-                        Message = "Encounter failed"
-                    };
+                    break;
                 case EncounterResponse.Types.Status.EncounterPokemonFled:
-                    LogCaller(new LoggerEventArgs(String.Format("Encounter failed with response {0}", eResponse.Status), LoggerTypes.Warning));
-
-                    return new MethodResult<EncounterResponse>
-                    {
-                        Message = "Encounter failed"
-                    };
+                    break;
                 case EncounterResponse.Types.Status.EncounterSuccess:
                     return new MethodResult<EncounterResponse>
                     {
@@ -547,14 +510,10 @@ namespace PokemonGoGUI.GoManager
                         Message = "Success"
                     };
                 case EncounterResponse.Types.Status.PokemonInventoryFull:
-                    LogCaller(new LoggerEventArgs("Encounter failed. Pokemon inventory full", LoggerTypes.Warning));
+                    break;
 
-                    return new MethodResult<EncounterResponse>
-                    {
-                        Message = "Encounter failed. Pokemon inventory full"
-                    };
             }
-            return new MethodResult<EncounterResponse>();
+            return new MethodResult<EncounterResponse> { Message = eResponse.Status.ToString() };
         }
 
         //Catch encountered pokemon
