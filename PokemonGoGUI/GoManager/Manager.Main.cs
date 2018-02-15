@@ -493,8 +493,6 @@ namespace PokemonGoGUI.GoManager
                         continue;
                     }
 
-                    var defaultLocation = new GeoCoordinate(_client.ClientSession.Player.Latitude, _client.ClientSession.Player.Longitude);
-
                     int currentFailedStops = 0;
 
                     var pokestopsToFarm = new Queue<FortData>(pokestops.Data);
@@ -557,13 +555,13 @@ namespace PokemonGoGUI.GoManager
 
                                     //Check sniping NearyPokemon
                                     MethodResult Snipe = await SnipeAllNearyPokemon();
-                                    //if (Snipe.Success)
-                                    //{
-                                    await Task.Delay(CalculateDelay(UserSettings.GeneralDelay, UserSettings.GeneralDelayRandom));
-                                    //    pokestopsToFarm.Clear();
-                                    //    pokestopsToFarm = new Queue<FortData>(GetAllForts().Data);
-                                    //    continue;
-                                    //}
+                                    if (Snipe.Success)
+                                    {
+                                        await Task.Delay(CalculateDelay(UserSettings.GeneralDelay, UserSettings.GeneralDelayRandom));
+                                        //pokestopsToFarm.Clear();
+                                        //pokestopsToFarm = new Queue<FortData>(GetAllForts().Data);
+                                        continue;
+                                    }
                                 }
                                 else
                                 {
@@ -973,16 +971,19 @@ namespace PokemonGoGUI.GoManager
                 }
                 catch (InvalidPlatformException ex)
                 {
-                    LogCaller(new LoggerEventArgs("Invalid Platform or token session refresh. Restarting  ...", LoggerTypes.Warning, ex));
+                    LogCaller(new LoggerEventArgs("Invalid Platform or token session refresh. Continue  ...", LoggerTypes.Warning, ex));
+                    continue;
                 }
                 catch (SessionInvalidatedException ex)
                 {
-                    LogCaller(new LoggerEventArgs("Session Invalidated or token session refresh. Restarting ...", LoggerTypes.Warning, ex));
+                    LogCaller(new LoggerEventArgs("Session Invalidated or token session refresh. Continue ...", LoggerTypes.Warning, ex));
+                    continue;
                 }
                 catch (PokeHashException ex)
                 {
                     AccountState = AccountState.HashIssues;
                     LogCaller(new LoggerEventArgs($"Hash service exception occured. Restarting ...", LoggerTypes.Warning, ex));
+                    //continue; // 
                 }
                 catch (SessionUnknowException ex)
                 {

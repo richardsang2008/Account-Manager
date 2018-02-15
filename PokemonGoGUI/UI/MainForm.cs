@@ -1045,7 +1045,6 @@ namespace PokemonGoGUI
                 return;
             }
 
-
             if (count == 0)
             {
                 return;

@@ -3,6 +3,7 @@ using System;
 using System.Threading.Tasks;
 using PokemonGoGUI.Extensions;
 using POGOLib.Official.Extensions;
+using POGOLib.Official.Exceptions;
 
 namespace PokemonGoGUI.GoManager
 {
@@ -27,7 +28,7 @@ namespace PokemonGoGUI.GoManager
                 try
                 {
                     Func<Task<MethodResult>> walkingFunction = null;
- 
+
                     if (UserSettings.EncounterWhileWalking && UserSettings.CatchPokemon)
                     {
                         walkingFunction = CatchNeabyPokemon;
@@ -48,14 +49,45 @@ namespace PokemonGoGUI.GoManager
 
                     await Task.Delay(CalculateDelay(UserSettings.DelayBetweenLocationUpdates, UserSettings.LocationupdateDelayRandom));
                 }
+                catch (SessionStateException ex)
+                {
+                    throw ex;
+                }
+                catch (PokeHashException ex)
+                {
+                    throw ex;
+                }
+                catch (SessionInvalidatedException ex)
+                {
+                    throw ex;
+                }
+                catch (InvalidPlatformException ex)
+                {
+                    throw ex;
+                }
+                catch (TaskCanceledException ex)
+                {
+                    throw ex;
+                }
+                catch (OperationCanceledException ex)
+                {
+                    throw ex;
+                }
+                catch (APIBadRequestException ex)
+                {
+                    throw ex;
+                }
                 catch (Exception ex)
                 {
                     LogCaller(new LoggerEventArgs(String.Format("Failed to walk to location. Retry #{0}", currentTries + 1), LoggerTypes.Exception, ex));
                 }
-
-                ++currentTries;
+                finally
+                {
+                    ++currentTries;
+                }
             }
 
+            LogCaller(new LoggerEventArgs(String.Format("Failed to walk to location."), LoggerTypes.FatalError));
             return new MethodResult
             {
                 Message = "Failed to walk to location"
