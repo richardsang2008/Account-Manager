@@ -725,9 +725,7 @@ namespace PokemonGoGUI.GoManager
                             Success = true
                         };
                 }
-
                 ++attemptCount;
-
                 await Task.Delay(CalculateDelay(UserSettings.DelayBetweenPlayerActions, UserSettings.PlayerActionDelayRandom));
             } while (catchPokemonResponse.Status == CatchPokemonResponse.Types.CatchStatus.CatchMissed || catchPokemonResponse.Status == CatchPokemonResponse.Types.CatchStatus.CatchEscape);
             return new MethodResult();
