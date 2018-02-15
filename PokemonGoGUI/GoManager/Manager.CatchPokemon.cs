@@ -20,7 +20,7 @@ namespace PokemonGoGUI.GoManager
 {
     public partial class Manager
     {
-        public async Task<MethodResult> CatchInsencePokemon()
+        private async Task<MethodResult> CatchInsencePokemon()
         {
             if (!UserSettings.CatchPokemon)
             {
@@ -92,7 +92,7 @@ namespace PokemonGoGUI.GoManager
             };
         }
 
-        public async Task<MethodResult> CatchNeabyPokemon()
+        private async Task<MethodResult> CatchNeabyPokemon()
         {
             if (!UserSettings.CatchPokemon)
             {

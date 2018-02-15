@@ -11,7 +11,7 @@ namespace PokemonGoGUI.GoManager
     {
         public async Task<MethodResult> GoToLocation(GeoCoordinate location)
         {
-            if(!UserSettings.MimicWalking)
+            if (!UserSettings.MimicWalking)
             {
                 MethodResult result = await UpdateLocation(location);
 
@@ -27,14 +27,7 @@ namespace PokemonGoGUI.GoManager
             {
                 try
                 {
-                    Func<Task<MethodResult>> walkingFunction = null;
-
-                    if (UserSettings.EncounterWhileWalking && UserSettings.CatchPokemon)
-                    {
-                        walkingFunction = CatchNeabyPokemon;
-                    }
-
-                    MethodResult walkResponse = await WalkToLocation(location, walkingFunction);
+                    MethodResult walkResponse = await WalkToLocation(location);
 
                     if (walkResponse.Success)
                     {
@@ -79,7 +72,7 @@ namespace PokemonGoGUI.GoManager
                 }
                 catch (Exception ex)
                 {
-                    LogCaller(new LoggerEventArgs(String.Format("Failed to walk to location. Retry #{0}", currentTries + 1), LoggerTypes.Exception, ex));
+                    throw ex;
                 }
                 finally
                 {
@@ -94,7 +87,7 @@ namespace PokemonGoGUI.GoManager
             };
         }
 
-        public async Task<MethodResult> WalkToLocation(GeoCoordinate location, Func<Task<MethodResult>> functionExecutedWhileWalking)
+        public async Task<MethodResult> WalkToLocation(GeoCoordinate location /*, Func<Task<MethodResult>> functionExecutedWhileWalking*/)
         {
             double speedInMetersPerSecond = (UserSettings.WalkingSpeed + WalkOffset()) / 3.6;
 
@@ -156,10 +149,15 @@ namespace PokemonGoGUI.GoManager
                     return new MethodResult();
                 }
 
-                if (functionExecutedWhileWalking != null)
+                if (UserSettings.EncounterWhileWalking && UserSettings.CatchPokemon)
                 {
-                    MethodResult walkFunctionResult = await functionExecutedWhileWalking(); // look for pokemon
-                    MethodResult IncenseResult = await CatchInsencePokemon(); // look for incense pokemon
+                    //Catch nearby pokemon
+                    await CatchNeabyPokemon();
+                    await Task.Delay(CalculateDelay(UserSettings.GeneralDelay, UserSettings.GeneralDelayRandom));
+
+                    //Catch incense pokemon
+                    await CatchInsencePokemon();
+                    await Task.Delay(CalculateDelay(UserSettings.GeneralDelay, UserSettings.GeneralDelayRandom));
                 }
             }
 
