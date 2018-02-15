@@ -699,6 +699,14 @@ namespace PokemonGoGUI.GoManager
 
         private bool CanTransferOrEvolePokemon(PokemonData pokemon, bool allmodes = false)
         {
+            // Can't transfer pokemon null.
+            if (pokemon == null || pokemon.PokemonId == PokemonId.Missingno)
+                return false;
+
+            // Can't transfer pokemon check all modes.
+            if (allmodes && pokemon.IsBad)
+                return false;
+
             // Can't transfer pokemon in gyms.
             if (!string.IsNullOrEmpty(pokemon.DeployedFortId))
                 return false;
