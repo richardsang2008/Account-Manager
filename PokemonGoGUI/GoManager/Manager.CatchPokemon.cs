@@ -469,8 +469,8 @@ namespace PokemonGoGUI.GoManager
                 case DiskEncounterResponse.Types.Result.Unknown:
                     break;
             }
-            LogCaller(new LoggerEventArgs(String.Format("Faill. {0}.", eResponse.Result), LoggerTypes.Warning));
-            return new MethodResult() { Message = eResponse.Result.ToString() };
+            LogCaller(new LoggerEventArgs(String.Format("Faill cath lure on pokestop {0}. {1}.",fortData.Id, eResponse.Result), LoggerTypes.Warning));
+            return new MethodResult();
         }
 
         private async Task<MethodResult<EncounterResponse>> EncounterPokemon(MapPokemon mapPokemon)
@@ -550,7 +550,7 @@ namespace PokemonGoGUI.GoManager
                 case EncounterResponse.Types.Status.PokemonInventoryFull:
                     break;
             }
-            LogCaller(new LoggerEventArgs(String.Format("Faill. {0}.", eResponse.Status), LoggerTypes.Warning));
+            LogCaller(new LoggerEventArgs(String.Format("Faill encounter pokemon. {0}.", eResponse.Status), LoggerTypes.Warning));
             return new MethodResult<EncounterResponse> { Message = eResponse.Status.ToString() };
         }
 
