@@ -20,6 +20,8 @@ namespace PokemonGoGUI.GoManager
 {
     public partial class Manager
     {
+        List<ulong> LastedEncountersIds = new List<ulong>();
+
         public async Task<MethodResult> CatchInsencePokemon()
         {
             if (!UserSettings.CatchPokemon)
@@ -138,6 +140,9 @@ namespace PokemonGoGUI.GoManager
                     continue;
                 }
 
+                if (LastedEncountersIds.Contains(pokemon.EncounterId))
+                    continue;
+
                 MethodResult<EncounterResponse> result = await EncounterPokemon(pokemon);
 
                 if (!result.Success)
@@ -250,6 +255,9 @@ namespace PokemonGoGUI.GoManager
             if (fortData == null || fortData.LureInfo.ActivePokemonId == PokemonId.Missingno)
                 return new MethodResult();
 
+            if (LastedEncountersIds.Contains(fortData.LureInfo.EncounterId))
+                return new MethodResult();
+
             var response = await _client.ClientSession.RpcClient.SendRemoteProcedureCallAsync(new Request
             {
                 RequestType = RequestType.DiskEncounter,
@@ -272,6 +280,11 @@ namespace PokemonGoGUI.GoManager
             switch (eResponse.Result)
             {
                 case DiskEncounterResponse.Types.Result.Success:
+                    if (LastedEncountersIds.Count > 30)
+                        LastedEncountersIds.Clear();
+
+                    LastedEncountersIds.Add(eResponse.PokemonData.Id);
+
                     CatchPokemonResponse catchPokemonResponse = null;
                     int attemptCount = 1;
                     var berryUsed = false;
@@ -443,7 +456,7 @@ namespace PokemonGoGUI.GoManager
                         ++attemptCount;
 
                         await Task.Delay(CalculateDelay(UserSettings.DelayBetweenPlayerActions, UserSettings.PlayerActionDelayRandom));
-                    } while (catchPokemonResponse.Status == CatchPokemonResponse.Types.CatchStatus.CatchMissed || catchPokemonResponse.Status == CatchPokemonResponse.Types.CatchStatus.CatchEscape || RemainingPokeballs() < 1);
+                    } while (catchPokemonResponse.Status == CatchPokemonResponse.Types.CatchStatus.CatchMissed || catchPokemonResponse.Status == CatchPokemonResponse.Types.CatchStatus.CatchEscape);
                     return new MethodResult();
                 case DiskEncounterResponse.Types.Result.EncounterAlreadyFinished:
                     break;
@@ -456,6 +469,7 @@ namespace PokemonGoGUI.GoManager
                 case DiskEncounterResponse.Types.Result.Unknown:
                     break;
             }
+            LogCaller(new LoggerEventArgs(String.Format("Faill. {0}.", eResponse.Result), LoggerTypes.Warning));
             return new MethodResult() { Message = eResponse.Result.ToString() };
         }
 
@@ -474,7 +488,7 @@ namespace PokemonGoGUI.GoManager
             if (mapPokemon == null || mapPokemon.PokemonId == PokemonId.Missingno)
                 return new MethodResult<EncounterResponse>();
 
-            if (AlreadySnipped && mapPokemon.EncounterId == _lastPokeSniperId)
+            if (AlreadySnipped || mapPokemon.EncounterId == _lastPokeSniperId)
                 return new MethodResult<EncounterResponse>();
 
             if (!CatchDisabled)
@@ -522,6 +536,11 @@ namespace PokemonGoGUI.GoManager
                 case EncounterResponse.Types.Status.EncounterPokemonFled:
                     break;
                 case EncounterResponse.Types.Status.EncounterSuccess:
+                    if (LastedEncountersIds.Count > 30)
+                        LastedEncountersIds.Clear();
+
+                    LastedEncountersIds.Add(eResponse.WildPokemon.EncounterId);
+
                     return new MethodResult<EncounterResponse>
                     {
                         Data = eResponse,
@@ -530,8 +549,8 @@ namespace PokemonGoGUI.GoManager
                     };
                 case EncounterResponse.Types.Status.PokemonInventoryFull:
                     break;
-
             }
+            LogCaller(new LoggerEventArgs(String.Format("Faill. {0}.", eResponse.Status), LoggerTypes.Warning));
             return new MethodResult<EncounterResponse> { Message = eResponse.Status.ToString() };
         }
 
