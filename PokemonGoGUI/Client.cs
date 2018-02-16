@@ -199,6 +199,8 @@ namespace PokemonGoGUI
                                 ClientManager.Stop();
                                 msgStr = "The account is banned.";
                             }
+
+                            SaveAccessToken(ClientSession.AccessToken);
                         }
                     }
                     catch (HashVersionMismatchException ex)
