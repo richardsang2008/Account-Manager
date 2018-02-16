@@ -313,7 +313,6 @@ namespace PokemonGoGUI.GoManager
                     userSettings.Enable2Captcha = false;
                     userSettings.EnableCaptchaSolutions = false;
                     userSettings.EnableAntiCaptcha = false;
-                    userSettings.ShowDebugLogs = false;
                     userSettings.AutoFavoritShiny = true;
                     // gyms
                     userSettings.DefaultTeam = "Neutral";
