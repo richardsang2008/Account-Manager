@@ -16,7 +16,7 @@ namespace PokemonGoGUI.GoManager
 {
     public partial class Manager
     {
-        private int CalculateDelay(int baseDelay, int offset)
+        public int CalculateDelay(int baseDelay, int offset)
         {
             lock(_rand)
             {

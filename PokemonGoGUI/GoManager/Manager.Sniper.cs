@@ -4,13 +4,10 @@ using POGOProtos.Map.Pokemon;
 using POGOProtos.Networking.Responses;
 using PokemonGoGUI.Enums;
 using PokemonGoGUI.Extensions;
-using PokemonGoGUI.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection.Emit;
 using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace PokemonGoGUI.GoManager
 {
@@ -169,10 +166,7 @@ namespace PokemonGoGUI.GoManager
 
             await Task.Delay(10000); //wait for pogolib refreshmapobjects
 
-            int retries = 0;
-
             //Get catchable pokemon
-            retry:
 
             MethodResult<List<MapPokemon>> pokemonResult = GetCatchablePokemon();
 
@@ -184,31 +178,10 @@ namespace PokemonGoGUI.GoManager
                 };
             }
 
+            if (pokemonResult.Data == null || pokemonResult.Data.Count == 0)
+                return new MethodResult();
+
             MapPokemon pokemonToSnipe = pokemonResult.Data.FirstOrDefault(x => x.PokemonId == pokemon);
-
-            if(pokemonToSnipe == null)
-            {
-                if (retries >= 3 && !AlreadySnipped)
-                {
-                    LogCaller(new LoggerEventArgs(String.Format("Snipe Pokemon {0} not found, or already catched. Retries #{1}", pokemon, retries), LoggerTypes.Info));
-                    retries--;
-                    await Task.Delay(CalculateDelay(UserSettings.GeneralDelay, UserSettings.GeneralDelayRandom));
-                    goto retry;
-                }
-
-                //LogCaller(new LoggerEventArgs(String.Format("Snipe Pokemon {0} not found. Possible despawn, or already catched. Going back to original location", pokemon), LoggerTypes.Info));
-                LogCaller(new LoggerEventArgs(String.Format("Snipe Pokemon {0} not found. Possible despawn, or already catched.", pokemon), LoggerTypes.Info));
-
-                //await UpdateLocation(originalLocation);
-
-                // Not nedded this runs on local pos.../
-                //await GoToLocation(originalLocation);
-
-                return new MethodResult
-                {
-                    Message = "Pokemon not found"
-                };
-            }
 
             //Encounter
             MethodResult<EncounterResponse> eResponseResult = await EncounterPokemon(pokemonToSnipe);
@@ -229,6 +202,9 @@ namespace PokemonGoGUI.GoManager
                     Message = eResponseResult.Message
                 };
             }
+
+            if (eResponseResult.Data == null || eResponseResult.Data.WildPokemon.PokemonData.PokemonId == PokemonId.Missingno)
+                return new MethodResult();
 
             //Update location back
             //MethodResult locationResult = await RepeatAction(() => UpdateLocation(originalLocation), 2);

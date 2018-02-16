@@ -27,7 +27,16 @@ namespace PokemonGoGUI.GoManager
             {
                 try
                 {
-                    MethodResult walkResponse = await WalkToLocation(location);
+                    Func<Task<MethodResult>> walkingFunction = null;
+                    Func<Task<MethodResult>> walkingIncenceFunction = null; 
+
+                    if (UserSettings.EncounterWhileWalking && UserSettings.CatchPokemon)
+                    {
+                        walkingFunction = CatchNeabyPokemon;
+                        walkingIncenceFunction = CatchInsencePokemon;
+                    }                    
+
+                    MethodResult walkResponse = await WalkToLocation(location, walkingFunction, walkingIncenceFunction);
 
                     if (walkResponse.Success)
                     {
@@ -72,22 +81,19 @@ namespace PokemonGoGUI.GoManager
                 }
                 catch (Exception ex)
                 {
-                    throw ex;
+                    throw new SessionStateException($"Failed to walk to location. {ex}");
                 }
                 finally
                 {
                     ++currentTries;
                 }
+                return new MethodResult();
             }
 
-            LogCaller(new LoggerEventArgs(String.Format("Failed to walk to location."), LoggerTypes.FatalError));
-            return new MethodResult
-            {
-                Message = "Failed to walk to location"
-            };
+            return new MethodResult();
         }
 
-        public async Task<MethodResult> WalkToLocation(GeoCoordinate location /*, Func<Task<MethodResult>> functionExecutedWhileWalking*/)
+        public async Task<MethodResult> WalkToLocation(GeoCoordinate location, Func<Task<MethodResult>> functionExecutedWhileWalking, Func<Task<MethodResult>> functionExecutedWhileIncenseWalking)
         {
             double speedInMetersPerSecond = (UserSettings.WalkingSpeed + WalkOffset()) / 3.6;
 
@@ -149,15 +155,26 @@ namespace PokemonGoGUI.GoManager
                     return new MethodResult();
                 }
 
-                if (UserSettings.EncounterWhileWalking && UserSettings.CatchPokemon)
-                {
-                    //Catch nearby pokemon
-                    await CatchNeabyPokemon();
-                    await Task.Delay(CalculateDelay(UserSettings.GeneralDelay, UserSettings.GeneralDelayRandom));
+                //Use POGOLib
+                MethodResult walkFunctionResult = null;
 
-                    //Catch incense pokemon
-                    await CatchInsencePokemon();
-                    await Task.Delay(CalculateDelay(UserSettings.GeneralDelay, UserSettings.GeneralDelayRandom));
+                if (functionExecutedWhileWalking != null)
+                {
+                    walkFunctionResult = await functionExecutedWhileWalking(); // look for pokemon
+                }
+
+                if (functionExecutedWhileIncenseWalking != null)
+                {
+                    walkFunctionResult = await functionExecutedWhileIncenseWalking(); // look for incence pokemon
+                }
+
+                if (walkFunctionResult.Success)
+                {
+                    return new MethodResult
+                    {
+                        Success = true,
+                        Message = walkFunctionResult.Message
+                    };
                 }
             }
 

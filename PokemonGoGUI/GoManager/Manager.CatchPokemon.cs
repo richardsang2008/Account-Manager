@@ -20,7 +20,7 @@ namespace PokemonGoGUI.GoManager
 {
     public partial class Manager
     {
-        private async Task<MethodResult> CatchInsencePokemon()
+        public async Task<MethodResult> CatchInsencePokemon()
         {
             if (!UserSettings.CatchPokemon)
             {
@@ -57,10 +57,12 @@ namespace PokemonGoGUI.GoManager
                     return new MethodResult();
                 }
             }
+            else
+                return new MethodResult();
 
             MethodResult<MapPokemon> iResponse = await GetIncensePokemons();
 
-            if (!iResponse.Success)
+            if (!iResponse.Success || iResponse.Data == null || iResponse.Data.PokemonId == PokemonId.Missingno)
             {
                 return new MethodResult();
             }
@@ -92,7 +94,7 @@ namespace PokemonGoGUI.GoManager
             };
         }
 
-        private async Task<MethodResult> CatchNeabyPokemon()
+        public async Task<MethodResult> CatchNeabyPokemon()
         {
             if (!UserSettings.CatchPokemon)
             {
@@ -107,7 +109,7 @@ namespace PokemonGoGUI.GoManager
                 LogCaller(new LoggerEventArgs("Catch pokemon limit actived", LoggerTypes.Info));
                 return new MethodResult
                 {
-                    Message ="Limit actived"
+                    Message = "Limit actived"
                 };
             }
 
@@ -121,7 +123,7 @@ namespace PokemonGoGUI.GoManager
 
             MethodResult<List<MapPokemon>> catchableResponse = GetCatchablePokemon();
 
-            if (!catchableResponse.Success)
+            if (!catchableResponse.Success || catchableResponse.Data == null || catchableResponse.Data.Count == 0)
             {
                 return new MethodResult();
             }
@@ -193,6 +195,8 @@ namespace PokemonGoGUI.GoManager
                     return new MethodResult();
                 }
             }
+            else
+                return new MethodResult();
 
             if (fortData.LureInfo.ActivePokemonId == PokemonId.Missingno)
             {
@@ -240,6 +244,11 @@ namespace PokemonGoGUI.GoManager
                     return new MethodResult();
                 }
             }
+            else
+                return new MethodResult();
+
+            if (fortData == null || fortData.LureInfo.ActivePokemonId == PokemonId.Missingno)
+                return new MethodResult();
 
             var response = await _client.ClientSession.RpcClient.SendRemoteProcedureCallAsync(new Request
             {
@@ -267,6 +276,9 @@ namespace PokemonGoGUI.GoManager
                     int attemptCount = 1;
                     var berryUsed = false;
 
+                    if (eResponse.PokemonData == null || eResponse.PokemonData.PokemonId == PokemonId.Missingno)
+                        return new MethodResult();
+
                     do
                     {
                         if (!CatchDisabled)
@@ -279,6 +291,8 @@ namespace PokemonGoGUI.GoManager
                                 return new MethodResult();
                             }
                         }
+                        else
+                            return new MethodResult();
 
                         //Uses lowest capture probability
                         float probability = eResponse.CaptureProbability.CaptureProbability_[0];
@@ -300,7 +314,7 @@ namespace PokemonGoGUI.GoManager
                                 else
                                 {
                                     bool isHighProbability = probability > 0.65;
-                                    var catchSettings = UserSettings.CatchSettings.FirstOrDefault(x => x.Id == eResponse.PokemonData.PokemonId);                                    
+                                    var catchSettings = UserSettings.CatchSettings.FirstOrDefault(x => x.Id == eResponse.PokemonData.PokemonId);
                                     if (isHighProbability && catchSettings.UsePinap)
                                     {
                                         await UseBerry(fortData.LureInfo.EncounterId, fortData.Id, ItemId.ItemPinapBerry);
@@ -429,8 +443,8 @@ namespace PokemonGoGUI.GoManager
                         ++attemptCount;
 
                         await Task.Delay(CalculateDelay(UserSettings.DelayBetweenPlayerActions, UserSettings.PlayerActionDelayRandom));
-                    } while (catchPokemonResponse.Status == CatchPokemonResponse.Types.CatchStatus.CatchMissed || catchPokemonResponse.Status == CatchPokemonResponse.Types.CatchStatus.CatchEscape);
-                    break;
+                    } while (catchPokemonResponse.Status == CatchPokemonResponse.Types.CatchStatus.CatchMissed || catchPokemonResponse.Status == CatchPokemonResponse.Types.CatchStatus.CatchEscape || RemainingPokeballs() < 1);
+                    return new MethodResult();
                 case DiskEncounterResponse.Types.Result.EncounterAlreadyFinished:
                     break;
                 case DiskEncounterResponse.Types.Result.NotAvailable:
@@ -457,6 +471,12 @@ namespace PokemonGoGUI.GoManager
                 }
             }
 
+            if (mapPokemon == null || mapPokemon.PokemonId == PokemonId.Missingno)
+                return new MethodResult<EncounterResponse>();
+
+            if (AlreadySnipped && mapPokemon.EncounterId == _lastPokeSniperId)
+                return new MethodResult<EncounterResponse>();
+
             if (!CatchDisabled)
             {
                 if (RemainingPokeballs() < 1)
@@ -467,8 +487,7 @@ namespace PokemonGoGUI.GoManager
                     return new MethodResult<EncounterResponse>();
                 }
             }
-
-            if (AlreadySnipped && mapPokemon.EncounterId == _lastPokeSniperId)
+            else
                 return new MethodResult<EncounterResponse>();
 
             var response = await _client.ClientSession.RpcClient.SendRemoteProcedureCallAsync(new Request
@@ -546,7 +565,7 @@ namespace PokemonGoGUI.GoManager
                 _unixTimeStamp = mapPokemon.ExpirationTimestampMs;
                 _spawnPointId = mapPokemon.SpawnPointId;
                 _encounterId = mapPokemon.EncounterId;
-                _pokemonType = "Incense";                
+                _pokemonType = "Incense";
             }
 
             if (_encounterId == _lastPokeSniperId || snipped)
@@ -560,11 +579,11 @@ namespace PokemonGoGUI.GoManager
             int attemptCount = 1;
             bool berryUsed = false;
 
+            if (_encounteredPokemon == null || _encounteredPokemon.PokemonId == PokemonId.Missingno)
+                return new MethodResult();
+
             do
             {
-                if (_encounteredPokemon == null)
-                    return new MethodResult();
-
                 if (!CatchDisabled)
                 {
                     if (RemainingPokeballs() < 1)
@@ -575,6 +594,8 @@ namespace PokemonGoGUI.GoManager
                         return new MethodResult();
                     }
                 }
+                else
+                    return new MethodResult();
 
                 //Uses lowest capture probability
                 float probability = eResponse.CaptureProbability.CaptureProbability_[0];
@@ -936,6 +957,9 @@ namespace PokemonGoGUI.GoManager
                     return new MethodResult<IncenseEncounterResponse>();
                 }
             }
+
+            if (mapPokemon == null || mapPokemon.PokemonId == PokemonId.Missingno)
+                return new MethodResult<IncenseEncounterResponse>();
 
             if (!CatchDisabled)
             {

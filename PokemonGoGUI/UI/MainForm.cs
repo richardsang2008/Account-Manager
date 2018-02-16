@@ -966,7 +966,6 @@ namespace PokemonGoGUI
                     e.SubItem.ForeColor = Color.Yellow;
                 }
             }
-
         }
 
         private void GarbageCollectionToolStripMenuItem_Click(object sender, EventArgs e)

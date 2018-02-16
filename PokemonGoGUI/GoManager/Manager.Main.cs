@@ -961,7 +961,8 @@ namespace PokemonGoGUI.GoManager
                 catch (OperationCanceledException ex)
                 {
                     AccountState = AccountState.Unknown;
-                    LogCaller(new LoggerEventArgs("OperationCanceledException. Restarting ...", LoggerTypes.Warning, ex));
+                    LogCaller(new LoggerEventArgs("OperationCanceledException. Stopping ...", LoggerTypes.Warning, ex));
+                    Stop();
                 }
                 catch (APIBadRequestException ex)
                 {
@@ -993,9 +994,8 @@ namespace PokemonGoGUI.GoManager
                 catch (SessionStateException ex)
                 {
                     AccountState = AccountState.Unknown;
-                    LogCaller(new LoggerEventArgs("SessionStateException. Stopping ...", LoggerTypes.Exception, ex));
+                    LogCaller(new LoggerEventArgs("SessionStateException. Restarting ...", LoggerTypes.Exception, ex));
                     _client.CleanLocalAccesToken();
-                    Stop();
                 }
                 catch (Exception ex)
                 {
