@@ -252,7 +252,7 @@ namespace PokemonGoGUI.GoManager
             else
                 return new MethodResult();
 
-            if (fortData == null || fortData.LureInfo.ActivePokemonId == PokemonId.Missingno)
+            if (fortData.LureInfo == null || fortData.LureInfo.ActivePokemonId == PokemonId.Missingno)
                 return new MethodResult();
 
             if (LastedEncountersIds.Contains(fortData.LureInfo.EncounterId))
