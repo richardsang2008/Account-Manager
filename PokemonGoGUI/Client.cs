@@ -575,8 +575,6 @@ namespace PokemonGoGUI
 
         private void SaveAccessToken(AccessToken accessToken)
         {
-            if (accessToken == null || string.IsNullOrEmpty(accessToken.Token) || accessToken.IsExpired)
-                return;
             var fileName = Path.Combine(Directory.GetCurrentDirectory(), "Cache", $"{accessToken.Uid}.json");
             File.WriteAllText(fileName, JsonConvert.SerializeObject(accessToken, Formatting.Indented));
         }
@@ -592,7 +590,7 @@ namespace PokemonGoGUI
         {
             LoginProvider = loginProvider;
 
-           Session session = null;
+            Session session = null;
             if (mayCache)
             {
                 var cacheDir = Path.Combine(Directory.GetCurrentDirectory(), "Cache");
