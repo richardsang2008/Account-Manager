@@ -262,10 +262,11 @@ namespace PokemonGoGUI.Captcha
             finally
             {
                 if (webDriver != null) webDriver.Close();
-                foreach (var process in Process.GetProcessesByName("chromedriver"))
-                {
-                    process.Kill();
-                }
+                //this closes all cmd window but if more chaptas is in runs not good..
+                //foreach (var process in Process.GetProcessesByName("chromedriver"))
+                //{
+                //    process.Kill();
+                //}
             }
         }
     }
