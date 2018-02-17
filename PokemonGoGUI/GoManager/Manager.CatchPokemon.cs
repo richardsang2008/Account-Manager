@@ -473,7 +473,7 @@ namespace PokemonGoGUI.GoManager
             if (LastedEncountersIds.Count > 30)
                 LastedEncountersIds.Clear();
 
-            LastedEncountersIds.Add(eResponse.PokemonData.Id);
+            LastedEncountersIds.Add(fortData.LureInfo.EncounterId);
 
             LogCaller(new LoggerEventArgs(String.Format("Faill cath lure on pokestop {0}. {1}.",fortData.Id, eResponse.Result), LoggerTypes.Warning));
             return new MethodResult();
@@ -560,7 +560,7 @@ namespace PokemonGoGUI.GoManager
             if (LastedEncountersIds.Count > 30)
                 LastedEncountersIds.Clear();
 
-            LastedEncountersIds.Add(eResponse.WildPokemon.EncounterId);
+            LastedEncountersIds.Add(mapPokemon.EncounterId);
 
             LogCaller(new LoggerEventArgs(String.Format("Faill encounter pokemon. {0}.", eResponse.Status), LoggerTypes.Warning));
             return new MethodResult<EncounterResponse> { Message = eResponse.Status.ToString() };
