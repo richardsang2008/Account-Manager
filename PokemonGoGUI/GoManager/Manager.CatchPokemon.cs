@@ -77,6 +77,9 @@ namespace PokemonGoGUI.GoManager
                 return new MethodResult();
             }
 
+            if (LastedEncountersIds.Contains(iResponse.Data.EncounterId))
+                return new MethodResult();
+
             MethodResult<IncenseEncounterResponse> result = await EncounterIncensePokemon(iResponse.Data);
 
             if (!result.Success)
@@ -1021,6 +1024,11 @@ namespace PokemonGoGUI.GoManager
                         Message = "Encounter failed"
                     };
                 case IncenseEncounterResponse.Types.Result.IncenseEncounterSuccess:
+                    if (LastedEncountersIds.Count > 30)
+                        LastedEncountersIds.Clear();
+
+                    LastedEncountersIds.Add(eResponse.PokemonData.Id);
+
                     return new MethodResult<IncenseEncounterResponse>
                     {
                         Data = eResponse,

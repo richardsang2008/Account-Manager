@@ -218,6 +218,7 @@ namespace PokemonGoGUI.GoManager
                 RequestType = RequestType.GetPlayerProfile,
                 RequestMessage = new GetPlayerProfileMessage
                 {
+                    PlayerName = PlayerData.Username
                 }.ToByteString()
             }, true, false, true);
 

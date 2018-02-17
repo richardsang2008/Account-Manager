@@ -98,10 +98,15 @@ namespace PokemonGoGUI.GoManager
             }
             else
             {
-                if (AccountState == AccountState.Conecting)
+                if (AccountState != AccountState.Good)
                 {
                     AccountState = AccountState.Good;
                 }
+
+                await ClaimLevelUpRewards(Level);
+                await Task.Delay(CalculateDelay(UserSettings.GeneralDelay, UserSettings.GeneralDelayRandom));
+                await GetPlayerProfile();
+                await Task.Delay(CalculateDelay(UserSettings.GeneralDelay, UserSettings.GeneralDelayRandom));
 
                 if (CurrentProxy != null)
                 {
