@@ -87,7 +87,7 @@ namespace PokemonGoGUI.GoManager
                 {
                     ++currentTries;
                 }
-                return new MethodResult();
+                //return new MethodResult();
             }
 
             return new MethodResult();

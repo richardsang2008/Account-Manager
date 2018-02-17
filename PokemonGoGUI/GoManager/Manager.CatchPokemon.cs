@@ -77,9 +77,6 @@ namespace PokemonGoGUI.GoManager
                 return new MethodResult();
             }
 
-            if (LastedEncountersIds.Contains(iResponse.Data.EncounterId))
-                return new MethodResult();
-
             MethodResult<IncenseEncounterResponse> result = await EncounterIncensePokemon(iResponse.Data);
 
             if (!result.Success)
@@ -472,6 +469,12 @@ namespace PokemonGoGUI.GoManager
                 case DiskEncounterResponse.Types.Result.Unknown:
                     break;
             }
+
+            if (LastedEncountersIds.Count > 30)
+                LastedEncountersIds.Clear();
+
+            LastedEncountersIds.Add(eResponse.PokemonData.Id);
+
             LogCaller(new LoggerEventArgs(String.Format("Faill cath lure on pokestop {0}. {1}.",fortData.Id, eResponse.Result), LoggerTypes.Warning));
             return new MethodResult();
         }
@@ -553,6 +556,12 @@ namespace PokemonGoGUI.GoManager
                 case EncounterResponse.Types.Status.PokemonInventoryFull:
                     break;
             }
+
+            if (LastedEncountersIds.Count > 30)
+                LastedEncountersIds.Clear();
+
+            LastedEncountersIds.Add(eResponse.WildPokemon.EncounterId);
+
             LogCaller(new LoggerEventArgs(String.Format("Faill encounter pokemon. {0}.", eResponse.Status), LoggerTypes.Warning));
             return new MethodResult<EncounterResponse> { Message = eResponse.Status.ToString() };
         }
@@ -983,6 +992,9 @@ namespace PokemonGoGUI.GoManager
             if (mapPokemon == null || mapPokemon.PokemonId == PokemonId.Missingno)
                 return new MethodResult<IncenseEncounterResponse>();
 
+            if (LastedEncountersIds.Contains(mapPokemon.EncounterId))
+                return new MethodResult<IncenseEncounterResponse>();
+
             if (!CatchDisabled)
             {
                 if (RemainingPokeballs() < 1)
@@ -1012,17 +1024,9 @@ namespace PokemonGoGUI.GoManager
             switch (eResponse.Result)
             {
                 case IncenseEncounterResponse.Types.Result.IncenseEncounterNotAvailable:
-                    return new MethodResult<IncenseEncounterResponse>
-                    {
-                        Message = "Encounter failed. Pokemon Already Happened"
-                    };
+                    break;
                 case IncenseEncounterResponse.Types.Result.IncenseEncounterUnknown:
-                    LogCaller(new LoggerEventArgs(String.Format("Encounter failed with response {0}", eResponse.Result), LoggerTypes.Warning));
-
-                    return new MethodResult<IncenseEncounterResponse>
-                    {
-                        Message = "Encounter failed"
-                    };
+                    break;
                 case IncenseEncounterResponse.Types.Result.IncenseEncounterSuccess:
                     if (LastedEncountersIds.Count > 30)
                         LastedEncountersIds.Clear();
@@ -1036,13 +1040,15 @@ namespace PokemonGoGUI.GoManager
                         Message = "Success"
                     };
                 case IncenseEncounterResponse.Types.Result.PokemonInventoryFull:
-                    LogCaller(new LoggerEventArgs("Encounter failed. Pokemon inventory full", LoggerTypes.Warning));
-
-                    return new MethodResult<IncenseEncounterResponse>
-                    {
-                        Message = "Encounter failed. Pokemon inventory full"
-                    };
+                    break;
             }
+
+            if (LastedEncountersIds.Count > 30)
+                LastedEncountersIds.Clear();
+
+            LastedEncountersIds.Add(eResponse.PokemonData.Id);
+
+            LogCaller(new LoggerEventArgs(String.Format("Encounter incense failed with response {0}", eResponse.Result), LoggerTypes.Warning));
             return new MethodResult<IncenseEncounterResponse>();
         }
     }
