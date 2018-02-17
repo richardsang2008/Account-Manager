@@ -1046,7 +1046,7 @@ namespace PokemonGoGUI.GoManager
             if (LastedEncountersIds.Count > 30)
                 LastedEncountersIds.Clear();
 
-            LastedEncountersIds.Add(eResponse.PokemonData.Id);
+            LastedEncountersIds.Add(mapPokemon.EncounterId);
 
             LogCaller(new LoggerEventArgs(String.Format("Encounter incense failed with response {0}", eResponse.Result), LoggerTypes.Warning));
             return new MethodResult<IncenseEncounterResponse>();
