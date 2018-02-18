@@ -94,6 +94,8 @@ namespace PokemonGoGUI.GoManager
                 if (retries > 0)
                 {
                     retries--;
+                    LogCaller(new LoggerEventArgs(result.Message, LoggerTypes.Warning));
+                    await Task.Delay(CalculateDelay(UserSettings.GeneralDelay, UserSettings.GeneralDelayRandom));
                     goto initretrie;
                 }
                 else
