@@ -818,6 +818,9 @@ namespace PokemonGoGUI
         {
             var manager = (Manager)e.Model;
 
+            if (manager == null)
+                return;
+
             if (e.Column == olvColumnScheduler)
             {
                 if (manager.AccountScheduler != null)

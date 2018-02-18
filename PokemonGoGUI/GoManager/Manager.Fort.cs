@@ -132,7 +132,32 @@ namespace PokemonGoGUI.GoManager
                                 //_potentialPokeStopBan = true;
                                 //_proxyIssue = true;
                                 //Display error only on first notice
+
+                                _failedPokestopResponse++;
+
+                                MethodResult resend = await SearchPokestop(pokestop);
+                                if (resend.Success)
+                                {
+                                    //Successfully grabbed stop
+                                    if (AccountState == AccountState.SoftBan)// || AccountState == Enums.AccountState.HashIssues)
+                                    {
+                                        AccountState = AccountState.Good;
+
+                                        LogCaller(new LoggerEventArgs("Soft ban was removed", LoggerTypes.Info));
+                                    }
+
+                                    return new MethodResult
+                                    {
+                                        Success = true,
+                                        Message = "Success"
+                                    };
+                                }
+
+                                //Here spin 40 times this is ignored by now
                                 LogCaller(new LoggerEventArgs("Pokestop out of range. Potential temp pokestop ban or IP ban or daily limit reached.", LoggerTypes.Warning));
+                                _potentialPokeStopBan = true;
+                                _proxyIssue = true;
+                                break;
                             }
 
                             _failedPokestopResponse++;
