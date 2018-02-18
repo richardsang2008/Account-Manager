@@ -321,6 +321,9 @@ namespace PokemonGoGUI.UI
         {
             var pokemonData = (PokemonData)e.Model;
 
+            if (pokemonData == null)
+                return;
+
             if (e.Column == olvColumnPokemonName)
             {
                 bool fav = (bool)olvColumnPokemonFavorite.GetValue(pokemonData);
