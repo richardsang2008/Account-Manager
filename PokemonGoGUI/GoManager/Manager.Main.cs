@@ -61,7 +61,6 @@ namespace PokemonGoGUI.GoManager
             Stats = new PlayerStats();
             Logs = new List<Log>();
             Tracker = new Tracker();
-
             LoadFarmLocations();
         }
 
@@ -71,15 +70,16 @@ namespace PokemonGoGUI.GoManager
             Logs = new List<Log>();
             Stats = new PlayerStats();
             Tracker = new Tracker();
-
             ProxyHandler = handler;
-
             LoadFarmLocations();
         }
 
         public async Task<MethodResult> AcLogin()
         {
-            LogCaller(new LoggerEventArgs("Attempting to login ...", LoggerTypes.Debug));
+            int retries = 1;
+            initretrie:
+
+            LogCaller(new LoggerEventArgs(String.Format("Attempting to login retry: #{0} ...", retries ), LoggerTypes.Debug));
             AccountState = AccountState.Conecting;
 
             MethodResult result = await _client.DoLogin(this);
@@ -91,10 +91,18 @@ namespace PokemonGoGUI.GoManager
 
             if (!result.Success)
             {
-                LogCaller(new LoggerEventArgs(result.Message, LoggerTypes.FatalError));
-                if (AccountState == AccountState.Conecting || AccountState == AccountState.Good)
-                    AccountState = AccountState.Unknown;
-                Stop();
+                if (retries > 0)
+                {
+                    retries--;
+                    goto initretrie;
+                }
+                else
+                {
+                    LogCaller(new LoggerEventArgs(result.Message, LoggerTypes.FatalError));
+                    if (AccountState == AccountState.Conecting || AccountState == AccountState.Good)
+                        AccountState = AccountState.Unknown;
+                    Stop();
+                }
             }
             else
             {
@@ -920,11 +928,12 @@ namespace PokemonGoGUI.GoManager
                                 AccountState = AccountState.SoftBan;
                                 _failedPokestopResponse = 0;
                                 LogCaller(new LoggerEventArgs("Potential PokeStop SoftBan or daily limit reached. Stoping ...", LoggerTypes.Warning));
+                                //Break out of pokestop loop to test for ip ban
                                 Stop();
                             }
-                            else
+                            //else
                                 //Break out of pokestop loop to test for ip ban
-                                break;
+                                //break;
                         }
 
                         if (Tracker.PokemonCaught >= UserSettings.CatchPokemonDayLimit && Tracker.PokestopsFarmed >= UserSettings.SpinPokestopsDayLimit)
