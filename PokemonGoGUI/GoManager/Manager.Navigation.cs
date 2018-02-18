@@ -155,7 +155,6 @@ namespace PokemonGoGUI.GoManager
                     return new MethodResult();
                 }
 
-                //Use POGOLib
                 MethodResult walkFunctionResult = null;
 
                 if (functionExecutedWhileWalking != null)
