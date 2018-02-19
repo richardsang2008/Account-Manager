@@ -374,8 +374,13 @@ namespace PokemonGoGUI.GoManager
                 return new List<PokemonData>();
             }
 
-            int pokemonCandy = PokemonCandy.Where(x => x.FamilyId == setting.FamilyId).FirstOrDefault().Candy_;
-            //int pokemonCandy = PokemonCandy.SingleOrDefault(x => x.FamilyId == setting.FamilyId).Candy_;
+            int pokemonCandy = 0;
+
+            if (PokemonCandy.Any(x => x.FamilyId == setting.FamilyId))
+            {
+                pokemonCandy = PokemonCandy.Where(x => x.FamilyId == setting.FamilyId).FirstOrDefault().Candy_;
+                //int pokemonCandy = PokemonCandy.SingleOrDefault(x => x.FamilyId == setting.FamilyId).Candy_;
+            }
 
             int candyToEvolve = setting.EvolutionBranch.Select(x => x.CandyCost).FirstOrDefault();
             int totalPokemon = pokemon.Count();
