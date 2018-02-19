@@ -770,6 +770,7 @@ namespace PokemonGoGUI.GoManager
 
                         //Pokemon.Add(_encounteredPokemon);
                         UpdateInventory(InventoryRefresh.Pokemon);
+                        UpdateInventory(InventoryRefresh.PokemonCandy);
 
                         return new MethodResult
                         {
