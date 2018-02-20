@@ -260,6 +260,14 @@ namespace PokemonGoGUI.GoManager
                 }
 
                 int candyToEvolve = setting.EvolutionBranch.Select(x => x.CandyCost).FirstOrDefault();
+
+                if (candyToEvolve == 0)
+                {
+                    LogCaller(new LoggerEventArgs(String.Format("No evolution for pokemon {0}", group.Key), LoggerTypes.Info));
+
+                    continue;
+                }
+
                 int totalPokemon = pokemonGroupToEvolve.Count;
                 int totalCandy = pokemonCandy.Candy_;
 
