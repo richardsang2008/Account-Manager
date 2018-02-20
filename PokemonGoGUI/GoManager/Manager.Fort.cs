@@ -213,6 +213,7 @@ namespace PokemonGoGUI.GoManager
                                     {
                                         bypass--;
                                     }
+                                    await Task.Delay(CalculateDelay(UserSettings.DelayBetweenPlayerActions, UserSettings.PlayerActionDelayRandom));
                                 }
 
                                 _potentialPokeStopBan = true;
