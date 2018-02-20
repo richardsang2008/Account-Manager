@@ -60,6 +60,7 @@ namespace PokemonGoGUI.GoManager
                     switch (fortResponse.Result)
                     {
                         case FortSearchResponse.Types.Result.ExceededDailyLimit:
+                            AccountState = AccountState.SoftBan;
                             LogCaller(new LoggerEventArgs(String.Format("Failed to search {0}. Response: {1}. Stoping ...", fort, fortResponse.Result), LoggerTypes.Warning));
                             Stop();
                             break;
@@ -131,6 +132,9 @@ namespace PokemonGoGUI.GoManager
                             {
                                 //by pass softban 
                                 int bypass = 40;
+
+                                AccountState = AccountState.SoftBan;
+
                                 while (bypass > 0)
                                 {
                                     LogCaller(new LoggerEventArgs($"Pokestop potential softban baypass enabled #{bypass.ToString()}.", LoggerTypes.Warning));
