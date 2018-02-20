@@ -60,6 +60,7 @@ namespace PokemonGoGUI.GoManager
                     switch (fortResponse.Result)
                     {
                         case FortSearchResponse.Types.Result.ExceededDailyLimit:
+                            AccountState = AccountState.SoftBan;
                             LogCaller(new LoggerEventArgs(String.Format("Failed to search {0}. Response: {1}. Stoping ...", fort, fortResponse.Result), LoggerTypes.Warning));
                             Stop();
                             break;
@@ -118,7 +119,7 @@ namespace PokemonGoGUI.GoManager
                                             LogCaller(new LoggerEventArgs("Auto stopping bot ...", LoggerTypes.Info));
 
                                             Stop();
-                                        }                                       
+                                        }
 
                                         return new MethodResult
                                         {
@@ -129,10 +130,101 @@ namespace PokemonGoGUI.GoManager
                             }
                             else //This error should never happen normally, so assume temp ban
                             {
-                                //_potentialPokeStopBan = true;
-                                //_proxyIssue = true;
-                                //Display error only on first notice
+                                //by pass softban 
+                                int bypass = 40;
 
+                                AccountState = AccountState.SoftBan;
+
+                                while (bypass > 0)
+                                {
+                                    LogCaller(new LoggerEventArgs($"Pokestop potential softban baypass enabled #{bypass.ToString()}.", LoggerTypes.Warning));
+                                    try
+                                    {
+                                        var _response = await _client.ClientSession.RpcClient.SendRemoteProcedureCallAsync(new Request
+                                        {
+                                            RequestType = RequestType.FortSearch,
+                                            RequestMessage = new FortSearchMessage
+                                            {
+                                                FortId = pokestop.Id,
+                                                FortLatitude = pokestop.Latitude,
+                                                FortLongitude = pokestop.Longitude,
+                                                PlayerLatitude = _client.ClientSession.Player.Latitude,
+                                                PlayerLongitude = _client.ClientSession.Player.Longitude
+                                            }.ToByteString()
+                                        });
+
+                                        if (_response == null)
+                                            return new MethodResult();
+
+                                        fortResponse = FortSearchResponse.Parser.ParseFrom(_response);
+
+                                        switch (fortResponse.Result)
+                                        {
+                                            case FortSearchResponse.Types.Result.Success:
+                                                string _message = String.Format("Searched {0}. Exp: {1}. Items: {2}.", // Badge: {3}. BonusLoot: {4}. Gems: {5}. Loot: {6}, Eggs: {7:0.0}. RaidTickets: {8}. TeamBonusLoot: {9}",
+                                                                fort,
+                                                                fortResponse.ExperienceAwarded,
+                                                                StringUtil.GetSummedFriendlyNameOfItemAwardList(fortResponse.ItemsAwarded.ToList())
+                                                                /*,
+                                                                fortResponse.AwardedGymBadge.ToString(),
+                                                                fortResponse.BonusLoot.LootItem.ToString(),
+                                                                fortResponse.GemsAwarded.ToString(),
+                                                                fortResponse.Loot.LootItem.ToString(),
+                                                                fortResponse.PokemonDataEgg.EggKmWalkedStart,
+                                                                fortResponse.RaidTickets.ToString(),
+                                                                fortResponse.TeamBonusLoot.LootItem.ToString()*/);
+
+                                                //Successfully grabbed stop
+                                                if (AccountState == AccountState.SoftBan)// || AccountState == Enums.AccountState.HashIssues)
+                                                {
+                                                    AccountState = AccountState.Good;
+
+                                                    LogCaller(new LoggerEventArgs("Soft ban was removed", LoggerTypes.Info));
+                                                }
+
+                                                ExpIncrease(fortResponse.ExperienceAwarded);
+                                                TotalPokeStopExp += fortResponse.ExperienceAwarded;
+
+                                                Tracker.AddValues(0, 1);
+
+                                                if (fortResponse.ExperienceAwarded == 0)
+                                                {
+                                                    //Softban on the fleeing pokemon. Reset.
+                                                    _fleeingPokemonResponses = 0;
+                                                    _potentialPokemonBan = false;
+
+                                                    ++_totalZeroExpStops;
+                                                    _message += String.Format(" No exp gained. Attempt {0} of {1}", i + 1, maxFortAttempts);
+                                                    continue;
+                                                }
+
+                                                LogCaller(new LoggerEventArgs(_message, LoggerTypes.Success));
+
+                                                await Task.Delay(CalculateDelay(UserSettings.DelayBetweenPlayerActions, UserSettings.PlayerActionDelayRandom));
+
+                                                _totalZeroExpStops = 0;
+
+                                                return new MethodResult
+                                                {
+                                                    Success = true,
+                                                    Message = "Success"
+                                                };
+                                        }
+                                    }
+                                    catch
+                                    {
+                                        //null
+                                    }
+                                    finally
+                                    {
+                                        bypass--;
+                                    }
+                                    await Task.Delay(CalculateDelay(UserSettings.DelayBetweenPlayerActions, UserSettings.PlayerActionDelayRandom));
+                                }
+
+                                _potentialPokeStopBan = true;
+                                _proxyIssue = true;
+                                //Display error only on first notice
                                 LogCaller(new LoggerEventArgs("Pokestop out of range. Potential temp pokestop ban or IP ban or daily limit reached.", LoggerTypes.Warning));
                             }
 
@@ -181,6 +273,8 @@ namespace PokemonGoGUI.GoManager
                             }
 
                             LogCaller(new LoggerEventArgs(message, LoggerTypes.Success));
+
+                            _totalZeroExpStops = 0;
 
                             await Task.Delay(CalculateDelay(UserSettings.DelayBetweenPlayerActions, UserSettings.PlayerActionDelayRandom));
 

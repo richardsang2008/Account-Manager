@@ -723,6 +723,7 @@ namespace PokemonGoGUI.GoManager
                 {
                     case CatchPokemonResponse.Types.CatchStatus.CatchError:
                         LogCaller(new LoggerEventArgs(String.Format("Unknown Error. {0}. Attempt #{1}. Status: {2}", pokemon, attemptCount, catchPokemonResponse.Status), LoggerTypes.Warning));
+                        ++attemptCount;
                         continue;
                     case CatchPokemonResponse.Types.CatchStatus.CatchEscape:
                         //If we get this response, means we're good
@@ -737,13 +738,16 @@ namespace PokemonGoGUI.GoManager
                         }
 
                         LogCaller(new LoggerEventArgs(String.Format("Escaped ball. {0}. Attempt #{1}. Ball: {2}", pokemon, attemptCount, pokeBallName), LoggerTypes.PokemonEscape));
+                        ++attemptCount;
                         continue;
                     case CatchPokemonResponse.Types.CatchStatus.CatchFlee:
                         ++_fleeingPokemonResponses;
                         LogCaller(new LoggerEventArgs(String.Format("Pokemon fled. {0}. Attempt #{1}. Ball: {2}", pokemon, attemptCount, pokeBallName), LoggerTypes.PokemonFlee));
+                        ++attemptCount;
                         continue;
                     case CatchPokemonResponse.Types.CatchStatus.CatchMissed:
                         LogCaller(new LoggerEventArgs(String.Format("Missed. {0}. Attempt #{1}. Status: {2}", pokemon, attemptCount, catchPokemonResponse.Status), LoggerTypes.Warning));
+                        ++attemptCount;
                         continue;
                     case CatchPokemonResponse.Types.CatchStatus.CatchSuccess:
                         //Reset data
@@ -778,7 +782,7 @@ namespace PokemonGoGUI.GoManager
                             Success = true
                         };
                 }
-                ++attemptCount;
+                
                 await Task.Delay(CalculateDelay(UserSettings.DelayBetweenPlayerActions, UserSettings.PlayerActionDelayRandom));
             } while (catchPokemonResponse.Status == CatchPokemonResponse.Types.CatchStatus.CatchMissed || catchPokemonResponse.Status == CatchPokemonResponse.Types.CatchStatus.CatchEscape);
             return new MethodResult();

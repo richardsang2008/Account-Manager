@@ -336,9 +336,8 @@ namespace PokemonGoGUI.GoManager
                     return 0;
                 }
 
-                //Currency stardust = PlayerData.Currencies.FirstOrDefault(x => x.Name == "STARDUST");
-                //return stardust == 0 ? 0 : stardust.Amount;
-                return PlayerData.Currencies[1].Amount;
+                Currency stardust = PlayerData.Currencies.FirstOrDefault(x => x.Name == "STARDUST");
+                return stardust.Amount == 0 ? 0 : stardust.Amount;
             }
         }
 
@@ -352,9 +351,8 @@ namespace PokemonGoGUI.GoManager
                     return 0;
                 }
 
-                //Currency pokecoins = PlayerData.Currencies.FirstOrDefault(x => x.Name == "POKECOIN");
-                //return pokecoins == 0 ? 0 : pokecoins.Amount;
-                return PlayerData.Currencies[0].Amount;
+                Currency pokecoins = PlayerData.Currencies.FirstOrDefault(x => x.Name == "POKECOIN");
+                return pokecoins.Amount == 0 ? 0 : pokecoins.Amount;
             }
         }
 

@@ -1,5 +1,15 @@
 # Change Log
 
+## [v2.22.0.19](https://github.com/Furtif/Account-Manager/tree/v2.22.0.19) (2018-02-20)
+
+[Full Changelog](https://github.com/Furtif/Account-Manager/compare/v2.22.0.18...v2.22.0.19)
+
+**Merged pull requests:**
+
+- Fixed the not counting of Catching attemps [\#62](https://github.com/Furtif/Account-Manager/pull/62) ([Arkanin](https://github.com/Arkanin))
+- Fixed problem in counting pokemons to evolve. [\#61](https://github.com/Furtif/Account-Manager/pull/61) ([henriquemaciel](https://github.com/henriquemaciel))
+- Bug / Protection: Pokémon with candy 0. [\#60](https://github.com/Furtif/Account-Manager/pull/60) ([henriquemaciel](https://github.com/henriquemaciel))
+
 ## [v2.22.0.18](https://github.com/Furtif/Account-Manager/tree/v2.22.0.18) (2018-02-18)
 
 [Full Changelog](https://github.com/Furtif/Account-Manager/compare/v2.22.0.17...v2.22.0.18)
