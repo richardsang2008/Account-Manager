@@ -249,12 +249,6 @@ namespace PokemonGoGUI.GoManager
                     continue;
                 }
 
-                if (setting.EvolutionIds.Count == 0)
-                {
-                    //Pokemon can't evolve
-                    continue;
-                }
-
                 Candy pokemonCandy = PokemonCandy.FirstOrDefault(x => x.FamilyId == setting.FamilyId);
                 List<PokemonData> pokemonGroupToEvolve = group.Where(x => x.Cp >= evolveSetting.MinCP).OrderByDescending(x => CalculateIVPerfection(x)).ToList();
 
