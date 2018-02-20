@@ -925,17 +925,8 @@ namespace PokemonGoGUI.GoManager
 
                         if (_potentialPokeStopBan)
                         {
-                            if (_failedPokestopResponse >= 10)
-                            {
-                                AccountState = AccountState.SoftBan;
-                                _failedPokestopResponse = 0;
-                                LogCaller(new LoggerEventArgs("Potential PokeStop SoftBan or daily limit reached. Stoping ...", LoggerTypes.Warning));
-                                //Break out of pokestop loop to test for ip ban
-                                Stop();
-                            }
-                            //else
-                                //Break out of pokestop loop to test for ip ban
-                                //break;
+                            //Break out of pokestop loop to test for ip ban
+                            break;
                         }
 
                         if (Tracker.PokemonCaught >= UserSettings.CatchPokemonDayLimit && Tracker.PokestopsFarmed >= UserSettings.SpinPokestopsDayLimit)
