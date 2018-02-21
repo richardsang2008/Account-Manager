@@ -85,7 +85,10 @@ namespace PokemonGoGUI.GoManager
             MethodResult result = await _client.DoLogin(this);
 
             if (result == null)
+            {
+                LogCaller(new LoggerEventArgs(String.Format("Attempting to login null result. Stopping ..."), LoggerTypes.Debug));
                 Stop();
+            }
 
             LogCaller(new LoggerEventArgs(result.Message, LoggerTypes.Debug));
 
@@ -113,8 +116,10 @@ namespace PokemonGoGUI.GoManager
                     AccountState = AccountState.Good;
                 }
 
+                // first login
                 await ClaimLevelUpRewards(Level);
                 await Task.Delay(CalculateDelay(UserSettings.GeneralDelay, UserSettings.GeneralDelayRandom));
+                //set playerProfile
                 await GetPlayerProfile();
                 await Task.Delay(CalculateDelay(UserSettings.GeneralDelay, UserSettings.GeneralDelayRandom));
 

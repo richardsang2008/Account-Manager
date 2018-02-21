@@ -4,6 +4,7 @@ using POGOProtos.Data.Player;
 using POGOProtos.Enums;
 using POGOProtos.Inventory;
 using POGOProtos.Inventory.Item;
+using POGOProtos.Networking.Responses;
 using POGOProtos.Settings.Master;
 using PokemonGoGUI.AccountScheduler;
 using PokemonGoGUI.Enums;
@@ -68,6 +69,8 @@ namespace PokemonGoGUI.GoManager
         public CameraSettings GetCameraSettings { get; private set; }
         [JsonIgnore]
         public GymLevelSettings GetGymLevelSettings { get; private set; }
+        [JsonIgnore]
+        public GetPlayerProfileResponse PlayerProfile { get; private set; }
 
         [JsonIgnore]
         public string SchedulerName

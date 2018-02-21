@@ -226,7 +226,9 @@ namespace PokemonGoGUI.GoManager
                 return new MethodResult();
 
             var parsedResponse = GetPlayerProfileResponse.Parser.ParseFrom(response);
-            
+
+            PlayerProfile = parsedResponse;
+
             return new MethodResult
             {
                 Success = true
