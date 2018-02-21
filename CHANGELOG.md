@@ -1,5 +1,13 @@
 # Change Log
 
+## [v2.22.0.20](https://github.com/Furtif/Account-Manager/tree/v2.22.0.20) (2018-02-21)
+
+[Full Changelog](https://github.com/Furtif/Account-Manager/compare/v2.22.0.19...v2.22.0.20)
+
+**Merged pull requests:**
+
+- Fixed division by 0 [\#63](https://github.com/Furtif/Account-Manager/pull/63) ([henriquemaciel](https://github.com/henriquemaciel))
+
 ## [v2.22.0.19](https://github.com/Furtif/Account-Manager/tree/v2.22.0.19) (2018-02-20)
 
 [Full Changelog](https://github.com/Furtif/Account-Manager/compare/v2.22.0.18...v2.22.0.19)
