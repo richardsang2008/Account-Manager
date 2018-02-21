@@ -56,14 +56,15 @@ namespace PokemonGoGUI.GoManager
                 };
             }
 
-            if (Tracker.PokemonCaught >= UserSettings.CatchPokemonDayLimit)
+            //Priorise snipe...
+            /*if (Tracker.PokemonCaught >= UserSettings.CatchPokemonDayLimit)
             {
                 LogCaller(new LoggerEventArgs("Catch pokemon limit actived", LoggerTypes.Info));
                 return new MethodResult
                 {
                     Message = "Limit actived"
                 };
-            }
+            }*/
 
             List<NearbyPokemon> pokemonToSnipe = pokeSniperResult.Data.Where(x => x.EncounterId != _lastPokeSniperId && UserSettings.CatchSettings.FirstOrDefault(p => p.Id == x.PokemonId).Snipe && x.DistanceInMeters < UserSettings.MaxTravelDistance && !LastedEncountersIds.Contains(x.EncounterId)).OrderBy(x => x.DistanceInMeters).ToList();
 

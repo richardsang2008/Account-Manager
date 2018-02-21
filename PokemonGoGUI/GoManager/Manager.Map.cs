@@ -16,7 +16,7 @@ namespace PokemonGoGUI.GoManager
         {
             if (_client.ClientSession.Map.Cells.Count == 0 || _client.ClientSession.Map == null)
             {
-               throw new OperationCanceledException("Not cells.");
+                return new MethodResult<List<MapPokemon>>();
             }
 
             //var cells = _client.ClientSession.Map.Cells;
@@ -36,7 +36,7 @@ namespace PokemonGoGUI.GoManager
         {
             if (_client.ClientSession.Map.Cells.Count == 0 || _client.ClientSession.Map == null)
             {
-               throw new OperationCanceledException("Not cells.");
+                return new MethodResult<List<FortData>>();
             }
 
             var forts = _client.ClientSession.Map.Cells.SelectMany(p => p.Forts);//.GetFortsSortedByDistance();

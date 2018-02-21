@@ -22,7 +22,7 @@ namespace PokemonGoGUI.GoManager
     {
         List<ulong> LastedEncountersIds = new List<ulong>();
 
-        public async Task<MethodResult> CatchInsencePokemon()
+        private async Task<MethodResult> CatchInsencePokemon()
         {
             if (!UserSettings.CatchPokemon)
             {
@@ -96,7 +96,7 @@ namespace PokemonGoGUI.GoManager
             };
         }
 
-        public async Task<MethodResult> CatchNeabyPokemon()
+        private async Task<MethodResult> CatchNeabyPokemon()
         {
             if (!UserSettings.CatchPokemon)
             {

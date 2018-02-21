@@ -584,7 +584,7 @@ namespace PokemonGoGUI.GoManager
                         if (!CatchDisabled)
                         {
                             var remainingBalls = RemainingPokeballs();
-                            LogCaller(new LoggerEventArgs("Remaining Balls: " + remainingBalls, LoggerTypes.Debug));
+                            LogCaller(new LoggerEventArgs("Remaining Balls: " + remainingBalls, LoggerTypes.Info));
 
                             if (remainingBalls > 0)
                             {
@@ -607,8 +607,7 @@ namespace PokemonGoGUI.GoManager
                                     if (Snipe.Success)
                                     {
                                         await Task.Delay(CalculateDelay(UserSettings.GeneralDelay, UserSettings.GeneralDelayRandom));
-                                        //pokestopsToFarm.Clear();
-                                        //pokestopsToFarm = new Queue<FortData>(GetAllForts().Data);
+                                        //this as walk to pokemon sinpe pos is not good .. continue for new pos..
                                         continue;
                                     }
                                 }
