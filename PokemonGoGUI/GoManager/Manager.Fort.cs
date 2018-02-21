@@ -135,7 +135,7 @@ namespace PokemonGoGUI.GoManager
 
                                 AccountState = AccountState.SoftBan;
 
-                                while (bypass > 0)
+                                while (bypass > 0 && _client.LoggedIn)
                                 {
                                     LogCaller(new LoggerEventArgs($"Pokestop potential softban baypass enabled #{bypass.ToString()}.", LoggerTypes.Warning));
                                     try
@@ -160,6 +160,8 @@ namespace PokemonGoGUI.GoManager
 
                                         switch (fortResponse.Result)
                                         {
+                                            case FortSearchResponse.Types.Result.ExceededDailyLimit:
+                                                break;
                                             case FortSearchResponse.Types.Result.Success:
                                                 string _message = String.Format("Searched {0}. Exp: {1}. Items: {2}.", // Badge: {3}. BonusLoot: {4}. Gems: {5}. Loot: {6}, Eggs: {7:0.0}. RaidTickets: {8}. TeamBonusLoot: {9}",
                                                                 fort,
@@ -195,6 +197,7 @@ namespace PokemonGoGUI.GoManager
 
                                                     ++_totalZeroExpStops;
                                                     _message += String.Format(" No exp gained. Attempt {0} of {1}", i + 1, maxFortAttempts);
+                                                    LogCaller(new LoggerEventArgs(_message, LoggerTypes.Success));
                                                     continue;
                                                 }
 
@@ -213,7 +216,7 @@ namespace PokemonGoGUI.GoManager
                                     }
                                     catch
                                     {
-                                        //null
+                                        break;
                                     }
                                     finally
                                     {
@@ -269,6 +272,7 @@ namespace PokemonGoGUI.GoManager
 
                                 ++_totalZeroExpStops;
                                 message += String.Format(" No exp gained. Attempt {0} of {1}", i + 1, maxFortAttempts);
+                                LogCaller(new LoggerEventArgs(message, LoggerTypes.Success));
                                 continue;
                             }
 
