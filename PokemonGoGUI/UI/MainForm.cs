@@ -828,11 +828,28 @@ namespace PokemonGoGUI
                     e.SubItem.ForeColor = manager.AccountScheduler.NameColor;
                 }
             }
-            else if (e.Column == olvColumnExpPerHour)
+            else if (e.Column == olvColumnUsername)
             {
                 if (manager.LuckyEggActive)
                 {
+                    e.SubItem.ForeColor = Color.Gold;
+                }
+            }
+            else if (e.Column == olvColumnExpPerHour)
+            {
+                double ExpPerHour = Convert.ToDouble(olvColumnExpPerHour.GetValue(manager));
+
+                if (ExpPerHour >= 100000)
+                {
+                    e.SubItem.ForeColor = Color.LightGreen;
+                }
+                else if (ExpPerHour >= 150000)
+                {
                     e.SubItem.ForeColor = Color.Green;
+                }
+                else if (ExpPerHour >= 200000)
+                {
+                    e.SubItem.ForeColor = Color.Goldenrod;
                 }
             }
             else if (e.Column == olvColumnAccountState)

@@ -96,7 +96,7 @@ namespace PokemonGoGUI.GoManager
             }
             if (!completedTutorials.Contains(TutorialState.NameSelection))
             {
-                await ClaimCodename(UserSettings.Username);
+                await ClaimCodename(_client.ClientSession.Player.Data.Username); //Maybe make this auto different ex: var = xxx result = XXx 
                 await Task.Delay(CalculateDelay(UserSettings.GeneralDelay, UserSettings.GeneralDelayRandom));
                 await GetPlayer(false);
                 await Task.Delay(CalculateDelay(UserSettings.GeneralDelay, UserSettings.GeneralDelayRandom));
