@@ -7,7 +7,7 @@
 [![GitHub license](https://img.shields.io/badge/license-AGPL-blue.svg)](https://raw.githubusercontent.com/Furtif/Account-Manager/master/LICENSE.md) 
 [![Waffle.io - Columns and their card count](https://badge.waffle.io/Furtif/Account-Manager.svg?columns=all)](https://waffle.io/Furtif/Account-Manager) [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=SNATC29B4ZJD4) [![Discord](https://img.shields.io/badge/Discord-Online-blue.svg)](https://discord.gg/rkm4xhX)
 
-## POGOLib [![NuGet](https://img.shields.io/nuget/v/POGOLib.Core.svg?maxAge=60)](https://www.nuget.org/packages/POGOLib.Core) POGOProtos [![NuGet](https://img.shields.io/nuget/vpre/POGOProtos.Core.svg?maxAge=60)](https://www.nuget.org/packages/POGOProtos.Core)
+## `POGOLib.Core:` [![NuGet](https://img.shields.io/nuget/v/POGOLib.Core.svg?maxAge=60)](https://www.nuget.org/packages/POGOLib.Core) `POGOProtos.Core:` [![NuGet](https://img.shields.io/nuget/vpre/POGOProtos.Core.svg?maxAge=60)](https://www.nuget.org/packages/POGOProtos.Core)
 
 
 ![alt text][1.1] <strong><em>`The contents of this repo are a proof of concept and are for educational use only`</em></strong>![alt text][1.1]<br/>
