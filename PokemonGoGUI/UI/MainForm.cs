@@ -841,11 +841,11 @@ namespace PokemonGoGUI
 
                 if (ExpPerHour >= 100000)
                 {
-                    e.SubItem.ForeColor = Color.LightGreen;
+                    e.SubItem.ForeColor = Color.Green;
                 }
                 else if (ExpPerHour >= 150000)
                 {
-                    e.SubItem.ForeColor = Color.Green;
+                    e.SubItem.ForeColor = Color.LightGreen;
                 }
                 else if (ExpPerHour >= 200000)
                 {
