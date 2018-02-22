@@ -839,19 +839,24 @@ namespace PokemonGoGUI
             {
                 double ExpPerHour = Convert.ToDouble(olvColumnExpPerHour.GetValue(manager));
 
-                if (ExpPerHour >= 100000)
+                if (ExpPerHour >= 40000)
                 {
-                    e.SubItem.ForeColor = Color.Green;
-                }
-
-                if (ExpPerHour >= 150000)
-                {
-                    e.SubItem.ForeColor = Color.LightGreen;
-                }
-
-                if (ExpPerHour >= 200000)
-                {
-                    e.SubItem.ForeColor = Color.Goldenrod;
+                    if (ExpPerHour >= 200000)
+                    {
+                        e.SubItem.ForeColor = Color.Goldenrod;
+                    }
+                    else if (ExpPerHour >= 150000)
+                    {
+                        e.SubItem.ForeColor = Color.LightGreen;
+                    }
+                    else if (ExpPerHour >= 100000)
+                    {
+                        e.SubItem.ForeColor = Color.Green;
+                    }
+                    else if (ExpPerHour >= 75000)
+                    {
+                        e.SubItem.ForeColor = Color.Olive;
+                    }
                 }
             }
             else if (e.Column == olvColumnAccountState)
