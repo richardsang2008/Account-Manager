@@ -48,6 +48,14 @@ Next, you need to get the source code.  This source code repository uses git sub
 git clone --recursive https://github.com/Furtif/Account-Manager.git
 ```
 
+Or if you already cloned without the recursive option, you can update the submodules by running:
+
+```
+git clone --recursive https://github.com/Furtif/Account-Manager.git
+cd Account-Manager
+git submodule update --init --recursive
+```
+
  You can contribute in many ways, here are some that you can do to help the project out!
 
 ### `Join discord channel and help answer questions`
