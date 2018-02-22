@@ -855,7 +855,7 @@ namespace PokemonGoGUI
                     }
                     else if (ExpPerHour >= 75000)
                     {
-                        e.SubItem.ForeColor = Color.Olive;
+                        e.SubItem.ForeColor = Color.LightSkyBlue;
                     }
                 }
             }
