@@ -847,15 +847,15 @@ namespace PokemonGoGUI
                     }
                     else if (ExpPerHour >= 150000)
                     {
-                        e.SubItem.ForeColor = Color.LightGreen;
+                        e.SubItem.ForeColor = Color.LightSkyBlue;
                     }
                     else if (ExpPerHour >= 100000)
                     {
-                        e.SubItem.ForeColor = Color.Green;
+                        e.SubItem.ForeColor = Color.LightGreen;
                     }
                     else if (ExpPerHour >= 75000)
                     {
-                        e.SubItem.ForeColor = Color.LightSkyBlue;
+                        e.SubItem.ForeColor = Color.Green;
                     }
                 }
             }
