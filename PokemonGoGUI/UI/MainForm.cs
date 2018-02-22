@@ -837,7 +837,7 @@ namespace PokemonGoGUI
             }
             else if (e.Column == olvColumnExpPerHour)
             {
-                double ExpPerHour = manager.ExpPerHour; // Convert.ToDouble(olvColumnExpPerHour.GetValue(manager));
+                int ExpPerHour = manager.ExpPerHour; // Convert.ToDouble(olvColumnExpPerHour.GetValue(manager));
 
                 if (ExpPerHour >= 40000)
                 {
