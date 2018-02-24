@@ -502,6 +502,8 @@ namespace PokemonGoGUI
             {
                 ClientManager.LogCaller(new LoggerEventArgs("Unpausing bot Challenge finished...", LoggerTypes.Captcha));
                 ClientManager.AccountState = accountState;
+                ClientManager.Restart();
+
                 return;
             }
 
