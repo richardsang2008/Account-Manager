@@ -1,5 +1,6 @@
 ﻿using Google.Protobuf;
 using POGOLib.Official.Exceptions;
+using POGOLib.Official.Extensions;
 using POGOProtos.Inventory.Item;
 using POGOProtos.Map.Fort;
 using POGOProtos.Networking.Requests;
@@ -134,6 +135,10 @@ namespace PokemonGoGUI.GoManager
                                 int bypass = 40;
 
                                 AccountState = AccountState.SoftBan;
+
+                                //Go to location again
+                                LogCaller(new LoggerEventArgs($"Pokestop potential softban baypass enabled go to location again {pokestop.Latitude}, {pokestop.Longitude}.", LoggerTypes.Warning));
+                                await GoToLocation(new GeoCoordinate(pokestop.Latitude, pokestop.Longitude));
 
                                 while (bypass > 0)
                                 {
