@@ -46,6 +46,14 @@ namespace PokemonGoGUI.GoManager
         
         public async Task<MethodResult> SnipeAllNearyPokemon()
         {
+            if (!UserSettings.CatchPokemon)
+            {
+                return new MethodResult
+                {
+                    Message = "Catching pokemon disabled"
+                };
+            }
+
             MethodResult<List<NearbyPokemon>> pokeSniperResult = RequestPokeSniperRares();
 
             if(!pokeSniperResult.Success)
@@ -123,13 +131,13 @@ namespace PokemonGoGUI.GoManager
 
                 if (UserSettings.SnipeAllPokemonsNoInPokedex)
                 {
-                    LogCaller(new LoggerEventArgs("Search pokemons no into pokedex ...", LoggerTypes.Info));
+                    LogCaller(new LoggerEventArgs("Search pokemons no into pokedex ...", LoggerTypes.Debug));
 
                     var ids = Pokedex.Select(x => x.PokemonId);
                     pokemonToSnipe = pokemonToSnipe.Where(x => x.EncounterId != _lastPokeSniperId && !ids.Contains(x.PokemonId)).OrderBy(x => x.DistanceInMeters).ToList();
 
                     if (pokemonToSnipe.Count > 0)
-                        LogCaller(new LoggerEventArgs("Found pokemons no into pokedex, go to sniping ...", LoggerTypes.Snipe));
+                        LogCaller(new LoggerEventArgs("Found pokemons no into pokedex, go to sniping ...", LoggerTypes.Debug));
                 }
             }
 

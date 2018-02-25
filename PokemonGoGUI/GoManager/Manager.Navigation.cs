@@ -155,26 +155,26 @@ namespace PokemonGoGUI.GoManager
                     return new MethodResult();
                 }
 
-                MethodResult walkFunctionResult = null;
-
-                if (functionExecutedWhileWalking != null)
+                if (functionExecutedWhileWalking != null && functionExecutedWhileIncenseWalking != null)
                 {
-                    walkFunctionResult = await functionExecutedWhileWalking(); // look for pokemon
-                }
+                    MethodResult walkFunctionResult = await functionExecutedWhileWalking(); // look for pokemon
+                    MethodResult walkFunctionIncenseResult = await functionExecutedWhileIncenseWalking(); // look for incence pokemon
 
-                if (functionExecutedWhileIncenseWalking != null)
-                {
-                    walkFunctionResult = await functionExecutedWhileIncenseWalking(); // look for incence pokemon
-                }
-
-                if (walkFunctionResult.Success)
-                {
-                    return new MethodResult
+                    if (walkFunctionResult.Success && walkFunctionIncenseResult.Success)
                     {
-                        Success = true,
-                        Message = walkFunctionResult.Message
-                    };
+                        return new MethodResult
+                        {
+                            Success = true,
+                            Message = "Success"
+                        };
+                    }
                 }
+
+                return new MethodResult
+                {
+                    Success = true,
+                    Message = "Success"
+                };
             }
 
             return new MethodResult
