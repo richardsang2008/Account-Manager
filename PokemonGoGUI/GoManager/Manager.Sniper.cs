@@ -109,8 +109,6 @@ namespace PokemonGoGUI.GoManager
                     continue;
                 }
 
-                _lastPokeSniperId = nearbyPokemon.EncounterId;
-
                 GeoCoordinate coords = new GeoCoordinate
                 {
                     Latitude = fortNearby.Latitude,
@@ -219,11 +217,15 @@ namespace PokemonGoGUI.GoManager
             }
             */
 
+            _lastPokeSniperId = pokemonToSnipe.EncounterId;
+
             //Catch pokemon
             MethodResult catchResult = await CatchPokemon(eResponseResult.Data, pokemonToSnipe, true); //Handles logging
 
             if (catchResult.Success)
-                AlreadySnipped = true;
+            {
+                AlreadySnipped = true;                
+            }
 
             return catchResult;
         }

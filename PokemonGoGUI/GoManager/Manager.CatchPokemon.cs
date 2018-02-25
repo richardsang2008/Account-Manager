@@ -140,9 +140,6 @@ namespace PokemonGoGUI.GoManager
                     continue;
                 }
 
-                if (LastedEncountersIds.Contains(pokemon.EncounterId))
-                    continue;
-
                 MethodResult<EncounterResponse> result = await EncounterPokemon(pokemon);
 
                 if (!result.Success)
@@ -495,6 +492,9 @@ namespace PokemonGoGUI.GoManager
                 return new MethodResult<EncounterResponse>();
 
             if (AlreadySnipped || mapPokemon.EncounterId == _lastPokeSniperId)
+                return new MethodResult<EncounterResponse>();
+
+            if (LastedEncountersIds.Contains(mapPokemon.EncounterId))
                 return new MethodResult<EncounterResponse>();
 
             if (!CatchDisabled)
