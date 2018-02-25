@@ -369,13 +369,9 @@ namespace PokemonGoGUI.GoManager
 
                     await Task.Delay(CalculateDelay(UserSettings.GeneralDelay, UserSettings.GeneralDelayRandom));
 
-                    result = await CheckReauthentication();
-
-                    if (!result.Success)
+                    if (_client.ClientSession.AccessToken.IsExpired)
                     {
-                        LogCaller(new LoggerEventArgs("Echo failed. Logging out before retry.", LoggerTypes.Debug));
-
-                        Stop();
+                        Restart();
                     }
 
                     await Task.Delay(CalculateDelay(UserSettings.GeneralDelay, UserSettings.GeneralDelayRandom));
@@ -844,12 +840,9 @@ namespace PokemonGoGUI.GoManager
                             if (AccountState != AccountState.Flagged || AccountState != AccountState.SoftBan)
                                 AccountState = AccountState.Good;
 
-                            MethodResult echoResult = await CheckReauthentication();
-
-                            //Echo failed, restart
-                            if (!echoResult.Success)
+                            if (_client.ClientSession.AccessToken.IsExpired)
                             {
-                                Stop();
+                                Restart();
                             }
 
                             await Task.Delay(CalculateDelay(UserSettings.GeneralDelay, UserSettings.GeneralDelayRandom));
@@ -1060,41 +1053,6 @@ namespace PokemonGoGUI.GoManager
 
             IsRunning = false;
             _firstRun = true;
-        }
-
-        private async Task<MethodResult> CheckReauthentication()
-        {
-            if (!_client.ClientSession.AccessToken.IsExpired)
-            {
-                return new MethodResult
-                {
-                    Success = true
-                };
-            }
-
-            try
-            {
-                LogCaller(new LoggerEventArgs("Session expired. Logging back in", LoggerTypes.Debug));
-
-                MethodResult result = await AcLogin();
-
-                if (!result.Success)
-                {
-                    Stop();
-                    return new MethodResult();
-                }
-
-                return new MethodResult
-                {
-                    Success = true
-                };
-            }
-            catch (Exception ex)
-            {
-                LogCaller(new LoggerEventArgs("Failed to reauthenticate failed", LoggerTypes.Warning, ex));
-                Stop();
-                return new MethodResult();
-            }
         }
 
         private void LoadFarmLocations()

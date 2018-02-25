@@ -16,11 +16,19 @@ namespace PokemonGoGUI.GoManager
     {
         private async Task<MethodResult> MarkStartUpTutorialsComplete(bool forceAvatarUpdate)
         {
-            MethodResult reauthResult = await CheckReauthentication();
-
-            if (!reauthResult.Success)
+            if (!_client.LoggedIn)
             {
-                return reauthResult;
+                MethodResult result = await AcLogin();
+
+                if (!result.Success)
+                {
+                    return result;
+                }
+            }
+
+            if (_client.ClientSession.AccessToken.IsExpired)
+            {
+                Restart();
             }
 
             bool success = true;
