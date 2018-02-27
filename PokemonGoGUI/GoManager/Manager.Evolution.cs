@@ -249,12 +249,6 @@ namespace PokemonGoGUI.GoManager
                     continue;
                 }
 
-                if (setting.EvolutionIds.Count == 0)
-                {
-                    //Pokemon can't evolve
-                    continue;
-                }
-
                 Candy pokemonCandy = PokemonCandy.FirstOrDefault(x => x.FamilyId == setting.FamilyId);
                 List<PokemonData> pokemonGroupToEvolve = group.Where(x => x.Cp >= evolveSetting.MinCP).OrderByDescending(x => CalculateIVPerfection(x)).ToList();
 
@@ -266,6 +260,14 @@ namespace PokemonGoGUI.GoManager
                 }
 
                 int candyToEvolve = setting.EvolutionBranch.Select(x => x.CandyCost).FirstOrDefault();
+
+                if (candyToEvolve == 0)
+                {
+                    LogCaller(new LoggerEventArgs(String.Format("No evolution for pokemon {0}", group.Key), LoggerTypes.Info));
+
+                    continue;
+                }
+
                 int totalPokemon = pokemonGroupToEvolve.Count;
                 int totalCandy = pokemonCandy.Candy_;
 
@@ -273,7 +275,7 @@ namespace PokemonGoGUI.GoManager
 
                 foreach (PokemonData pData in pokemonGroupToEvolve.Take(maxPokemon))
                 {
-                    if (!CanTransferOrEvolePokemon(pData))
+                    if (!CanTransferOrEvolePokemon(pData, true))
                         LogCaller(new LoggerEventArgs(String.Format("Skipped {0}, this pokemon cant not be transfered maybe is a favorit, is deployed or is a buddy pokemon.", pData.PokemonId), LoggerTypes.Info));
                     else
                         pokemonToEvolve.Add(pData);

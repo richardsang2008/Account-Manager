@@ -321,6 +321,9 @@ namespace PokemonGoGUI.UI
         {
             var pokemonData = (PokemonData)e.Model;
 
+            if (pokemonData == null)
+                return;
+
             if (e.Column == olvColumnPokemonName)
             {
                 bool fav = (bool)olvColumnPokemonFavorite.GetValue(pokemonData);
@@ -332,6 +335,11 @@ namespace PokemonGoGUI.UI
                 else if (bubby)
                 {
                     e.SubItem.ForeColor = Color.Blue;
+                }
+                else if (!String.IsNullOrEmpty(pokemonData.DeployedFortId))
+                {
+                    //deployed
+                    e.SubItem.ForeColor = Color.LightGreen;
                 }
             }
             else if (e.Column == olvColumnPokemonCandy)

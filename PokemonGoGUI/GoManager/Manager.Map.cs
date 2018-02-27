@@ -1,8 +1,5 @@
-﻿using Google.Protobuf.Collections;
-using POGOLib.Official.Exceptions;
-using POGOLib.Official.Extensions;
+﻿using POGOLib.Official.Extensions;
 using POGOProtos.Inventory.Item;
-using POGOProtos.Map;
 using POGOProtos.Map.Fort;
 using POGOProtos.Map.Pokemon;
 using PokemonGoGUI.Extensions;
@@ -19,7 +16,7 @@ namespace PokemonGoGUI.GoManager
         {
             if (_client.ClientSession.Map.Cells.Count == 0 || _client.ClientSession.Map == null)
             {
-                throw new SessionStateException("Not cells.");
+                return new MethodResult<List<MapPokemon>>();
             }
 
             //var cells = _client.ClientSession.Map.Cells;
@@ -39,7 +36,7 @@ namespace PokemonGoGUI.GoManager
         {
             if (_client.ClientSession.Map.Cells.Count == 0 || _client.ClientSession.Map == null)
             {
-                throw new SessionStateException("Not cells.");
+                return new MethodResult<List<FortData>>();
             }
 
             var forts = _client.ClientSession.Map.Cells.SelectMany(p => p.Forts);//.GetFortsSortedByDistance();

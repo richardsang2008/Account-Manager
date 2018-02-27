@@ -4,13 +4,10 @@ using POGOProtos.Map.Pokemon;
 using POGOProtos.Networking.Responses;
 using PokemonGoGUI.Enums;
 using PokemonGoGUI.Extensions;
-using PokemonGoGUI.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection.Emit;
 using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace PokemonGoGUI.GoManager
 {
@@ -18,7 +15,6 @@ namespace PokemonGoGUI.GoManager
     {
         private ulong _lastPokeSniperId  = 0;
 
-        public bool ModeSnipe { get; private set; } = false;
         private bool AlreadySnipped { get; set; } = false;
 
         private MethodResult<List<NearbyPokemon>> RequestPokeSniperRares()
@@ -50,6 +46,14 @@ namespace PokemonGoGUI.GoManager
         
         public async Task<MethodResult> SnipeAllNearyPokemon()
         {
+            if (!UserSettings.CatchPokemon)
+            {
+                return new MethodResult
+                {
+                    Message = "Catching pokemon disabled"
+                };
+            }
+
             MethodResult<List<NearbyPokemon>> pokeSniperResult = RequestPokeSniperRares();
 
             if(!pokeSniperResult.Success)
@@ -60,23 +64,24 @@ namespace PokemonGoGUI.GoManager
                 };
             }
 
-            if (Tracker.PokemonCaught >= UserSettings.CatchPokemonDayLimit)
+            //Priorise snipe...
+            /*if (Tracker.PokemonCaught >= UserSettings.CatchPokemonDayLimit)
             {
                 LogCaller(new LoggerEventArgs("Catch pokemon limit actived", LoggerTypes.Info));
                 return new MethodResult
                 {
                     Message = "Limit actived"
                 };
-            }
+            }*/
 
-            List<NearbyPokemon> pokemonToSnipe = pokeSniperResult.Data.Where(x => x.EncounterId != _lastPokeSniperId && UserSettings.CatchSettings.FirstOrDefault(p => p.Id == x.PokemonId).Snipe && x.DistanceInMeters < UserSettings.MaxTravelDistance).OrderBy(x => x.DistanceInMeters).ToList();
+            List<NearbyPokemon> pokemonToSnipe = pokeSniperResult.Data.Where(x => x.EncounterId != _lastPokeSniperId && UserSettings.CatchSettings.FirstOrDefault(p => p.Id == x.PokemonId).Snipe && x.DistanceInMeters < UserSettings.MaxTravelDistance && !LastedEncountersIds.Contains(x.EncounterId)).OrderBy(x => x.DistanceInMeters).ToList();
 
             if (UserSettings.SnipeAllPokemonsNoInPokedex)
             {
                 LogCaller(new LoggerEventArgs("Search pokemons no into pokedex ...", LoggerTypes.Info));
 
                 var ids = Pokedex.Select(x => x.PokemonId);
-                pokemonToSnipe = pokeSniperResult.Data.Where(x => x.EncounterId != _lastPokeSniperId && !ids.Contains(x.PokemonId) && x.DistanceInMeters < UserSettings.MaxTravelDistance).OrderBy(x => x.DistanceInMeters).ToList();
+                pokemonToSnipe = pokeSniperResult.Data.Where(x => x.EncounterId != _lastPokeSniperId && !ids.Contains(x.PokemonId) && x.DistanceInMeters < UserSettings.MaxTravelDistance && !LastedEncountersIds.Contains(x.EncounterId)).OrderBy(x => x.DistanceInMeters).ToList();
 
                 if (pokemonToSnipe.Count > 0)
                     LogCaller(new LoggerEventArgs("Found pokemons no into pokedex, go to sniping ...", LoggerTypes.Snipe));
@@ -99,7 +104,6 @@ namespace PokemonGoGUI.GoManager
             //Long running, so can't let this continue
             while (pokemonToSnipe.Any() && IsRunning && !AlreadySnipped)
             {
-                ModeSnipe = true;
                 AlreadySnipped = false;
 
                 NearbyPokemon nearbyPokemon = pokemonToSnipe.First();
@@ -113,8 +117,6 @@ namespace PokemonGoGUI.GoManager
                     continue;
                 }
 
-                _lastPokeSniperId = nearbyPokemon.EncounterId;
-
                 GeoCoordinate coords = new GeoCoordinate
                 {
                     Latitude = fortNearby.Latitude,
@@ -125,21 +127,20 @@ namespace PokemonGoGUI.GoManager
 
                 await Task.Delay(CalculateDelay(UserSettings.GeneralDelay, UserSettings.GeneralDelayRandom));
 
-                pokemonToSnipe = pokemonToSnipe.Where(x => UserSettings.CatchSettings.FirstOrDefault(p => p.Id == x.PokemonId).Snipe && fortNearby.CooldownCompleteTimestampMs >= DateTime.Now.AddSeconds(30).ToUnixTime()).OrderBy(x => x.DistanceInMeters).ToList();
+                pokemonToSnipe = pokemonToSnipe.Where(x => UserSettings.CatchSettings.FirstOrDefault(p => p.Id == x.PokemonId).Snipe && fortNearby.CooldownCompleteTimestampMs >= DateTime.Now.AddSeconds(30).ToUnixTime() && !LastedEncountersIds.Contains(x.EncounterId)).OrderBy(x => x.DistanceInMeters).ToList();
 
                 if (UserSettings.SnipeAllPokemonsNoInPokedex)
                 {
-                    LogCaller(new LoggerEventArgs("Search pokemons no into pokedex ...", LoggerTypes.Info));
+                    LogCaller(new LoggerEventArgs("Search pokemons no into pokedex ...", LoggerTypes.Debug));
 
                     var ids = Pokedex.Select(x => x.PokemonId);
                     pokemonToSnipe = pokemonToSnipe.Where(x => x.EncounterId != _lastPokeSniperId && !ids.Contains(x.PokemonId)).OrderBy(x => x.DistanceInMeters).ToList();
 
                     if (pokemonToSnipe.Count > 0)
-                        LogCaller(new LoggerEventArgs("Found pokemons no into pokedex, go to sniping ...", LoggerTypes.Snipe));
+                        LogCaller(new LoggerEventArgs("Found pokemons no into pokedex, go to sniping ...", LoggerTypes.Debug));
                 }
             }
 
-            ModeSnipe = false;
             AlreadySnipped = false;
 
             return new MethodResult
@@ -172,10 +173,7 @@ namespace PokemonGoGUI.GoManager
 
             await Task.Delay(10000); //wait for pogolib refreshmapobjects
 
-            int retries = 0;
-
             //Get catchable pokemon
-            retry:
 
             MethodResult<List<MapPokemon>> pokemonResult = GetCatchablePokemon();
 
@@ -187,31 +185,10 @@ namespace PokemonGoGUI.GoManager
                 };
             }
 
+            if (pokemonResult.Data == null || pokemonResult.Data.Count == 0)
+                return new MethodResult();
+
             MapPokemon pokemonToSnipe = pokemonResult.Data.FirstOrDefault(x => x.PokemonId == pokemon);
-
-            if(pokemonToSnipe == null)
-            {
-                if (retries >= 3 && !AlreadySnipped)
-                {
-                    LogCaller(new LoggerEventArgs(String.Format("Snipe Pokemon {0} not found, or already catched. Retries #{1}", pokemon, retries), LoggerTypes.Info));
-                    retries--;
-                    await Task.Delay(CalculateDelay(UserSettings.GeneralDelay, UserSettings.GeneralDelayRandom));
-                    goto retry;
-                }
-
-                //LogCaller(new LoggerEventArgs(String.Format("Snipe Pokemon {0} not found. Possible despawn, or already catched. Going back to original location", pokemon), LoggerTypes.Info));
-                LogCaller(new LoggerEventArgs(String.Format("Snipe Pokemon {0} not found. Possible despawn, or already catched.", pokemon), LoggerTypes.Info));
-
-                //await UpdateLocation(originalLocation);
-
-                // Not nedded this runs on local pos.../
-                //await GoToLocation(originalLocation);
-
-                return new MethodResult
-                {
-                    Message = "Pokemon not found"
-                };
-            }
 
             //Encounter
             MethodResult<EncounterResponse> eResponseResult = await EncounterPokemon(pokemonToSnipe);
@@ -233,6 +210,9 @@ namespace PokemonGoGUI.GoManager
                 };
             }
 
+            if (eResponseResult.Data == null || eResponseResult.Data.WildPokemon.PokemonData.PokemonId == PokemonId.Missingno)
+                return new MethodResult();
+
             //Update location back
             //MethodResult locationResult = await RepeatAction(() => UpdateLocation(originalLocation), 2);
 
@@ -245,11 +225,15 @@ namespace PokemonGoGUI.GoManager
             }
             */
 
+            _lastPokeSniperId = pokemonToSnipe.EncounterId;
+
             //Catch pokemon
             MethodResult catchResult = await CatchPokemon(eResponseResult.Data, pokemonToSnipe, true); //Handles logging
 
             if (catchResult.Success)
-                AlreadySnipped = true;
+            {
+                AlreadySnipped = true;                
+            }
 
             return catchResult;
         }

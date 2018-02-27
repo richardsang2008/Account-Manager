@@ -1,5 +1,47 @@
 # Change Log
 
+## [v2.22.0.20](https://github.com/Furtif/Account-Manager/tree/v2.22.0.20) (2018-02-21)
+
+[Full Changelog](https://github.com/Furtif/Account-Manager/compare/v2.22.0.19...v2.22.0.20)
+
+**Merged pull requests:**
+
+- Fixed division by 0 [\#63](https://github.com/Furtif/Account-Manager/pull/63) ([henriquemaciel](https://github.com/henriquemaciel))
+
+## [v2.22.0.19](https://github.com/Furtif/Account-Manager/tree/v2.22.0.19) (2018-02-20)
+
+[Full Changelog](https://github.com/Furtif/Account-Manager/compare/v2.22.0.18...v2.22.0.19)
+
+**Merged pull requests:**
+
+- Fixed the not counting of Catching attemps [\#62](https://github.com/Furtif/Account-Manager/pull/62) ([Arkanin](https://github.com/Arkanin))
+- Fixed problem in counting pokemons to evolve. [\#61](https://github.com/Furtif/Account-Manager/pull/61) ([henriquemaciel](https://github.com/henriquemaciel))
+- Bug / Protection: Pokémon with candy 0. [\#60](https://github.com/Furtif/Account-Manager/pull/60) ([henriquemaciel](https://github.com/henriquemaciel))
+
+## [v2.22.0.18](https://github.com/Furtif/Account-Manager/tree/v2.22.0.18) (2018-02-18)
+
+[Full Changelog](https://github.com/Furtif/Account-Manager/compare/v2.22.0.17...v2.22.0.18)
+
+## [v2.22.0.17](https://github.com/Furtif/Account-Manager/tree/v2.22.0.17) (2018-02-18)
+
+[Full Changelog](https://github.com/Furtif/Account-Manager/compare/v2.22.0.16...v2.22.0.17)
+
+## [v2.22.0.16](https://github.com/Furtif/Account-Manager/tree/v2.22.0.16) (2018-02-17)
+
+[Full Changelog](https://github.com/Furtif/Account-Manager/compare/v2.22.0.15...v2.22.0.16)
+
+## [v2.22.0.15](https://github.com/Furtif/Account-Manager/tree/v2.22.0.15) (2018-02-17)
+
+[Full Changelog](https://github.com/Furtif/Account-Manager/compare/v2.22.0.14...v2.22.0.15)
+
+## [v2.22.0.14](https://github.com/Furtif/Account-Manager/tree/v2.22.0.14) (2018-02-16)
+
+[Full Changelog](https://github.com/Furtif/Account-Manager/compare/v2.22.0.13...v2.22.0.14)
+
+## [v2.22.0.13](https://github.com/Furtif/Account-Manager/tree/v2.22.0.13) (2018-02-16)
+
+[Full Changelog](https://github.com/Furtif/Account-Manager/compare/v2.22.0.12...v2.22.0.13)
+
 ## [v2.22.0.12](https://github.com/Furtif/Account-Manager/tree/v2.22.0.12) (2018-02-14)
 
 [Full Changelog](https://github.com/Furtif/Account-Manager/compare/v2.22.0.11...v2.22.0.12)

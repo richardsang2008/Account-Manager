@@ -103,7 +103,7 @@ namespace PokemonGoGUI
             foreach (Manager manager in managers)
             {
                 var checkWindow = new ConsoleHelper();
-                var window = checkWindow.FindWindowByCaption(manager.AccountName);
+                var window = checkWindow.FindWindowByCaption(manager.UserSettings.Username);
 
                 if (window == IntPtr.Zero)
                 {
@@ -818,6 +818,9 @@ namespace PokemonGoGUI
         {
             var manager = (Manager)e.Model;
 
+            if (manager == null)
+                return;
+
             if (e.Column == olvColumnScheduler)
             {
                 if (manager.AccountScheduler != null)
@@ -825,11 +828,35 @@ namespace PokemonGoGUI
                     e.SubItem.ForeColor = manager.AccountScheduler.NameColor;
                 }
             }
-            else if (e.Column == olvColumnExpPerHour)
+            else if (e.Column == olvColumnUsername)
             {
                 if (manager.LuckyEggActive)
                 {
-                    e.SubItem.ForeColor = Color.Green;
+                    e.SubItem.ForeColor = Color.Gold;
+                }
+            }
+            else if (e.Column == olvColumnExpPerHour)
+            {
+                int ExpPerHour = manager.ExpPerHour; // Convert.ToDouble(olvColumnExpPerHour.GetValue(manager));
+
+                if (ExpPerHour >= 40000)
+                {
+                    if (ExpPerHour >= 200000)
+                    {
+                        e.SubItem.ForeColor = Color.Goldenrod;
+                    }
+                    else if (ExpPerHour >= 150000)
+                    {
+                        e.SubItem.ForeColor = Color.LightSkyBlue;
+                    }
+                    else if (ExpPerHour >= 100000)
+                    {
+                        e.SubItem.ForeColor = Color.LightGreen;
+                    }
+                    else if (ExpPerHour >= 75000)
+                    {
+                        e.SubItem.ForeColor = Color.Green;
+                    }
                 }
             }
             else if (e.Column == olvColumnAccountState)
@@ -966,7 +993,6 @@ namespace PokemonGoGUI
                     e.SubItem.ForeColor = Color.Yellow;
                 }
             }
-
         }
 
         private void GarbageCollectionToolStripMenuItem_Click(object sender, EventArgs e)
@@ -1044,7 +1070,6 @@ namespace PokemonGoGUI
 
                 return;
             }
-
 
             if (count == 0)
             {

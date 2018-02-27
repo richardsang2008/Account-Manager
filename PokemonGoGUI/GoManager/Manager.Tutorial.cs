@@ -16,11 +16,19 @@ namespace PokemonGoGUI.GoManager
     {
         private async Task<MethodResult> MarkStartUpTutorialsComplete(bool forceAvatarUpdate)
         {
-            MethodResult reauthResult = await CheckReauthentication();
-
-            if (!reauthResult.Success)
+            if (!_client.LoggedIn)
             {
-                return reauthResult;
+                MethodResult result = await AcLogin();
+
+                if (!result.Success)
+                {
+                    return result;
+                }
+            }
+
+            if (_client.ClientSession.AccessToken.IsExpired)
+            {
+                Restart();
             }
 
             bool success = true;
@@ -35,16 +43,25 @@ namespace PokemonGoGUI.GoManager
             if (!completedTutorials.Contains(TutorialState.LegalScreen))
             {
                 await MarkTutorialsComplete(new[] { TutorialState.LegalScreen });
+                await Task.Delay(CalculateDelay(UserSettings.GeneralDelay, UserSettings.GeneralDelayRandom));
                 await GetPlayer();
+                await Task.Delay(CalculateDelay(UserSettings.GeneralDelay, UserSettings.GeneralDelayRandom));
             }
-            await Task.Delay(CalculateDelay(UserSettings.GeneralDelay, UserSettings.GeneralDelayRandom));
-
+            if (!completedTutorials.Contains(TutorialState.AccountCreation))
+            {
+                await MarkTutorialsComplete(new[] { TutorialState.AccountCreation });
+                await Task.Delay(CalculateDelay(UserSettings.GeneralDelay, UserSettings.GeneralDelayRandom));
+                await GetPlayer();
+                await Task.Delay(CalculateDelay(UserSettings.GeneralDelay, UserSettings.GeneralDelayRandom));
+            }
             if (!completedTutorials.Contains(TutorialState.AvatarSelection) || forceAvatarUpdate)
             {
                 await SetPlayerAvatar();
                 await Task.Delay(CalculateDelay(UserSettings.GeneralDelay, UserSettings.GeneralDelayRandom));
-                await MarkTutorialsComplete(new[] { TutorialState.AccountCreation, TutorialState.AvatarSelection });
+                await MarkTutorialsComplete(new[] { TutorialState.AvatarSelection });
+                await Task.Delay(CalculateDelay(UserSettings.GeneralDelay, UserSettings.GeneralDelayRandom));
                 await GetPlayerProfile();
+                await Task.Delay(CalculateDelay(UserSettings.GeneralDelay, UserSettings.GeneralDelayRandom));
             }
             else
             {
@@ -87,16 +104,18 @@ namespace PokemonGoGUI.GoManager
             }
             if (!completedTutorials.Contains(TutorialState.NameSelection))
             {
+                await ClaimCodename(_client.ClientSession.Player.Data.Username); //Maybe make this auto different ex: var = xxx result = XXx 
                 await Task.Delay(CalculateDelay(UserSettings.GeneralDelay, UserSettings.GeneralDelayRandom));
-                await ClaimCodename(UserSettings.Username);
                 await GetPlayer(false);
+                await Task.Delay(CalculateDelay(UserSettings.GeneralDelay, UserSettings.GeneralDelayRandom));
                 await MarkTutorialsComplete(new[] { TutorialState.NameSelection }, false);
+                await Task.Delay(CalculateDelay(UserSettings.GeneralDelay, UserSettings.GeneralDelayRandom));
             }
 
             if (!completedTutorials.Contains(TutorialState.FirstTimeExperienceComplete))
             {
-                await Task.Delay(CalculateDelay(UserSettings.GeneralDelay, UserSettings.GeneralDelayRandom));
                 await MarkTutorialsComplete(new[] { TutorialState.FirstTimeExperienceComplete }, false);
+                await Task.Delay(CalculateDelay(UserSettings.GeneralDelay, UserSettings.GeneralDelayRandom));
             }
 
             if (success)

@@ -184,12 +184,11 @@ namespace PokemonGoGUI
                             {
                                 ClientManager.AccountState = AccountState.Flagged;
                                 ClientManager.LogCaller(new LoggerEventArgs("The account is flagged.", LoggerTypes.Warning));
+                                msgStr = "The account is flagged.";
 
                                 if (ClientManager.UserSettings.StopAtMinAccountState == AccountState.Flagged)
                                 {
                                     ClientManager.Stop();
-
-                                    msgStr = "The account is flagged.";
                                 }
                             }
 
@@ -198,7 +197,6 @@ namespace PokemonGoGUI
                                 ClientManager.AccountState = AccountState.PermanentBan;
                                 ClientManager.LogCaller(new LoggerEventArgs("The account is banned.", LoggerTypes.FatalError));
                                 ClientManager.Stop();
-
                                 msgStr = "The account is banned.";
                             }
 
@@ -240,7 +238,6 @@ namespace PokemonGoGUI
                         if (ClientSession.State == SessionState.TemporalBanned)
                         {
                             ClientManager.Stop();
-
                             msgStr = ex.Message;
                         }
                         else
@@ -249,9 +246,7 @@ namespace PokemonGoGUI
                     catch (PtcLoginException) // poex
                     {
                         ClientManager.Stop();
-
                         ClientManager.LogCaller(new LoggerEventArgs("Ptc server offline. Please try again later.", LoggerTypes.Warning));
-
                         msgStr = "Ptc server offline.";
                     }
                     catch (AccountNotVerifiedException) // anvex
@@ -489,40 +484,6 @@ namespace PokemonGoGUI
         private void SessionMapUpdate(object sender, EventArgs e)
         {
             //Map Update
-            try
-            {
-                if (ClientManager.ModeSnipe && ClientManager.RemainingPokeballs() > 5 /*Bot need balls for snippe*/)
-                {
-                    //Get for new pokestops
-                    //ClientManager.GetPokeStops();
-
-                    //Catch nearby pokemon
-                    ClientManager.CatchNeabyPokemon().Wait();
-
-                    //Catch incense pokemon
-                    ClientManager.CatchInsencePokemon().Wait();
-                }
-            }
-            catch (SessionStateException ex)
-            {
-                ClientManager.LogCaller(new LoggerEventArgs("Snipe.", LoggerTypes.Warning, ex));
-            }
-            catch (SessionInvalidatedException ex)
-            {
-                ClientManager.LogCaller(new LoggerEventArgs("Snipe.", LoggerTypes.Warning, ex));
-            }
-            catch (SessionUnknowException ex)
-            {
-                ClientManager.LogCaller(new LoggerEventArgs("Snipe.", LoggerTypes.Warning, ex));
-            }
-            catch (InvalidPlatformException ex)
-            {
-                ClientManager.LogCaller(new LoggerEventArgs("Snipe.", LoggerTypes.Warning, ex));
-            }
-            catch (Exception ex)
-            {
-                ClientManager.LogCaller(new LoggerEventArgs("Snipe.", LoggerTypes.Warning, ex));
-            }
         }
 
         public void SessionOnCaptchaReceived(object sender, CaptchaEventArgs e)
@@ -541,6 +502,8 @@ namespace PokemonGoGUI
             {
                 ClientManager.LogCaller(new LoggerEventArgs("Unpausing bot Challenge finished...", LoggerTypes.Captcha));
                 ClientManager.AccountState = accountState;
+                ClientManager.Restart();
+
                 return;
             }
 
@@ -614,6 +577,8 @@ namespace PokemonGoGUI
 
         private void SaveAccessToken(AccessToken accessToken)
         {
+            if (accessToken == null || accessToken.Token == null || accessToken.IsExpired)
+                return;
             var fileName = Path.Combine(Directory.GetCurrentDirectory(), "Cache", $"{accessToken.Uid}.json");
             File.WriteAllText(fileName, JsonConvert.SerializeObject(accessToken, Formatting.Indented));
         }
@@ -629,10 +594,12 @@ namespace PokemonGoGUI
         {
             LoginProvider = loginProvider;
 
-            var cacheDir = Path.Combine(Directory.GetCurrentDirectory(), "Cache");
-            var fileName = Path.Combine(cacheDir, $"{loginProvider.UserId}-{loginProvider.ProviderId}.json");
+            Session session = null;
             if (mayCache)
             {
+                var cacheDir = Path.Combine(Directory.GetCurrentDirectory(), "Cache");
+                var fileName = Path.Combine(cacheDir, $"{loginProvider.UserId}-{loginProvider.ProviderId}.json");
+
                 if (!Directory.Exists(cacheDir))
                     Directory.CreateDirectory(cacheDir);
 
@@ -642,19 +609,15 @@ namespace PokemonGoGUI
 
                     if (accessToken != null || !string.IsNullOrEmpty(accessToken.Token) || !accessToken.IsExpired)
                     {
-                        var sess = await Login.GetSession(loginProvider, accessToken, initLat, initLong, ClientDeviceWrapper, PlayerLocale);
-                        LoadResources(sess);
-                        return sess;
+                        session = await Login.GetSession(loginProvider, accessToken, initLat, initLong, ClientDeviceWrapper, PlayerLocale);
+                        LoadResources(session);
+                        return session;
                     }
                 }
             }
 
-            var session = await Login.GetSession(loginProvider, initLat, initLong, ClientDeviceWrapper, PlayerLocale);
+            session = await Login.GetSession(loginProvider, initLat, initLong, ClientDeviceWrapper, PlayerLocale);
             LoadResources(session);
-
-            if (mayCache)
-                SaveAccessToken(session.AccessToken);
-
             return session;
         }
 

@@ -4,6 +4,7 @@ using POGOProtos.Data.Player;
 using POGOProtos.Enums;
 using POGOProtos.Inventory;
 using POGOProtos.Inventory.Item;
+using POGOProtos.Networking.Responses;
 using POGOProtos.Settings.Master;
 using PokemonGoGUI.AccountScheduler;
 using PokemonGoGUI.Enums;
@@ -68,6 +69,8 @@ namespace PokemonGoGUI.GoManager
         public CameraSettings GetCameraSettings { get; private set; }
         [JsonIgnore]
         public GymLevelSettings GetGymLevelSettings { get; private set; }
+        [JsonIgnore]
+        public GetPlayerProfileResponse PlayerProfile { get; private set; }
 
         [JsonIgnore]
         public string SchedulerName
@@ -336,9 +339,8 @@ namespace PokemonGoGUI.GoManager
                     return 0;
                 }
 
-                //Currency stardust = PlayerData.Currencies.FirstOrDefault(x => x.Name == "STARDUST");
-                //return stardust == 0 ? 0 : stardust.Amount;
-                return PlayerData.Currencies[1].Amount;
+                Currency stardust = PlayerData.Currencies.FirstOrDefault(x => x.Name == "STARDUST");
+                return stardust.Amount == 0 ? 0 : stardust.Amount;
             }
         }
 
@@ -352,9 +354,8 @@ namespace PokemonGoGUI.GoManager
                     return 0;
                 }
 
-                //Currency pokecoins = PlayerData.Currencies.FirstOrDefault(x => x.Name == "POKECOIN");
-                //return pokecoins == 0 ? 0 : pokecoins.Amount;
-                return PlayerData.Currencies[0].Amount;
+                Currency pokecoins = PlayerData.Currencies.FirstOrDefault(x => x.Name == "POKECOIN");
+                return pokecoins.Amount == 0 ? 0 : pokecoins.Amount;
             }
         }
 
@@ -428,7 +429,7 @@ namespace PokemonGoGUI.GoManager
             Stats.Experience += amount;
         }
 
-        public int RemainingPokeballs()
+        private int RemainingPokeballs()
         {
             int total = 0;
 

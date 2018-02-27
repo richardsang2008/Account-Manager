@@ -61,7 +61,6 @@ namespace PokemonGoGUI.GoManager
             Stats = new PlayerStats();
             Logs = new List<Log>();
             Tracker = new Tracker();
-
             LoadFarmLocations();
         }
 
@@ -71,37 +70,58 @@ namespace PokemonGoGUI.GoManager
             Logs = new List<Log>();
             Stats = new PlayerStats();
             Tracker = new Tracker();
-
             ProxyHandler = handler;
-
             LoadFarmLocations();
         }
 
         public async Task<MethodResult> AcLogin()
         {
-            LogCaller(new LoggerEventArgs("Attempting to login ...", LoggerTypes.Debug));
+            int retries = 1;
+            initretrie:
+
+            LogCaller(new LoggerEventArgs(String.Format("Attempting to login retry: #{0} ...", retries ), LoggerTypes.Debug));
             AccountState = AccountState.Conecting;
 
             MethodResult result = await _client.DoLogin(this);
 
             if (result == null)
+            {
+                LogCaller(new LoggerEventArgs(String.Format("Attempting to login null result. Stopping ..."), LoggerTypes.Debug));
                 Stop();
+            }
 
             LogCaller(new LoggerEventArgs(result.Message, LoggerTypes.Debug));
 
             if (!result.Success)
             {
-                LogCaller(new LoggerEventArgs(result.Message, LoggerTypes.FatalError));
-                if (AccountState == AccountState.Conecting || AccountState == AccountState.Good)
-                    AccountState = AccountState.Unknown;
-                Stop();
+                if (retries > 0)
+                {
+                    retries--;
+                    LogCaller(new LoggerEventArgs(result.Message, LoggerTypes.Warning));
+                    await Task.Delay(CalculateDelay(UserSettings.GeneralDelay, UserSettings.GeneralDelayRandom));
+                    goto initretrie;
+                }
+                else
+                {
+                    LogCaller(new LoggerEventArgs(result.Message, LoggerTypes.FatalError));
+                    if (AccountState == AccountState.Conecting || AccountState == AccountState.Good)
+                        AccountState = AccountState.Unknown;
+                    Stop();
+                }
             }
             else
             {
-                if (AccountState == AccountState.Conecting)
+                if (AccountState != AccountState.Good)
                 {
                     AccountState = AccountState.Good;
                 }
+
+                // first login
+                await ClaimLevelUpRewards(Level);
+                await Task.Delay(CalculateDelay(UserSettings.GeneralDelay, UserSettings.GeneralDelayRandom));
+                //set playerProfile
+                await GetPlayerProfile();
+                await Task.Delay(CalculateDelay(UserSettings.GeneralDelay, UserSettings.GeneralDelayRandom));
 
                 if (CurrentProxy != null)
                 {
@@ -349,13 +369,9 @@ namespace PokemonGoGUI.GoManager
 
                     await Task.Delay(CalculateDelay(UserSettings.GeneralDelay, UserSettings.GeneralDelayRandom));
 
-                    result = await CheckReauthentication();
-
-                    if (!result.Success)
+                    if (_client.ClientSession.AccessToken.IsExpired)
                     {
-                        LogCaller(new LoggerEventArgs("Echo failed. Logging out before retry.", LoggerTypes.Debug));
-
-                        Stop();
+                        Restart();
                     }
 
                     await Task.Delay(CalculateDelay(UserSettings.GeneralDelay, UserSettings.GeneralDelayRandom));
@@ -493,8 +509,6 @@ namespace PokemonGoGUI.GoManager
                         continue;
                     }
 
-                    var defaultLocation = new GeoCoordinate(_client.ClientSession.Player.Latitude, _client.ClientSession.Player.Longitude);
-
                     int currentFailedStops = 0;
 
                     var pokestopsToFarm = new Queue<FortData>(pokestops.Data);
@@ -549,14 +563,12 @@ namespace PokemonGoGUI.GoManager
                             Stop();
                         }
 
-                        await Task.Delay(CalculateDelay(UserSettings.GeneralDelay, UserSettings.GeneralDelayRandom));
-
                         if (CatchDisabled)
                         {
                             //Check delay if account not have balls
                             var now = DateTime.Now;
-                            LogCaller(new LoggerEventArgs("Now: " + now.ToLongDateString() + " " + now.ToLongTimeString(), LoggerTypes.Debug));
-                            LogCaller(new LoggerEventArgs("TimeAutoCatch: " + TimeAutoCatch.ToLongDateString() + " " + TimeAutoCatch.ToLongTimeString(), LoggerTypes.Debug));
+                            LogCaller(new LoggerEventArgs("Now: " + now.ToLongDateString() + " " + now.ToLongTimeString(), LoggerTypes.Info));
+                            LogCaller(new LoggerEventArgs("TimeAutoCatch: " + TimeAutoCatch.ToLongDateString() + " " + TimeAutoCatch.ToLongTimeString(), LoggerTypes.Info));
                             if (now > TimeAutoCatch)
                             {
                                 CatchDisabled = false;
@@ -568,7 +580,7 @@ namespace PokemonGoGUI.GoManager
                         if (!CatchDisabled)
                         {
                             var remainingBalls = RemainingPokeballs();
-                            LogCaller(new LoggerEventArgs("Remaining Balls: " + remainingBalls, LoggerTypes.Debug));
+                            LogCaller(new LoggerEventArgs("Remaining Balls: " + remainingBalls, LoggerTypes.Info));
 
                             if (remainingBalls > 0)
                             {
@@ -591,8 +603,7 @@ namespace PokemonGoGUI.GoManager
                                     if (Snipe.Success)
                                     {
                                         await Task.Delay(CalculateDelay(UserSettings.GeneralDelay, UserSettings.GeneralDelayRandom));
-                                        pokestopsToFarm.Clear();
-                                        pokestopsToFarm = new Queue<FortData>(GetAllForts().Data);
+                                        //this as walk to pokemon sinpe pos is not good .. continue for new pos..
                                         continue;
                                     }
                                 }
@@ -822,10 +833,6 @@ namespace PokemonGoGUI.GoManager
                             break;
                         }
 
-                        //Check account client session state
-                        if (AccountState != AccountState.CaptchaReceived && (_client.ClientSession.State == SessionState.Paused || _client.ClientSession.State == SessionState.Stopped))
-                            await _client.ClientSession.ResumeAsync();
-
                         // evolve, transfer, etc on first and every 10 stops
                         if (IsRunning && ((pokeStopNumber > 4 && pokeStopNumber % 10 == 0) || pokeStopNumber == 1))
                         {
@@ -833,12 +840,9 @@ namespace PokemonGoGUI.GoManager
                             if (AccountState != AccountState.Flagged || AccountState != AccountState.SoftBan)
                                 AccountState = AccountState.Good;
 
-                            MethodResult echoResult = await CheckReauthentication();
-
-                            //Echo failed, restart
-                            if (!echoResult.Success)
+                            if (_client.ClientSession.AccessToken.IsExpired)
                             {
-                                Stop();
+                                Restart();
                             }
 
                             await Task.Delay(CalculateDelay(UserSettings.GeneralDelay, UserSettings.GeneralDelayRandom));
@@ -918,16 +922,8 @@ namespace PokemonGoGUI.GoManager
 
                         if (_potentialPokeStopBan)
                         {
-                            if (_failedPokestopResponse >= 10)
-                            {
-                                AccountState = AccountState.SoftBan;
-                                _failedPokestopResponse = 0;
-                                LogCaller(new LoggerEventArgs("Potential PokeStop SoftBan or daily limit reached. Stoping ...", LoggerTypes.Warning));
-                                Stop();
-                            }
-                            else
-                                //Break out of pokestop loop to test for ip ban
-                                break;
+                            //Break out of pokestop loop to test for ip ban
+                            break;
                         }
 
                         if (Tracker.PokemonCaught >= UserSettings.CatchPokemonDayLimit && Tracker.PokestopsFarmed >= UserSettings.SpinPokestopsDayLimit)
@@ -969,7 +965,8 @@ namespace PokemonGoGUI.GoManager
                 catch (OperationCanceledException ex)
                 {
                     AccountState = AccountState.Unknown;
-                    LogCaller(new LoggerEventArgs("OperationCanceledException. Restarting ...", LoggerTypes.Warning, ex));
+                    LogCaller(new LoggerEventArgs("OperationCanceledException. Stopping ...", LoggerTypes.Warning, ex));
+                    Stop();
                 }
                 catch (APIBadRequestException ex)
                 {
@@ -1056,41 +1053,6 @@ namespace PokemonGoGUI.GoManager
 
             IsRunning = false;
             _firstRun = true;
-        }
-
-        private async Task<MethodResult> CheckReauthentication()
-        {
-            if (!_client.ClientSession.AccessToken.IsExpired)
-            {
-                return new MethodResult
-                {
-                    Success = true
-                };
-            }
-
-            try
-            {
-                LogCaller(new LoggerEventArgs("Session expired. Logging back in", LoggerTypes.Debug));
-
-                MethodResult result = await AcLogin();
-
-                if (!result.Success)
-                {
-                    Stop();
-                    return new MethodResult();
-                }
-
-                return new MethodResult
-                {
-                    Success = true
-                };
-            }
-            catch (Exception ex)
-            {
-                LogCaller(new LoggerEventArgs("Failed to reauthenticate failed", LoggerTypes.Warning, ex));
-
-                return new MethodResult();
-            }
         }
 
         private void LoadFarmLocations()

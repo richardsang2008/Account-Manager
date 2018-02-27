@@ -14,9 +14,7 @@ using POGOProtos.Networking.Requests;
 using POGOProtos.Networking.Requests.Messages;
 using Google.Protobuf;
 using POGOProtos.Networking.Responses;
-using System.Diagnostics;
 using PokemonGoGUI.Enums;
-using POGOLib.Official.Net;
 
 namespace PokemonGoGUI.Captcha
 {
@@ -155,11 +153,6 @@ namespace PokemonGoGUI.Captcha
                     return false;
                 }
 
-                //TODO: May be this have bug...
-                //if (client.ClientSession.State == SessionState.Paused)
-                //    await client.ClientSession.ResumeAsync();
-                //
-
                 client.ClientManager.LogCaller(new LoggerEventArgs($"(CAPTCHA) Great!!! Captcha has been by passed", LoggerTypes.Success));
                 return verifyChallengeResponse.Success;
             }
@@ -263,10 +256,11 @@ namespace PokemonGoGUI.Captcha
             finally
             {
                 if (webDriver != null) webDriver.Close();
-                foreach (var process in Process.GetProcessesByName("chromedriver"))
-                {
-                    process.Kill();
-                }
+                //this closes all cmd window but if more chaptas is in runs not good..
+                //foreach (var process in Process.GetProcessesByName("chromedriver"))
+                //{
+                //    process.Kill();
+                //}
             }
         }
     }

@@ -3,6 +3,7 @@ using System;
 using System.Threading.Tasks;
 using PokemonGoGUI.Extensions;
 using POGOLib.Official.Extensions;
+using POGOLib.Official.Exceptions;
 
 namespace PokemonGoGUI.GoManager
 {
@@ -10,7 +11,7 @@ namespace PokemonGoGUI.GoManager
     {
         public async Task<MethodResult> GoToLocation(GeoCoordinate location)
         {
-            if(!UserSettings.MimicWalking)
+            if (!UserSettings.MimicWalking)
             {
                 MethodResult result = await UpdateLocation(location);
 
@@ -27,13 +28,15 @@ namespace PokemonGoGUI.GoManager
                 try
                 {
                     Func<Task<MethodResult>> walkingFunction = null;
+                    Func<Task<MethodResult>> walkingIncenceFunction = null; 
 
                     if (UserSettings.EncounterWhileWalking && UserSettings.CatchPokemon)
                     {
                         walkingFunction = CatchNeabyPokemon;
-                    }
+                        walkingIncenceFunction = CatchInsencePokemon;
+                    }                    
 
-                    MethodResult walkResponse = await WalkToLocation(location, walkingFunction);
+                    MethodResult walkResponse = await WalkToLocation(location, walkingFunction, walkingIncenceFunction);
 
                     if (walkResponse.Success)
                     {
@@ -48,21 +51,49 @@ namespace PokemonGoGUI.GoManager
 
                     await Task.Delay(CalculateDelay(UserSettings.DelayBetweenLocationUpdates, UserSettings.LocationupdateDelayRandom));
                 }
+                catch (SessionStateException ex)
+                {
+                    throw ex;
+                }
+                catch (PokeHashException ex)
+                {
+                    throw ex;
+                }
+                catch (SessionInvalidatedException ex)
+                {
+                    throw ex;
+                }
+                catch (InvalidPlatformException ex)
+                {
+                    throw ex;
+                }
+                catch (TaskCanceledException ex)
+                {
+                    throw ex;
+                }
+                catch (OperationCanceledException ex)
+                {
+                    throw ex;
+                }
+                catch (APIBadRequestException ex)
+                {
+                    throw ex;
+                }
                 catch (Exception ex)
                 {
-                    LogCaller(new LoggerEventArgs(String.Format("Failed to walk to location. Retry #{0}", currentTries + 1), LoggerTypes.Exception, ex));
+                    throw new SessionStateException($"Failed to walk to location. {ex}");
                 }
-
-                ++currentTries;
+                finally
+                {
+                    ++currentTries;
+                }
+                //return new MethodResult();
             }
 
-            return new MethodResult
-            {
-                Message = "Failed to walk to location"
-            };
+            return new MethodResult();
         }
 
-        public async Task<MethodResult> WalkToLocation(GeoCoordinate location, Func<Task<MethodResult>> functionExecutedWhileWalking)
+        public async Task<MethodResult> WalkToLocation(GeoCoordinate location, Func<Task<MethodResult>> functionExecutedWhileWalking, Func<Task<MethodResult>> functionExecutedWhileIncenseWalking)
         {
             double speedInMetersPerSecond = (UserSettings.WalkingSpeed + WalkOffset()) / 3.6;
 
@@ -124,15 +155,26 @@ namespace PokemonGoGUI.GoManager
                     return new MethodResult();
                 }
 
-                if (functionExecutedWhileWalking != null)
+                if (functionExecutedWhileWalking != null && functionExecutedWhileIncenseWalking != null)
                 {
                     MethodResult walkFunctionResult = await functionExecutedWhileWalking(); // look for pokemon
+                    MethodResult walkFunctionIncenseResult = await functionExecutedWhileIncenseWalking(); // look for incence pokemon
 
-                    if(!walkFunctionResult.Success)
+                    if (walkFunctionResult.Success && walkFunctionIncenseResult.Success)
                     {
-                        return new MethodResult();
+                        return new MethodResult
+                        {
+                            Success = true,
+                            Message = "Success"
+                        };
                     }
                 }
+
+                return new MethodResult
+                {
+                    Success = true,
+                    Message = "Success"
+                };
             }
 
             return new MethodResult
