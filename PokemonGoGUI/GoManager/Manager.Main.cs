@@ -677,66 +677,28 @@ namespace PokemonGoGUI.GoManager
 
                                                     await Task.Delay(CalculateDelay(UserSettings.GeneralDelay, UserSettings.GeneralDelayRandom));
                                                 }
-
-                                                //Check for missed tutorials
-                                                foreach (TutorialState tutos in Enum.GetValues(typeof(TutorialState)))
-                                                {
-                                                    if (!PlayerData.TutorialState.Contains(tutos))
-                                                    {
-                                                        DialogResult box = MessageBox.Show($"Tutorial {tutos.ToString()} is not completed on this account {PlayerData.Username}! Complete this?", "Confirmation", MessageBoxButtons.YesNo);
-
-                                                        if (box == DialogResult.Yes)
-                                                        {
-                                                            result = await MarkTutorialsComplete(new[] { tutos });
-                                                            await Task.Delay(CalculateDelay(UserSettings.GeneralDelay, UserSettings.GeneralDelayRandom));
-                                                        }
-                                                    }
-                                                }
-
-                                                //First spin gym after complet tuto
-                                                var gyminfo = await GymGetInfo(pokestop);
-                                                if (gyminfo.Success)
-                                                    LogCaller(new LoggerEventArgs("Gym Name: " + gyminfo.Data.Name, LoggerTypes.Info));
-                                                else
-                                                    continue;
-
-                                                MethodResult spingym = await SearchPokestop(pokestop);
-
-                                                //OutOfRange will show up as a success
-                                                if (spingym.Success)
-                                                {
-                                                    currentFailedStops = 0;
-                                                    //Try to deploy, full gym is 6 now
-                                                    if (gyminfo.Data.GymStatusAndDefenders.GymDefender.Count < 6)
-                                                    {
-                                                        //Checks team color if same of player or Neutral
-                                                        if (pokestop.OwnedByTeam == PlayerData.Team || pokestop.OwnedByTeam == TeamColor.Neutral)
-                                                        {
-                                                            //Check if config as deploy actived
-                                                            if (UserSettings.DeployPokemon)
-                                                            {
-                                                                //Try to deploy
-                                                                await GymDeploy(pokestop);
-                                                            }
-                                                        }
-                                                    }
-                                                    //Here try to attack gym not released yet
-                                                    //
-                                                }
-                                                else
-                                                {
-                                                    if (currentFailedStops > 10)
-                                                    {
-                                                        Stop();
-                                                    }
-                                                    ++currentFailedStops;
-                                                }
-
                                             }
                                         }
                                     }
-                                    else if (PlayerData.TutorialState.Contains(TutorialState.GymTutorial))
+
+                                    if (PlayerData.TutorialState.Contains(TutorialState.GymTutorial))
                                     {
+
+                                        //Check for missed tutorials
+                                        foreach (TutorialState tuto in Enum.GetValues(typeof(TutorialState)))
+                                        {
+                                            if (!PlayerData.TutorialState.Contains(tuto))
+                                            {
+                                                DialogResult box = MessageBox.Show($"Tutorial {tuto.ToString()} is not completed on this account {PlayerData.Username}! Complete this?", "Confirmation", MessageBoxButtons.YesNo);
+
+                                                if (box == DialogResult.Yes)
+                                                {
+                                                    result = await MarkTutorialsComplete(new[] { tuto });
+                                                    await Task.Delay(CalculateDelay(UserSettings.GeneralDelay, UserSettings.GeneralDelayRandom));
+                                                }
+                                            }
+                                        }
+
                                         var gyminfo = await GymGetInfo(pokestop);
                                         if (gyminfo.Success)
                                             LogCaller(new LoggerEventArgs("Gym Name: " + gyminfo.Data.Name, LoggerTypes.Info));
