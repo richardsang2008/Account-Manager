@@ -85,7 +85,10 @@ namespace PokemonGoGUI.GoManager
             MethodResult result = await _client.DoLogin(this);
 
             if (result == null)
+            {
+                LogCaller(new LoggerEventArgs(String.Format("Attempting to login null result. Stopping ..."), LoggerTypes.Debug));
                 Stop();
+            }
 
             LogCaller(new LoggerEventArgs(result.Message, LoggerTypes.Debug));
 
@@ -113,8 +116,10 @@ namespace PokemonGoGUI.GoManager
                     AccountState = AccountState.Good;
                 }
 
+                // first login
                 await ClaimLevelUpRewards(Level);
                 await Task.Delay(CalculateDelay(UserSettings.GeneralDelay, UserSettings.GeneralDelayRandom));
+                //set playerProfile
                 await GetPlayerProfile();
                 await Task.Delay(CalculateDelay(UserSettings.GeneralDelay, UserSettings.GeneralDelayRandom));
 
@@ -364,13 +369,9 @@ namespace PokemonGoGUI.GoManager
 
                     await Task.Delay(CalculateDelay(UserSettings.GeneralDelay, UserSettings.GeneralDelayRandom));
 
-                    result = await CheckReauthentication();
-
-                    if (!result.Success)
+                    if (_client.ClientSession.AccessToken.IsExpired)
                     {
-                        LogCaller(new LoggerEventArgs("Echo failed. Logging out before retry.", LoggerTypes.Debug));
-
-                        Stop();
+                        Restart();
                     }
 
                     await Task.Delay(CalculateDelay(UserSettings.GeneralDelay, UserSettings.GeneralDelayRandom));
@@ -566,8 +567,8 @@ namespace PokemonGoGUI.GoManager
                         {
                             //Check delay if account not have balls
                             var now = DateTime.Now;
-                            LogCaller(new LoggerEventArgs("Now: " + now.ToLongDateString() + " " + now.ToLongTimeString(), LoggerTypes.Debug));
-                            LogCaller(new LoggerEventArgs("TimeAutoCatch: " + TimeAutoCatch.ToLongDateString() + " " + TimeAutoCatch.ToLongTimeString(), LoggerTypes.Debug));
+                            LogCaller(new LoggerEventArgs("Now: " + now.ToLongDateString() + " " + now.ToLongTimeString(), LoggerTypes.Info));
+                            LogCaller(new LoggerEventArgs("TimeAutoCatch: " + TimeAutoCatch.ToLongDateString() + " " + TimeAutoCatch.ToLongTimeString(), LoggerTypes.Info));
                             if (now > TimeAutoCatch)
                             {
                                 CatchDisabled = false;
@@ -579,7 +580,7 @@ namespace PokemonGoGUI.GoManager
                         if (!CatchDisabled)
                         {
                             var remainingBalls = RemainingPokeballs();
-                            LogCaller(new LoggerEventArgs("Remaining Balls: " + remainingBalls, LoggerTypes.Debug));
+                            LogCaller(new LoggerEventArgs("Remaining Balls: " + remainingBalls, LoggerTypes.Info));
 
                             if (remainingBalls > 0)
                             {
@@ -602,8 +603,7 @@ namespace PokemonGoGUI.GoManager
                                     if (Snipe.Success)
                                     {
                                         await Task.Delay(CalculateDelay(UserSettings.GeneralDelay, UserSettings.GeneralDelayRandom));
-                                        //pokestopsToFarm.Clear();
-                                        //pokestopsToFarm = new Queue<FortData>(GetAllForts().Data);
+                                        //this as walk to pokemon sinpe pos is not good .. continue for new pos..
                                         continue;
                                     }
                                 }
@@ -677,66 +677,28 @@ namespace PokemonGoGUI.GoManager
 
                                                     await Task.Delay(CalculateDelay(UserSettings.GeneralDelay, UserSettings.GeneralDelayRandom));
                                                 }
-
-                                                //Check for missed tutorials
-                                                foreach (TutorialState tutos in Enum.GetValues(typeof(TutorialState)))
-                                                {
-                                                    if (!PlayerData.TutorialState.Contains(tutos))
-                                                    {
-                                                        DialogResult box = MessageBox.Show($"Tutorial {tutos.ToString()} is not completed on this account {PlayerData.Username}! Complete this?", "Confirmation", MessageBoxButtons.YesNo);
-
-                                                        if (box == DialogResult.Yes)
-                                                        {
-                                                            result = await MarkTutorialsComplete(new[] { tutos });
-                                                            await Task.Delay(CalculateDelay(UserSettings.GeneralDelay, UserSettings.GeneralDelayRandom));
-                                                        }
-                                                    }
-                                                }
-
-                                                //First spin gym after complet tuto
-                                                var gyminfo = await GymGetInfo(pokestop);
-                                                if (gyminfo.Success)
-                                                    LogCaller(new LoggerEventArgs("Gym Name: " + gyminfo.Data.Name, LoggerTypes.Info));
-                                                else
-                                                    continue;
-
-                                                MethodResult spingym = await SearchPokestop(pokestop);
-
-                                                //OutOfRange will show up as a success
-                                                if (spingym.Success)
-                                                {
-                                                    currentFailedStops = 0;
-                                                    //Try to deploy, full gym is 6 now
-                                                    if (gyminfo.Data.GymStatusAndDefenders.GymDefender.Count < 6)
-                                                    {
-                                                        //Checks team color if same of player or Neutral
-                                                        if (pokestop.OwnedByTeam == PlayerData.Team || pokestop.OwnedByTeam == TeamColor.Neutral)
-                                                        {
-                                                            //Check if config as deploy actived
-                                                            if (UserSettings.DeployPokemon)
-                                                            {
-                                                                //Try to deploy
-                                                                await GymDeploy(pokestop);
-                                                            }
-                                                        }
-                                                    }
-                                                    //Here try to attack gym not released yet
-                                                    //
-                                                }
-                                                else
-                                                {
-                                                    if (currentFailedStops > 10)
-                                                    {
-                                                        Stop();
-                                                    }
-                                                    ++currentFailedStops;
-                                                }
-
                                             }
                                         }
                                     }
-                                    else if (PlayerData.TutorialState.Contains(TutorialState.GymTutorial))
+
+                                    if (PlayerData.TutorialState.Contains(TutorialState.GymTutorial))
                                     {
+
+                                        //Check for missed tutorials
+                                        foreach (TutorialState tuto in Enum.GetValues(typeof(TutorialState)))
+                                        {
+                                            if (!PlayerData.TutorialState.Contains(tuto))
+                                            {
+                                                DialogResult box = MessageBox.Show($"Tutorial {tuto.ToString()} is not completed on this account {PlayerData.Username}! Complete this?", "Confirmation", MessageBoxButtons.YesNo);
+
+                                                if (box == DialogResult.Yes)
+                                                {
+                                                    result = await MarkTutorialsComplete(new[] { tuto });
+                                                    await Task.Delay(CalculateDelay(UserSettings.GeneralDelay, UserSettings.GeneralDelayRandom));
+                                                }
+                                            }
+                                        }
+
                                         var gyminfo = await GymGetInfo(pokestop);
                                         if (gyminfo.Success)
                                             LogCaller(new LoggerEventArgs("Gym Name: " + gyminfo.Data.Name, LoggerTypes.Info));
@@ -840,12 +802,9 @@ namespace PokemonGoGUI.GoManager
                             if (AccountState != AccountState.Flagged || AccountState != AccountState.SoftBan)
                                 AccountState = AccountState.Good;
 
-                            MethodResult echoResult = await CheckReauthentication();
-
-                            //Echo failed, restart
-                            if (!echoResult.Success)
+                            if (_client.ClientSession.AccessToken.IsExpired)
                             {
-                                Stop();
+                                Restart();
                             }
 
                             await Task.Delay(CalculateDelay(UserSettings.GeneralDelay, UserSettings.GeneralDelayRandom));
@@ -1056,41 +1015,6 @@ namespace PokemonGoGUI.GoManager
 
             IsRunning = false;
             _firstRun = true;
-        }
-
-        private async Task<MethodResult> CheckReauthentication()
-        {
-            if (!_client.ClientSession.AccessToken.IsExpired)
-            {
-                return new MethodResult
-                {
-                    Success = true
-                };
-            }
-
-            try
-            {
-                LogCaller(new LoggerEventArgs("Session expired. Logging back in", LoggerTypes.Debug));
-
-                MethodResult result = await AcLogin();
-
-                if (!result.Success)
-                {
-                    Stop();
-                    return new MethodResult();
-                }
-
-                return new MethodResult
-                {
-                    Success = true
-                };
-            }
-            catch (Exception ex)
-            {
-                LogCaller(new LoggerEventArgs("Failed to reauthenticate failed", LoggerTypes.Warning, ex));
-                Stop();
-                return new MethodResult();
-            }
         }
 
         private void LoadFarmLocations()

@@ -14,7 +14,6 @@ using POGOProtos.Networking.Requests;
 using POGOProtos.Networking.Requests.Messages;
 using Google.Protobuf;
 using POGOProtos.Networking.Responses;
-using System.Diagnostics;
 using PokemonGoGUI.Enums;
 
 namespace PokemonGoGUI.Captcha
@@ -153,11 +152,6 @@ namespace PokemonGoGUI.Captcha
                     client.ClientManager.LogCaller(new LoggerEventArgs($"(CAPTCHA) Failed to resolve captcha, try resolved captcha by official app. ", LoggerTypes.Warning));
                     return false;
                 }
-
-                //TODO: May be this have bug...
-                //if (client.ClientSession.State == SessionState.Paused)
-                //    await client.ClientSession.ResumeAsync();
-                //
 
                 client.ClientManager.LogCaller(new LoggerEventArgs($"(CAPTCHA) Great!!! Captcha has been by passed", LoggerTypes.Success));
                 return verifyChallengeResponse.Success;
