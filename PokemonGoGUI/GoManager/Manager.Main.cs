@@ -309,7 +309,7 @@ namespace PokemonGoGUI.GoManager
             {
                 if (CheckTime())
                 {
-                    Stop();
+                    break;
                 }
 
                 WaitPaused();
@@ -335,14 +335,14 @@ namespace PokemonGoGUI.GoManager
                 if (currentFails >= UserSettings.MaxFailBeforeReset)
                 {
                     currentFails = 0;
-                    _client.Logout();
+                    break;
                 }
 
                 if (_failedInventoryReponses >= _failedInventoryUntilBan)
                 {
                     AccountState = AccountState.PermanentBan;
                     LogCaller(new LoggerEventArgs("Potential account ban", LoggerTypes.Warning));
-                    Stop();
+                    break;
                 }
 
                 ++currentFails;
@@ -388,7 +388,7 @@ namespace PokemonGoGUI.GoManager
                             if (_client.VersionStr < remote)
                             {
                                 LogCaller(new LoggerEventArgs($"Emulates API {_client.VersionStr} ...", LoggerTypes.FatalError, new Exception($"New API needed {remote}. Stopping ...")));
-                                Stop();
+                                break;
                             }
                         }
                         catch (Exception ex1)
@@ -397,7 +397,7 @@ namespace PokemonGoGUI.GoManager
                             //    AccountState = AccountState.TemporalBan;
                             LogCaller(new LoggerEventArgs("Exception: " + ex1, LoggerTypes.Debug));
                             LogCaller(new LoggerEventArgs("Game settings failed", LoggerTypes.FatalError, new Exception("Maybe this account is banned ...")));
-                            Stop();
+                            break;
                         }
                         await Task.Delay(CalculateDelay(UserSettings.GeneralDelay, UserSettings.GeneralDelayRandom));
                     }
@@ -414,7 +414,7 @@ namespace PokemonGoGUI.GoManager
                             //if (AccountState != AccountState.CaptchaReceived || AccountState != AccountState.HashIssues)
                             //    AccountState = AccountState.TemporalBan;
                             LogCaller(new LoggerEventArgs("Load pokemon settings failed", LoggerTypes.FatalError, new Exception("Maybe this account is banned ...")));
-                            Stop();
+                            break;
                         }
                     }
 
@@ -431,7 +431,7 @@ namespace PokemonGoGUI.GoManager
                             {
                                 LogCaller(new LoggerEventArgs("Failed. Marking startup tutorials completed..", LoggerTypes.Warning));
 
-                                Stop();
+                                break;
                             }
 
                             LogCaller(new LoggerEventArgs("Marking startup tutorials completed.", LoggerTypes.Success));
@@ -460,12 +460,12 @@ namespace PokemonGoGUI.GoManager
 
                         result = await UpdateLocation(new GeoCoordinate(UserSettings.Latitude, UserSettings.Longitude));
 
-                        UpdateInventory(InventoryRefresh.All);
-
                         if (!result.Success)
                         {
-                            Stop();
+                            break;
                         }
+
+                        UpdateInventory(InventoryRefresh.All);
                     }
 
                     await Task.Delay(CalculateDelay(UserSettings.GeneralDelay, UserSettings.GeneralDelayRandom));
@@ -525,7 +525,7 @@ namespace PokemonGoGUI.GoManager
 
                         if (CheckTime())
                         {
-                            Stop();
+                            break;
                         }
 
                         FortData pokestop = pokestopsToFarm.Dequeue();
@@ -560,7 +560,7 @@ namespace PokemonGoGUI.GoManager
                         {
                             LogCaller(new LoggerEventArgs("Too many failed walking attempts. Restarting to fix ...", LoggerTypes.Warning));
                             LogCaller(new LoggerEventArgs("Result: " + walkResult.Message, LoggerTypes.Debug));
-                            Stop();
+                            break;
                         }
 
                         if (CatchDisabled)
@@ -732,7 +732,7 @@ namespace PokemonGoGUI.GoManager
                                         {
                                             if (currentFailedStops > 10)
                                             {
-                                                Stop();
+                                                break;
                                             }
                                             ++currentFailedStops;
                                         }
@@ -748,7 +748,7 @@ namespace PokemonGoGUI.GoManager
                                         {
                                             LogCaller(new LoggerEventArgs("Failed. Marking pokestop, pokemonberry, useitem, pokemoncapture tutorials completed..", LoggerTypes.Warning));
 
-                                            Stop();
+                                            break;
                                         }
 
                                         LogCaller(new LoggerEventArgs("Marking pokestop, pokemonberry, useitem, pokemoncapture tutorials completed.", LoggerTypes.Success));
@@ -773,7 +773,7 @@ namespace PokemonGoGUI.GoManager
                                     {
                                         if (currentFailedStops > 10)
                                         {
-                                            Stop();
+                                            break;
                                         }
                                         ++currentFailedStops;
                                     }
@@ -870,7 +870,7 @@ namespace PokemonGoGUI.GoManager
                         {
                             LogCaller(new LoggerEventArgs(String.Format("Max level of {0} reached.", UserSettings.MaxLevel), LoggerTypes.Info));
 
-                            Stop();
+                            break;
                         }
 
                         if (_totalZeroExpStops > 25)
@@ -879,7 +879,7 @@ namespace PokemonGoGUI.GoManager
                             AccountState = AccountState.SoftBan;
                             // reset values
                             _totalZeroExpStops = 0;
-                            Stop();
+                            break;
                         }
 
                         if (_potentialPokeStopBan)
@@ -891,7 +891,7 @@ namespace PokemonGoGUI.GoManager
                         if (Tracker.PokemonCaught >= UserSettings.CatchPokemonDayLimit && Tracker.PokestopsFarmed >= UserSettings.SpinPokestopsDayLimit)
                         {
                             LogCaller(new LoggerEventArgs("Daily limits reached. Stoping ...", LoggerTypes.Warning));
-                            Stop();
+                            break;
                         }
                     }
                 }
@@ -899,25 +899,25 @@ namespace PokemonGoGUI.GoManager
                 {
                     AccountState = AccountState.Unknown;
                     LogCaller(new LoggerEventArgs(ex.Message, LoggerTypes.FatalError));
-                    Stop();
+                    break;
                 }
                 catch (HashVersionMismatchException ex)
                 {
                     AccountState = AccountState.Unknown;
                     LogCaller(new LoggerEventArgs(ex.Message, LoggerTypes.FatalError));
-                    Stop();
+                    break;
                 }
                 catch (GoogleLoginException ex)
                 {
                     AccountState = AccountState.Unknown;
                     LogCaller(new LoggerEventArgs(ex.Message, LoggerTypes.FatalError));
-                    Stop();
+                    break;
                 }
                 catch (PtcLoginException ex)
                 {
                     AccountState = AccountState.Unknown;
                     LogCaller(new LoggerEventArgs(ex.Message, LoggerTypes.FatalError));
-                    Stop();
+                    break;
                 }
                 catch (TaskCanceledException ex)
                 {
@@ -928,7 +928,7 @@ namespace PokemonGoGUI.GoManager
                 {
                     AccountState = AccountState.Unknown;
                     LogCaller(new LoggerEventArgs("OperationCanceledException. Stopping ...", LoggerTypes.Warning, ex));
-                    Stop();
+                    break;
                 }
                 catch (APIBadRequestException ex)
                 {
