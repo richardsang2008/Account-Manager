@@ -75,6 +75,9 @@ namespace PokemonGoGUI.GoManager
             }*/
 
             List<NearbyPokemon> pokemonToSnipe = pokeSniperResult.Data.Where(x => x.EncounterId != _lastPokeSniperId && UserSettings.CatchSettings.FirstOrDefault(p => p.Id == x.PokemonId).Snipe && x.DistanceInMeters < UserSettings.MaxTravelDistance && !LastedEncountersIds.Contains(x.EncounterId)).OrderBy(x => x.DistanceInMeters).ToList();
+            var _forts = _client.ClientSession.Map.Cells.SelectMany(x => x.Forts);
+            NearbyPokemon _nearbyPokemon = pokemonToSnipe.First();
+            var _fortNearby = _forts.Where(x => x.Id == _nearbyPokemon.FortId).FirstOrDefault();
 
             if (UserSettings.SnipeAllPokemonsNoInPokedex)
             {
@@ -82,14 +85,11 @@ namespace PokemonGoGUI.GoManager
 
                 var ids = Pokedex.Select(x => x.PokemonId);
                 pokemonToSnipe = pokeSniperResult.Data.Where(x => x.EncounterId != _lastPokeSniperId && !ids.Contains(x.PokemonId) && x.DistanceInMeters < UserSettings.MaxTravelDistance && !LastedEncountersIds.Contains(x.EncounterId)).OrderBy(x => x.DistanceInMeters).ToList();
-
-                if (pokemonToSnipe.Count > 0)
-                    LogCaller(new LoggerEventArgs("Found pokemons no into pokedex, go to sniping ...", LoggerTypes.Snipe));
             }
 
             if (pokemonToSnipe.Count == 0) 
             {
-                LogCaller(new LoggerEventArgs("No pokemon to snipe within catch settings", LoggerTypes.Info));
+                LogCaller(new LoggerEventArgs("No pokemon to snipe within catch settings", LoggerTypes.Debug));
 
                 return new MethodResult
                 {
@@ -127,7 +127,7 @@ namespace PokemonGoGUI.GoManager
 
                 await Task.Delay(CalculateDelay(UserSettings.GeneralDelay, UserSettings.GeneralDelayRandom));
 
-                pokemonToSnipe = pokemonToSnipe.Where(x => UserSettings.CatchSettings.FirstOrDefault(p => p.Id == x.PokemonId).Snipe && fortNearby.CooldownCompleteTimestampMs >= DateTime.Now.AddSeconds(30).ToUnixTime() && !LastedEncountersIds.Contains(x.EncounterId)).OrderBy(x => x.DistanceInMeters).ToList();
+                pokemonToSnipe = pokemonToSnipe.Where(x => UserSettings.CatchSettings.FirstOrDefault(p => p.Id == x.PokemonId).Snipe && fortNearby.CooldownCompleteTimestampMs >= DateTime.Now.AddSeconds(30).ToUnixTime() && !LastedEncountersIds.Contains(x.EncounterId) && IsValidLocation(fortNearby.Latitude, fortNearby.Longitude)).OrderBy(x => x.DistanceInMeters).ToList();
 
                 if (UserSettings.SnipeAllPokemonsNoInPokedex)
                 {

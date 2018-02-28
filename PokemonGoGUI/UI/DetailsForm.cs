@@ -178,10 +178,10 @@ namespace PokemonGoGUI.UI
 
             foreach (LoggerTypes type in Enum.GetValues(typeof(LoggerTypes)))
             {
-                if (type == LoggerTypes.LocationUpdate)
+                /*if (type == LoggerTypes.LocationUpdate)
                 {
                     continue;
-                }
+                }*/
 
                 values.Add(type);
             }
@@ -210,8 +210,8 @@ namespace PokemonGoGUI.UI
 
             DisplayDetails();
 
-            if (e.LogType != LoggerTypes.LocationUpdate)
-            {
+            //if (e.LogType != LoggerTypes.LocationUpdate)
+            //{
                 Invoke(new MethodInvoker(() =>
                 {
                     if (tabControlMain.SelectedTab == tabPageLogs)
@@ -228,7 +228,7 @@ namespace PokemonGoGUI.UI
                         }
                     }
                 }));
-            }
+            //}
         }
 
         private void DetailsForm_FormClosing(object sender, FormClosingEventArgs e)
