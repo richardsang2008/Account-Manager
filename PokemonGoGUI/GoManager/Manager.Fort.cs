@@ -151,6 +151,8 @@ namespace PokemonGoGUI.GoManager
                                     LogCaller(new LoggerEventArgs($"Pokestop potential softban baypass enabled go to location again {pokestop.Latitude}, {pokestop.Longitude}.", LoggerTypes.Debug));
                                     await GoToLocation(new GeoCoordinate(pokestop.Latitude, pokestop.Longitude));
 
+                                    await Task.Delay(CalculateDelay(UserSettings.GeneralDelay, UserSettings.GeneralDelayRandom));
+
                                     var _response = await _client.ClientSession.RpcClient.SendRemoteProcedureCallAsync(new Request
                                     {
                                         RequestType = RequestType.FortSearch,
