@@ -13,11 +13,11 @@ namespace PokemonGoGUI.GoManager
         private double CurrentWalkingSpeed = 0;
         private Random WalkingRandom = new Random();
 
-        public async Task<MethodResult> GoToLocation(GeoCoordinate location)
+        private async Task<MethodResult> GoToLocation(GeoCoordinate location)
         {
             if (!UserSettings.MimicWalking)
             {
-                MethodResult result = await UpdateLocation(location);
+                MethodResult result = UpdateLocation(location);
 
                 await Task.Delay(CalculateDelay(UserSettings.DelayBetweenLocationUpdates, UserSettings.LocationupdateDelayRandom));
 
@@ -126,11 +126,11 @@ namespace PokemonGoGUI.GoManager
 
 
             var nextWaypointDistance = speedInMetersPerSecond;
-            var waypoint = await CreateWaypoint(sourceLocation, nextWaypointDistance, nextWaypointBearing);
+            var waypoint = CreateWaypoint(sourceLocation, nextWaypointDistance, nextWaypointBearing);
             var requestSendDateTime = DateTime.Now;
             var requestVariantDateTime = DateTime.Now;
 
-            await UpdateLocation(waypoint);
+            UpdateLocation(waypoint);
 
             var rw = new Random();
             double SpeedVariantSec = rw.Next(1000, 10000);
@@ -160,10 +160,10 @@ namespace PokemonGoGUI.GoManager
                     millisecondsUntilGetUpdatePlayerLocationResponse / 1000 * speedInMetersPerSecond);
                 nextWaypointBearing = DegreeBearing(sourceLocation, destinaionCoordinate);
                 var testeBear = DegreeBearing(sourceLocation, new GeoCoordinate(40.780396, -73.974844));
-                waypoint = await CreateWaypoint(sourceLocation, nextWaypointDistance, nextWaypointBearing);
+                waypoint = CreateWaypoint(sourceLocation, nextWaypointDistance, nextWaypointBearing);
 
                 requestSendDateTime = DateTime.Now;
-                await UpdateLocation(waypoint);
+                UpdateLocation(waypoint);
 
                 if (functionExecutedWhileWalking != null)
                     await functionExecutedWhileWalking(); // look for pokemon
@@ -180,7 +180,7 @@ namespace PokemonGoGUI.GoManager
             } while (CalculateDistanceInMeters(sourceLocation, destinaionCoordinate) >= (new Random()).Next(1, 10));
          }
 
-        private async Task<MethodResult> UpdateLocation(GeoCoordinate location)
+        private MethodResult UpdateLocation(GeoCoordinate location)
         {
             try
             {
@@ -199,14 +199,14 @@ namespace PokemonGoGUI.GoManager
 
                 var moveTo = new GeoCoordinate(location.Latitude, location.Longitude);
 
-                await Task.Run(() => _client.ClientSession.Player.SetCoordinates(moveTo));
+                _client.ClientSession.Player.SetCoordinates(moveTo);
                 
                 UserSettings.Latitude = _client.ClientSession.Player.Latitude;
                 UserSettings.Longitude = _client.ClientSession.Player.Longitude;
                 UserSettings.Altitude = _client.ClientSession.Player.Altitude;
 
                 //string message = String.Format("Location updated to {0}, {1}. Distance: {2:0.00}m", location.Latitude, location.Longitude, distance);
-                string message = String.Format("Location distance: {0:0.00}m",  distance);
+                string message = String.Format("Walked distance: {0:0.00}m",  distance);
 
                 LogCaller(new LoggerEventArgs(message, LoggerTypes.LocationUpdate));
 
@@ -224,12 +224,12 @@ namespace PokemonGoGUI.GoManager
             }
         }
 
-        public bool IsValidLocation(double latitude, double longitude)
+        private bool IsValidLocation(double latitude, double longitude)
         {
             return latitude <= 90 && latitude >= -90 && longitude >= -180 && longitude <= 180;
         }
 
-        public double CalculateDistanceInMeters(double sourceLat, double sourceLng,
+        private double CalculateDistanceInMeters(double sourceLat, double sourceLng,
                 double destLat, double destLng)
         // from http://stackoverflow.com/questions/6366408/calculating-distance-between-two-latitude-and-longitude-geocoordinates
         {
@@ -245,13 +245,13 @@ namespace PokemonGoGUI.GoManager
             }
         }
 
-        public double CalculateDistanceInMeters(GeoCoordinate sourceLocation, GeoCoordinate destinationLocation)
+        private double CalculateDistanceInMeters(GeoCoordinate sourceLocation, GeoCoordinate destinationLocation)
         {
             return CalculateDistanceInMeters(sourceLocation.Latitude, sourceLocation.Longitude,
                 destinationLocation.Latitude, destinationLocation.Longitude);
         }
 
-        public async Task<GeoCoordinate> CreateWaypoint(GeoCoordinate sourceLocation,
+        private GeoCoordinate CreateWaypoint(GeoCoordinate sourceLocation,
                 double distanceInMeters, double bearingDegrees)
         //from http://stackoverflow.com/a/17545955
         {
@@ -282,7 +282,7 @@ namespace PokemonGoGUI.GoManager
             );
         }
 
-        public GeoCoordinate CreateWaypoint(GeoCoordinate sourceLocation, double distanceInMeters,
+        private GeoCoordinate CreateWaypoint(GeoCoordinate sourceLocation, double distanceInMeters,
                 double bearingDegrees, double altitude)
         //from http://stackoverflow.com/a/17545955
         {
@@ -310,7 +310,7 @@ namespace PokemonGoGUI.GoManager
             return new GeoCoordinate(ToDegrees(targetLatitudeRadians), ToDegrees(targetLongitudeRadians), altitude);
         }
 
-        public double DegreeBearing(GeoCoordinate sourceLocation, GeoCoordinate targetLocation)
+        private double DegreeBearing(GeoCoordinate sourceLocation, GeoCoordinate targetLocation)
         // from http://stackoverflow.com/questions/2042599/direction-between-2-latitude-longitude-points-in-c-sharp
         {
             var dLon = ToRad(targetLocation.Longitude - sourceLocation.Longitude);
@@ -322,23 +322,23 @@ namespace PokemonGoGUI.GoManager
             return ToBearing(Math.Atan2(dLon, dPhi));
         }
 
-        public double ToBearing(double radians)
+        private double ToBearing(double radians)
         {
             // convert radians to degrees (as bearing: 0...360)
             return (ToDegrees(radians) + 360) % 360;
         }
 
-        public double ToDegrees(double radians)
+        private double ToDegrees(double radians)
         {
             return radians * 180 / Math.PI;
         }
 
-        public double ToRad(double degrees)
+        private double ToRad(double degrees)
         {
             return degrees * (Math.PI / 180);
         }
 
-        public double VariantRandom(double currentSpeed)
+        private double VariantRandom(double currentSpeed)
         {
             if (WalkingRandom.Next(1, 10) > 5)
             {

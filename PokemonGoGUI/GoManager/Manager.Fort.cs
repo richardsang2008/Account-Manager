@@ -134,7 +134,7 @@ namespace PokemonGoGUI.GoManager
 
                             while (bypass > 0)
                             {
-                                LogCaller(new LoggerEventArgs($"Pokestop potential softban baypass enabled #{bypass.ToString()}.", LoggerTypes.Warning));
+                                LogCaller(new LoggerEventArgs($"Pokestop potential softban baypass enabled #{bypass.ToString()}.", LoggerTypes.Info));
                                 try
                                 {
                                     if (!_client.LoggedIn)
@@ -148,7 +148,7 @@ namespace PokemonGoGUI.GoManager
                                     }
 
                                     //Go to location again
-                                    LogCaller(new LoggerEventArgs($"Pokestop potential softban baypass enabled go to location again {pokestop.Latitude}, {pokestop.Longitude}.", LoggerTypes.Info));
+                                    LogCaller(new LoggerEventArgs($"Pokestop potential softban baypass enabled go to location again {pokestop.Latitude}, {pokestop.Longitude}.", LoggerTypes.Debug));
                                     await GoToLocation(new GeoCoordinate(pokestop.Latitude, pokestop.Longitude));
 
                                     var _response = await _client.ClientSession.RpcClient.SendRemoteProcedureCallAsync(new Request
