@@ -141,7 +141,7 @@
       <HintPath>..\..\packages\ObjectListView.Official.2.9.1\lib\net20\ObjectListView.dll</HintPath>
     </Reference>
     <Reference Include="POGOLib.Core">
-      <HintPath>..\..\packages\POGOLib.Core.2.1.6\lib\netstandard1.1\POGOLib.Core.dll</HintPath>
+      <HintPath>..\..\packages\POGOLib.Core.2.1.7\lib\netstandard1.1\POGOLib.Core.dll</HintPath>
     </Reference>
     <Reference Include="POGOProtos.Core, Version=2.22.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\POGOProtos.Core.2.22.0\lib\net45\POGOProtos.Core.dll</HintPath>
