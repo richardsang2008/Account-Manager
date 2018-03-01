@@ -32,13 +32,13 @@ namespace PokemonGoGUI.GoManager
                 try
                 {
                     Func<Task<MethodResult>> walkingFunction = null;
-                    Func<Task<MethodResult>> walkingIncenceFunction = null; 
+                    Func<Task<MethodResult>> walkingIncenceFunction = null;
 
                     if (UserSettings.EncounterWhileWalking && UserSettings.CatchPokemon)
                     {
                         walkingFunction = CatchNeabyPokemon;
                         walkingIncenceFunction = CatchInsencePokemon;
-                    }                    
+                    }
 
                     MethodResult walkResponse = await WalkToLocation(location, walkingFunction, walkingIncenceFunction);
 
@@ -109,13 +109,18 @@ namespace PokemonGoGUI.GoManager
             }
         }
 
-        private async Task<MethodResult> WalkToLocation(GeoCoordinate location, Func<Task<MethodResult>> functionExecutedWhileWalking, Func<Task<MethodResult>> functionExecutedWhileIncenseWalking, double walkSpeed = 0.0)
+        private async Task<MethodResult> WalkToLocation(GeoCoordinate location, Func<Task<MethodResult>> functionExecutedWhileWalking, Func<Task<MethodResult>> functionExecutedWhileIncenseWalking)
         {
             double speedInMetersPerSecond = (UserSettings.WalkingSpeed + WalkOffset()) / 3.6;
 
-            if(speedInMetersPerSecond <= 0)
+            if (speedInMetersPerSecond <= 0)
             {
                 speedInMetersPerSecond = 0;
+            }
+
+            if (CurrentWalkingSpeed == 0)
+            {
+                CurrentWalkingSpeed = VariantRandom(CurrentWalkingSpeed);
             }
 
             var destinaionCoordinate = new GeoCoordinate(location.Latitude, location.Longitude);
@@ -130,10 +135,8 @@ namespace PokemonGoGUI.GoManager
             var requestSendDateTime = DateTime.Now;
             var requestVariantDateTime = DateTime.Now;
 
-            UpdateLocation(waypoint);
-
-            var rw = new Random();
-            double SpeedVariantSec = rw.Next(1000, 10000);
+            MethodResult _result = UpdateLocation(waypoint);
+            await Task.Delay(CalculateDelay(UserSettings.DelayBetweenLocationUpdates, UserSettings.LocationupdateDelayRandom));
 
             do
             {
@@ -145,25 +148,31 @@ namespace PokemonGoGUI.GoManager
                 sourceLocation = new GeoCoordinate(_client.ClientSession.Player.Latitude, _client.ClientSession.Player.Longitude);
                 var currentDistanceToTarget = CalculateDistanceInMeters(sourceLocation, destinaionCoordinate);
 
-                if (currentDistanceToTarget < 40)
-                    if (speedInMetersPerSecond > SpeedDownTo)
-                        speedInMetersPerSecond = SpeedDownTo;
+                speedInMetersPerSecond = (UserSettings.WalkingSpeed + WalkOffset()) / 3.6;
 
-                if (walkSpeed == 0)
+                if (speedInMetersPerSecond <= 0)
+                {
+                    speedInMetersPerSecond = 0;
+                }
+
+                if (CurrentWalkingSpeed == 0)
                 {
                     CurrentWalkingSpeed = VariantRandom(CurrentWalkingSpeed);
                 }
 
-                speedInMetersPerSecond = (walkSpeed > 0 ? walkSpeed : CurrentWalkingSpeed) / 3.6;
+                if (currentDistanceToTarget < 40)
+                    if (speedInMetersPerSecond > SpeedDownTo)
+                        speedInMetersPerSecond = SpeedDownTo;
 
                 nextWaypointDistance = Math.Min(currentDistanceToTarget,
                     millisecondsUntilGetUpdatePlayerLocationResponse / 1000 * speedInMetersPerSecond);
                 nextWaypointBearing = DegreeBearing(sourceLocation, destinaionCoordinate);
-                var testeBear = DegreeBearing(sourceLocation, new GeoCoordinate(40.780396, -73.974844));
                 waypoint = CreateWaypoint(sourceLocation, nextWaypointDistance, nextWaypointBearing);
 
                 requestSendDateTime = DateTime.Now;
-                UpdateLocation(waypoint);
+
+                MethodResult result = UpdateLocation(waypoint);
+                await Task.Delay(CalculateDelay(UserSettings.DelayBetweenLocationUpdates, UserSettings.LocationupdateDelayRandom));
 
                 if (functionExecutedWhileWalking != null)
                     await functionExecutedWhileWalking(); // look for pokemon
@@ -171,14 +180,14 @@ namespace PokemonGoGUI.GoManager
                 if (functionExecutedWhileIncenseWalking != null)
                     await functionExecutedWhileIncenseWalking(); // look for incense pokemon
 
-                return new MethodResult
-                {
-                    Success = true,
-                    Message = "Success"
-                };
-
             } while (CalculateDistanceInMeters(sourceLocation, destinaionCoordinate) >= (new Random()).Next(1, 10));
-         }
+
+            return new MethodResult
+            {
+                Success = true,
+                Message = "Success"
+            };
+        }
 
         private MethodResult UpdateLocation(GeoCoordinate location)
         {
@@ -189,7 +198,7 @@ namespace PokemonGoGUI.GoManager
                 double distance = CalculateDistanceInMeters(previousLocation, location);
 
                 //Prevent less than 1 meter hops
-                if(distance < 1)
+                if (distance < 1)
                 {
                     return new MethodResult
                     {
@@ -200,13 +209,13 @@ namespace PokemonGoGUI.GoManager
                 var moveTo = new GeoCoordinate(location.Latitude, location.Longitude);
 
                 _client.ClientSession.Player.SetCoordinates(moveTo);
-                
+
                 UserSettings.Latitude = _client.ClientSession.Player.Latitude;
                 UserSettings.Longitude = _client.ClientSession.Player.Longitude;
                 UserSettings.Altitude = _client.ClientSession.Player.Altitude;
 
                 //string message = String.Format("Location updated to {0}, {1}. Distance: {2:0.00}m", location.Latitude, location.Longitude, distance);
-                string message = String.Format("Walked distance: {0:0.00}m",  distance);
+                string message = String.Format("Walked distance: {0:0.00}m", distance);
 
                 LogCaller(new LoggerEventArgs(message, LoggerTypes.LocationUpdate));
 
@@ -216,10 +225,9 @@ namespace PokemonGoGUI.GoManager
                     Success = true
                 };
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 LogCaller(new LoggerEventArgs("Failed to update location", LoggerTypes.Exception, ex));
-
                 return new MethodResult();
             }
         }
@@ -342,39 +350,37 @@ namespace PokemonGoGUI.GoManager
         {
             if (WalkingRandom.Next(1, 10) > 5)
             {
-                if (WalkingRandom.Next(1, 10) > 5)
+                var randomicSpeed = currentSpeed;
+                var max = UserSettings.WalkingSpeed + UserSettings.WalkingSpeedOffset;
+                randomicSpeed += WalkingRandom.NextDouble() * (0.02 - 0.001) + 0.001;
+
+                if (randomicSpeed > max)
+                    randomicSpeed = max;
+
+                if (Math.Round(randomicSpeed, 2) != Math.Round(currentSpeed, 2))
                 {
-                    var randomicSpeed = currentSpeed;
-                    var max = UserSettings.WalkingSpeed + UserSettings.WalkingSpeedOffset;
-                    randomicSpeed += WalkingRandom.NextDouble() * (0.02 - 0.001) + 0.001;
-
-                    if (randomicSpeed > max)
-                        randomicSpeed = max;
-
-                    if (Math.Round(randomicSpeed, 2) != Math.Round(currentSpeed, 2))
-                    {
-                        string message = String.Format("Old Speed: {0:0.00}km/h, new {1:0.00}km/h", currentSpeed, randomicSpeed);
-                        LogCaller(new LoggerEventArgs(message, LoggerTypes.LocationUpdate));
-                    }
-                    return randomicSpeed;
-                }
-                else
-                {
-                    var randomicSpeed = currentSpeed;
-                    var min = UserSettings.WalkingSpeed - UserSettings.WalkingSpeedOffset;
-                    randomicSpeed -= WalkingRandom.NextDouble() * (0.02 - 0.001) + 0.001;
-
-                    if (randomicSpeed < min)
-                        randomicSpeed = min;
-
-                    if (Math.Round(randomicSpeed, 2) != Math.Round(currentSpeed, 2))
-                    {
-                        string message = String.Format("Old Speed: {0:0.00}km/h, new {1:0.00}km/h", currentSpeed, randomicSpeed);
-                        LogCaller(new LoggerEventArgs(message, LoggerTypes.LocationUpdate));
-                    }
+                    string message = String.Format("Old Speed: {0:0.00}km/h, new speed {1:0.00}km/h", currentSpeed, randomicSpeed);
+                    LogCaller(new LoggerEventArgs(message, LoggerTypes.Info));
                     return randomicSpeed;
                 }
             }
+            else
+            {
+                var randomicSpeed = currentSpeed;
+                var min = UserSettings.WalkingSpeed - UserSettings.WalkingSpeedOffset;
+                randomicSpeed -= WalkingRandom.NextDouble() * (0.02 - 0.001) + 0.001;
+
+                if (randomicSpeed < min)
+                    randomicSpeed = min;
+
+                if (Math.Round(randomicSpeed, 2) != Math.Round(currentSpeed, 2))
+                {
+                    string message = String.Format("Old Speed: {0:0.00}km/h, new speed {1:0.00}km/h", currentSpeed, randomicSpeed);
+                    LogCaller(new LoggerEventArgs(message, LoggerTypes.Info));
+                    return randomicSpeed;
+                }
+            }
+
             return currentSpeed;
         }
     }
