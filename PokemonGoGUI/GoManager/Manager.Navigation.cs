@@ -124,12 +124,8 @@ namespace PokemonGoGUI.GoManager
             }
 
             var destinaionCoordinate = new GeoCoordinate(location.Latitude, location.Longitude);
-
             var sourceLocation = new GeoCoordinate(_client.ClientSession.Player.Latitude, _client.ClientSession.Player.Longitude);
-
             var nextWaypointBearing = DegreeBearing(sourceLocation, destinaionCoordinate);
-
-
             var nextWaypointDistance = speedInMetersPerSecond;
             var waypoint = CreateWaypoint(sourceLocation, nextWaypointDistance, nextWaypointBearing);
             var requestSendDateTime = DateTime.Now;

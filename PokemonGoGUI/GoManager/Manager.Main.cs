@@ -528,6 +528,8 @@ namespace PokemonGoGUI.GoManager
                             break;
                         }
 
+                        pokestopsToFarm = new Queue<FortData>(pokestopsToFarm.OrderBy(x => CalculateDistanceInMeters(_client.ClientSession.Player.Latitude, _client.ClientSession.Player.Longitude, x.Latitude, x.Longitude)));
+
                         FortData pokestop = pokestopsToFarm.Dequeue();
                         LogCaller(new LoggerEventArgs("Fort Dequeued: " + pokestop.Id, LoggerTypes.Debug));
 
