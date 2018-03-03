@@ -586,7 +586,7 @@ namespace PokemonGoGUI.GoManager
 
                             if (remainingBalls > 0)
                             {
-                                if (PlayerData.MaxPokemonStorage > Pokemon.Count)
+                                if (Pokemon.Count <= PlayerData.MaxPokemonStorage)
                                 {
                                     //Catch nearby pokemon
                                     MethodResult nearbyPokemonResponse = await CatchNeabyPokemon();
