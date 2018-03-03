@@ -126,6 +126,7 @@ namespace PokemonGoGUI
         public bool TransferAtOnce { get; set; }
         public bool ShowDebugLogs { get; set; }
         public bool DownloadResources { get; set; }
+        public bool RequestFortDetails { get; set; }
 
         public AccountState StopAtMinAccountState { get; set; }
 
@@ -219,6 +220,7 @@ namespace PokemonGoGUI
             AutoFavoritShiny = true;
             SnipeAllPokemonsNoInPokedex = true;
             EncounterWhileWalking = true;
+            RequestFortDetails = true;
         }
 
         public void LoadCatchSettings()

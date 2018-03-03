@@ -620,6 +620,10 @@ namespace PokemonGoGUI.GoManager
                                 CatchDisabled = true;
                                 TimeAutoCatch = DateTime.Now.AddMinutes(UserSettings.DisableCatchDelay);
                             }
+
+                            //if too balls ignore stops..
+                            if (remainingBalls >= 80)
+                                continue;
                         }
 
                         //Stop bot instantly
@@ -758,11 +762,14 @@ namespace PokemonGoGUI.GoManager
                                         await Task.Delay(CalculateDelay(UserSettings.GeneralDelay, UserSettings.GeneralDelayRandom));
                                     }
 
-                                    var fortDetails = await FortDetails(pokestop);
-                                    if (fortDetails.Success)
-                                        LogCaller(new LoggerEventArgs("Fort Name: " + fortDetails.Data.Name, LoggerTypes.Info));
-                                    else
-                                        continue;
+                                    if (UserSettings.RequestFortDetails)
+                                    {
+                                        var fortDetails = await FortDetails(pokestop);
+                                        if (fortDetails.Success)
+                                            LogCaller(new LoggerEventArgs("Fort Name: " + fortDetails.Data.Name, LoggerTypes.Info));
+                                        else
+                                            continue;
+                                    }
 
                                     MethodResult searchResult = await SearchPokestop(pokestop);
 
@@ -871,8 +878,7 @@ namespace PokemonGoGUI.GoManager
                         if (UserSettings.MaxLevel > 0 && Level >= UserSettings.MaxLevel)
                         {
                             LogCaller(new LoggerEventArgs(String.Format("Max level of {0} reached.", UserSettings.MaxLevel), LoggerTypes.Info));
-
-                            break;
+                            Stop();
                         }
 
                         if (_totalZeroExpStops > 25)

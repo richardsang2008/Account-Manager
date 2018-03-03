@@ -51,6 +51,7 @@
             this.cbTeam = new System.Windows.Forms.ComboBox();
             this.checkBoxCompleteTutorial = new System.Windows.Forms.CheckBox();
             this.groupBoxPlayerActions = new System.Windows.Forms.GroupBox();
+            this.checkBoxSniperNoInPokedex = new System.Windows.Forms.CheckBox();
             this.checkBoxAutoFavShiny = new System.Windows.Forms.CheckBox();
             this.checkBoxUpgradePokemons = new System.Windows.Forms.CheckBox();
             this.cbUseIncense = new System.Windows.Forms.CheckBox();
@@ -262,7 +263,7 @@
             this.toolTipProxy = new System.Windows.Forms.ToolTip(this.components);
             this.toolTipMinAccountState = new System.Windows.Forms.ToolTip(this.components);
             this.toolTipHumanizeThrows = new System.Windows.Forms.ToolTip(this.components);
-            this.checkBoxSniperNoInPokedex = new System.Windows.Forms.CheckBox();
+            this.checkBoxReqFortDetails = new System.Windows.Forms.CheckBox();
             this.tabControlMain.SuspendLayout();
             this.tabPageDetails.SuspendLayout();
             this.tabControlSettings.SuspendLayout();
@@ -469,6 +470,7 @@
             // 
             // tabPageActions
             // 
+            this.tabPageActions.Controls.Add(this.checkBoxReqFortDetails);
             this.tabPageActions.Controls.Add(this.numericUpDownStopsDayLimit);
             this.tabPageActions.Controls.Add(this.label52);
             this.tabPageActions.Controls.Add(this.numericUpDownPokemonsDayLimit);
@@ -578,7 +580,7 @@
             // checkBoxCompleteTutorial
             // 
             this.checkBoxCompleteTutorial.AutoSize = true;
-            this.checkBoxCompleteTutorial.Location = new System.Drawing.Point(368, 364);
+            this.checkBoxCompleteTutorial.Location = new System.Drawing.Point(336, 357);
             this.checkBoxCompleteTutorial.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.checkBoxCompleteTutorial.Name = "checkBoxCompleteTutorial";
             this.checkBoxCompleteTutorial.Size = new System.Drawing.Size(141, 21);
@@ -620,6 +622,16 @@
             this.groupBoxPlayerActions.TabIndex = 73;
             this.groupBoxPlayerActions.TabStop = false;
             this.groupBoxPlayerActions.Text = "Player Actions";
+            // 
+            // checkBoxSniperNoInPokedex
+            // 
+            this.checkBoxSniperNoInPokedex.AutoSize = true;
+            this.checkBoxSniperNoInPokedex.Location = new System.Drawing.Point(15, 383);
+            this.checkBoxSniperNoInPokedex.Name = "checkBoxSniperNoInPokedex";
+            this.checkBoxSniperNoInPokedex.Size = new System.Drawing.Size(245, 21);
+            this.checkBoxSniperNoInPokedex.TabIndex = 82;
+            this.checkBoxSniperNoInPokedex.Text = "Snipe all pokemons no in pokedex";
+            this.checkBoxSniperNoInPokedex.UseVisualStyleBackColor = true;
             // 
             // checkBoxAutoFavShiny
             // 
@@ -870,7 +882,7 @@
             // cbAutoUpdate
             // 
             this.cbAutoUpdate.AutoSize = true;
-            this.cbAutoUpdate.Location = new System.Drawing.Point(368, 394);
+            this.cbAutoUpdate.Location = new System.Drawing.Point(336, 382);
             this.cbAutoUpdate.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.cbAutoUpdate.Name = "cbAutoUpdate";
             this.cbAutoUpdate.Size = new System.Drawing.Size(109, 21);
@@ -1021,7 +1033,7 @@
             // checkBoxClaimLevelUp
             // 
             this.checkBoxClaimLevelUp.AutoSize = true;
-            this.checkBoxClaimLevelUp.Location = new System.Drawing.Point(368, 338);
+            this.checkBoxClaimLevelUp.Location = new System.Drawing.Point(336, 332);
             this.checkBoxClaimLevelUp.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.checkBoxClaimLevelUp.Name = "checkBoxClaimLevelUp";
             this.checkBoxClaimLevelUp.Size = new System.Drawing.Size(124, 21);
@@ -2853,15 +2865,15 @@
             this.olvColumnPinap.Text = "Use Pinap";
             this.olvColumnPinap.Width = 70;
             // 
-            // checkBoxSniperNoInPokedex
+            // checkBoxReqFortDetails
             // 
-            this.checkBoxSniperNoInPokedex.AutoSize = true;
-            this.checkBoxSniperNoInPokedex.Location = new System.Drawing.Point(15, 383);
-            this.checkBoxSniperNoInPokedex.Name = "checkBoxSniperNoInPokedex";
-            this.checkBoxSniperNoInPokedex.Size = new System.Drawing.Size(245, 21);
-            this.checkBoxSniperNoInPokedex.TabIndex = 82;
-            this.checkBoxSniperNoInPokedex.Text = "Snipe all pokemons no in pokedex";
-            this.checkBoxSniperNoInPokedex.UseVisualStyleBackColor = true;
+            this.checkBoxReqFortDetails.AutoSize = true;
+            this.checkBoxReqFortDetails.Location = new System.Drawing.Point(336, 408);
+            this.checkBoxReqFortDetails.Name = "checkBoxReqFortDetails";
+            this.checkBoxReqFortDetails.Size = new System.Drawing.Size(155, 21);
+            this.checkBoxReqFortDetails.TabIndex = 82;
+            this.checkBoxReqFortDetails.Text = "Request fort Details";
+            this.checkBoxReqFortDetails.UseVisualStyleBackColor = true;
             // 
             // AccountSettingsForm
             // 
@@ -3174,5 +3186,6 @@
         private System.Windows.Forms.NumericUpDown numericUpDownStopsDayLimit;
         private System.Windows.Forms.Label label52;
         private System.Windows.Forms.CheckBox checkBoxSniperNoInPokedex;
+        private System.Windows.Forms.CheckBox checkBoxReqFortDetails;
     }
 }

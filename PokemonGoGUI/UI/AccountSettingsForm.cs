@@ -162,6 +162,7 @@ namespace PokemonGoGUI.UI
             }
 
             cbUseIncense.Checked = settings.UseIncense;
+            checkBoxReqFortDetails.Checked = settings.RequestFortDetails;
 
             //Humanization
             checkBoxHumanizeThrows.Checked = settings.EnableHumanization;
@@ -396,6 +397,7 @@ namespace PokemonGoGUI.UI
             userSettings.MaxFailBeforeReset = (int)numericUpDownMaxFailBeforeReset.Value;
             userSettings.AutoRotateProxies = checkBoxAutoRotateProxies.Checked;
             userSettings.AutoRemoveOnStop = checkBoxRemoveOnStop.Checked;
+            userSettings.RequestFortDetails = checkBoxReqFortDetails.Checked;
 
             //Humanization
             userSettings.EnableHumanization = checkBoxHumanizeThrows.Checked;
