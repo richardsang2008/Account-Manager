@@ -899,7 +899,7 @@ namespace PokemonGoGUI.GoManager
                         if (Tracker.PokemonCaught >= UserSettings.CatchPokemonDayLimit && Tracker.PokestopsFarmed >= UserSettings.SpinPokestopsDayLimit)
                         {
                             LogCaller(new LoggerEventArgs("Daily limits reached. Stoping ...", LoggerTypes.Warning));
-                            break;
+                            Stop();
                         }
                     }
                 }
