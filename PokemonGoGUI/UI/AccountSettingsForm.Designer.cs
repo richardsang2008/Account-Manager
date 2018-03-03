@@ -633,7 +633,7 @@
             // checkBoxSniperNoInPokedex
             // 
             this.checkBoxSniperNoInPokedex.AutoSize = true;
-            this.checkBoxSniperNoInPokedex.Location = new System.Drawing.Point(7, 398);
+            this.checkBoxSniperNoInPokedex.Location = new System.Drawing.Point(5, 397);
             this.checkBoxSniperNoInPokedex.Name = "checkBoxSniperNoInPokedex";
             this.checkBoxSniperNoInPokedex.Size = new System.Drawing.Size(245, 21);
             this.checkBoxSniperNoInPokedex.TabIndex = 82;
@@ -673,7 +673,7 @@
             // numericUpDownDisableCatchDelay
             // 
             this.numericUpDownDisableCatchDelay.DecimalPlaces = 2;
-            this.numericUpDownDisableCatchDelay.Location = new System.Drawing.Point(200, 262);
+            this.numericUpDownDisableCatchDelay.Location = new System.Drawing.Point(199, 260);
             this.numericUpDownDisableCatchDelay.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.numericUpDownDisableCatchDelay.Maximum = new decimal(new int[] {
             60,
@@ -687,7 +687,7 @@
             // label16
             // 
             this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(259, 263);
+            this.label16.Location = new System.Drawing.Point(263, 262);
             this.label16.Name = "label16";
             this.label16.Size = new System.Drawing.Size(57, 17);
             this.label16.TabIndex = 75;
@@ -696,7 +696,7 @@
             // label14
             // 
             this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(7, 263);
+            this.label14.Location = new System.Drawing.Point(2, 262);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(196, 17);
             this.label14.TabIndex = 75;
@@ -749,7 +749,7 @@
             // numericUpDownForceEvolveAbove
             // 
             this.numericUpDownForceEvolveAbove.DecimalPlaces = 2;
-            this.numericUpDownForceEvolveAbove.Location = new System.Drawing.Point(209, 312);
+            this.numericUpDownForceEvolveAbove.Location = new System.Drawing.Point(209, 313);
             this.numericUpDownForceEvolveAbove.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.numericUpDownForceEvolveAbove.Maximum = new decimal(new int[] {
             1000000,
@@ -773,12 +773,11 @@
             // 
             // label49
             // 
-            this.label49.Location = new System.Drawing.Point(2, 314);
+            this.label49.Location = new System.Drawing.Point(2, 316);
             this.label49.Name = "label49";
             this.label49.Size = new System.Drawing.Size(201, 16);
             this.label49.TabIndex = 68;
             this.label49.Text = "Force evolve Pokemon above";
-            this.label49.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // checkBoxOnlyUnlimitedIncubator
             // 
@@ -804,12 +803,11 @@
             // 
             // label9
             // 
-            this.label9.Location = new System.Drawing.Point(-33, 287);
+            this.label9.Location = new System.Drawing.Point(2, 289);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(203, 16);
+            this.label9.Size = new System.Drawing.Size(181, 16);
             this.label9.TabIndex = 66;
             this.label9.Text = "Pokemon Before Evolve:";
-            this.label9.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // checkBoxTransferSlashPokemons
             // 
@@ -871,7 +869,7 @@
             // 
             // textBoxPokemonBeforeEvolve
             // 
-            this.textBoxPokemonBeforeEvolve.Location = new System.Drawing.Point(209, 286);
+            this.textBoxPokemonBeforeEvolve.Location = new System.Drawing.Point(199, 286);
             this.textBoxPokemonBeforeEvolve.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.textBoxPokemonBeforeEvolve.Name = "textBoxPokemonBeforeEvolve";
             this.textBoxPokemonBeforeEvolve.Size = new System.Drawing.Size(77, 22);
@@ -879,12 +877,11 @@
             // 
             // label46
             // 
-            this.label46.Location = new System.Drawing.Point(-1, 337);
+            this.label46.Location = new System.Drawing.Point(2, 342);
             this.label46.Name = "label46";
             this.label46.Size = new System.Drawing.Size(211, 23);
             this.label46.TabIndex = 63;
             this.label46.Text = "Search Pokestops when below ";
-            this.label46.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // cbAutoUpdate
             // 
@@ -2893,7 +2890,7 @@
             // 
             // numericUpDownTooBalls
             // 
-            this.numericUpDownTooBalls.Location = new System.Drawing.Point(200, 367);
+            this.numericUpDownTooBalls.Location = new System.Drawing.Point(197, 366);
             this.numericUpDownTooBalls.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.numericUpDownTooBalls.Maximum = new decimal(new int[] {
             1000000,
@@ -2907,7 +2904,7 @@
             // checkBoxTooBalls
             // 
             this.checkBoxTooBalls.AutoSize = true;
-            this.checkBoxTooBalls.Location = new System.Drawing.Point(7, 368);
+            this.checkBoxTooBalls.Location = new System.Drawing.Point(5, 367);
             this.checkBoxTooBalls.Name = "checkBoxTooBalls";
             this.checkBoxTooBalls.Size = new System.Drawing.Size(186, 21);
             this.checkBoxTooBalls.TabIndex = 83;
