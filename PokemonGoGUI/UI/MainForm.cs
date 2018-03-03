@@ -103,7 +103,7 @@ namespace PokemonGoGUI
             foreach (Manager manager in managers)
             {
                 var checkWindow = new ConsoleHelper();
-                var window = checkWindow.FindWindowByCaption(manager.UserSettings.Username);
+                var window = checkWindow.FindWindowByCaption(manager.AccountName);
 
                 if (window == IntPtr.Zero)
                 {

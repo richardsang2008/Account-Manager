@@ -264,6 +264,9 @@
             this.toolTipMinAccountState = new System.Windows.Forms.ToolTip(this.components);
             this.toolTipHumanizeThrows = new System.Windows.Forms.ToolTip(this.components);
             this.checkBoxReqFortDetails = new System.Windows.Forms.CheckBox();
+            this.label54 = new System.Windows.Forms.Label();
+            this.numericUpDownTooBalls = new System.Windows.Forms.NumericUpDown();
+            this.checkBoxTooBalls = new System.Windows.Forms.CheckBox();
             this.tabControlMain.SuspendLayout();
             this.tabPageDetails.SuspendLayout();
             this.tabControlSettings.SuspendLayout();
@@ -311,6 +314,7 @@
             this.tabPageUpgrade.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.fastObjectListViewUpgrade)).BeginInit();
             this.contextMenuStripUpgrade.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownTooBalls)).BeginInit();
             this.SuspendLayout();
             // 
             // tabControlMain
@@ -590,6 +594,9 @@
             // 
             // groupBoxPlayerActions
             // 
+            this.groupBoxPlayerActions.Controls.Add(this.checkBoxTooBalls);
+            this.groupBoxPlayerActions.Controls.Add(this.numericUpDownTooBalls);
+            this.groupBoxPlayerActions.Controls.Add(this.label54);
             this.groupBoxPlayerActions.Controls.Add(this.checkBoxSniperNoInPokedex);
             this.groupBoxPlayerActions.Controls.Add(this.checkBoxAutoFavShiny);
             this.groupBoxPlayerActions.Controls.Add(this.checkBoxUpgradePokemons);
@@ -626,7 +633,7 @@
             // checkBoxSniperNoInPokedex
             // 
             this.checkBoxSniperNoInPokedex.AutoSize = true;
-            this.checkBoxSniperNoInPokedex.Location = new System.Drawing.Point(15, 383);
+            this.checkBoxSniperNoInPokedex.Location = new System.Drawing.Point(7, 398);
             this.checkBoxSniperNoInPokedex.Name = "checkBoxSniperNoInPokedex";
             this.checkBoxSniperNoInPokedex.Size = new System.Drawing.Size(245, 21);
             this.checkBoxSniperNoInPokedex.TabIndex = 82;
@@ -742,7 +749,7 @@
             // numericUpDownForceEvolveAbove
             // 
             this.numericUpDownForceEvolveAbove.DecimalPlaces = 2;
-            this.numericUpDownForceEvolveAbove.Location = new System.Drawing.Point(223, 324);
+            this.numericUpDownForceEvolveAbove.Location = new System.Drawing.Point(209, 312);
             this.numericUpDownForceEvolveAbove.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.numericUpDownForceEvolveAbove.Maximum = new decimal(new int[] {
             1000000,
@@ -766,7 +773,7 @@
             // 
             // label49
             // 
-            this.label49.Location = new System.Drawing.Point(16, 326);
+            this.label49.Location = new System.Drawing.Point(2, 314);
             this.label49.Name = "label49";
             this.label49.Size = new System.Drawing.Size(201, 16);
             this.label49.TabIndex = 68;
@@ -797,7 +804,7 @@
             // 
             // label9
             // 
-            this.label9.Location = new System.Drawing.Point(15, 297);
+            this.label9.Location = new System.Drawing.Point(-33, 287);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(203, 16);
             this.label9.TabIndex = 66;
@@ -818,7 +825,7 @@
             // numericUpDownSearchFortBelow
             // 
             this.numericUpDownSearchFortBelow.DecimalPlaces = 2;
-            this.numericUpDownSearchFortBelow.Location = new System.Drawing.Point(223, 354);
+            this.numericUpDownSearchFortBelow.Location = new System.Drawing.Point(209, 338);
             this.numericUpDownSearchFortBelow.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.numericUpDownSearchFortBelow.Maximum = new decimal(new int[] {
             1000000,
@@ -864,7 +871,7 @@
             // 
             // textBoxPokemonBeforeEvolve
             // 
-            this.textBoxPokemonBeforeEvolve.Location = new System.Drawing.Point(223, 294);
+            this.textBoxPokemonBeforeEvolve.Location = new System.Drawing.Point(209, 286);
             this.textBoxPokemonBeforeEvolve.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.textBoxPokemonBeforeEvolve.Name = "textBoxPokemonBeforeEvolve";
             this.textBoxPokemonBeforeEvolve.Size = new System.Drawing.Size(77, 22);
@@ -872,7 +879,7 @@
             // 
             // label46
             // 
-            this.label46.Location = new System.Drawing.Point(7, 353);
+            this.label46.Location = new System.Drawing.Point(-1, 337);
             this.label46.Name = "label46";
             this.label46.Size = new System.Drawing.Size(211, 23);
             this.label46.TabIndex = 63;
@@ -2875,6 +2882,38 @@
             this.checkBoxReqFortDetails.Text = "Request fort Details";
             this.checkBoxReqFortDetails.UseVisualStyleBackColor = true;
             // 
+            // label54
+            // 
+            this.label54.AutoSize = true;
+            this.label54.Location = new System.Drawing.Point(274, 369);
+            this.label54.Name = "label54";
+            this.label54.Size = new System.Drawing.Size(37, 17);
+            this.label54.TabIndex = 83;
+            this.label54.Text = "balls";
+            // 
+            // numericUpDownTooBalls
+            // 
+            this.numericUpDownTooBalls.Location = new System.Drawing.Point(200, 367);
+            this.numericUpDownTooBalls.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.numericUpDownTooBalls.Maximum = new decimal(new int[] {
+            1000000,
+            0,
+            0,
+            0});
+            this.numericUpDownTooBalls.Name = "numericUpDownTooBalls";
+            this.numericUpDownTooBalls.Size = new System.Drawing.Size(70, 22);
+            this.numericUpDownTooBalls.TabIndex = 84;
+            // 
+            // checkBoxTooBalls
+            // 
+            this.checkBoxTooBalls.AutoSize = true;
+            this.checkBoxTooBalls.Location = new System.Drawing.Point(7, 368);
+            this.checkBoxTooBalls.Name = "checkBoxTooBalls";
+            this.checkBoxTooBalls.Size = new System.Drawing.Size(186, 21);
+            this.checkBoxTooBalls.TabIndex = 83;
+            this.checkBoxTooBalls.Text = "Ignore Pokestops if have";
+            this.checkBoxTooBalls.UseVisualStyleBackColor = true;
+            // 
             // AccountSettingsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -2946,6 +2985,7 @@
             this.tabPageUpgrade.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.fastObjectListViewUpgrade)).EndInit();
             this.contextMenuStripUpgrade.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownTooBalls)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -3187,5 +3227,8 @@
         private System.Windows.Forms.Label label52;
         private System.Windows.Forms.CheckBox checkBoxSniperNoInPokedex;
         private System.Windows.Forms.CheckBox checkBoxReqFortDetails;
+        private System.Windows.Forms.Label label54;
+        private System.Windows.Forms.CheckBox checkBoxTooBalls;
+        private System.Windows.Forms.NumericUpDown numericUpDownTooBalls;
     }
 }

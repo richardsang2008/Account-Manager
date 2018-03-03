@@ -622,7 +622,7 @@ namespace PokemonGoGUI.GoManager
                             }
 
                             //if too balls ignore stops..
-                            if (remainingBalls >= 80)
+                            if (remainingBalls >= UserSettings.BallsToIgnoreStops && UserSettings.IgnoreStopsIfTooBalls)
                                 continue;
                         }
 
