@@ -818,21 +818,21 @@ namespace PokemonGoGUI.GoManager
 
                             await Task.Delay(CalculateDelay(UserSettings.GeneralDelay, UserSettings.GeneralDelayRandom));
 
-                            if (UserSettings.TransferPokemon)
-                            {
-                                MethodResult transferResult = await TransferFilteredPokemon();
-
-                                if (transferResult.Success)
-                                {
-                                    await Task.Delay(CalculateDelay(UserSettings.GeneralDelay, UserSettings.GeneralDelayRandom));
-                                }
-                            }
-
                             if (UserSettings.EvolvePokemon)
                             {
                                 MethodResult evolveResult = await EvolveFilteredPokemon();
 
                                 if (evolveResult.Success)
+                                {
+                                    await Task.Delay(CalculateDelay(UserSettings.GeneralDelay, UserSettings.GeneralDelayRandom));
+                                }
+                            }
+
+                            if (UserSettings.TransferPokemon)
+                            {
+                                MethodResult transferResult = await TransferFilteredPokemon();
+
+                                if (transferResult.Success)
                                 {
                                     await Task.Delay(CalculateDelay(UserSettings.GeneralDelay, UserSettings.GeneralDelayRandom));
                                 }
