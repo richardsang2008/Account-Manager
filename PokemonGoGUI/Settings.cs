@@ -126,6 +126,9 @@ namespace PokemonGoGUI
         public bool TransferAtOnce { get; set; }
         public bool ShowDebugLogs { get; set; }
         public bool DownloadResources { get; set; }
+        public bool RequestFortDetails { get; set; }
+        public int BallsToIgnoreStops { get; set; }
+        public bool IgnoreStopsIfTooBalls { get; set; }
 
         public AccountState StopAtMinAccountState { get; set; }
 
@@ -219,6 +222,9 @@ namespace PokemonGoGUI
             AutoFavoritShiny = true;
             SnipeAllPokemonsNoInPokedex = true;
             EncounterWhileWalking = true;
+            RequestFortDetails = true;
+            BallsToIgnoreStops = 80;
+            IgnoreStopsIfTooBalls = false;
         }
 
         public void LoadCatchSettings()

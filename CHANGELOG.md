@@ -1,5 +1,29 @@
 # Change Log
 
+## [Unreleased](https://github.com/Furtif/Account-Manager/tree/HEAD)
+
+[Full Changelog](https://github.com/Furtif/Account-Manager/compare/v2.22.0.23...HEAD)
+
+**Closed issues:**
+
+- Unknown exception occured [\#65](https://github.com/Furtif/Account-Manager/issues/65)
+
+## [v2.22.0.23](https://github.com/Furtif/Account-Manager/tree/v2.22.0.23) (2018-03-03)
+
+[Full Changelog](https://github.com/Furtif/Account-Manager/compare/v2.22.0.22...v2.22.0.23)
+
+## [v2.22.0.22](https://github.com/Furtif/Account-Manager/tree/v2.22.0.22) (2018-03-01)
+
+[Full Changelog](https://github.com/Furtif/Account-Manager/compare/v2.22.0.21...v2.22.0.22)
+
+## [v2.22.0.21](https://github.com/Furtif/Account-Manager/tree/v2.22.0.21) (2018-03-01)
+
+[Full Changelog](https://github.com/Furtif/Account-Manager/compare/v2.22.0.20...v2.22.0.21)
+
+**Merged pull requests:**
+
+- Fixed the bug that manages without an Alias are not able to open the Details-Form [\#64](https://github.com/Furtif/Account-Manager/pull/64) ([Arkanin](https://github.com/Arkanin))
+
 ## [v2.22.0.20](https://github.com/Furtif/Account-Manager/tree/v2.22.0.20) (2018-02-21)
 
 [Full Changelog](https://github.com/Furtif/Account-Manager/compare/v2.22.0.19...v2.22.0.20)

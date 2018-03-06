@@ -22,7 +22,7 @@ namespace PokemonGoGUI.GoManager
     {
         List<ulong> LastedEncountersIds = new List<ulong>();
 
-        public async Task<MethodResult> CatchInsencePokemon()
+        private async Task<MethodResult> CatchInsencePokemon()
         {
             if (!UserSettings.CatchPokemon)
             {
@@ -96,7 +96,7 @@ namespace PokemonGoGUI.GoManager
             };
         }
 
-        public async Task<MethodResult> CatchNeabyPokemon()
+        private async Task<MethodResult> CatchNeabyPokemon()
         {
             if (!UserSettings.CatchPokemon)
             {
@@ -139,9 +139,6 @@ namespace PokemonGoGUI.GoManager
                 {
                     continue;
                 }
-
-                if (LastedEncountersIds.Contains(pokemon.EncounterId))
-                    continue;
 
                 MethodResult<EncounterResponse> result = await EncounterPokemon(pokemon);
 
@@ -495,6 +492,9 @@ namespace PokemonGoGUI.GoManager
                 return new MethodResult<EncounterResponse>();
 
             if (AlreadySnipped || mapPokemon.EncounterId == _lastPokeSniperId)
+                return new MethodResult<EncounterResponse>();
+
+            if (LastedEncountersIds.Contains(mapPokemon.EncounterId))
                 return new MethodResult<EncounterResponse>();
 
             if (!CatchDisabled)

@@ -16,11 +16,19 @@ namespace PokemonGoGUI.GoManager
     {
         private async Task<MethodResult> MarkStartUpTutorialsComplete(bool forceAvatarUpdate)
         {
-            MethodResult reauthResult = await CheckReauthentication();
-
-            if (!reauthResult.Success)
+            if (!_client.LoggedIn)
             {
-                return reauthResult;
+                MethodResult result = await AcLogin();
+
+                if (!result.Success)
+                {
+                    return result;
+                }
+            }
+
+            if (_client.ClientSession.AccessToken.IsExpired)
+            {
+                Restart();
             }
 
             bool success = true;
@@ -96,7 +104,7 @@ namespace PokemonGoGUI.GoManager
             }
             if (!completedTutorials.Contains(TutorialState.NameSelection))
             {
-                await ClaimCodename(UserSettings.Username);
+                await ClaimCodename(_client.ClientSession.Player.Data.Username); //Maybe make this auto different ex: var = xxx result = XXx 
                 await Task.Delay(CalculateDelay(UserSettings.GeneralDelay, UserSettings.GeneralDelayRandom));
                 await GetPlayer(false);
                 await Task.Delay(CalculateDelay(UserSettings.GeneralDelay, UserSettings.GeneralDelayRandom));

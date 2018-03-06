@@ -336,6 +336,11 @@ namespace PokemonGoGUI.UI
                 {
                     e.SubItem.ForeColor = Color.Blue;
                 }
+                else if (!String.IsNullOrEmpty(pokemonData.DeployedFortId))
+                {
+                    //deployed
+                    e.SubItem.ForeColor = Color.LightGreen;
+                }
             }
             else if (e.Column == olvColumnPokemonCandy)
             {

@@ -23,10 +23,17 @@ namespace PokemonGoGUI.GoManager
 
             //         Where(PokemonWithinCatchSettings) <-- Unneeded, will be filtered after.
             List<MapPokemon> newCatchablePokemons = _client.ClientSession.Map.Cells.SelectMany(x => x.CatchablePokemons).ToList();
+            List<MapPokemon> realList = new List<MapPokemon>();
+
+            foreach (var pok in newCatchablePokemons)
+            {
+                if (IsValidLocation(pok.Latitude, pok.Longitude))
+                    realList.Add(pok);
+            }
 
             return new MethodResult<List<MapPokemon>>
             {
-                Data = newCatchablePokemons,
+                Data = realList,
                 Success = true,
                 Message = "Success"
             };
@@ -36,13 +43,15 @@ namespace PokemonGoGUI.GoManager
         {
             if (_client.ClientSession.Map.Cells.Count == 0 || _client.ClientSession.Map == null)
             {
-               throw new OperationCanceledException("Not cells.");
+                throw new OperationCanceledException("Not cells.");
             }
 
             var forts = _client.ClientSession.Map.Cells.SelectMany(p => p.Forts);//.GetFortsSortedByDistance();
 
-            if (!forts.Any()) {
-                return new MethodResult<List<FortData>> {
+            if (!forts.Any())
+            {
+                return new MethodResult<List<FortData>>
+                {
                     Message = "No pokestop data found. Potential temp IP ban or bad location",
                 };
             }
@@ -51,6 +60,11 @@ namespace PokemonGoGUI.GoManager
 
             foreach (FortData fort in forts)
             {
+                if (!IsValidLocation(fort.Latitude, fort.Longitude))
+                {
+                    continue;
+                }
+
                 if (fort.CooldownCompleteTimestampMs >= DateTime.UtcNow.ToUnixTime())
                 {
                     continue;
@@ -77,10 +91,13 @@ namespace PokemonGoGUI.GoManager
                 };
             }
 
-            if (UserSettings.ShufflePokestops) {
+            if (UserSettings.ShufflePokestops)
+            {
                 var rnd = new Random();
                 fortData = fortData.OrderBy(x => rnd.Next()).ToList();
-            } else {
+            }
+            else
+            {
                 fortData = fortData.OrderBy(x => CalculateDistanceInMeters(_client.ClientSession.Player.Latitude, _client.ClientSession.Player.Longitude, x.Latitude, x.Longitude)).ToList();
             }
 

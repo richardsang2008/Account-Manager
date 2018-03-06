@@ -45,7 +45,7 @@ namespace PokemonGoGUI
 
         public Client()
         {
-            VersionStr = new Version("0.91.1");
+            VersionStr = new Version("0.91.2");
             AppVersion = 9100;
             RessourcesFolder = $"data/{VersionStr.ToString()}/";
         }
@@ -502,6 +502,8 @@ namespace PokemonGoGUI
             {
                 ClientManager.LogCaller(new LoggerEventArgs("Unpausing bot Challenge finished...", LoggerTypes.Captcha));
                 ClientManager.AccountState = accountState;
+                ClientManager.Restart();
+
                 return;
             }
 
