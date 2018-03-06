@@ -586,7 +586,7 @@ namespace PokemonGoGUI.GoManager
 
                             if (remainingBalls > 0)
                             {
-                                if (PlayerData.MaxPokemonStorage > Pokemon.Count)
+                                if (Pokemon.Count <= PlayerData.MaxPokemonStorage)
                                 {
                                     //Catch nearby pokemon
                                     MethodResult nearbyPokemonResponse = await CatchNeabyPokemon();
@@ -620,6 +620,10 @@ namespace PokemonGoGUI.GoManager
                                 CatchDisabled = true;
                                 TimeAutoCatch = DateTime.Now.AddMinutes(UserSettings.DisableCatchDelay);
                             }
+
+                            //if too balls ignore stops..
+                            if (remainingBalls >= UserSettings.BallsToIgnoreStops && UserSettings.IgnoreStopsIfTooBalls)
+                                continue;
                         }
 
                         //Stop bot instantly
@@ -758,11 +762,14 @@ namespace PokemonGoGUI.GoManager
                                         await Task.Delay(CalculateDelay(UserSettings.GeneralDelay, UserSettings.GeneralDelayRandom));
                                     }
 
-                                    var fortDetails = await FortDetails(pokestop);
-                                    if (fortDetails.Success)
-                                        LogCaller(new LoggerEventArgs("Fort Name: " + fortDetails.Data.Name, LoggerTypes.Info));
-                                    else
-                                        continue;
+                                    if (UserSettings.RequestFortDetails)
+                                    {
+                                        var fortDetails = await FortDetails(pokestop);
+                                        if (fortDetails.Success)
+                                            LogCaller(new LoggerEventArgs("Fort Name: " + fortDetails.Data.Name, LoggerTypes.Info));
+                                        else
+                                            continue;
+                                    }
 
                                     MethodResult searchResult = await SearchPokestop(pokestop);
 
@@ -811,21 +818,21 @@ namespace PokemonGoGUI.GoManager
 
                             await Task.Delay(CalculateDelay(UserSettings.GeneralDelay, UserSettings.GeneralDelayRandom));
 
-                            if (UserSettings.TransferPokemon)
-                            {
-                                MethodResult transferResult = await TransferFilteredPokemon();
-
-                                if (transferResult.Success)
-                                {
-                                    await Task.Delay(CalculateDelay(UserSettings.GeneralDelay, UserSettings.GeneralDelayRandom));
-                                }
-                            }
-
                             if (UserSettings.EvolvePokemon)
                             {
                                 MethodResult evolveResult = await EvolveFilteredPokemon();
 
                                 if (evolveResult.Success)
+                                {
+                                    await Task.Delay(CalculateDelay(UserSettings.GeneralDelay, UserSettings.GeneralDelayRandom));
+                                }
+                            }
+
+                            if (UserSettings.TransferPokemon)
+                            {
+                                MethodResult transferResult = await TransferFilteredPokemon();
+
+                                if (transferResult.Success)
                                 {
                                     await Task.Delay(CalculateDelay(UserSettings.GeneralDelay, UserSettings.GeneralDelayRandom));
                                 }
@@ -871,8 +878,7 @@ namespace PokemonGoGUI.GoManager
                         if (UserSettings.MaxLevel > 0 && Level >= UserSettings.MaxLevel)
                         {
                             LogCaller(new LoggerEventArgs(String.Format("Max level of {0} reached.", UserSettings.MaxLevel), LoggerTypes.Info));
-
-                            break;
+                            Stop();
                         }
 
                         if (_totalZeroExpStops > 25)
@@ -893,7 +899,7 @@ namespace PokemonGoGUI.GoManager
                         if (Tracker.PokemonCaught >= UserSettings.CatchPokemonDayLimit && Tracker.PokestopsFarmed >= UserSettings.SpinPokestopsDayLimit)
                         {
                             LogCaller(new LoggerEventArgs("Daily limits reached. Stoping ...", LoggerTypes.Warning));
-                            break;
+                            Stop();
                         }
                     }
                 }

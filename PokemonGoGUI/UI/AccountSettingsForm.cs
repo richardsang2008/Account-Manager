@@ -162,6 +162,7 @@ namespace PokemonGoGUI.UI
             }
 
             cbUseIncense.Checked = settings.UseIncense;
+            checkBoxReqFortDetails.Checked = settings.RequestFortDetails;
 
             //Humanization
             checkBoxHumanizeThrows.Checked = settings.EnableHumanization;
@@ -230,6 +231,8 @@ namespace PokemonGoGUI.UI
             TwoCaptchaAPIKey.Text = settings.TwoCaptchaAPIKey;
             checkBoxAutoFavShiny.Checked = settings.AutoFavoritShiny;
             checkBoxSniperNoInPokedex.Checked = settings.SnipeAllPokemonsNoInPokedex;
+            checkBoxTooBalls.Checked = settings.IgnoreStopsIfTooBalls;
+            numericUpDownTooBalls.Value = new Decimal(settings.BallsToIgnoreStops);
 
             //Location time zones
             var zones = new TimeZoneIds().GetTimeZoneIds();
@@ -396,6 +399,9 @@ namespace PokemonGoGUI.UI
             userSettings.MaxFailBeforeReset = (int)numericUpDownMaxFailBeforeReset.Value;
             userSettings.AutoRotateProxies = checkBoxAutoRotateProxies.Checked;
             userSettings.AutoRemoveOnStop = checkBoxRemoveOnStop.Checked;
+            userSettings.RequestFortDetails = checkBoxReqFortDetails.Checked;
+            userSettings.IgnoreStopsIfTooBalls = checkBoxTooBalls.Checked;
+            userSettings.BallsToIgnoreStops = (int)numericUpDownTooBalls.Value;
 
             //Humanization
             userSettings.EnableHumanization = checkBoxHumanizeThrows.Checked;

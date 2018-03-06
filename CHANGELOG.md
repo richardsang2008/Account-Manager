@@ -1,5 +1,17 @@
 # Change Log
 
+## [Unreleased](https://github.com/Furtif/Account-Manager/tree/HEAD)
+
+[Full Changelog](https://github.com/Furtif/Account-Manager/compare/v2.22.0.23...HEAD)
+
+**Closed issues:**
+
+- Unknown exception occured [\#65](https://github.com/Furtif/Account-Manager/issues/65)
+
+## [v2.22.0.23](https://github.com/Furtif/Account-Manager/tree/v2.22.0.23) (2018-03-03)
+
+[Full Changelog](https://github.com/Furtif/Account-Manager/compare/v2.22.0.22...v2.22.0.23)
+
 ## [v2.22.0.22](https://github.com/Furtif/Account-Manager/tree/v2.22.0.22) (2018-03-01)
 
 [Full Changelog](https://github.com/Furtif/Account-Manager/compare/v2.22.0.21...v2.22.0.22)
