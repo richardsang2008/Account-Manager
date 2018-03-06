@@ -3,7 +3,7 @@
 <!-- define variables -->
 [1.1]: http://i.imgur.com/M4fJ65n.png (ATTENTION)
 
-[![Build status](https://ci.appveyor.com/api/projects/status/i64ho01yxm89xc77/branch/master?svg=true)](https://ci.appveyor.com/project/RocketBot/account-manager/branch/master) [![Github All Releases](https://img.shields.io/github/downloads/Furtif/Account-Manager/total.svg?maxAge=250)](https://github.com/Furtif/Account-Manager/releases) 
+[![Build status](https://ci.appveyor.com/api/projects/status/ty7qju9owadajway/branch/master?svg=true)](https://ci.appveyor.com/project/RocketBot/account-manager/branch/master) [![Github All Releases](https://img.shields.io/github/downloads/Furtif/Account-Manager/total.svg?maxAge=250)](https://github.com/Furtif/Account-Manager/releases) 
 [![GitHub license](https://img.shields.io/badge/license-AGPL-blue.svg)](https://raw.githubusercontent.com/Furtif/Account-Manager/master/LICENSE.md) 
 [![Waffle.io - Columns and their card count](https://badge.waffle.io/Furtif/Account-Manager.svg?columns=all)](https://waffle.io/Furtif/Account-Manager) [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=SNATC29B4ZJD4) [![Discord](https://img.shields.io/badge/Discord-Online-blue.svg)](https://discord.gg/rkm4xhX)
 
