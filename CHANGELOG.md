@@ -1,12 +1,19 @@
 # Change Log
 
-## [Unreleased](https://github.com/Furtif/Account-Manager/tree/HEAD)
+## [v2.22.0.24](https://github.com/Furtif/Account-Manager/tree/v2.22.0.24) (2018-03-07)
 
-[Full Changelog](https://github.com/Furtif/Account-Manager/compare/v2.22.0.23...HEAD)
+[Full Changelog](https://github.com/Furtif/Account-Manager/compare/v2.22.0.23...v2.22.0.24)
 
 **Closed issues:**
 
+- Test webook [\#70](https://github.com/Furtif/Account-Manager/issues/70)
 - Unknown exception occured [\#65](https://github.com/Furtif/Account-Manager/issues/65)
+
+**Merged pull requests:**
+
+- fixed problem with bot closing with new accounts and recycling only with 90% of full inventory [\#69](https://github.com/Furtif/Account-Manager/pull/69) ([henriquemaciel](https://github.com/henriquemaciel))
+- Merge pull request \#67 from Furtif/master [\#68](https://github.com/Furtif/Account-Manager/pull/68) ([Furtif](https://github.com/Furtif))
+- sync close cm branch [\#67](https://github.com/Furtif/Account-Manager/pull/67) ([Furtif](https://github.com/Furtif))
 
 ## [v2.22.0.23](https://github.com/Furtif/Account-Manager/tree/v2.22.0.23) (2018-03-03)
 
