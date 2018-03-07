@@ -334,7 +334,7 @@ namespace PokemonGoGUI.GoManager
         {
             get
             {
-                if(PlayerData == null)
+                if(PlayerData == null || PlayerData.Currencies.Count == 0)
                 {
                     return 0;
                 }
@@ -349,7 +349,7 @@ namespace PokemonGoGUI.GoManager
         {
             get
             {
-                if (PlayerData == null)
+                if (PlayerData == null || PlayerData.Currencies.Count == 0)
                 {
                     return 0;
                 }
