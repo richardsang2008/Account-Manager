@@ -354,7 +354,7 @@ namespace PokemonGoGUI.GoManager
                         var arPlusValues = new ARPlusEncounterValues();
                         if (UserSettings.GetArBonus)
                         {
-                            LogCaller(new LoggerEventArgs("Using AR Bonus Values", LoggerTypes.Debug));
+                            LogCaller(new LoggerEventArgs("Using AR Bonus Values", LoggerTypes.Info));
                             arPlusValues.Awareness = (float)UserSettings.ARBonusAwareness;
                             arPlusValues.Proximity = (float)UserSettings.ARBonusProximity;
                             arPlusValues.PokemonFrightened = false;
@@ -679,7 +679,7 @@ namespace PokemonGoGUI.GoManager
                 var arPlusValues = new ARPlusEncounterValues();
                 if (UserSettings.GetArBonus)
                 {
-                    LogCaller(new LoggerEventArgs("Using AR Bonus Values", LoggerTypes.Debug));
+                    LogCaller(new LoggerEventArgs("Using AR Bonus Values", LoggerTypes.Info));
                     arPlusValues.Awareness = (float)UserSettings.ARBonusAwareness;
                     arPlusValues.Proximity = (float)UserSettings.ARBonusProximity;
                     arPlusValues.PokemonFrightened = false;
