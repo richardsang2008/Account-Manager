@@ -462,6 +462,9 @@ namespace PokemonGoGUI.GoManager
                 case DiskEncounterResponse.Types.Result.NotInRange:
                     break;
                 case DiskEncounterResponse.Types.Result.PokemonInventoryFull:
+                    //Transfert if full
+                    LogCaller(new LoggerEventArgs("Faill PokemonInventoryFull.", LoggerTypes.Warning));
+                    await TransferFilteredPokemon();
                     break;
                 case DiskEncounterResponse.Types.Result.Unknown:
                     break;
@@ -554,6 +557,9 @@ namespace PokemonGoGUI.GoManager
                         Message = "Success"
                     };
                 case EncounterResponse.Types.Status.PokemonInventoryFull:
+                    //Transfert if full
+                    LogCaller(new LoggerEventArgs("Faill PokemonInventoryFull.", LoggerTypes.Warning));
+                    await TransferFilteredPokemon();
                     break;
             }
 

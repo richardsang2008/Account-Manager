@@ -68,6 +68,8 @@ namespace PokemonGoGUI.GoManager
                         return new MethodResult();//break;
                     case FortSearchResponse.Types.Result.InventoryFull:
                         LogCaller(new LoggerEventArgs(String.Format("Failed to search {0}. Response: {1}", fort, fortResponse.Result), LoggerTypes.Warning));
+                        //Recycle if inventory full
+                        await RecycleFilteredItems();
                         break;
                     case FortSearchResponse.Types.Result.NoResultSet:
                         LogCaller(new LoggerEventArgs(String.Format("Failed to search {0}. Response: {1}", fort, fortResponse.Result), LoggerTypes.Warning));
@@ -174,6 +176,11 @@ namespace PokemonGoGUI.GoManager
                                     switch (fortResponse.Result)
                                     {
                                         case FortSearchResponse.Types.Result.ExceededDailyLimit:
+                                            break;
+                                        case FortSearchResponse.Types.Result.InventoryFull:
+                                            LogCaller(new LoggerEventArgs(String.Format("Failed to search {0}. Response: {1}", fort, fortResponse.Result), LoggerTypes.Warning));
+                                            //Recycle if inventory full
+                                            await RecycleFilteredItems();
                                             break;
                                         case FortSearchResponse.Types.Result.Success:
                                             string _message = String.Format("Searched {0}. Exp: {1}. Items: {2}.", // Badge: {3}. BonusLoot: {4}. Gems: {5}. Loot: {6}, Eggs: {7:0.0}. RaidTickets: {8}. TeamBonusLoot: {9}",
