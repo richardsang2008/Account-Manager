@@ -1278,6 +1278,12 @@ namespace PokemonGoGUI
             foreach (Manager manager in fastObjectListViewMain.SelectedObjects)
             {
                 manager.UserSettings.AutoRotateProxies = !enableRotateProxiesToolStripMenuItem.Checked;
+
+                if (!manager.UserSettings.AutoRotateProxies)
+                {
+                    manager.UserSettings.ProxyIP = String.Empty;
+                    manager.UserSettings.ProxyPort = 0;
+                }
             }
 
             fastObjectListViewMain.RefreshSelectedObjects();
