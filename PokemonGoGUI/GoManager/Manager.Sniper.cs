@@ -180,7 +180,7 @@ namespace PokemonGoGUI.GoManager
                 return result;
             }
 
-            if (Configuration.EnableHeartbeat)
+            //if (Configuration.EnableHeartbeat)
                 await Task.Delay(10000); //wait for pogolib refreshmapobjects
 
             //Get catchable pokemon

@@ -15,8 +15,8 @@ namespace PokemonGoGUI.GoManager
     {
         private async Task<MethodResult<List<MapPokemon>>> GetCatchablePokemonAsync()
         {
-            if (!Configuration.EnableHeartbeat)
-                await _client.ClientSession.RpcClient.RefreshMapObjectsAsync();
+            //if (!Configuration.EnableHeartbeat)
+            //    await _client.ClientSession.RpcClient.RefreshMapObjectsAsync();
 
             if (_client.ClientSession.Map.Cells.Count == 0 || _client.ClientSession.Map == null)
             {
@@ -45,8 +45,8 @@ namespace PokemonGoGUI.GoManager
 
         private async Task<MethodResult<List<FortData>>> GetAllFortsAsync()
         {
-            if (!Configuration.EnableHeartbeat)
-                await _client.ClientSession.RpcClient.RefreshMapObjectsAsync();
+            //if (!Configuration.EnableHeartbeat)
+            //    await _client.ClientSession.RpcClient.RefreshMapObjectsAsync();
 
             if (_client.ClientSession.Map.Cells.Count == 0 || _client.ClientSession.Map == null)
             {
