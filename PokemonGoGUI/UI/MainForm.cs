@@ -2402,6 +2402,35 @@ namespace PokemonGoGUI
             }
         }
 
+        private void ExportAccountsRMFormatToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (fastObjectListViewMain.SelectedObjects.Count == 0)
+            {
+                return;
+            }
+
+            string filename = GetSaveFileName();
+
+            if (String.IsNullOrEmpty(filename))
+            {
+                return;
+            }
+
+            try
+            {
+                IEnumerable<string> accounts = fastObjectListViewMain.SelectedObjects.Cast<Manager>().Select(x => String.Format("{0},{1},{2}", x.UserSettings.AuthType, x.UserSettings.Username, x.UserSettings.Password));
+
+                File.WriteAllLines(filename, accounts);
+
+                MessageBox.Show(String.Format("Exported {0} accounts RM format", accounts.Count()));
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(String.Format("Failed to export accounts RM format. Ex: {0}", ex.Message));
+            }
+
+        }
+
         private async void ExportGMModelToolStripMenuItem_Click(object sender, EventArgs e)
         {
             string fileName = String.Empty;
@@ -2468,6 +2497,6 @@ namespace PokemonGoGUI
                 MessageBox.Show(String.Format("Failed to save to file. Ex: {0}", ex.Message));
             }
         }
-        #endregion 
+        #endregion
     }
 }

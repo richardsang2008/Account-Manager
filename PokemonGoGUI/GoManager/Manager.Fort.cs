@@ -233,6 +233,7 @@ namespace PokemonGoGUI.GoManager
                                             await Task.Delay(CalculateDelay(UserSettings.DelayBetweenPlayerActions, UserSettings.PlayerActionDelayRandom));
 
                                             _totalZeroExpStops = 0;
+                                            _potentialPokeStopBan = false;
 
                                             return new MethodResult
                                             {
@@ -306,6 +307,7 @@ namespace PokemonGoGUI.GoManager
                         LogCaller(new LoggerEventArgs(message, LoggerTypes.Success));
 
                         _totalZeroExpStops = 0;
+                        _potentialPokeStopBan = false;
 
                         await Task.Delay(CalculateDelay(UserSettings.DelayBetweenPlayerActions, UserSettings.PlayerActionDelayRandom));
 
