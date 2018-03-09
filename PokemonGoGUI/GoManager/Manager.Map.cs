@@ -1,4 +1,5 @@
-﻿using POGOLib.Official.Extensions;
+﻿using POGOLib.Official;
+using POGOLib.Official.Extensions;
 using POGOProtos.Inventory.Item;
 using POGOProtos.Map.Fort;
 using POGOProtos.Map.Pokemon;
@@ -12,8 +13,11 @@ namespace PokemonGoGUI.GoManager
 {
     public partial class Manager
     {
-        private MethodResult<List<MapPokemon>> GetCatchablePokemon()
+        private async Task<MethodResult<List<MapPokemon>>> GetCatchablePokemonAsync()
         {
+            if (!Configuration.EnableHeartbeat)
+                await _client.ClientSession.RpcClient.RefreshMapObjectsAsync();
+
             if (_client.ClientSession.Map.Cells.Count == 0 || _client.ClientSession.Map == null)
             {
                throw new OperationCanceledException("Not cells.");
@@ -39,8 +43,11 @@ namespace PokemonGoGUI.GoManager
             };
         }
 
-        private MethodResult<List<FortData>> GetAllForts()
+        private async Task<MethodResult<List<FortData>>> GetAllFortsAsync()
         {
+            if (!Configuration.EnableHeartbeat)
+                await _client.ClientSession.RpcClient.RefreshMapObjectsAsync();
+
             if (_client.ClientSession.Map.Cells.Count == 0 || _client.ClientSession.Map == null)
             {
                 throw new OperationCanceledException("Not cells.");

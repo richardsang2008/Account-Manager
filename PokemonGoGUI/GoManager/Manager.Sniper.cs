@@ -1,4 +1,5 @@
-﻿using POGOLib.Official.Extensions;
+﻿using POGOLib.Official;
+using POGOLib.Official.Extensions;
 using POGOProtos.Enums;
 using POGOProtos.Map.Pokemon;
 using POGOProtos.Networking.Responses;
@@ -179,11 +180,12 @@ namespace PokemonGoGUI.GoManager
                 return result;
             }
 
-            await Task.Delay(10000); //wait for pogolib refreshmapobjects
+            if (Configuration.EnableHeartbeat)
+                await Task.Delay(10000); //wait for pogolib refreshmapobjects
 
             //Get catchable pokemon
 
-            MethodResult<List<MapPokemon>> pokemonResult = GetCatchablePokemon();
+            MethodResult<List<MapPokemon>> pokemonResult = await GetCatchablePokemonAsync();
 
             if(!pokemonResult.Success)
             {

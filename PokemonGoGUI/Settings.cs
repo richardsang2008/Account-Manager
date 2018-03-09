@@ -88,6 +88,8 @@ namespace PokemonGoGUI
         public bool SnipeAllPokemonsNoInPokedex { get; set; }
         public double ForceEvolveAbovePercent { get; set; }
         public bool StopOnAPIUpdate { get; set; }
+        public bool UsePOGOLibHeartbeat { get; set; }
+        public int APIThrottles { get; set; }
 
         public int MaxLogs { get; set; }
         public double RunForHours { get; set; }
@@ -176,10 +178,10 @@ namespace PokemonGoGUI
         {
             GroupName = "Default";
             AuthType = AuthType.Ptc;
-            MimicWalking = true;
+            MimicWalking = false;
             CatchPokemon = true;
-            WalkingSpeed = 7;
-            MaxTravelDistance = 1000;
+            WalkingSpeed = 200;
+            MaxTravelDistance = 50000;
             EncounterWhileWalking = false;
             EnableHumanization = false;
             InsideReticuleChance = 100;
@@ -198,7 +200,7 @@ namespace PokemonGoGUI
             PercTransItems = 90;
             PercTransPoke = 40;
             StopOnAPIUpdate = true;
-            SpinGyms = true;
+            SpinGyms = false;
             HashHost = new Uri("https://pokehash.buddyauth.com/");
             HashEndpoint = "api/v159_1/hash";
             AuthAPIKey = "XXXXXXXXXXXXXXXXXXXX";
@@ -208,10 +210,10 @@ namespace PokemonGoGUI
             Language = "en";
             TimeZone = "America/New_York";
             POSIX = "en-us";
-            DisableCatchDelay = 8;
-            DownloadResources = true;
+            DisableCatchDelay = 3;
+            DownloadResources = false;
             AllowManualCaptchaResolve = true;
-            ManualCaptchaTimeout = 120;
+            ManualCaptchaTimeout = 160;
             PlaySoundOnCaptcha = true;
             DisplayOnTop = true;
             Enable2Captcha = false;
@@ -224,11 +226,14 @@ namespace PokemonGoGUI
             ShowDebugLogs = false;
             GoOnlyToGyms = false;
             AutoFavoritShiny = true;
-            SnipeAllPokemonsNoInPokedex = true;
+            SnipeAllPokemonsNoInPokedex = false;
             EncounterWhileWalking = true;
-            RequestFortDetails = true;
+            RequestFortDetails = false;
             BallsToIgnoreStops = 80;
             IgnoreStopsIfTooBalls = false;
+            UsePOGOLibHeartbeat = false;
+            APIThrottles = 200;
+            MinPokemonBeforeEvolve = 1;
         }
 
         public void LoadCatchSettings()
@@ -284,7 +289,8 @@ namespace PokemonGoGUI
 
                 var setting = new EvolveSetting
                 {
-                    Id = pokemon
+                    Id = pokemon,
+                    Evolve = true
                 };
 
                 EvolveSettings.Add(setting);

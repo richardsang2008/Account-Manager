@@ -477,7 +477,7 @@ namespace PokemonGoGUI.GoManager
                     //Get pokestops
                     LogCaller(new LoggerEventArgs("getting pokestops...", LoggerTypes.Debug));
 
-                    MethodResult<List<FortData>> pokestops = GetAllForts();
+                    MethodResult<List<FortData>> pokestops = await GetAllFortsAsync();
 
                     if (!pokestops.Success)
                     {
@@ -581,12 +581,11 @@ namespace PokemonGoGUI.GoManager
                         // NOTE: not an "else" we could enabled catch in this time
                         if (!CatchDisabled)
                         {
-                            var remainingBalls = RemainingPokeballs();
-                            LogCaller(new LoggerEventArgs("Remaining Balls: " + remainingBalls, LoggerTypes.Info));
+                            LogCaller(new LoggerEventArgs("Remaining Balls: " + RemainingPokeballs(), LoggerTypes.Info));
 
-                            if (remainingBalls > 0)
+                            if (RemainingPokeballs() > 0)
                             {
-                                if (Pokemon.Count <= PlayerData.MaxPokemonStorage)
+                                if (FilledPokemonStorage() <= 100)
                                 {
                                     //Catch nearby pokemon
                                     MethodResult nearbyPokemonResponse = await CatchNeabyPokemon();
@@ -612,6 +611,7 @@ namespace PokemonGoGUI.GoManager
                                 else
                                 {
                                     LogCaller(new LoggerEventArgs("You inventory pokemon storage is full please transfer some pokemons.", LoggerTypes.Warning));
+                                    await TransferFilteredPokemon();
                                 }
                             }
                             else
@@ -620,11 +620,7 @@ namespace PokemonGoGUI.GoManager
                                 CatchDisabled = true;
                                 TimeAutoCatch = DateTime.Now.AddMinutes(UserSettings.DisableCatchDelay);
                             }
-
-                            //if too balls ignore stops..
-                            if (remainingBalls >= UserSettings.BallsToIgnoreStops && UserSettings.IgnoreStopsIfTooBalls)
-                                continue;
-                        }
+                       }
 
                         //Stop bot instantly
                         if (!IsRunning)
@@ -639,6 +635,10 @@ namespace PokemonGoGUI.GoManager
                             await Task.Delay(CalculateDelay(UserSettings.GeneralDelay, UserSettings.GeneralDelayRandom));
                         }
 
+                        //if too balls ignore stops..
+                        if (RemainingPokeballs() >= UserSettings.BallsToIgnoreStops && UserSettings.IgnoreStopsIfTooBalls)
+                            continue;
+
                         //Search
                         double filledInventorySpace = FilledInventoryStorage();
                         LogCaller(new LoggerEventArgs(String.Format("Filled Inventory Storage: {0:0.00}%", filledInventorySpace), LoggerTypes.Debug));
@@ -649,7 +649,7 @@ namespace PokemonGoGUI.GoManager
                             {
                                 if (pokestop.Type == FortType.Gym && Level >= 5 && (!string.IsNullOrEmpty(UserSettings.DefaultTeam) || UserSettings.DefaultTeam != "Neutral"))
                                 {
-                                    if (!PlayerData.TutorialState.Contains(TutorialState.GymTutorial))
+                                    if (!PlayerData.TutorialState.Contains(TutorialState.GymTutorial) && UserSettings.CompleteTutorial)
                                     {
                                         if (PlayerData.Team == TeamColor.Neutral)
                                         {
@@ -687,9 +687,8 @@ namespace PokemonGoGUI.GoManager
                                         }
                                     }
 
-                                    if (PlayerData.TutorialState.Contains(TutorialState.GymTutorial))
+                                    if (PlayerData.TutorialState.Contains(TutorialState.GymTutorial) && UserSettings.CompleteTutorial)
                                     {
-
                                         //Check for missed tutorials
                                         foreach (TutorialState tuto in Enum.GetValues(typeof(TutorialState)))
                                         {
@@ -746,7 +745,7 @@ namespace PokemonGoGUI.GoManager
                                 }
                                 else
                                 {
-                                    if (!PlayerData.TutorialState.Contains(TutorialState.PokestopTutorial))
+                                    if (!PlayerData.TutorialState.Contains(TutorialState.PokestopTutorial) && UserSettings.CompleteTutorial)
                                     {
                                         result = await MarkTutorialsComplete(new[] { TutorialState.PokestopTutorial, TutorialState.PokemonBerry, TutorialState.UseItem });
 
