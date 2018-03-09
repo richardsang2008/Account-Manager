@@ -123,7 +123,7 @@ namespace PokemonGoGUI.GoManager
                 };
             }
 
-            MethodResult<List<MapPokemon>> catchableResponse = GetCatchablePokemon();
+            MethodResult<List<MapPokemon>> catchableResponse = await GetCatchablePokemonAsync();
 
             if (!catchableResponse.Success || catchableResponse.Data == null || catchableResponse.Data.Count == 0)
             {
@@ -682,6 +682,7 @@ namespace PokemonGoGUI.GoManager
                     reticuleSize = (double)_rand.Next(10, 195) / 100;
                     hitInsideReticule = HitInsideReticle();
                 }
+
                 var arPlusValues = new ARPlusEncounterValues();
                 if (UserSettings.GetArBonus)
                 {

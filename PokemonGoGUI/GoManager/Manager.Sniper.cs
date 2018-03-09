@@ -179,11 +179,12 @@ namespace PokemonGoGUI.GoManager
                 return result;
             }
 
-            await Task.Delay(10000); //wait for pogolib refreshmapobjects
+            if (UserSettings.UsePOGOLibHeartbeat)
+                await Task.Delay(10000); //wait for pogolib refreshmapobjects
 
             //Get catchable pokemon
 
-            MethodResult<List<MapPokemon>> pokemonResult = GetCatchablePokemon();
+            MethodResult<List<MapPokemon>> pokemonResult = await GetCatchablePokemonAsync();
 
             if(!pokemonResult.Success)
             {

@@ -105,26 +105,32 @@ namespace PokemonGoGUI
         public async Task<MethodResult<bool>> DoLogin(Manager manager)
         {
             SetSettings(manager);
-            // TODO: see how do this only once better.
-            CancellationTokenSource = new CancellationTokenSource();
+
             try
             {
+                var msgStr = "Session couldn't start up.";
+                LoggedIn = false;
+                CancellationTokenSource = new CancellationTokenSource();
+
                 return await Task.Run(async () =>
                 {
-                    if (!(Configuration.Hasher is PokeHashHasher))
+                    try
                     {
-                        // By default Configuration.Hasher is LegacyHasher type  (see Configuration.cs in the pogolib source code)
-                        // -> So this comparation only will run once.
-                        if (ClientManager.UserSettings.UseOnlyOneKey)
+                        if (!(Configuration.Hasher is PokeHashHasher))
                         {
-                            Configuration.Hasher = new PokeHashHasher(ClientManager.UserSettings.AuthAPIKey);
-                            Configuration.HasherUrl = ClientManager.UserSettings.HashHost;
-                            Configuration.HashEndpoint = ClientManager.UserSettings.HashEndpoint;
-                        }
-                        else
-                        {
-                            //Need valid keys but this send all
-                            Configuration.Hasher = new PokeHashHasher(ClientManager.UserSettings.HashKeys.ToArray());
+                            // By default Configuration.Hasher is LegacyHasher type  (see Configuration.cs in the pogolib source code)
+                            // -> So this comparation only will run once.
+                            if (ClientManager.UserSettings.UseOnlyOneKey)
+                            {
+                                Configuration.Hasher = new PokeHashHasher(ClientManager.UserSettings.AuthAPIKey);
+                                Configuration.HasherUrl = ClientManager.UserSettings.HashHost;
+                                Configuration.HashEndpoint = ClientManager.UserSettings.HashEndpoint;
+                            }
+                            else
+                            {
+                                //Need valid keys but this send all
+                                Configuration.Hasher = new PokeHashHasher(ClientManager.UserSettings.HashKeys.ToArray());
+                            }
                         }
 
                         // TODO: make this configurable. To avoid bans (may be with a checkbox in hash keys tab).
@@ -133,29 +139,22 @@ namespace PokemonGoGUI
                         //Configuration.ThrottleDifference = rand;
                         VersionStr = Configuration.Hasher.PokemonVersion;
                         AppVersion = Configuration.Hasher.AppVersion;
-                    }
-                    // */
+                        Configuration.EnableHeartbeat = ClientManager.UserSettings.UsePOGOLibHeartbeat;
 
-                    switch (ClientManager.UserSettings.AuthType)
-                    {
-                        case AuthType.Google:
-                            LoginProvider = new GoogleLoginProvider(ClientManager.UserSettings.Username, ClientManager.UserSettings.Password);
-                            break;
-                        case AuthType.Ptc:
-                            LoginProvider = new PtcLoginProvider(ClientManager.UserSettings.Username, ClientManager.UserSettings.Password, ClientManager.UserSettings.Proxy.AsWebProxy());
-                            break;
-                        default:
-                            throw new ArgumentException("Login provider must be either \"google\" or \"ptc\".");
-                    }
+                        switch (ClientManager.UserSettings.AuthType)
+                        {
+                            case AuthType.Google:
+                                LoginProvider = new GoogleLoginProvider(ClientManager.UserSettings.Username, ClientManager.UserSettings.Password);
+                                break;
+                            case AuthType.Ptc:
+                                LoginProvider = new PtcLoginProvider(ClientManager.UserSettings.Username, ClientManager.UserSettings.Password, ClientManager.UserSettings.Proxy.AsWebProxy());
+                                break;
+                            default:
+                                throw new ArgumentException("Login provider must be either \"google\" or \"ptc\".");
+                        }
 
-                    ClientSession = await GetSession(LoginProvider, ClientManager.UserSettings.Latitude, ClientManager.UserSettings.Longitude, true);
+                        ClientSession = await GetSession(LoginProvider, ClientManager.UserSettings.Latitude, ClientManager.UserSettings.Longitude, true);
 
-                    // Send initial requests and start HeartbeatDispatcher.
-                    // This makes sure that the initial heartbeat request finishes and the "session.Map.Cells" contains stuff.
-                    var msgStr = "Session couldn't start up.";
-                    LoggedIn = false;
-                    try
-                    {
                         ClientSession.AssetDigestUpdated += OnAssetDisgestReceived;
                         ClientSession.ItemTemplatesUpdated += OnItemTemplatesReceived;
                         ClientSession.UrlsUpdated += OnDownloadUrlsReceived;

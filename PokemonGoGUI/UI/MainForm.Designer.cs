@@ -83,6 +83,7 @@
             this.exportToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exportProxiesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exportAccountsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.exportAccountsRMFormatToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exportStatsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exportGMModelToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator10 = new System.Windows.Forms.ToolStripSeparator();
@@ -232,7 +233,7 @@
             this.devToolsToolStripMenuItem,
             this.helpInfoToolStripMenuItem});
             this.contextMenuStripAccounts.Name = "contextMenuStrip1";
-            this.contextMenuStripAccounts.Size = new System.Drawing.Size(188, 608);
+            this.contextMenuStripAccounts.Size = new System.Drawing.Size(188, 580);
             this.contextMenuStripAccounts.Opening += new System.ComponentModel.CancelEventHandler(this.ContextMenuStripAccounts_Opening);
             // 
             // aboutToolStripMenuItem
@@ -532,7 +533,7 @@
             // wConfigToolStripMenuItem
             // 
             this.wConfigToolStripMenuItem.Name = "wConfigToolStripMenuItem";
-            this.wConfigToolStripMenuItem.Size = new System.Drawing.Size(161, 26);
+            this.wConfigToolStripMenuItem.Size = new System.Drawing.Size(216, 26);
             this.wConfigToolStripMenuItem.Tag = "true";
             this.wConfigToolStripMenuItem.Text = "w/ Config";
             this.wConfigToolStripMenuItem.Click += new System.EventHandler(this.WConfigToolStripMenuItem_Click);
@@ -540,7 +541,7 @@
             // defaultToolStripMenuItem
             // 
             this.defaultToolStripMenuItem.Name = "defaultToolStripMenuItem";
-            this.defaultToolStripMenuItem.Size = new System.Drawing.Size(161, 26);
+            this.defaultToolStripMenuItem.Size = new System.Drawing.Size(216, 26);
             this.defaultToolStripMenuItem.Tag = "false";
             this.defaultToolStripMenuItem.Text = "Default";
             this.defaultToolStripMenuItem.Click += new System.EventHandler(this.WConfigToolStripMenuItem_Click);
@@ -548,19 +549,19 @@
             // rMFormatToolStripMenuItem
             // 
             this.rMFormatToolStripMenuItem.Name = "rMFormatToolStripMenuItem";
-            this.rMFormatToolStripMenuItem.Size = new System.Drawing.Size(161, 26);
-            this.rMFormatToolStripMenuItem.Text = "RM format";
+            this.rMFormatToolStripMenuItem.Size = new System.Drawing.Size(216, 26);
+            this.rMFormatToolStripMenuItem.Text = "RocketMap format";
             this.rMFormatToolStripMenuItem.Click += new System.EventHandler(this.RMFormatToolStripMenuItem_Click);
             // 
             // toolStripSeparator8
             // 
             this.toolStripSeparator8.Name = "toolStripSeparator8";
-            this.toolStripSeparator8.Size = new System.Drawing.Size(158, 6);
+            this.toolStripSeparator8.Size = new System.Drawing.Size(213, 6);
             // 
             // importJsonToolStripMenuItem
             // 
             this.importJsonToolStripMenuItem.Name = "importJsonToolStripMenuItem";
-            this.importJsonToolStripMenuItem.Size = new System.Drawing.Size(161, 26);
+            this.importJsonToolStripMenuItem.Size = new System.Drawing.Size(216, 26);
             this.importJsonToolStripMenuItem.Text = "Import Json";
             this.importJsonToolStripMenuItem.Click += new System.EventHandler(this.ImportJsonToolStripMenuItem_Click);
             // 
@@ -603,6 +604,7 @@
             this.exportToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.exportProxiesToolStripMenuItem,
             this.exportAccountsToolStripMenuItem,
+            this.exportAccountsRMFormatToolStripMenuItem,
             this.exportStatsToolStripMenuItem,
             this.exportGMModelToolStripMenuItem,
             this.toolStripSeparator10,
@@ -614,40 +616,47 @@
             // exportProxiesToolStripMenuItem
             // 
             this.exportProxiesToolStripMenuItem.Name = "exportProxiesToolStripMenuItem";
-            this.exportProxiesToolStripMenuItem.Size = new System.Drawing.Size(232, 26);
+            this.exportProxiesToolStripMenuItem.Size = new System.Drawing.Size(321, 26);
             this.exportProxiesToolStripMenuItem.Text = "Export Proxies";
             this.exportProxiesToolStripMenuItem.Click += new System.EventHandler(this.ExportProxiesToolStripMenuItem_Click);
             // 
             // exportAccountsToolStripMenuItem
             // 
             this.exportAccountsToolStripMenuItem.Name = "exportAccountsToolStripMenuItem";
-            this.exportAccountsToolStripMenuItem.Size = new System.Drawing.Size(232, 26);
+            this.exportAccountsToolStripMenuItem.Size = new System.Drawing.Size(321, 26);
             this.exportAccountsToolStripMenuItem.Text = "Export Accounts";
             this.exportAccountsToolStripMenuItem.Click += new System.EventHandler(this.ExportAccountsToolStripMenuItem_Click_1);
+            // 
+            // exportAccountsRMFormatToolStripMenuItem
+            // 
+            this.exportAccountsRMFormatToolStripMenuItem.Name = "exportAccountsRMFormatToolStripMenuItem";
+            this.exportAccountsRMFormatToolStripMenuItem.Size = new System.Drawing.Size(321, 26);
+            this.exportAccountsRMFormatToolStripMenuItem.Text = "Export Accounts RocketMap Format";
+            this.exportAccountsRMFormatToolStripMenuItem.Click += new System.EventHandler(this.ExportAccountsRMFormatToolStripMenuItem_Click);
             // 
             // exportStatsToolStripMenuItem
             // 
             this.exportStatsToolStripMenuItem.Name = "exportStatsToolStripMenuItem";
-            this.exportStatsToolStripMenuItem.Size = new System.Drawing.Size(232, 26);
+            this.exportStatsToolStripMenuItem.Size = new System.Drawing.Size(321, 26);
             this.exportStatsToolStripMenuItem.Text = "Export Stats";
             this.exportStatsToolStripMenuItem.Click += new System.EventHandler(this.ExportStatsToolStripMenuItem_Click);
             // 
             // exportGMModelToolStripMenuItem
             // 
             this.exportGMModelToolStripMenuItem.Name = "exportGMModelToolStripMenuItem";
-            this.exportGMModelToolStripMenuItem.Size = new System.Drawing.Size(232, 26);
-            this.exportGMModelToolStripMenuItem.Text = "GM Model Export json";
+            this.exportGMModelToolStripMenuItem.Size = new System.Drawing.Size(321, 26);
+            this.exportGMModelToolStripMenuItem.Text = "GoManager Model Export json";
             this.exportGMModelToolStripMenuItem.Click += new System.EventHandler(this.ExportGMModelToolStripMenuItem_Click);
             // 
             // toolStripSeparator10
             // 
             this.toolStripSeparator10.Name = "toolStripSeparator10";
-            this.toolStripSeparator10.Size = new System.Drawing.Size(229, 6);
+            this.toolStripSeparator10.Size = new System.Drawing.Size(318, 6);
             // 
             // exportJsonToolStripMenuItem
             // 
             this.exportJsonToolStripMenuItem.Name = "exportJsonToolStripMenuItem";
-            this.exportJsonToolStripMenuItem.Size = new System.Drawing.Size(232, 26);
+            this.exportJsonToolStripMenuItem.Size = new System.Drawing.Size(321, 26);
             this.exportJsonToolStripMenuItem.Text = "Export Json";
             this.exportJsonToolStripMenuItem.Click += new System.EventHandler(this.ExportJsonToolStripMenuItem_Click);
             // 
@@ -1619,6 +1628,7 @@
         private System.Windows.Forms.ToolStripMenuItem importJsonToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem exportGMModelToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator10;
+        private System.Windows.Forms.ToolStripMenuItem exportAccountsRMFormatToolStripMenuItem;
     }
 }
 

@@ -1,5 +1,4 @@
 ﻿using Google.Protobuf;
-using POGOLib.Official.Exceptions;
 using POGOLib.Official.Extensions;
 using POGOProtos.Inventory.Item;
 using POGOProtos.Map.Fort;
@@ -131,8 +130,15 @@ namespace PokemonGoGUI.GoManager
                         }
                         else //This error should never happen normally, so assume temp ban
                         {
+                            if (!UserSettings.UseSoftBanBypass)
+                            {
+                                _failedPokestopResponse++;
+                                LogCaller(new LoggerEventArgs($"Pokestop softban baypass disabled go to next...", LoggerTypes.Info));
+                                return new MethodResult();
+                            }
+
                             //by pass softban 
-                            int bypass = 40;
+                            int bypass = UserSettings.SoftBanBypassTimes;
 
                             //Go to location again
                             LogCaller(new LoggerEventArgs($"Pokestop potential softban baypass enabled go to location again {pokestop.Latitude}, {pokestop.Longitude}.", LoggerTypes.Debug));
@@ -227,6 +233,7 @@ namespace PokemonGoGUI.GoManager
                                             await Task.Delay(CalculateDelay(UserSettings.DelayBetweenPlayerActions, UserSettings.PlayerActionDelayRandom));
 
                                             _totalZeroExpStops = 0;
+                                            _potentialPokeStopBan = false;
 
                                             return new MethodResult
                                             {
@@ -300,6 +307,7 @@ namespace PokemonGoGUI.GoManager
                         LogCaller(new LoggerEventArgs(message, LoggerTypes.Success));
 
                         _totalZeroExpStops = 0;
+                        _potentialPokeStopBan = false;
 
                         await Task.Delay(CalculateDelay(UserSettings.DelayBetweenPlayerActions, UserSettings.PlayerActionDelayRandom));
 
