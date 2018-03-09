@@ -2418,17 +2418,16 @@ namespace PokemonGoGUI
 
             try
             {
-                IEnumerable<string> accounts = fastObjectListViewMain.SelectedObjects.Cast<Manager>().Select(x => String.Format("{0},{1},{2}", x.UserSettings.AuthType, x.UserSettings.Username, x.UserSettings.Password));
+                IEnumerable<string> accounts = fastObjectListViewMain.SelectedObjects.Cast<Manager>().Select(x => String.Format("{0},{1},{2}", x.UserSettings.AuthType.ToString().ToLower(), x.UserSettings.Username, x.UserSettings.Password));
 
                 File.WriteAllLines(filename, accounts);
 
-                MessageBox.Show(String.Format("Exported {0} accounts RM format", accounts.Count()));
+                MessageBox.Show(String.Format("Exported {0} accounts RocketMap format", accounts.Count()));
             }
             catch (Exception ex)
             {
-                MessageBox.Show(String.Format("Failed to export accounts RM format. Ex: {0}", ex.Message));
+                MessageBox.Show(String.Format("Failed to export accounts RocketMap format. Ex: {0}", ex.Message));
             }
-
         }
 
         private async void ExportGMModelToolStripMenuItem_Click(object sender, EventArgs e)
