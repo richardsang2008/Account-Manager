@@ -321,7 +321,9 @@ namespace PokemonGoGUI.GoManager
                 itemsCount += item.Count;
             }
 
-            double percentInventory = PlayerData.MaxItemStorage * 0.90;
+            double configPercentItems = UserSettings.PercTransItems * 0.01;
+
+            double percentInventory = PlayerData.MaxItemStorage * configPercentItems;
 
             if (percentInventory > itemsCount)
             {

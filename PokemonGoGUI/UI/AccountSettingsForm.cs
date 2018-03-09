@@ -117,6 +117,8 @@ namespace PokemonGoGUI.UI
             textBoxWalkSpeed.Text = settings.WalkingSpeed.ToString();
             textBoxPokemonBeforeEvolve.Text = settings.MinPokemonBeforeEvolve.ToString();
             textBoxMaxLevel.Text = settings.MaxLevel.ToString();
+            textBoxPercTransItems.Text = settings.PercTransItems.ToString();
+            textBoxPercTransPoke.Text = settings.PercTransPoke.ToString();
             textBoxProxy.Text = settings.Proxy.ToString();
             checkBoxMimicWalking.Checked = settings.MimicWalking;
             checkBoxShufflePokestops.Checked = settings.ShufflePokestops;
@@ -297,6 +299,20 @@ namespace PokemonGoGUI.UI
                 return false;
             }
 
+            int perctransitems;
+            if (!Int32.TryParse(textBoxPercTransItems.Text, out perctransitems) || perctransitems < 0)
+            {
+                MessageBox.Show("Invalid % Transfer Items", "Warning");
+                return false;
+            }
+
+            int perctranspoke;
+            if (!Int32.TryParse(textBoxPercTransPoke.Text, out perctranspoke) || perctranspoke < 0)
+            {
+                MessageBox.Show("Invalid % Transfer Pokemon", "Warning");
+                return false;
+            }
+
             int minPokemonBeforeEvolve;
             if (!Int32.TryParse(textBoxPokemonBeforeEvolve.Text, out minPokemonBeforeEvolve) || minPokemonBeforeEvolve < 0)
             {
@@ -379,6 +395,8 @@ namespace PokemonGoGUI.UI
             userSettings.IncubateEggs = checkBoxIncubateEggs.Checked;
             userSettings.OnlyUnlimitedIncubator = checkBoxOnlyUnlimitedIncubator.Checked;
             userSettings.MaxLevel = maxLevel;
+            userSettings.PercTransItems = perctransitems;
+            userSettings.PercTransPoke = perctranspoke;
             userSettings.CatchPokemon = checkBoxCatchPokemon.Checked;
             userSettings.StopAtMinAccountState = (AccountState)comboBoxMinAccountState.SelectedItem;
             userSettings.SearchFortBelowPercent = (double)numericUpDownSearchFortBelow.Value;
