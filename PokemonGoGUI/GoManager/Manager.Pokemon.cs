@@ -191,6 +191,19 @@ namespace PokemonGoGUI.GoManager
 
         private async Task<MethodResult> TransferFilteredPokemon()
         {
+
+            double configPercentPokemons = UserSettings.PercTransPoke * 0.01;
+
+            double percentPokemon = PlayerData.MaxPokemonStorage * configPercentPokemons;
+
+            if (percentPokemon > Pokemon.Count)
+            {
+                return new MethodResult
+                {
+                    Message = "Not yet reached 90% of the storage of Pokémon"
+                };
+            }
+
             MethodResult<List<PokemonData>> transferResult = GetPokemonToTransfer();
 
             if (!transferResult.Success || transferResult.Data.Count == 0)

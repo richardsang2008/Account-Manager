@@ -78,6 +78,8 @@ namespace PokemonGoGUI
         public bool CatchPokemon { get; set; }
         public bool IncubateEggs { get; set; }
         public int MaxLevel { get; set; }
+        public int PercTransItems { get; set; }
+        public int PercTransPoke { get; set; }
         public bool SPF { get; set; }
 
         public double SearchFortBelowPercent { get; set; }
@@ -193,6 +195,8 @@ namespace PokemonGoGUI
             CatchPokemonDayLimit = 500;
             SpinPokestopsDayLimit = 700;
             ForceEvolveAbovePercent = 1000;
+            PercTransItems = 90;
+            PercTransPoke = 40;
             StopOnAPIUpdate = true;
             SpinGyms = true;
             HashHost = new Uri("https://pokehash.buddyauth.com/");
