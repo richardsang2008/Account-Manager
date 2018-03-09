@@ -1,5 +1,13 @@
 # Change Log
 
+## [v2.22.0.25](https://github.com/Furtif/Account-Manager/tree/v2.22.0.25) (2018-03-09)
+
+[Full Changelog](https://github.com/Furtif/Account-Manager/compare/v2.22.0.24...v2.22.0.25)
+
+**Merged pull requests:**
+
+- New Configs: Transfer items and Pokemons [\#71](https://github.com/Furtif/Account-Manager/pull/71) ([henriquemaciel](https://github.com/henriquemaciel))
+
 ## [v2.22.0.24](https://github.com/Furtif/Account-Manager/tree/v2.22.0.24) (2018-03-07)
 
 [Full Changelog](https://github.com/Furtif/Account-Manager/compare/v2.22.0.23...v2.22.0.24)
