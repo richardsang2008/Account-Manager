@@ -274,6 +274,9 @@
             this.toolTipProxy = new System.Windows.Forms.ToolTip(this.components);
             this.toolTipMinAccountState = new System.Windows.Forms.ToolTip(this.components);
             this.toolTipHumanizeThrows = new System.Windows.Forms.ToolTip(this.components);
+            this.checkBoxSoftBypass = new System.Windows.Forms.CheckBox();
+            this.numericUpDownSoftBypass = new System.Windows.Forms.NumericUpDown();
+            this.label58 = new System.Windows.Forms.Label();
             this.tabControlMain.SuspendLayout();
             this.tabPageDetails.SuspendLayout();
             this.tabControlSettings.SuspendLayout();
@@ -323,6 +326,7 @@
             this.tabPageUpgrade.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.fastObjectListViewUpgrade)).BeginInit();
             this.contextMenuStripUpgrade.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownSoftBypass)).BeginInit();
             this.SuspendLayout();
             // 
             // tabControlMain
@@ -482,6 +486,9 @@
             // 
             // tabPageActions
             // 
+            this.tabPageActions.Controls.Add(this.label58);
+            this.tabPageActions.Controls.Add(this.numericUpDownSoftBypass);
+            this.tabPageActions.Controls.Add(this.checkBoxSoftBypass);
             this.tabPageActions.Controls.Add(this.textBoxPercTransItems);
             this.tabPageActions.Controls.Add(this.textBoxPercTransPoke);
             this.tabPageActions.Controls.Add(this.label56);
@@ -512,9 +519,9 @@
             this.tabPageActions.Controls.Add(this.checkBoxStopOnAPIUpdate);
             this.tabPageActions.Controls.Add(this.checkBoxClaimLevelUp);
             this.tabPageActions.Location = new System.Drawing.Point(4, 25);
-            this.tabPageActions.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tabPageActions.Margin = new System.Windows.Forms.Padding(4);
             this.tabPageActions.Name = "tabPageActions";
-            this.tabPageActions.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tabPageActions.Padding = new System.Windows.Forms.Padding(4);
             this.tabPageActions.Size = new System.Drawing.Size(633, 445);
             this.tabPageActions.TabIndex = 6;
             this.tabPageActions.Text = "Actions";
@@ -523,7 +530,7 @@
             // textBoxPercTransItems
             // 
             this.textBoxPercTransItems.Location = new System.Drawing.Point(491, 412);
-            this.textBoxPercTransItems.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.textBoxPercTransItems.Margin = new System.Windows.Forms.Padding(4);
             this.textBoxPercTransItems.Name = "textBoxPercTransItems";
             this.textBoxPercTransItems.Size = new System.Drawing.Size(43, 22);
             this.textBoxPercTransItems.TabIndex = 86;
@@ -531,7 +538,7 @@
             // textBoxPercTransPoke
             // 
             this.textBoxPercTransPoke.Location = new System.Drawing.Point(491, 382);
-            this.textBoxPercTransPoke.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.textBoxPercTransPoke.Margin = new System.Windows.Forms.Padding(4);
             this.textBoxPercTransPoke.Name = "textBoxPercTransPoke";
             this.textBoxPercTransPoke.Size = new System.Drawing.Size(43, 22);
             this.textBoxPercTransPoke.TabIndex = 85;
@@ -559,7 +566,7 @@
             // checkBoxReqFortDetails
             // 
             this.checkBoxReqFortDetails.AutoSize = true;
-            this.checkBoxReqFortDetails.Location = new System.Drawing.Point(471, 358);
+            this.checkBoxReqFortDetails.Location = new System.Drawing.Point(460, 325);
             this.checkBoxReqFortDetails.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.checkBoxReqFortDetails.Name = "checkBoxReqFortDetails";
             this.checkBoxReqFortDetails.Size = new System.Drawing.Size(155, 21);
@@ -569,7 +576,7 @@
             // 
             // numericUpDownStopsDayLimit
             // 
-            this.numericUpDownStopsDayLimit.Location = new System.Drawing.Point(521, 298);
+            this.numericUpDownStopsDayLimit.Location = new System.Drawing.Point(513, 269);
             this.numericUpDownStopsDayLimit.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.numericUpDownStopsDayLimit.Maximum = new decimal(new int[] {
             1000000,
@@ -583,7 +590,7 @@
             // label52
             // 
             this.label52.AutoSize = true;
-            this.label52.Location = new System.Drawing.Point(333, 300);
+            this.label52.Location = new System.Drawing.Point(332, 271);
             this.label52.Name = "label52";
             this.label52.Size = new System.Drawing.Size(161, 17);
             this.label52.TabIndex = 80;
@@ -591,7 +598,7 @@
             // 
             // numericUpDownPokemonsDayLimit
             // 
-            this.numericUpDownPokemonsDayLimit.Location = new System.Drawing.Point(521, 272);
+            this.numericUpDownPokemonsDayLimit.Location = new System.Drawing.Point(513, 243);
             this.numericUpDownPokemonsDayLimit.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.numericUpDownPokemonsDayLimit.Maximum = new decimal(new int[] {
             1000000,
@@ -605,7 +612,7 @@
             // checkBoxGoToGymsOnly
             // 
             this.checkBoxGoToGymsOnly.AutoSize = true;
-            this.checkBoxGoToGymsOnly.Location = new System.Drawing.Point(460, 219);
+            this.checkBoxGoToGymsOnly.Location = new System.Drawing.Point(460, 191);
             this.checkBoxGoToGymsOnly.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.checkBoxGoToGymsOnly.Name = "checkBoxGoToGymsOnly";
             this.checkBoxGoToGymsOnly.Size = new System.Drawing.Size(138, 21);
@@ -616,7 +623,7 @@
             // label48
             // 
             this.label48.AutoSize = true;
-            this.label48.Location = new System.Drawing.Point(333, 274);
+            this.label48.Location = new System.Drawing.Point(332, 245);
             this.label48.Name = "label48";
             this.label48.Size = new System.Drawing.Size(169, 17);
             this.label48.TabIndex = 78;
@@ -625,7 +632,7 @@
             // label47
             // 
             this.label47.AutoSize = true;
-            this.label47.Location = new System.Drawing.Point(333, 162);
+            this.label47.Location = new System.Drawing.Point(331, 130);
             this.label47.Name = "label47";
             this.label47.Size = new System.Drawing.Size(97, 17);
             this.label47.TabIndex = 76;
@@ -635,7 +642,7 @@
             // 
             this.cbTeam.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbTeam.FormattingEnabled = true;
-            this.cbTeam.Location = new System.Drawing.Point(437, 159);
+            this.cbTeam.Location = new System.Drawing.Point(440, 127);
             this.cbTeam.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.cbTeam.Name = "cbTeam";
             this.cbTeam.Size = new System.Drawing.Size(161, 24);
@@ -645,7 +652,7 @@
             // checkBoxCompleteTutorial
             // 
             this.checkBoxCompleteTutorial.AutoSize = true;
-            this.checkBoxCompleteTutorial.Location = new System.Drawing.Point(471, 332);
+            this.checkBoxCompleteTutorial.Location = new System.Drawing.Point(460, 299);
             this.checkBoxCompleteTutorial.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.checkBoxCompleteTutorial.Name = "checkBoxCompleteTutorial";
             this.checkBoxCompleteTutorial.Size = new System.Drawing.Size(141, 21);
@@ -683,9 +690,9 @@
             this.groupBoxPlayerActions.Controls.Add(this.textBoxPokemonBeforeEvolve);
             this.groupBoxPlayerActions.Controls.Add(this.label46);
             this.groupBoxPlayerActions.Location = new System.Drawing.Point(8, 11);
-            this.groupBoxPlayerActions.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBoxPlayerActions.Margin = new System.Windows.Forms.Padding(4);
             this.groupBoxPlayerActions.Name = "groupBoxPlayerActions";
-            this.groupBoxPlayerActions.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBoxPlayerActions.Padding = new System.Windows.Forms.Padding(4);
             this.groupBoxPlayerActions.Size = new System.Drawing.Size(319, 426);
             this.groupBoxPlayerActions.TabIndex = 73;
             this.groupBoxPlayerActions.TabStop = false;
@@ -984,7 +991,7 @@
             // cbAutoUpdate
             // 
             this.cbAutoUpdate.AutoSize = true;
-            this.cbAutoUpdate.Location = new System.Drawing.Point(337, 358);
+            this.cbAutoUpdate.Location = new System.Drawing.Point(332, 325);
             this.cbAutoUpdate.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.cbAutoUpdate.Name = "cbAutoUpdate";
             this.cbAutoUpdate.Size = new System.Drawing.Size(109, 21);
@@ -996,7 +1003,7 @@
             // 
             this.comboBoxMinAccountState.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxMinAccountState.FormattingEnabled = true;
-            this.comboBoxMinAccountState.Location = new System.Drawing.Point(336, 63);
+            this.comboBoxMinAccountState.Location = new System.Drawing.Point(334, 65);
             this.comboBoxMinAccountState.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.comboBoxMinAccountState.Name = "comboBoxMinAccountState";
             this.comboBoxMinAccountState.Size = new System.Drawing.Size(223, 24);
@@ -1006,7 +1013,7 @@
             // numericUpDownRunForHours
             // 
             this.numericUpDownRunForHours.DecimalPlaces = 2;
-            this.numericUpDownRunForHours.Location = new System.Drawing.Point(423, 124);
+            this.numericUpDownRunForHours.Location = new System.Drawing.Point(520, 100);
             this.numericUpDownRunForHours.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.numericUpDownRunForHours.Maximum = new decimal(new int[] {
             99999,
@@ -1014,21 +1021,21 @@
             0,
             0});
             this.numericUpDownRunForHours.Name = "numericUpDownRunForHours";
-            this.numericUpDownRunForHours.Size = new System.Drawing.Size(69, 22);
+            this.numericUpDownRunForHours.Size = new System.Drawing.Size(58, 22);
             this.numericUpDownRunForHours.TabIndex = 58;
             // 
             // textBoxMaxLevel
             // 
-            this.textBoxMaxLevel.Location = new System.Drawing.Point(423, 94);
+            this.textBoxMaxLevel.Location = new System.Drawing.Point(406, 99);
             this.textBoxMaxLevel.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.textBoxMaxLevel.Name = "textBoxMaxLevel";
-            this.textBoxMaxLevel.Size = new System.Drawing.Size(65, 22);
+            this.textBoxMaxLevel.Size = new System.Drawing.Size(46, 22);
             this.textBoxMaxLevel.TabIndex = 55;
             // 
             // label15
             // 
             this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(336, 44);
+            this.label15.Location = new System.Drawing.Point(334, 43);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(134, 17);
             this.label15.TabIndex = 59;
@@ -1037,7 +1044,7 @@
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(339, 97);
+            this.label11.Location = new System.Drawing.Point(331, 102);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(75, 17);
             this.label11.TabIndex = 60;
@@ -1046,7 +1053,7 @@
             // label42
             // 
             this.label42.AutoSize = true;
-            this.label42.Location = new System.Drawing.Point(497, 127);
+            this.label42.Location = new System.Drawing.Point(584, 102);
             this.label42.Name = "label42";
             this.label42.Size = new System.Drawing.Size(44, 17);
             this.label42.TabIndex = 61;
@@ -1055,7 +1062,7 @@
             // label41
             // 
             this.label41.AutoSize = true;
-            this.label41.Location = new System.Drawing.Point(361, 127);
+            this.label41.Location = new System.Drawing.Point(460, 102);
             this.label41.Name = "label41";
             this.label41.Size = new System.Drawing.Size(55, 17);
             this.label41.TabIndex = 64;
@@ -1065,7 +1072,7 @@
             // 
             this.checkBoxEnabeRaids.AutoSize = true;
             this.checkBoxEnabeRaids.Enabled = false;
-            this.checkBoxEnabeRaids.Location = new System.Drawing.Point(336, 219);
+            this.checkBoxEnabeRaids.Location = new System.Drawing.Point(334, 191);
             this.checkBoxEnabeRaids.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.checkBoxEnabeRaids.Name = "checkBoxEnabeRaids";
             this.checkBoxEnabeRaids.Size = new System.Drawing.Size(104, 21);
@@ -1077,7 +1084,7 @@
             // 
             this.checkBoxSendBerries.AutoSize = true;
             this.checkBoxSendBerries.Enabled = false;
-            this.checkBoxSendBerries.Location = new System.Drawing.Point(460, 245);
+            this.checkBoxSendBerries.Location = new System.Drawing.Point(460, 219);
             this.checkBoxSendBerries.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.checkBoxSendBerries.Name = "checkBoxSendBerries";
             this.checkBoxSendBerries.Size = new System.Drawing.Size(161, 21);
@@ -1089,7 +1096,7 @@
             // 
             this.checkBoxDeployToGym.AutoSize = true;
             this.checkBoxDeployToGym.Enabled = false;
-            this.checkBoxDeployToGym.Location = new System.Drawing.Point(460, 191);
+            this.checkBoxDeployToGym.Location = new System.Drawing.Point(460, 162);
             this.checkBoxDeployToGym.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.checkBoxDeployToGym.Name = "checkBoxDeployToGym";
             this.checkBoxDeployToGym.Size = new System.Drawing.Size(130, 21);
@@ -1101,7 +1108,7 @@
             // 
             this.checkBoxEnableBattles.AutoSize = true;
             this.checkBoxEnableBattles.Enabled = false;
-            this.checkBoxEnableBattles.Location = new System.Drawing.Point(336, 245);
+            this.checkBoxEnableBattles.Location = new System.Drawing.Point(334, 219);
             this.checkBoxEnableBattles.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.checkBoxEnableBattles.Name = "checkBoxEnableBattles";
             this.checkBoxEnableBattles.Size = new System.Drawing.Size(121, 21);
@@ -1113,7 +1120,7 @@
             // 
             this.checkBoxSpinGyms.AutoSize = true;
             this.checkBoxSpinGyms.Enabled = false;
-            this.checkBoxSpinGyms.Location = new System.Drawing.Point(336, 191);
+            this.checkBoxSpinGyms.Location = new System.Drawing.Point(334, 162);
             this.checkBoxSpinGyms.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.checkBoxSpinGyms.Name = "checkBoxSpinGyms";
             this.checkBoxSpinGyms.Size = new System.Drawing.Size(98, 21);
@@ -1124,7 +1131,7 @@
             // checkBoxStopOnAPIUpdate
             // 
             this.checkBoxStopOnAPIUpdate.AutoSize = true;
-            this.checkBoxStopOnAPIUpdate.Location = new System.Drawing.Point(336, 21);
+            this.checkBoxStopOnAPIUpdate.Location = new System.Drawing.Point(337, 19);
             this.checkBoxStopOnAPIUpdate.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.checkBoxStopOnAPIUpdate.Name = "checkBoxStopOnAPIUpdate";
             this.checkBoxStopOnAPIUpdate.Size = new System.Drawing.Size(154, 21);
@@ -1135,7 +1142,7 @@
             // checkBoxClaimLevelUp
             // 
             this.checkBoxClaimLevelUp.AutoSize = true;
-            this.checkBoxClaimLevelUp.Location = new System.Drawing.Point(336, 332);
+            this.checkBoxClaimLevelUp.Location = new System.Drawing.Point(332, 299);
             this.checkBoxClaimLevelUp.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.checkBoxClaimLevelUp.Name = "checkBoxClaimLevelUp";
             this.checkBoxClaimLevelUp.Size = new System.Drawing.Size(124, 21);
@@ -1712,7 +1719,7 @@
             // 
             this.checkBoxUsePOGOLibHeartbeat.AutoSize = true;
             this.checkBoxUsePOGOLibHeartbeat.Location = new System.Drawing.Point(409, 25);
-            this.checkBoxUsePOGOLibHeartbeat.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.checkBoxUsePOGOLibHeartbeat.Margin = new System.Windows.Forms.Padding(4);
             this.checkBoxUsePOGOLibHeartbeat.Name = "checkBoxUsePOGOLibHeartbeat";
             this.checkBoxUsePOGOLibHeartbeat.Size = new System.Drawing.Size(192, 21);
             this.checkBoxUsePOGOLibHeartbeat.TabIndex = 9;
@@ -1726,9 +1733,9 @@
             this.groupBox1.Controls.Add(this.numericUpDownAwareness);
             this.groupBox1.Controls.Add(this.numericUpDownProximity);
             this.groupBox1.Location = new System.Drawing.Point(129, 94);
-            this.groupBox1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox1.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox1.Padding = new System.Windows.Forms.Padding(4);
             this.groupBox1.Size = new System.Drawing.Size(272, 95);
             this.groupBox1.TabIndex = 8;
             this.groupBox1.TabStop = false;
@@ -2055,9 +2062,9 @@
             this.groupBox2.Controls.Add(this.cbHashEndpoint);
             this.groupBox2.Controls.Add(this.label51);
             this.groupBox2.Location = new System.Drawing.Point(7, 6);
-            this.groupBox2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox2.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox2.Padding = new System.Windows.Forms.Padding(4);
             this.groupBox2.Size = new System.Drawing.Size(552, 135);
             this.groupBox2.TabIndex = 69;
             this.groupBox2.TabStop = false;
@@ -3032,6 +3039,38 @@
             this.olvColumnPinap.Text = "Use Pinap";
             this.olvColumnPinap.Width = 70;
             // 
+            // checkBoxSoftBypass
+            // 
+            this.checkBoxSoftBypass.AutoSize = true;
+            this.checkBoxSoftBypass.Location = new System.Drawing.Point(332, 350);
+            this.checkBoxSoftBypass.Name = "checkBoxSoftBypass";
+            this.checkBoxSoftBypass.Size = new System.Drawing.Size(159, 21);
+            this.checkBoxSoftBypass.TabIndex = 87;
+            this.checkBoxSoftBypass.Text = "Use SoftBan Bypass";
+            this.checkBoxSoftBypass.UseVisualStyleBackColor = true;
+            // 
+            // numericUpDownSoftBypass
+            // 
+            this.numericUpDownSoftBypass.Location = new System.Drawing.Point(497, 349);
+            this.numericUpDownSoftBypass.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.numericUpDownSoftBypass.Maximum = new decimal(new int[] {
+            40,
+            0,
+            0,
+            0});
+            this.numericUpDownSoftBypass.Name = "numericUpDownSoftBypass";
+            this.numericUpDownSoftBypass.Size = new System.Drawing.Size(57, 22);
+            this.numericUpDownSoftBypass.TabIndex = 88;
+            // 
+            // label58
+            // 
+            this.label58.AutoSize = true;
+            this.label58.Location = new System.Drawing.Point(560, 351);
+            this.label58.Name = "label58";
+            this.label58.Size = new System.Drawing.Size(41, 17);
+            this.label58.TabIndex = 89;
+            this.label58.Text = "times";
+            // 
             // AccountSettingsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -3105,6 +3144,7 @@
             this.tabPageUpgrade.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.fastObjectListViewUpgrade)).EndInit();
             this.contextMenuStripUpgrade.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownSoftBypass)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -3356,5 +3396,8 @@
         private System.Windows.Forms.TextBox textBoxPercTransPoke;
         private System.Windows.Forms.Label label56;
         private System.Windows.Forms.Label label55;
+        private System.Windows.Forms.CheckBox checkBoxSoftBypass;
+        private System.Windows.Forms.Label label58;
+        private System.Windows.Forms.NumericUpDown numericUpDownSoftBypass;
     }
 }

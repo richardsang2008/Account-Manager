@@ -1,5 +1,4 @@
-﻿using POGOLib.Official;
-using POGOProtos.Enums;
+﻿using POGOProtos.Enums;
 using PokemonGoGUI.Enums;
 using PokemonGoGUI.Extensions;
 using PokemonGoGUI.GoManager;
@@ -96,7 +95,15 @@ namespace PokemonGoGUI.UI
 
             comboBoxLocationPresets.DataSource = _manager.FarmLocations;
             comboBoxLocationPresets.DisplayMember = "Name";
+            //Set other satus
             numericUpDownThrottles.Enabled = !_manager.UserSettings.EnableHumanization;
+            numericUpDownGeneralDelay.Enabled = _manager.UserSettings.EnableHumanization;
+            numericUpDownGeneralDelayRandom.Enabled = _manager.UserSettings.EnableHumanization;
+            numericUpDownPlayerActionDelay.Enabled = _manager.UserSettings.EnableHumanization;
+            numericUpDownPlayerActionRandomiz.Enabled = _manager.UserSettings.EnableHumanization; ;
+            numericUpDownLocationUpdateDelay.Enabled = _manager.UserSettings.EnableHumanization;
+            numericUpDownLocationUpdateRandom.Enabled = _manager.UserSettings.EnableHumanization;
+            //
         }
 
         private void UpdateListViews()
@@ -239,16 +246,8 @@ namespace PokemonGoGUI.UI
             checkBoxTooBalls.Checked = settings.IgnoreStopsIfTooBalls;
             numericUpDownTooBalls.Value = new Decimal(settings.BallsToIgnoreStops);
             numericUpDownThrottles.Value = new Decimal(settings.APIThrottles);
-
-            //Set other satus
-            numericUpDownThrottles.Enabled = !checkBoxHumanizeThrows.Checked;
-            numericUpDownGeneralDelay.Enabled = checkBoxHumanizeThrows.Checked;
-            numericUpDownGeneralDelayRandom.Enabled = checkBoxHumanizeThrows.Checked;
-            numericUpDownPlayerActionDelay.Enabled = checkBoxHumanizeThrows.Checked;
-            numericUpDownPlayerActionRandomiz.Enabled = checkBoxHumanizeThrows.Checked;
-            numericUpDownLocationUpdateDelay.Enabled = checkBoxHumanizeThrows.Checked;
-            numericUpDownLocationUpdateRandom.Enabled = checkBoxHumanizeThrows.Checked;
-            //
+            checkBoxSoftBypass.Checked = settings.UseSoftBanBypass;
+            numericUpDownSoftBypass.Value = new Decimal(settings.SoftBanBypassTimes);
 
             //Location time zones
             var zones = new TimeZoneIds().GetTimeZoneIds();
@@ -549,6 +548,7 @@ namespace PokemonGoGUI.UI
             userSettings.AutoFavoritShiny = checkBoxAutoFavShiny.Checked;
             userSettings.SnipeAllPokemonsNoInPokedex = checkBoxSniperNoInPokedex.Checked;
             userSettings.UsePOGOLibHeartbeat = checkBoxUsePOGOLibHeartbeat.Checked;
+            userSettings.UseSoftBanBypass = checkBoxSoftBypass.Checked;
 
             int apithrottles;
             if (!Int32.TryParse(numericUpDownThrottles.Text, out apithrottles))
@@ -557,6 +557,14 @@ namespace PokemonGoGUI.UI
                 return false;
             }
             userSettings.APIThrottles = apithrottles;
+
+            int softbanbypass;
+            if (!Int32.TryParse(numericUpDownSoftBypass.Text, out softbanbypass))
+            {
+                MessageBox.Show("SoftBan Bypass value", "Warning");
+                return false;
+            }
+            userSettings.SoftBanBypassTimes = softbanbypass;
 
             return true;
         }

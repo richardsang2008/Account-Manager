@@ -131,15 +131,15 @@ namespace PokemonGoGUI
                                 //Need valid keys but this send all
                                 Configuration.Hasher = new PokeHashHasher(ClientManager.UserSettings.HashKeys.ToArray());
                             }
-
-                            // TODO: make this configurable. To avoid bans (may be with a checkbox in hash keys tab).
-                            //Configuration.IgnoreHashVersion = true;
-                            //int rand = new Random().Next(1000);
-                            //Configuration.ThrottleDifference = rand;
-                            VersionStr = Configuration.Hasher.PokemonVersion;
-                            AppVersion = Configuration.Hasher.AppVersion;
-                            //Configuration.EnableHeartbeat = ClientManager.UserSettings.UsePOGOLibHeartbeat;
                         }
+
+                        // TODO: make this configurable. To avoid bans (may be with a checkbox in hash keys tab).
+                        //Configuration.IgnoreHashVersion = true;
+                        //int rand = new Random().Next(1000);
+                        //Configuration.ThrottleDifference = rand;
+                        VersionStr = Configuration.Hasher.PokemonVersion;
+                        AppVersion = Configuration.Hasher.AppVersion;
+                        Configuration.EnableHeartbeat = ClientManager.UserSettings.UsePOGOLibHeartbeat;
 
                         switch (ClientManager.UserSettings.AuthType)
                         {

@@ -90,6 +90,7 @@ namespace PokemonGoGUI
         public bool StopOnAPIUpdate { get; set; }
         public bool UsePOGOLibHeartbeat { get; set; }
         public int APIThrottles { get; set; }
+        public int SoftBanBypassTimes { get; set; }
 
         public int MaxLogs { get; set; }
         public double RunForHours { get; set; }
@@ -133,6 +134,7 @@ namespace PokemonGoGUI
         public bool RequestFortDetails { get; set; }
         public int BallsToIgnoreStops { get; set; }
         public bool IgnoreStopsIfTooBalls { get; set; }
+        public bool UseSoftBanBypass { get; set; }
 
         public AccountState StopAtMinAccountState { get; set; }
 
@@ -234,6 +236,8 @@ namespace PokemonGoGUI
             UsePOGOLibHeartbeat = false;
             APIThrottles = 200;
             MinPokemonBeforeEvolve = 1;
+            UseSoftBanBypass = true;
+            SoftBanBypassTimes = 40;
         }
 
         public void LoadCatchSettings()

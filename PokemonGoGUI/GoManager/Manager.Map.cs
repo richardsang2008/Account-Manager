@@ -1,5 +1,4 @@
-﻿using POGOLib.Official;
-using POGOLib.Official.Extensions;
+﻿using POGOLib.Official.Extensions;
 using POGOProtos.Inventory.Item;
 using POGOProtos.Map.Fort;
 using POGOProtos.Map.Pokemon;
@@ -15,9 +14,8 @@ namespace PokemonGoGUI.GoManager
     {
         private async Task<MethodResult<List<MapPokemon>>> GetCatchablePokemonAsync()
         {
-            await Task.Delay(0); // remove warn
-            //if (!Configuration.EnableHeartbeat)
-            //    await _client.ClientSession.RpcClient.RefreshMapObjectsAsync();
+            if (!UserSettings.UsePOGOLibHeartbeat)
+                await _client.ClientSession.RpcClient.RefreshMapObjectsAsync();
 
             if (_client.ClientSession.Map.Cells.Count == 0 || _client.ClientSession.Map == null)
             {
@@ -46,9 +44,8 @@ namespace PokemonGoGUI.GoManager
 
         private async Task<MethodResult<List<FortData>>> GetAllFortsAsync()
         {
-            await Task.Delay(0); //remove warn
-            //if (!Configuration.EnableHeartbeat)
-            //    await _client.ClientSession.RpcClient.RefreshMapObjectsAsync();
+            if (!UserSettings.UsePOGOLibHeartbeat)
+                await _client.ClientSession.RpcClient.RefreshMapObjectsAsync();
 
             if (_client.ClientSession.Map.Cells.Count == 0 || _client.ClientSession.Map == null)
             {
