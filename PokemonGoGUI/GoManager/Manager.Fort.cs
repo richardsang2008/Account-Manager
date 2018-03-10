@@ -69,6 +69,7 @@ namespace PokemonGoGUI.GoManager
                         LogCaller(new LoggerEventArgs(String.Format("Failed to search {0}. Response: {1}", fort, fortResponse.Result), LoggerTypes.Warning));
                         //Recycle if inventory full
                         await RecycleFilteredItems();
+                        await Task.Delay(CalculateDelay(UserSettings.GeneralDelay, UserSettings.GeneralDelayRandom));
                         return new MethodResult();
                     case FortSearchResponse.Types.Result.NoResultSet:
                         LogCaller(new LoggerEventArgs(String.Format("Failed to search {0}. Response: {1}", fort, fortResponse.Result), LoggerTypes.Warning));
@@ -143,8 +144,6 @@ namespace PokemonGoGUI.GoManager
                             //Go to location again
                             LogCaller(new LoggerEventArgs($"Pokestop potential softban baypass enabled go to location again {pokestop.Latitude}, {pokestop.Longitude}.", LoggerTypes.Debug));
                             MethodResult move = UpdateLocation(new GeoCoordinate(pokestop.Latitude, pokestop.Longitude));
-
-                            await Task.Delay(CalculateDelay(UserSettings.GeneralDelay, UserSettings.GeneralDelayRandom));
 
                             while (bypass > 0)
                             {
@@ -230,8 +229,6 @@ namespace PokemonGoGUI.GoManager
 
                                             LogCaller(new LoggerEventArgs(_message, LoggerTypes.Success));
 
-                                            await Task.Delay(CalculateDelay(UserSettings.DelayBetweenPlayerActions, UserSettings.PlayerActionDelayRandom));
-
                                             _totalZeroExpStops = 0;
                                             _potentialPokeStopBan = false;
 
@@ -308,8 +305,6 @@ namespace PokemonGoGUI.GoManager
 
                         _totalZeroExpStops = 0;
                         _potentialPokeStopBan = false;
-
-                        await Task.Delay(CalculateDelay(UserSettings.DelayBetweenPlayerActions, UserSettings.PlayerActionDelayRandom));
 
                         return new MethodResult
                         {

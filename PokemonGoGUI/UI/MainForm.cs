@@ -215,7 +215,6 @@ namespace PokemonGoGUI
 
             try
             {
-
                 if (!File.Exists(gzipFile))
                     return false;
 
@@ -313,6 +312,7 @@ namespace PokemonGoGUI
             }
         }
 
+        /*
         private void Manager_OnInventoryUpdate(object sender, EventArgs e)
         {
             var manager = sender as Manager;
@@ -324,6 +324,7 @@ namespace PokemonGoGUI
 
             RefreshManager(manager);
         }
+        */
 
         private void Manager_OnLog(object sender, LoggerEventArgs e)
         {
