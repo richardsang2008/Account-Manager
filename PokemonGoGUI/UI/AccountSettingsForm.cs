@@ -249,6 +249,7 @@ namespace PokemonGoGUI.UI
             numericUpDownThrottles.Value = new Decimal(settings.APIThrottles);
             checkBoxSoftBypass.Checked = settings.UseSoftBanBypass;
             numericUpDownSoftBypass.Value = new Decimal(settings.SoftBanBypassTimes);
+            numericUpDownLvForConsLukky.Value = new Decimal(settings.LevelForConstLukky);
 
             //Location time zones
             var zones = new TimeZoneIds().GetTimeZoneIds();
@@ -567,6 +568,14 @@ namespace PokemonGoGUI.UI
                 return false;
             }
             userSettings.SoftBanBypassTimes = softbanbypass;
+
+            int lvforconslukky;
+            if (!Int32.TryParse(numericUpDownLvForConsLukky.Text, out lvforconslukky))
+            {
+                MessageBox.Show("Min level for use lukky constantly value", "Warning");
+                return false;
+            }
+            userSettings.LevelForConstLukky = lvforconslukky;
 
             return true;
         }

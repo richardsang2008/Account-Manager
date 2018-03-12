@@ -62,19 +62,6 @@ namespace PokemonGoGUI.GoManager
             else
                 return new MethodResult();
 
-            if (!_client.ClientSession.LuckyEggsUsed)
-            {
-                if (UserSettings.UseLuckEggConst)
-                {
-                    MethodResult luckEggResult = await UseLuckyEgg();
-
-                    if (!luckEggResult.Success)
-                    {
-                        LogCaller(new LoggerEventArgs(luckEggResult.Message, LoggerTypes.Info));
-                    }
-                }
-            }
-
             MethodResult<MapPokemon> iResponse = await GetIncensePokemons();
 
             if (!iResponse.Success || iResponse.Data == null || iResponse.Data.PokemonId == PokemonId.Missingno)

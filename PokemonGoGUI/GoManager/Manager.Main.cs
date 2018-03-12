@@ -615,7 +615,7 @@ namespace PokemonGoGUI.GoManager
                                 CatchDisabled = true;
                                 TimeAutoCatch = DateTime.Now.AddMinutes(UserSettings.DisableCatchDelay);
                             }
-                       }
+                        }
 
                         //Stop bot instantly
                         if (!IsRunning)
@@ -879,6 +879,16 @@ namespace PokemonGoGUI.GoManager
                         {
                             LogCaller(new LoggerEventArgs(String.Format("Max level of {0} reached.", UserSettings.MaxLevel), LoggerTypes.Info));
                             Stop();
+                        }
+
+                        if (UserSettings.UseLuckEggConst && Level >= UserSettings.LevelForConstLukky)
+                        {
+                            MethodResult luckEggResult = await UseLuckyEgg();
+
+                            if (luckEggResult.Success)
+                            {
+                                await Task.Delay(CalculateDelay(UserSettings.GeneralDelay, UserSettings.GeneralDelayRandom));
+                            }
                         }
 
                         if (_totalZeroExpStops > 25)

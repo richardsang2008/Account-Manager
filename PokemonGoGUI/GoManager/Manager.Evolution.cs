@@ -292,6 +292,14 @@ namespace PokemonGoGUI.GoManager
 
         private async Task<MethodResult> UseLuckyEgg()
         {
+            if (_client.ClientSession.LuckyEggsUsed)
+            {
+                return new MethodResult
+                {
+                    Message = "Lucky egg already active"
+                };
+            }
+
             ItemData data = Items.FirstOrDefault(x => x.ItemId == ItemId.ItemLuckyEgg);
 
             if (data == null || data.Count == 0)
@@ -304,43 +312,38 @@ namespace PokemonGoGUI.GoManager
                 };
             }
 
-            if (!_client.ClientSession.LuckyEggsUsed)
+            if (!_client.LoggedIn)
             {
-                if (!_client.LoggedIn)
-                {
-                    MethodResult result = await AcLogin();
+                MethodResult result = await AcLogin();
 
-                    if (!result.Success)
-                    {
-                        return result;
-                    }
+                if (!result.Success)
+                {
+                    return result;
                 }
-
-                var response = await _client.ClientSession.RpcClient.SendRemoteProcedureCallAsync(new Request
-                {
-                    RequestType = RequestType.UseItemXpBoost,
-                    RequestMessage = new UseItemXpBoostMessage
-                    {
-                        ItemId = ItemId.ItemLuckyEgg
-                    }.ToByteString()
-                });
-
-                if (response == null)
-                    return new MethodResult();
-
-                UseItemXpBoostResponse useItemXpBoostResponse = null;
-
-                useItemXpBoostResponse = UseItemXpBoostResponse.Parser.ParseFrom(response);
-
-                LogCaller(new LoggerEventArgs(String.Format("Lucky egg used. Remaining: {0}", data.Count - 1), LoggerTypes.Success));
-
-                return new MethodResult
-                {
-                    Success = true
-                };
             }
-            LogCaller(new LoggerEventArgs("Lucky egg already active", LoggerTypes.Info));
-            return new MethodResult();
+
+            var response = await _client.ClientSession.RpcClient.SendRemoteProcedureCallAsync(new Request
+            {
+                RequestType = RequestType.UseItemXpBoost,
+                RequestMessage = new UseItemXpBoostMessage
+                {
+                    ItemId = ItemId.ItemLuckyEgg
+                }.ToByteString()
+            });
+
+            if (response == null)
+                return new MethodResult();
+
+            UseItemXpBoostResponse useItemXpBoostResponse = null;
+
+            useItemXpBoostResponse = UseItemXpBoostResponse.Parser.ParseFrom(response);
+
+            LogCaller(new LoggerEventArgs(String.Format("Lucky egg used. Remaining: {0}", data.Count - 1), LoggerTypes.Success));
+
+            return new MethodResult
+            {
+                Success = true
+            };
         }
 
         public double FilledPokemonInventorySpace()
