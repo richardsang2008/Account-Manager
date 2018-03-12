@@ -70,7 +70,7 @@ namespace PokemonGoGUI.GoManager
 
                     if (!luckEggResult.Success)
                     {
-                        LogCaller(new LoggerEventArgs("Failed to use lucky egg. Possibly already active. Continuing evolving", LoggerTypes.Info));
+                        LogCaller(new LoggerEventArgs(luckEggResult.Message, LoggerTypes.Info));
                     }
                 }
             }
