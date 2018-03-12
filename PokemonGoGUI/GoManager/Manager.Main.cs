@@ -542,8 +542,8 @@ namespace PokemonGoGUI.GoManager
 
                             if (pokestopsToFarm.Count < 1 || distance >= UserSettings.MaxPokestopMeters)
                             {
-                                //Pass restart if value is 0 or meter no ok recommended 150
-                                await Task.Delay(CalculateDelay(UserSettings.GeneralDelay, UserSettings.GeneralDelayRandom));
+                                //Pass restart if value is 0 or meter no ok recommended 250-300
+                                await Task.Delay(CalculateDelay(UserSettings.DelayBetweenLocationUpdates, UserSettings.LocationupdateDelayRandom));
                                 goto reloadAllForts;
                             }
                         }
@@ -552,7 +552,7 @@ namespace PokemonGoGUI.GoManager
                             continue;
 
                         pokestop = pokestopsToFarm.Dequeue();
-                        LogCaller(new LoggerEventArgs("DeQueued: " + pokestop.Id, LoggerTypes.Debug));
+                        LogCaller(new LoggerEventArgs("Fort DeQueued: " + pokestop.Id, LoggerTypes.Debug));
 
                         string fort = "pokestop";
                         LoggerTypes loggerTypes = LoggerTypes.Info;
@@ -603,23 +603,23 @@ namespace PokemonGoGUI.GoManager
                                     //Catch nearby pokemon
                                     MethodResult nearbyPokemonResponse = await CatchNeabyPokemon();
                                     if (nearbyPokemonResponse.Success)
-                                        await Task.Delay(CalculateDelay(UserSettings.GeneralDelay, UserSettings.GeneralDelayRandom));
+                                        await Task.Delay(CalculateDelay(UserSettings.DelayBetweenPlayerActions, UserSettings.PlayerActionDelayRandom));
 
                                     //Catch incense pokemon
                                     MethodResult incensePokemonResponse = await CatchInsencePokemon();
                                     if (incensePokemonResponse.Success)
-                                        await Task.Delay(CalculateDelay(UserSettings.GeneralDelay, UserSettings.GeneralDelayRandom));
+                                        await Task.Delay(CalculateDelay(UserSettings.DelayBetweenPlayerActions, UserSettings.PlayerActionDelayRandom));
 
                                     //Catch lured pokemon
                                     MethodResult luredPokemonResponse = await CatchLuredPokemon(pokestop);
                                     if (luredPokemonResponse.Success)
-                                        await Task.Delay(CalculateDelay(UserSettings.GeneralDelay, UserSettings.GeneralDelayRandom));
+                                        await Task.Delay(CalculateDelay(UserSettings.DelayBetweenPlayerActions, UserSettings.PlayerActionDelayRandom));
 
                                     //Check sniping NearyPokemon
                                     MethodResult Snipe = await SnipeAllNearyPokemon();
                                     if (Snipe.Success)
                                     {
-                                        await Task.Delay(CalculateDelay(UserSettings.GeneralDelay, UserSettings.GeneralDelayRandom));
+                                        await Task.Delay(CalculateDelay(UserSettings.DelayBetweenPlayerActions, UserSettings.PlayerActionDelayRandom));
                                         //this as walk to pokemon sinpe pos is not good .. continue for new pos..
                                         continue;
                                     }
@@ -628,7 +628,7 @@ namespace PokemonGoGUI.GoManager
                                 {
                                     LogCaller(new LoggerEventArgs("You inventory pokemon storage is full please transfer some pokemons.", LoggerTypes.Warning));
                                     await TransferFilteredPokemon();
-                                    await Task.Delay(CalculateDelay(UserSettings.GeneralDelay, UserSettings.GeneralDelayRandom));
+                                    await Task.Delay(CalculateDelay(UserSettings.DelayBetweenPlayerActions, UserSettings.PlayerActionDelayRandom));
                                 }
                             }
                             else
@@ -649,7 +649,7 @@ namespace PokemonGoGUI.GoManager
                         if (UserSettings.RecycleItems)
                         {
                             await RecycleFilteredItems();
-                            await Task.Delay(CalculateDelay(UserSettings.GeneralDelay, UserSettings.GeneralDelayRandom));
+                            await Task.Delay(CalculateDelay(UserSettings.DelayBetweenPlayerActions, UserSettings.PlayerActionDelayRandom));
                         }
 
                         //if too balls ignore stops..
@@ -686,7 +686,7 @@ namespace PokemonGoGUI.GoManager
 
                                                 if (setplayerteam.Success)
                                                 {
-                                                    await Task.Delay(CalculateDelay(UserSettings.GeneralDelay, UserSettings.GeneralDelayRandom));
+                                                    await Task.Delay(CalculateDelay(UserSettings.DelayBetweenPlayerActions, UserSettings.PlayerActionDelayRandom));
 
                                                     result = await MarkTutorialsComplete(new[] { TutorialState.GymTutorial });
 
@@ -698,7 +698,7 @@ namespace PokemonGoGUI.GoManager
 
                                                     LogCaller(new LoggerEventArgs("Marking Gym tutorials completed.", LoggerTypes.Success));
 
-                                                    await Task.Delay(CalculateDelay(UserSettings.GeneralDelay, UserSettings.GeneralDelayRandom));
+                                                    await Task.Delay(CalculateDelay(UserSettings.DelayBetweenPlayerActions, UserSettings.PlayerActionDelayRandom));
                                                 }
                                             }
                                         }
@@ -717,7 +717,7 @@ namespace PokemonGoGUI.GoManager
                                                 {
                                                     result = await MarkTutorialsComplete(new[] { tuto });
                                                     if (result.Success)
-                                                        await Task.Delay(CalculateDelay(UserSettings.GeneralDelay, UserSettings.GeneralDelayRandom));
+                                                        await Task.Delay(CalculateDelay(UserSettings.DelayBetweenPlayerActions, UserSettings.PlayerActionDelayRandom));
                                                 }
                                             }
                                         }
@@ -726,7 +726,7 @@ namespace PokemonGoGUI.GoManager
                                         if (gyminfo.Success)
                                         {
                                             LogCaller(new LoggerEventArgs("Gym Name: " + gyminfo.Data.Name, LoggerTypes.Info));
-                                            await Task.Delay(CalculateDelay(UserSettings.GeneralDelay, UserSettings.GeneralDelayRandom));
+                                            await Task.Delay(CalculateDelay(UserSettings.DelayBetweenPlayerActions, UserSettings.PlayerActionDelayRandom));
                                         }
                                         else
                                             continue;
@@ -748,7 +748,7 @@ namespace PokemonGoGUI.GoManager
                                                     {
                                                         //Try to deploy
                                                         await GymDeploy(pokestop);
-                                                        await Task.Delay(CalculateDelay(UserSettings.GeneralDelay, UserSettings.GeneralDelayRandom));
+                                                        await Task.Delay(CalculateDelay(UserSettings.DelayBetweenPlayerActions, UserSettings.PlayerActionDelayRandom));
                                                     }
                                                 }
                                             }
@@ -781,7 +781,7 @@ namespace PokemonGoGUI.GoManager
 
                                         LogCaller(new LoggerEventArgs("Marking pokestop, pokemonberry, useitem, pokemoncapture tutorials completed.", LoggerTypes.Success));
 
-                                        await Task.Delay(CalculateDelay(UserSettings.GeneralDelay, UserSettings.GeneralDelayRandom));
+                                        await Task.Delay(CalculateDelay(UserSettings.DelayBetweenPlayerActions, UserSettings.PlayerActionDelayRandom));
                                     }
 
                                     if (UserSettings.RequestFortDetails)
@@ -790,7 +790,7 @@ namespace PokemonGoGUI.GoManager
                                         if (fortDetails.Success)
                                         {
                                             LogCaller(new LoggerEventArgs("Fort Name: " + fortDetails.Data.Name, LoggerTypes.Info));
-                                            await Task.Delay(CalculateDelay(UserSettings.GeneralDelay, UserSettings.GeneralDelayRandom));
+                                            await Task.Delay(CalculateDelay(UserSettings.DelayBetweenPlayerActions, UserSettings.PlayerActionDelayRandom));
                                         }
                                         else
                                             continue;
@@ -802,7 +802,7 @@ namespace PokemonGoGUI.GoManager
                                     if (searchResult.Success)
                                     {
                                         currentFailedStops = 0;
-                                        await Task.Delay(CalculateDelay(UserSettings.GeneralDelay, UserSettings.GeneralDelayRandom));
+                                        await Task.Delay(CalculateDelay(UserSettings.DelayBetweenPlayerActions, UserSettings.PlayerActionDelayRandom));
                                     }
                                     else
                                     {
@@ -848,7 +848,7 @@ namespace PokemonGoGUI.GoManager
 
                                 if (evolveResult.Success)
                                 {
-                                    await Task.Delay(CalculateDelay(UserSettings.GeneralDelay, UserSettings.GeneralDelayRandom));
+                                    await Task.Delay(CalculateDelay(UserSettings.DelayBetweenPlayerActions, UserSettings.PlayerActionDelayRandom));
                                 }
                             }
 
@@ -858,7 +858,7 @@ namespace PokemonGoGUI.GoManager
 
                                 if (transferResult.Success)
                                 {
-                                    await Task.Delay(CalculateDelay(UserSettings.GeneralDelay, UserSettings.GeneralDelayRandom));
+                                    await Task.Delay(CalculateDelay(UserSettings.DelayBetweenPlayerActions, UserSettings.PlayerActionDelayRandom));
                                 }
                             }
 
@@ -868,7 +868,7 @@ namespace PokemonGoGUI.GoManager
 
                                 if (upgradeResult.Success)
                                 {
-                                    await Task.Delay(CalculateDelay(UserSettings.GeneralDelay, UserSettings.GeneralDelayRandom));
+                                    await Task.Delay(CalculateDelay(UserSettings.DelayBetweenPlayerActions, UserSettings.PlayerActionDelayRandom));
                                 }
                             }
 
@@ -878,7 +878,7 @@ namespace PokemonGoGUI.GoManager
 
                                 if (incubateResult.Success)
                                 {
-                                    await Task.Delay(CalculateDelay(UserSettings.GeneralDelay, UserSettings.GeneralDelayRandom));
+                                    await Task.Delay(CalculateDelay(UserSettings.DelayBetweenPlayerActions, UserSettings.PlayerActionDelayRandom));
                                 }
                             }
 
@@ -892,7 +892,7 @@ namespace PokemonGoGUI.GoManager
                         if (Level > prevLevel)
                         {
                             await ClaimLevelUpRewards(Level);
-                            await Task.Delay(CalculateDelay(UserSettings.GeneralDelay, UserSettings.GeneralDelayRandom));
+                            await Task.Delay(CalculateDelay(UserSettings.DelayBetweenPlayerActions, UserSettings.PlayerActionDelayRandom));
                         }
 
                         ++pokeStopNumber;
@@ -930,7 +930,7 @@ namespace PokemonGoGUI.GoManager
 
                             if (luckEggResult.Success)
                             {
-                                await Task.Delay(CalculateDelay(UserSettings.GeneralDelay, UserSettings.GeneralDelayRandom));
+                                await Task.Delay(CalculateDelay(UserSettings.DelayBetweenPlayerActions, UserSettings.PlayerActionDelayRandom));
                             }
                         }
                     }
