@@ -490,33 +490,35 @@ namespace PokemonGoGUI.GoManager
 
             var response = await _client.ClientSession.RpcClient.SendRemoteProcedureCallAsync(new Request
             {
-                RequestType = RequestType.UseLuckEgg,
-                RequestMessage = new UseLuckEggMessage
+                RequestType = RequestType.UseItemXpBoost,
+                RequestMessage = new UseItemXpBoostMessage
                 {
-                    luckEggType = item
+                    ItemId = item
                 }.ToByteString()
             });
 
             if (response == null)
                 return new MethodResult();
 
-            UseLuckEggResponse useLuckEggResponse = UseLuckEggResponse.Parser.ParseFrom(response);
+            UseItemXpBoostResponse useLuckEggResponse = UseItemXpBoostResponse.Parser.ParseFrom(response);
 
             switch (useLuckEggResponse.Result)
             {
-                case UseLuckEggResponse.Types.Result.LuckEggAlreadyActive:
+                case UseItemXpBoostResponse.Types.Result.ErrorXpBoostAlreadyActive:
                     return new MethodResult();
-                case UseLuckEggResponse.Types.Result.LocationUnset:
+                case UseItemXpBoostResponse.Types.Result.ErrorLocationUnset:
                     return new MethodResult();
-                case UseLuckEggResponse.Types.Result.Success:
+                case UseItemXpBoostResponse.Types.Result.Success:
                     LogCaller(new LoggerEventArgs(String.Format("Used luck egg {0}.", item), LoggerTypes.Success));
                     return new MethodResult
                     {
                         Success = true
                     };
-                case UseLuckEggResponse.Types.Result.NoneInInventory:
+                case UseItemXpBoostResponse.Types.Result.ErrorInvalidItemType:
                     return new MethodResult();
-                case UseLuckEggResponse.Types.Result.Unknown:
+                case UseItemXpBoostResponse.Types.Result.ErrorNoItemsRemaining:
+                    return new MethodResult();
+                case UseItemXpBoostResponse.Types.Result.Unset:
                     return new MethodResult();
             }
             return new MethodResult();

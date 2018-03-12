@@ -62,6 +62,8 @@ namespace PokemonGoGUI.GoManager
             else
                 return new MethodResult();
 
+            //await UseLuckEgg(egg.FirstOrDefault().ItemId);
+
             MethodResult<MapPokemon> iResponse = await GetIncensePokemons();
 
             if (!iResponse.Success || iResponse.Data == null || iResponse.Data.PokemonId == PokemonId.Missingno)
