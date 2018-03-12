@@ -44,16 +44,13 @@ namespace PokemonGoGUI.GoManager
                 return new MethodResult();
             }
 
-            if (!_client.ClientSession.LuckyEggsUsed)
+            if (UserSettings.UseLuckyEgg && !UserSettings.UseLuckEggConst)
             {
-                if (UserSettings.UseLuckyEgg)
-                {
-                    MethodResult result = await UseLuckyEgg();
+                MethodResult result = await UseLuckyEgg();
 
-                    if (!result.Success)
-                    {
-                        LogCaller(new LoggerEventArgs("Failed to use lucky egg. Possibly already active. Continuing evolving", LoggerTypes.Info));
-                    }
+                if (!result.Success)
+                {
+                    LogCaller(new LoggerEventArgs("Failed to use lucky egg. Possibly already active. Continuing evolving", LoggerTypes.Info));
                 }
             }
 
