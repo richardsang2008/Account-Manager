@@ -277,7 +277,7 @@
             this.toolTipProxy = new System.Windows.Forms.ToolTip(this.components);
             this.toolTipMinAccountState = new System.Windows.Forms.ToolTip(this.components);
             this.toolTipHumanizeThrows = new System.Windows.Forms.ToolTip(this.components);
-            this.cbUseLuckEgg = new System.Windows.Forms.CheckBox();
+            this.cbUseLuckEggConst = new System.Windows.Forms.CheckBox();
             this.tabControlMain.SuspendLayout();
             this.tabPageDetails.SuspendLayout();
             this.tabControlSettings.SuspendLayout();
@@ -699,7 +699,7 @@
             // 
             // groupBoxPlayerActions
             // 
-            this.groupBoxPlayerActions.Controls.Add(this.cbUseLuckEgg);
+            this.groupBoxPlayerActions.Controls.Add(this.cbUseLuckEggConst);
             this.groupBoxPlayerActions.Controls.Add(this.checkBoxTooBalls);
             this.groupBoxPlayerActions.Controls.Add(this.numericUpDownTooBalls);
             this.groupBoxPlayerActions.Controls.Add(this.label54);
@@ -3117,15 +3117,15 @@
             this.olvColumnPinap.Text = "Use Pinap";
             this.olvColumnPinap.Width = 70;
             // 
-            // cbUseLuckEgg
+            // cbUseLuckEggConst
             // 
-            this.cbUseLuckEgg.AutoSize = true;
-            this.cbUseLuckEgg.Location = new System.Drawing.Point(131, 146);
-            this.cbUseLuckEgg.Name = "cbUseLuckEgg";
-            this.cbUseLuckEgg.Size = new System.Drawing.Size(114, 17);
-            this.cbUseLuckEgg.TabIndex = 85;
-            this.cbUseLuckEgg.Text = "LuckEgg Constan.";
-            this.cbUseLuckEgg.UseVisualStyleBackColor = true;
+            this.cbUseLuckEggConst.AutoSize = true;
+            this.cbUseLuckEggConst.Location = new System.Drawing.Point(131, 146);
+            this.cbUseLuckEggConst.Name = "cbUseLuckEgg";
+            this.cbUseLuckEggConst.Size = new System.Drawing.Size(114, 17);
+            this.cbUseLuckEggConst.TabIndex = 85;
+            this.cbUseLuckEggConst.Text = "LuckEgg Constan.";
+            this.cbUseLuckEggConst.UseVisualStyleBackColor = true;
             // 
             // AccountSettingsForm
             // 
@@ -3455,6 +3455,6 @@
         private System.Windows.Forms.CheckBox checkBoxSoftBypass;
         private System.Windows.Forms.Label label58;
         private System.Windows.Forms.NumericUpDown numericUpDownSoftBypass;
-        private System.Windows.Forms.CheckBox cbUseLuckEgg;
+        private System.Windows.Forms.CheckBox cbUseLuckEggConst;
     }
 }

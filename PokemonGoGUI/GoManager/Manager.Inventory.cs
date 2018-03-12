@@ -473,57 +473,6 @@ namespace PokemonGoGUI.GoManager
             return new MethodResult();
         }
 
-        private async Task<MethodResult> UseLuckEgg(ItemId item = ItemId.ItemLuckyEgg)
-        {
-            if (!_client.LoggedIn)
-            {
-                MethodResult result = await AcLogin();
-
-                if (!result.Success)
-                {
-                    return result;
-                }
-            }
-
-            if (Items.FirstOrDefault(x => x.ItemId == item).Count == 0)
-                return new MethodResult();
-
-            var response = await _client.ClientSession.RpcClient.SendRemoteProcedureCallAsync(new Request
-            {
-                RequestType = RequestType.UseItemXpBoost,
-                RequestMessage = new UseItemXpBoostMessage
-                {
-                    ItemId = item
-                }.ToByteString()
-            });
-
-            if (response == null)
-                return new MethodResult();
-
-            UseItemXpBoostResponse useLuckEggResponse = UseItemXpBoostResponse.Parser.ParseFrom(response);
-
-            switch (useLuckEggResponse.Result)
-            {
-                case UseItemXpBoostResponse.Types.Result.ErrorXpBoostAlreadyActive:
-                    return new MethodResult();
-                case UseItemXpBoostResponse.Types.Result.ErrorLocationUnset:
-                    return new MethodResult();
-                case UseItemXpBoostResponse.Types.Result.Success:
-                    LogCaller(new LoggerEventArgs(String.Format("Used luck egg {0}.", item), LoggerTypes.Success));
-                    return new MethodResult
-                    {
-                        Success = true
-                    };
-                case UseItemXpBoostResponse.Types.Result.ErrorInvalidItemType:
-                    return new MethodResult();
-                case UseItemXpBoostResponse.Types.Result.ErrorNoItemsRemaining:
-                    return new MethodResult();
-                case UseItemXpBoostResponse.Types.Result.Unset:
-                    return new MethodResult();
-            }
-            return new MethodResult();
-        }
-
         public double FilledInventoryStorage()
         {
             if (Items == null || PlayerData == null)

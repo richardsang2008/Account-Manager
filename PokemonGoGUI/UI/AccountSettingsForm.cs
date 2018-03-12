@@ -173,7 +173,7 @@ namespace PokemonGoGUI.UI
             }
 
             cbUseIncense.Checked = settings.UseIncense;
-            cbUseLuckEgg.Checked = settings.UseLuckEgg;
+            cbUseLuckEggConst.Checked = settings.UseLuckEggConst;
             checkBoxReqFortDetails.Checked = settings.RequestFortDetails;
 
             //Humanization
@@ -425,7 +425,7 @@ namespace PokemonGoGUI.UI
             userSettings.UseBerries = checkBoxUseBerries.Checked;
             userSettings.DisableCatchDelay = (int)numericUpDownDisableCatchDelay.Value;
             userSettings.UseIncense = cbUseIncense.Checked;
-            userSettings.UseLuckEgg = cbUseLuckEgg.Checked;
+            userSettings.UseLuckEggConst = cbUseLuckEggConst.Checked;
             userSettings.RunForHours = (double)numericUpDownRunForHours.Value;
             userSettings.MaxLogs = (int)numericUpDownMaxLogs.Value;
             userSettings.StopOnIPBan = checkBoxStopOnIPBan.Checked;

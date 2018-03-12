@@ -62,7 +62,18 @@ namespace PokemonGoGUI.GoManager
             else
                 return new MethodResult();
 
-            //await UseLuckEgg(egg.FirstOrDefault().ItemId);
+            if (!_client.ClientSession.LuckyEggsUsed)
+            {
+                if (UserSettings.UseLuckEggConst)
+                {
+                    MethodResult luckEggResult = await UseLuckyEgg();
+
+                    if (!luckEggResult.Success)
+                    {
+                        LogCaller(new LoggerEventArgs("Failed to use lucky egg. Possibly already active. Continuing evolving", LoggerTypes.Info));
+                    }
+                }
+            }
 
             MethodResult<MapPokemon> iResponse = await GetIncensePokemons();
 
