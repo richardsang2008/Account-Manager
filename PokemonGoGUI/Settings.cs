@@ -69,6 +69,7 @@ namespace PokemonGoGUI
         public bool MimicWalking { get; set; }
         public int WalkingSpeed { get; set; }
         public bool EncounterWhileWalking { get; set; }
+        public double MaxPokestopMeters { get; set; }
         public int MaxTravelDistance { get; set; }
         public bool UseLuckyEgg { get; set; }
         public bool ClaimLevelUpRewards { get; set; }
@@ -241,6 +242,7 @@ namespace PokemonGoGUI
             UseSoftBanBypass = true;
             SoftBanBypassTimes = 40;
             LevelForConstLukky = 9;
+            MaxPokestopMeters = 0; // disabled
         }
 
         public void LoadCatchSettings()

@@ -466,6 +466,9 @@ namespace PokemonGoGUI.GoManager
                     #region PokeStopTask
 
                     //Get pokestops
+                    //Look new if pokestostofarm is 0
+                    reloadStops:
+
                     LogCaller(new LoggerEventArgs("getting pokestops...", LoggerTypes.Debug));
 
                     MethodResult<List<FortData>> pokestops = await GetAllFortsAsync();
@@ -520,6 +523,15 @@ namespace PokemonGoGUI.GoManager
                         }
 
                         pokestopsToFarm = new Queue<FortData>(pokestopsToFarm.OrderBy(x => CalculateDistanceInMeters(_client.ClientSession.Player.Latitude, _client.ClientSession.Player.Longitude, x.Latitude, x.Longitude)));
+
+                        if (UserSettings.MaxPokestopMeters > 0)
+                            pokestopsToFarm = new Queue<FortData>(pokestopsToFarm.OrderBy(x => CalculateDistanceInMeters(_client.ClientSession.Player.Latitude, _client.ClientSession.Player.Longitude, x.Latitude, x.Longitude) <= UserSettings.MaxPokestopMeters));
+
+                        if(pokestopsToFarm.Count < 1)
+                        {
+                            //Pass restart if value is 0
+                            goto reloadStops;
+                        }
 
                         FortData pokestop = pokestopsToFarm.Dequeue();
                         LogCaller(new LoggerEventArgs("Fort Dequeued: " + pokestop.Id, LoggerTypes.Debug));

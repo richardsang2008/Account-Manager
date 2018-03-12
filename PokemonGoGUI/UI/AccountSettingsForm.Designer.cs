@@ -279,6 +279,9 @@
             this.toolTipMinAccountState = new System.Windows.Forms.ToolTip(this.components);
             this.toolTipHumanizeThrows = new System.Windows.Forms.ToolTip(this.components);
             this.numericUpDownLvForConsLukky = new System.Windows.Forms.NumericUpDown();
+            this.label59 = new System.Windows.Forms.Label();
+            this.numericUpDownMaxMetersStop = new System.Windows.Forms.NumericUpDown();
+            this.label60 = new System.Windows.Forms.Label();
             this.tabControlMain.SuspendLayout();
             this.tabPageDetails.SuspendLayout();
             this.tabControlSettings.SuspendLayout();
@@ -330,6 +333,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.fastObjectListViewUpgrade)).BeginInit();
             this.contextMenuStripUpgrade.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownLvForConsLukky)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMaxMetersStop)).BeginInit();
             this.SuspendLayout();
             // 
             // tabControlMain
@@ -1303,6 +1307,9 @@
             // 
             // tabPageSettingsNavigation
             // 
+            this.tabPageSettingsNavigation.Controls.Add(this.label60);
+            this.tabPageSettingsNavigation.Controls.Add(this.numericUpDownMaxMetersStop);
+            this.tabPageSettingsNavigation.Controls.Add(this.label59);
             this.tabPageSettingsNavigation.Controls.Add(this.checkBoxShufflePokestops);
             this.tabPageSettingsNavigation.Controls.Add(this.cbTimeZones);
             this.tabPageSettingsNavigation.Controls.Add(this.label53);
@@ -1344,7 +1351,7 @@
             // cbTimeZones
             // 
             this.cbTimeZones.FormattingEnabled = true;
-            this.cbTimeZones.Location = new System.Drawing.Point(191, 235);
+            this.cbTimeZones.Location = new System.Drawing.Point(192, 278);
             this.cbTimeZones.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.cbTimeZones.Name = "cbTimeZones";
             this.cbTimeZones.Size = new System.Drawing.Size(272, 24);
@@ -1352,7 +1359,7 @@
             // 
             // label53
             // 
-            this.label53.Location = new System.Drawing.Point(45, 239);
+            this.label53.Location = new System.Drawing.Point(44, 286);
             this.label53.Name = "label53";
             this.label53.Size = new System.Drawing.Size(140, 16);
             this.label53.TabIndex = 56;
@@ -1397,7 +1404,7 @@
             // 
             this.checkBoxEncounterWhileWalking.AutoSize = true;
             this.checkBoxEncounterWhileWalking.Enabled = false;
-            this.checkBoxEncounterWhileWalking.Location = new System.Drawing.Point(141, 198);
+            this.checkBoxEncounterWhileWalking.Location = new System.Drawing.Point(47, 195);
             this.checkBoxEncounterWhileWalking.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.checkBoxEncounterWhileWalking.Name = "checkBoxEncounterWhileWalking";
             this.checkBoxEncounterWhileWalking.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
@@ -3111,6 +3118,38 @@
             0,
             0});
             // 
+            // label59
+            // 
+            this.label59.AutoSize = true;
+            this.label59.Location = new System.Drawing.Point(44, 239);
+            this.label59.Name = "label59";
+            this.label59.Size = new System.Drawing.Size(280, 17);
+            this.label59.TabIndex = 59;
+            this.label59.Text = "Max distance in meters Player -> Pokestop:";
+            // 
+            // numericUpDownMaxMetersStop
+            // 
+            this.numericUpDownMaxMetersStop.DecimalPlaces = 2;
+            this.numericUpDownMaxMetersStop.Location = new System.Drawing.Point(330, 237);
+            this.numericUpDownMaxMetersStop.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.numericUpDownMaxMetersStop.Maximum = new decimal(new int[] {
+            999999,
+            0,
+            0,
+            0});
+            this.numericUpDownMaxMetersStop.Name = "numericUpDownMaxMetersStop";
+            this.numericUpDownMaxMetersStop.Size = new System.Drawing.Size(84, 22);
+            this.numericUpDownMaxMetersStop.TabIndex = 60;
+            // 
+            // label60
+            // 
+            this.label60.AutoSize = true;
+            this.label60.Location = new System.Drawing.Point(431, 239);
+            this.label60.Name = "label60";
+            this.label60.Size = new System.Drawing.Size(114, 17);
+            this.label60.TabIndex = 61;
+            this.label60.Text = "(0.00 = Disabed)";
+            // 
             // AccountSettingsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -3186,6 +3225,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.fastObjectListViewUpgrade)).EndInit();
             this.contextMenuStripUpgrade.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownLvForConsLukky)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMaxMetersStop)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -3442,5 +3482,8 @@
         private System.Windows.Forms.NumericUpDown numericUpDownSoftBypass;
         private System.Windows.Forms.CheckBox cbUseLuckEggConst;
         private System.Windows.Forms.NumericUpDown numericUpDownLvForConsLukky;
+        private System.Windows.Forms.NumericUpDown numericUpDownMaxMetersStop;
+        private System.Windows.Forms.Label label59;
+        private System.Windows.Forms.Label label60;
     }
 }

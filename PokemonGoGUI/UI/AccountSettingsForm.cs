@@ -141,6 +141,7 @@ namespace PokemonGoGUI.UI
             checkBoxOnlyUnlimitedIncubator.Checked = settings.OnlyUnlimitedIncubator;
             checkBoxCatchPokemon.Checked = settings.CatchPokemon;
             numericUpDownRunForHours.Value = new Decimal(settings.RunForHours);
+            numericUpDownMaxMetersStop.Value = new Decimal(settings.MaxPokestopMeters);
             numericUpDownMaxLogs.Value = settings.MaxLogs;
             numericUpDownMaxFailBeforeReset.Value = settings.MaxFailBeforeReset;
             checkBoxStopOnIPBan.Checked = settings.StopOnIPBan;
@@ -436,6 +437,7 @@ namespace PokemonGoGUI.UI
             userSettings.RequestFortDetails = checkBoxReqFortDetails.Checked;
             userSettings.IgnoreStopsIfTooBalls = checkBoxTooBalls.Checked;
             userSettings.BallsToIgnoreStops = (int)numericUpDownTooBalls.Value;
+            userSettings.MaxPokestopMeters = (double)numericUpDownMaxMetersStop.Value;
 
             //Humanization
             userSettings.EnableHumanization = checkBoxHumanizeThrows.Checked;
