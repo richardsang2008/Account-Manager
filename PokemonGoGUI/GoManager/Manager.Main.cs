@@ -881,16 +881,6 @@ namespace PokemonGoGUI.GoManager
                             Stop();
                         }
 
-                        if (UserSettings.UseLuckEggConst && Level >= UserSettings.LevelForConstLukky)
-                        {
-                            MethodResult luckEggResult = await UseLuckyEgg();
-
-                            if (luckEggResult.Success)
-                            {
-                                await Task.Delay(CalculateDelay(UserSettings.GeneralDelay, UserSettings.GeneralDelayRandom));
-                            }
-                        }
-
                         if (_totalZeroExpStops > 25)
                         {
                             LogCaller(new LoggerEventArgs("Potential PokeStop SoftBan.", LoggerTypes.Warning));
@@ -910,6 +900,16 @@ namespace PokemonGoGUI.GoManager
                         {
                             LogCaller(new LoggerEventArgs("Daily limits reached. Stoping ...", LoggerTypes.Warning));
                             Stop();
+                        }
+
+                        if (UserSettings.UseLuckEggConst && Level >= UserSettings.LevelForConstLukky)
+                        {
+                            MethodResult luckEggResult = await UseLuckyEgg();
+
+                            if (luckEggResult.Success)
+                            {
+                                await Task.Delay(CalculateDelay(UserSettings.GeneralDelay, UserSettings.GeneralDelayRandom));
+                            }
                         }
                     }
                 }
