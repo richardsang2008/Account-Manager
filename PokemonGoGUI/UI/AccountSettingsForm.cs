@@ -142,6 +142,7 @@ namespace PokemonGoGUI.UI
             checkBoxCatchPokemon.Checked = settings.CatchPokemon;
             numericUpDownRunForHours.Value = new Decimal(settings.RunForHours);
             numericUpDownMaxMetersStop.Value = new Decimal(settings.MaxPokestopMeters);
+            numericUpDownMaxMetersStopRandom.Value = new Decimal(settings.MaxPokestopMetersRandom);
             numericUpDownMaxLogs.Value = settings.MaxLogs;
             numericUpDownMaxFailBeforeReset.Value = settings.MaxFailBeforeReset;
             checkBoxStopOnIPBan.Checked = settings.StopOnIPBan;
@@ -554,6 +555,7 @@ namespace PokemonGoGUI.UI
             userSettings.SnipeAllPokemonsNoInPokedex = checkBoxSniperNoInPokedex.Checked;
             userSettings.UsePOGOLibHeartbeat = checkBoxUsePOGOLibHeartbeat.Checked;
             userSettings.UseSoftBanBypass = checkBoxSoftBypass.Checked;
+            userSettings.MaxPokestopMetersRandom = (int)numericUpDownMaxMetersStopRandom.Value;
 
             int apithrottles;
             if (!Int32.TryParse(numericUpDownThrottles.Text, out apithrottles))

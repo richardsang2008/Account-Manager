@@ -535,24 +535,26 @@ namespace PokemonGoGUI.GoManager
  
                         if (UserSettings.MaxPokestopMeters > 0)
                         {
-                            pokestopsToFarm = new Queue<FortData>(pokestopsToFarm.OrderBy(x => distance <= UserSettings.MaxPokestopMeters));
-                            pokestop = pokestopsToFarm.FirstOrDefault();
-                            fortLocation = new GeoCoordinate(pokestop.Latitude, pokestop.Longitude);
-                            distance = CalculateDistanceInMeters(player, fortLocation);
+                            double rand = UserSettings.MaxPokestopMetersRandom - UserSettings.MaxPokestopMeters;
+                            pokestopsToFarm = new Queue<FortData>(pokestopsToFarm.OrderBy(x => distance <= rand));
 
-                            if (pokestopsToFarm.Count < 1 || distance >= UserSettings.MaxPokestopMeters)
+                            if (pokestopsToFarm.Count < 1)
+                            {
+                                rand = UserSettings.MaxPokestopMetersRandom + UserSettings.MaxPokestopMeters;
+                                pokestopsToFarm = new Queue<FortData>(pokestopsToFarm.OrderBy(x => distance <= rand));
+                            }
+
+                            if (pokestopsToFarm.Count < 1 || distance >= rand)
                             {
                                 //Pass restart if value is 0 or meter no ok recommended 250-300
-                                // reset values
-                                _totalZeroExpStops = 0;
-                                currentFailedStops = 0;
-                                _potentialPokemonBan = false;
-                                //
                                 await Task.Delay(CalculateDelay(UserSettings.DelayBetweenLocationUpdates, UserSettings.LocationupdateDelayRandom));
                                 goto reloadAllForts;
                             }
                         }
-                      
+
+                        if (pokestopsToFarm.Count < 1)
+                            break;
+
                         if (UserSettings.GoOnlyToGyms && pokestop.Type != FortType.Gym)
                             continue;
 

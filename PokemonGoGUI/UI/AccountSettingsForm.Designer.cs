@@ -282,6 +282,8 @@
             this.label59 = new System.Windows.Forms.Label();
             this.numericUpDownMaxMetersStop = new System.Windows.Forms.NumericUpDown();
             this.label60 = new System.Windows.Forms.Label();
+            this.label61 = new System.Windows.Forms.Label();
+            this.numericUpDownMaxMetersStopRandom = new System.Windows.Forms.NumericUpDown();
             this.tabControlMain.SuspendLayout();
             this.tabPageDetails.SuspendLayout();
             this.tabControlSettings.SuspendLayout();
@@ -334,6 +336,7 @@
             this.contextMenuStripUpgrade.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownLvForConsLukky)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMaxMetersStop)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMaxMetersStopRandom)).BeginInit();
             this.SuspendLayout();
             // 
             // tabControlMain
@@ -1307,6 +1310,8 @@
             // 
             // tabPageSettingsNavigation
             // 
+            this.tabPageSettingsNavigation.Controls.Add(this.numericUpDownMaxMetersStopRandom);
+            this.tabPageSettingsNavigation.Controls.Add(this.label61);
             this.tabPageSettingsNavigation.Controls.Add(this.label60);
             this.tabPageSettingsNavigation.Controls.Add(this.numericUpDownMaxMetersStop);
             this.tabPageSettingsNavigation.Controls.Add(this.label59);
@@ -3121,7 +3126,7 @@
             // label59
             // 
             this.label59.AutoSize = true;
-            this.label59.Location = new System.Drawing.Point(44, 239);
+            this.label59.Location = new System.Drawing.Point(6, 239);
             this.label59.Name = "label59";
             this.label59.Size = new System.Drawing.Size(280, 17);
             this.label59.TabIndex = 59;
@@ -3130,7 +3135,7 @@
             // numericUpDownMaxMetersStop
             // 
             this.numericUpDownMaxMetersStop.DecimalPlaces = 2;
-            this.numericUpDownMaxMetersStop.Location = new System.Drawing.Point(330, 237);
+            this.numericUpDownMaxMetersStop.Location = new System.Drawing.Point(289, 237);
             this.numericUpDownMaxMetersStop.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.numericUpDownMaxMetersStop.Maximum = new decimal(new int[] {
             999999,
@@ -3144,11 +3149,34 @@
             // label60
             // 
             this.label60.AutoSize = true;
-            this.label60.Location = new System.Drawing.Point(431, 239);
+            this.label60.Location = new System.Drawing.Point(513, 239);
             this.label60.Name = "label60";
             this.label60.Size = new System.Drawing.Size(114, 17);
             this.label60.TabIndex = 61;
             this.label60.Text = "(0.00 = Disabed)";
+            // 
+            // label61
+            // 
+            this.label61.AutoSize = true;
+            this.label61.Location = new System.Drawing.Point(379, 239);
+            this.label61.Name = "label61";
+            this.label61.Size = new System.Drawing.Size(25, 17);
+            this.label61.TabIndex = 62;
+            this.label61.Text = "+/-";
+            // 
+            // numericUpDownMaxMetersStopRandom
+            // 
+            this.numericUpDownMaxMetersStopRandom.DecimalPlaces = 2;
+            this.numericUpDownMaxMetersStopRandom.Location = new System.Drawing.Point(410, 237);
+            this.numericUpDownMaxMetersStopRandom.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.numericUpDownMaxMetersStopRandom.Maximum = new decimal(new int[] {
+            999999,
+            0,
+            0,
+            0});
+            this.numericUpDownMaxMetersStopRandom.Name = "numericUpDownMaxMetersStopRandom";
+            this.numericUpDownMaxMetersStopRandom.Size = new System.Drawing.Size(84, 22);
+            this.numericUpDownMaxMetersStopRandom.TabIndex = 63;
             // 
             // AccountSettingsForm
             // 
@@ -3226,6 +3254,7 @@
             this.contextMenuStripUpgrade.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownLvForConsLukky)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMaxMetersStop)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMaxMetersStopRandom)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -3485,5 +3514,7 @@
         private System.Windows.Forms.NumericUpDown numericUpDownMaxMetersStop;
         private System.Windows.Forms.Label label59;
         private System.Windows.Forms.Label label60;
+        private System.Windows.Forms.NumericUpDown numericUpDownMaxMetersStopRandom;
+        private System.Windows.Forms.Label label61;
     }
 }
