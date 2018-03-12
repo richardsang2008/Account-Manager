@@ -543,6 +543,11 @@ namespace PokemonGoGUI.GoManager
                             if (pokestopsToFarm.Count < 1 || distance >= UserSettings.MaxPokestopMeters)
                             {
                                 //Pass restart if value is 0 or meter no ok recommended 250-300
+                                // reset values
+                                _totalZeroExpStops = 0;
+                                currentFailedStops = 0;
+                                _potentialPokemonBan = false;
+                                //
                                 await Task.Delay(CalculateDelay(UserSettings.DelayBetweenLocationUpdates, UserSettings.LocationupdateDelayRandom));
                                 goto reloadAllForts;
                             }
