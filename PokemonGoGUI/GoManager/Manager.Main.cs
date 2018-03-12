@@ -523,34 +523,36 @@ namespace PokemonGoGUI.GoManager
                         }
 
                         pokestopsToFarm = new Queue<FortData>(pokestopsToFarm.OrderBy(x => CalculateDistanceInMeters(_client.ClientSession.Player.Latitude, _client.ClientSession.Player.Longitude, x.Latitude, x.Longitude)));
-                        FortData pokestop = new FortData();
+
+                        FortData pokestop = pokestopsToFarm.FirstOrDefault();
+
+                        if (pokestop == null)
+                            continue;
+
                         var player = new GeoCoordinate(_client.ClientSession.Player.Latitude, _client.ClientSession.Player.Longitude);
-                        double _distance = 0;
+                        var fortLocation = new GeoCoordinate(pokestop.Latitude, pokestop.Longitude);
+                        double distance = CalculateDistanceInMeters(player, fortLocation);
  
                         if (UserSettings.MaxPokestopMeters > 0)
                         {
+                            pokestopsToFarm = new Queue<FortData>(pokestopsToFarm.OrderBy(x => distance <= UserSettings.MaxPokestopMeters));
                             pokestop = pokestopsToFarm.FirstOrDefault();
-                            var stop = new GeoCoordinate(pokestop.Latitude, pokestop.Longitude);
-                            _distance = CalculateDistanceInMeters(player, stop);
-                            pokestopsToFarm = new Queue<FortData>(pokestopsToFarm.OrderBy(x => _distance <= UserSettings.MaxPokestopMeters));
+                            fortLocation = new GeoCoordinate(pokestop.Latitude, pokestop.Longitude);
+                            distance = CalculateDistanceInMeters(player, fortLocation);
+
+                            if (pokestopsToFarm.Count < 1 || distance >= UserSettings.MaxPokestopMeters)
+                            {
+                                //Pass restart if value is 0 or meter no ok recommended 150
+                                await Task.Delay(CalculateDelay(UserSettings.GeneralDelay, UserSettings.GeneralDelayRandom));
+                                goto reloadAllForts;
+                            }
                         }
-
-                        if(pokestopsToFarm.Count < 1 || _distance >= UserSettings.MaxPokestopMeters)
-                        {
-                            //Pass restart if value is 0 or meter no ok
-                            goto reloadAllForts;
-                        }
-
-                        pokestop = pokestopsToFarm.Dequeue();
-                        LogCaller(new LoggerEventArgs("Fort Dequeued: " + pokestop.Id, LoggerTypes.Debug));
-
+                      
                         if (UserSettings.GoOnlyToGyms && pokestop.Type != FortType.Gym)
                             continue;
 
-                        var currentLocation = new GeoCoordinate(_client.ClientSession.Player.Latitude, _client.ClientSession.Player.Longitude);
-                        var fortLocation = new GeoCoordinate(pokestop.Latitude, pokestop.Longitude);
-
-                        double distance = CalculateDistanceInMeters(currentLocation, fortLocation);
+                        pokestop = pokestopsToFarm.Dequeue();
+                        LogCaller(new LoggerEventArgs("DeQueued: " + pokestop.Id, LoggerTypes.Debug));
 
                         string fort = "pokestop";
                         LoggerTypes loggerTypes = LoggerTypes.Info;
