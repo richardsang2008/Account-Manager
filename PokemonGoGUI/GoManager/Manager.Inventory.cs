@@ -473,6 +473,55 @@ namespace PokemonGoGUI.GoManager
             return new MethodResult();
         }
 
+        private async Task<MethodResult> UseLuckEgg(ItemId item = ItemId.ItemLuckyEgg)
+        {
+            if (!_client.LoggedIn)
+            {
+                MethodResult result = await AcLogin();
+
+                if (!result.Success)
+                {
+                    return result;
+                }
+            }
+
+            if (Items.FirstOrDefault(x => x.ItemId == item).Count == 0)
+                return new MethodResult();
+
+            var response = await _client.ClientSession.RpcClient.SendRemoteProcedureCallAsync(new Request
+            {
+                RequestType = RequestType.UseLuckEgg,
+                RequestMessage = new UseLuckEggMessage
+                {
+                    luckEggType = item
+                }.ToByteString()
+            });
+
+            if (response == null)
+                return new MethodResult();
+
+            UseLuckEggResponse useLuckEggResponse = UseLuckEggResponse.Parser.ParseFrom(response);
+
+            switch (useLuckEggResponse.Result)
+            {
+                case UseLuckEggResponse.Types.Result.LuckEggAlreadyActive:
+                    return new MethodResult();
+                case UseLuckEggResponse.Types.Result.LocationUnset:
+                    return new MethodResult();
+                case UseLuckEggResponse.Types.Result.Success:
+                    LogCaller(new LoggerEventArgs(String.Format("Used luck egg {0}.", item), LoggerTypes.Success));
+                    return new MethodResult
+                    {
+                        Success = true
+                    };
+                case UseLuckEggResponse.Types.Result.NoneInInventory:
+                    return new MethodResult();
+                case UseLuckEggResponse.Types.Result.Unknown:
+                    return new MethodResult();
+            }
+            return new MethodResult();
+        }
+
         public double FilledInventoryStorage()
         {
             if (Items == null || PlayerData == null)
