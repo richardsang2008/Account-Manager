@@ -525,7 +525,14 @@ namespace PokemonGoGUI.GoManager
                         pokestopsToFarm = new Queue<FortData>(pokestopsToFarm.OrderBy(x => CalculateDistanceInMeters(_client.ClientSession.Player.Latitude, _client.ClientSession.Player.Longitude, x.Latitude, x.Longitude)));
 
                         if (UserSettings.MaxPokestopMeters > 0)
-                            pokestopsToFarm = new Queue<FortData>(pokestopsToFarm.OrderBy(x => CalculateDistanceInMeters(_client.ClientSession.Player.Latitude, _client.ClientSession.Player.Longitude, x.Latitude, x.Longitude) <= UserSettings.MaxPokestopMeters));
+                        {
+                            var _fort = pokestopsToFarm.FirstOrDefault();
+                            var player = new GeoCoordinate(_client.ClientSession.Player.Latitude, _client.ClientSession.Player.Longitude);
+                            var stop = new GeoCoordinate(_fort.Latitude, _fort.Longitude);
+                            double _distance = CalculateDistanceInMeters(player, stop);
+
+                            pokestopsToFarm = new Queue<FortData>(pokestopsToFarm.OrderBy(x => _distance <= UserSettings.MaxPokestopMeters));
+                        }
 
                         if(pokestopsToFarm.Count < 1)
                         {
