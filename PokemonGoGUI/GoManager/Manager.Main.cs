@@ -902,7 +902,7 @@ namespace PokemonGoGUI.GoManager
                             Stop();
                         }
 
-                        if (UserSettings.UseLuckEggConst && Level >= UserSettings.LevelForConstLukky)
+                        if (UserSettings.UseLuckEggConst && Level >= UserSettings.LevelForConstLukky && IsRunning)
                         {
                             MethodResult luckEggResult = await UseLuckyEgg();
 
