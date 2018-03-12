@@ -466,7 +466,10 @@ namespace PokemonGoGUI.GoManager
                     #region PokeStopTask
 
                     //Get pokestops
-                    LogCaller(new LoggerEventArgs("getting pokestops...", LoggerTypes.Debug));
+                    //Goto her if count or meters is < of settings
+                    reloadAllForts:
+
+                    LogCaller(new LoggerEventArgs("Getting pokestops...", LoggerTypes.Info));
 
                     MethodResult<List<FortData>> pokestops = await GetAllFortsAsync();
 
@@ -520,39 +523,25 @@ namespace PokemonGoGUI.GoManager
                         }
 
                         pokestopsToFarm = new Queue<FortData>(pokestopsToFarm.OrderBy(x => CalculateDistanceInMeters(_client.ClientSession.Player.Latitude, _client.ClientSession.Player.Longitude, x.Latitude, x.Longitude)));
-                        var _fort = pokestopsToFarm.FirstOrDefault();
+                        FortData pokestop = new FortData();
                         var player = new GeoCoordinate(_client.ClientSession.Player.Latitude, _client.ClientSession.Player.Longitude);
-                        var stop = new GeoCoordinate(_fort.Latitude, _fort.Longitude);
-                        double _distance = CalculateDistanceInMeters(player, stop);
-
+                        double _distance = 0;
+ 
                         if (UserSettings.MaxPokestopMeters > 0)
                         {
+                            pokestop = pokestopsToFarm.FirstOrDefault();
+                            var stop = new GeoCoordinate(pokestop.Latitude, pokestop.Longitude);
+                            _distance = CalculateDistanceInMeters(player, stop);
                             pokestopsToFarm = new Queue<FortData>(pokestopsToFarm.OrderBy(x => _distance <= UserSettings.MaxPokestopMeters));
                         }
 
-                        if(pokestopsToFarm.Count < 1 || _distance > UserSettings.MaxPokestopMeters)
+                        if(pokestopsToFarm.Count < 1 || _distance >= UserSettings.MaxPokestopMeters)
                         {
-                            //Pass restart if value is 0
-                            LogCaller(new LoggerEventArgs("getting pokestops...", LoggerTypes.Info));
-
-                            MethodResult<List<FortData>> _pokestops = await GetAllFortsAsync();
-
-                            if (!_pokestops.Success)
-                            {
-                                await Task.Delay(failedWaitTime);
-                                continue;
-                            }
-
-                            pokestopsToFarm = new Queue<FortData>(_pokestops.Data);
-                            pokestopsToFarm = new Queue<FortData>(pokestopsToFarm.OrderBy(x => CalculateDistanceInMeters(_client.ClientSession.Player.Latitude, _client.ClientSession.Player.Longitude, x.Latitude, x.Longitude)));
-
-                            if (UserSettings.MaxPokestopMeters > 0)
-                            {
-                                pokestopsToFarm = new Queue<FortData>(pokestopsToFarm.OrderBy(x => _distance <= UserSettings.MaxPokestopMeters));
-                            }
+                            //Pass restart if value is 0 or meter no ok
+                            goto reloadAllForts;
                         }
 
-                        FortData pokestop = pokestopsToFarm.Dequeue();
+                        pokestop = pokestopsToFarm.Dequeue();
                         LogCaller(new LoggerEventArgs("Fort Dequeued: " + pokestop.Id, LoggerTypes.Debug));
 
                         if (UserSettings.GoOnlyToGyms && pokestop.Type != FortType.Gym)
