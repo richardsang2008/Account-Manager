@@ -54,6 +54,7 @@ namespace PokemonGoGUI
 
         public bool AutoFavoritShiny { get; set; }
         public bool UseIncense { get; set; }
+        public bool UseLuckEggConst { get; set; }
         public string DefaultTeam { get; set; }
         public double DisableCatchDelay { get; set; }
         public bool SpinGyms { get; set; }
