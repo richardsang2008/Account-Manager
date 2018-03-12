@@ -242,7 +242,7 @@ namespace PokemonGoGUI
             UseSoftBanBypass = true;
             SoftBanBypassTimes = 40;
             LevelForConstLukky = 9;
-            MaxPokestopMeters = 0; // disabled
+            MaxPokestopMeters = 0.00; // disabled
         }
 
         public void LoadCatchSettings()
