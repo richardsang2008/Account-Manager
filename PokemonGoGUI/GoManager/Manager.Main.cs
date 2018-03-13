@@ -601,11 +601,13 @@ namespace PokemonGoGUI.GoManager
                         // NOTE: not an "else" we could enabled catch in this time
                         if (!CatchDisabled)
                         {
-                            LogCaller(new LoggerEventArgs("Remaining Balls: " + RemainingPokeballs(), LoggerTypes.Info));
+                            int remainingPokeballs = RemainingPokeballs();
+                            LogCaller(new LoggerEventArgs("Remaining Balls: " + remainingPokeballs, LoggerTypes.Info));
+                            double filledPokemonStorage = FilledPokemonStorage();
 
-                            if (RemainingPokeballs() > 0)
+                            if (remainingPokeballs > 0)
                             {
-                                if (FilledPokemonStorage() <= 100)
+                                if (filledPokemonStorage <= 100)
                                 {
                                     //Catch nearby pokemon
                                     MethodResult nearbyPokemonResponse = await CatchNeabyPokemon();
