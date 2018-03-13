@@ -2498,5 +2498,10 @@ namespace PokemonGoGUI
             }
         }
         #endregion
+
+        private void btnStartAcc_Click(object sender, EventArgs e)
+        {
+            int teste = 0;
+        }
     }
 }
