@@ -1,5 +1,21 @@
 # Change Log
 
+## [v2.22.0.27](https://github.com/Furtif/Account-Manager/tree/v2.22.0.27) (2018-03-13)
+
+[Full Changelog](https://github.com/Furtif/Account-Manager/compare/v2.22.0.26...v2.22.0.27)
+
+## [v2.22.0.26](https://github.com/Furtif/Account-Manager/tree/v2.22.0.26) (2018-03-12)
+
+[Full Changelog](https://github.com/Furtif/Account-Manager/compare/v2.22.0.25...v2.22.0.26)
+
+**Closed issues:**
+
+- New shared idees of test pt 1  [\#73](https://github.com/Furtif/Account-Manager/issues/73)
+
+**Merged pull requests:**
+
+- Fix ThrottleDifference in 0 and Luck Egg Constantly [\#74](https://github.com/Furtif/Account-Manager/pull/74) ([henriquemaciel](https://github.com/henriquemaciel))
+
 ## [v2.22.0.25](https://github.com/Furtif/Account-Manager/tree/v2.22.0.25) (2018-03-09)
 
 [Full Changelog](https://github.com/Furtif/Account-Manager/compare/v2.22.0.24...v2.22.0.25)

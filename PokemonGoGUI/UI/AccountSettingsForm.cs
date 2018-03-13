@@ -141,6 +141,8 @@ namespace PokemonGoGUI.UI
             checkBoxOnlyUnlimitedIncubator.Checked = settings.OnlyUnlimitedIncubator;
             checkBoxCatchPokemon.Checked = settings.CatchPokemon;
             numericUpDownRunForHours.Value = new Decimal(settings.RunForHours);
+            numericUpDownMaxMetersStop.Value = new Decimal(settings.MaxPokestopMeters);
+            numericUpDownMaxMetersStopRandom.Value = new Decimal(settings.MaxPokestopMetersRandom);
             numericUpDownMaxLogs.Value = settings.MaxLogs;
             numericUpDownMaxFailBeforeReset.Value = settings.MaxFailBeforeReset;
             checkBoxStopOnIPBan.Checked = settings.StopOnIPBan;
@@ -249,6 +251,7 @@ namespace PokemonGoGUI.UI
             numericUpDownThrottles.Value = new Decimal(settings.APIThrottles);
             checkBoxSoftBypass.Checked = settings.UseSoftBanBypass;
             numericUpDownSoftBypass.Value = new Decimal(settings.SoftBanBypassTimes);
+            numericUpDownLvForConsLukky.Value = new Decimal(settings.LevelForConstLukky);
 
             //Location time zones
             var zones = new TimeZoneIds().GetTimeZoneIds();
@@ -435,6 +438,7 @@ namespace PokemonGoGUI.UI
             userSettings.RequestFortDetails = checkBoxReqFortDetails.Checked;
             userSettings.IgnoreStopsIfTooBalls = checkBoxTooBalls.Checked;
             userSettings.BallsToIgnoreStops = (int)numericUpDownTooBalls.Value;
+            userSettings.MaxPokestopMeters = (double)numericUpDownMaxMetersStop.Value;
 
             //Humanization
             userSettings.EnableHumanization = checkBoxHumanizeThrows.Checked;
@@ -551,6 +555,7 @@ namespace PokemonGoGUI.UI
             userSettings.SnipeAllPokemonsNoInPokedex = checkBoxSniperNoInPokedex.Checked;
             userSettings.UsePOGOLibHeartbeat = checkBoxUsePOGOLibHeartbeat.Checked;
             userSettings.UseSoftBanBypass = checkBoxSoftBypass.Checked;
+            userSettings.MaxPokestopMetersRandom = (int)numericUpDownMaxMetersStopRandom.Value;
 
             int apithrottles;
             if (!Int32.TryParse(numericUpDownThrottles.Text, out apithrottles))
@@ -567,6 +572,14 @@ namespace PokemonGoGUI.UI
                 return false;
             }
             userSettings.SoftBanBypassTimes = softbanbypass;
+
+            int lvforconslukky;
+            if (!Int32.TryParse(numericUpDownLvForConsLukky.Text, out lvforconslukky))
+            {
+                MessageBox.Show("Min level for use lukky constantly value", "Warning");
+                return false;
+            }
+            userSettings.LevelForConstLukky = lvforconslukky;
 
             return true;
         }

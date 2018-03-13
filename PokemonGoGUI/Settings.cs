@@ -55,6 +55,7 @@ namespace PokemonGoGUI
         public bool AutoFavoritShiny { get; set; }
         public bool UseIncense { get; set; }
         public bool UseLuckEggConst { get; set; }
+        public int LevelForConstLukky { get; set; }
         public string DefaultTeam { get; set; }
         public double DisableCatchDelay { get; set; }
         public bool SpinGyms { get; set; }
@@ -68,6 +69,8 @@ namespace PokemonGoGUI
         public bool MimicWalking { get; set; }
         public int WalkingSpeed { get; set; }
         public bool EncounterWhileWalking { get; set; }
+        public double MaxPokestopMeters { get; set; }
+        public int MaxPokestopMetersRandom { get; set; }
         public int MaxTravelDistance { get; set; }
         public bool UseLuckyEgg { get; set; }
         public bool ClaimLevelUpRewards { get; set; }
@@ -239,6 +242,9 @@ namespace PokemonGoGUI
             MinPokemonBeforeEvolve = 1;
             UseSoftBanBypass = true;
             SoftBanBypassTimes = 40;
+            LevelForConstLukky = 9;
+            MaxPokestopMeters = 0.00; // disabled
+            MaxPokestopMetersRandom = 0;
         }
 
         public void LoadCatchSettings()
