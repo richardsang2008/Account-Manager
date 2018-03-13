@@ -142,8 +142,8 @@ namespace PokemonGoGUI.GoManager
                             int bypass = UserSettings.SoftBanBypassTimes;
 
                             //Go to location again
-                            LogCaller(new LoggerEventArgs($"Pokestop potential softban baypass enabled go to location again {pokestop.Latitude}, {pokestop.Longitude}.", LoggerTypes.Debug));
-                            MethodResult move = UpdateLocation(new GeoCoordinate(pokestop.Latitude, pokestop.Longitude));
+                            //LogCaller(new LoggerEventArgs($"Pokestop potential softban baypass enabled go to location again {pokestop.Latitude}, {pokestop.Longitude}.", LoggerTypes.Debug));
+                            //MethodResult move = UpdateLocation(new GeoCoordinate(pokestop.Latitude, pokestop.Longitude));
 
                             while (bypass > 0)
                             {
