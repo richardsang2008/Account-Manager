@@ -544,7 +544,7 @@ namespace PokemonGoGUI.GoManager
                                 pokestopsToFarm = new Queue<FortData>(pokestopsToFarm.OrderBy(x => distance <= rand));
                             }
 
-                            if (pokestopsToFarm.Count < 1 || distance >= rand)
+                            if (pokestopsToFarm.Count < 1)
                             {
                                 //Pass restart if value is 0 or meter no ok recommended 250-300
                                 await Task.Delay(CalculateDelay(UserSettings.DelayBetweenLocationUpdates, UserSettings.LocationupdateDelayRandom));
@@ -553,7 +553,7 @@ namespace PokemonGoGUI.GoManager
                         }
 
                         if (pokestopsToFarm.Count < 1)
-                            break;
+                            continue;
 
                         if (UserSettings.GoOnlyToGyms && pokestop.Type != FortType.Gym)
                             continue;
