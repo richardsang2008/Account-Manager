@@ -2522,8 +2522,10 @@ namespace PokemonGoGUI
                     for (int i = 1; i <= simultAcc; i++)
                     {
                         var hasAccStart = _managers.FirstOrDefault(acc => acc.IsRunning == false && acc.Level < 30 && acc.AccountState == AccountState.Good);
-                        if (hasAccStart.IsRunning)
+                        if (!hasAccStart.IsRunning)
                         {
+                            hasAccStart.UserSettings.HashKeys = _hashKeys.Select(x => x.Key).ToList();
+                            hasAccStart.UserSettings.SPF = _spf;
                             hasAccStart.Start();
                         }
                     }

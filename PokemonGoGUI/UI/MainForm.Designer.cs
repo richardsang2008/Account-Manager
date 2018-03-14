@@ -162,9 +162,9 @@
             this.olvColumnCurrentFails = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.olvColumnProxyBanned = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.tabPageAccounts = new System.Windows.Forms.TabPage();
-            this.numericUpDownSimAcc = new System.Windows.Forms.NumericUpDown();
-            this.label1 = new System.Windows.Forms.Label();
             this.btnStartAcc = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
+            this.numericUpDownSimAcc = new System.Windows.Forms.NumericUpDown();
             this.fastObjectListViewMain = new BrightIdeasSoftware.FastObjectListView();
             this.olvColumnGroup = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.olvColumnScheduler = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
@@ -776,10 +776,10 @@
             this.toolStripStatusLabelFlagged,
             this.toolStripStatusLabel8,
             this.toolStripStatusLabelCaptcha});
-            this.statusStripStats.Location = new System.Drawing.Point(0, 370);
+            this.statusStripStats.Location = new System.Drawing.Point(0, 389);
             this.statusStripStats.Name = "statusStripStats";
             this.statusStripStats.Padding = new System.Windows.Forms.Padding(1, 0, 10, 0);
-            this.statusStripStats.Size = new System.Drawing.Size(887, 22);
+            this.statusStripStats.Size = new System.Drawing.Size(986, 22);
             this.statusStripStats.TabIndex = 1;
             this.statusStripStats.Text = "statusStrip1";
             // 
@@ -1064,7 +1064,7 @@
             this.tabPageHashKeys.Margin = new System.Windows.Forms.Padding(2);
             this.tabPageHashKeys.Name = "tabPageHashKeys";
             this.tabPageHashKeys.Padding = new System.Windows.Forms.Padding(2);
-            this.tabPageHashKeys.Size = new System.Drawing.Size(879, 344);
+            this.tabPageHashKeys.Size = new System.Drawing.Size(879, 363);
             this.tabPageHashKeys.TabIndex = 3;
             this.tabPageHashKeys.Text = "HashKeys";
             this.tabPageHashKeys.UseVisualStyleBackColor = true;
@@ -1087,7 +1087,7 @@
             this.fastObjectListViewHashKeys.Margin = new System.Windows.Forms.Padding(2);
             this.fastObjectListViewHashKeys.Name = "fastObjectListViewHashKeys";
             this.fastObjectListViewHashKeys.ShowGroups = false;
-            this.fastObjectListViewHashKeys.Size = new System.Drawing.Size(875, 340);
+            this.fastObjectListViewHashKeys.Size = new System.Drawing.Size(875, 359);
             this.fastObjectListViewHashKeys.TabIndex = 3;
             this.fastObjectListViewHashKeys.UseCellFormatEvents = true;
             this.fastObjectListViewHashKeys.UseCompatibleStateImageBehavior = false;
@@ -1115,7 +1115,7 @@
             this.tabPageScheduler.Margin = new System.Windows.Forms.Padding(2);
             this.tabPageScheduler.Name = "tabPageScheduler";
             this.tabPageScheduler.Padding = new System.Windows.Forms.Padding(2);
-            this.tabPageScheduler.Size = new System.Drawing.Size(879, 344);
+            this.tabPageScheduler.Size = new System.Drawing.Size(879, 363);
             this.tabPageScheduler.TabIndex = 2;
             this.tabPageScheduler.Text = "Scheduler";
             this.tabPageScheduler.UseVisualStyleBackColor = true;
@@ -1149,7 +1149,7 @@
             this.fastObjectListViewScheduler.Margin = new System.Windows.Forms.Padding(2);
             this.fastObjectListViewScheduler.Name = "fastObjectListViewScheduler";
             this.fastObjectListViewScheduler.ShowGroups = false;
-            this.fastObjectListViewScheduler.Size = new System.Drawing.Size(875, 340);
+            this.fastObjectListViewScheduler.Size = new System.Drawing.Size(875, 359);
             this.fastObjectListViewScheduler.TabIndex = 2;
             this.fastObjectListViewScheduler.UseCellFormatEvents = true;
             this.fastObjectListViewScheduler.UseCompatibleStateImageBehavior = false;
@@ -1213,7 +1213,7 @@
             this.tabPageProxies.Margin = new System.Windows.Forms.Padding(2);
             this.tabPageProxies.Name = "tabPageProxies";
             this.tabPageProxies.Padding = new System.Windows.Forms.Padding(2);
-            this.tabPageProxies.Size = new System.Drawing.Size(879, 344);
+            this.tabPageProxies.Size = new System.Drawing.Size(879, 363);
             this.tabPageProxies.TabIndex = 1;
             this.tabPageProxies.Text = "Proxies";
             this.tabPageProxies.UseVisualStyleBackColor = true;
@@ -1243,7 +1243,7 @@
             this.fastObjectListViewProxies.Margin = new System.Windows.Forms.Padding(2);
             this.fastObjectListViewProxies.Name = "fastObjectListViewProxies";
             this.fastObjectListViewProxies.ShowGroups = false;
-            this.fastObjectListViewProxies.Size = new System.Drawing.Size(875, 340);
+            this.fastObjectListViewProxies.Size = new System.Drawing.Size(875, 359);
             this.fastObjectListViewProxies.TabIndex = 1;
             this.fastObjectListViewProxies.UseCellFormatEvents = true;
             this.fastObjectListViewProxies.UseCompatibleStateImageBehavior = false;
@@ -1288,44 +1288,47 @@
             // tabPageAccounts
             // 
             this.tabPageAccounts.BackColor = System.Drawing.Color.Transparent;
-            this.tabPageAccounts.Controls.Add(this.numericUpDownSimAcc);
-            this.tabPageAccounts.Controls.Add(this.label1);
             this.tabPageAccounts.Controls.Add(this.btnStartAcc);
+            this.tabPageAccounts.Controls.Add(this.label1);
+            this.tabPageAccounts.Controls.Add(this.numericUpDownSimAcc);
             this.tabPageAccounts.Controls.Add(this.fastObjectListViewMain);
             this.tabPageAccounts.Location = new System.Drawing.Point(4, 22);
             this.tabPageAccounts.Margin = new System.Windows.Forms.Padding(2);
             this.tabPageAccounts.Name = "tabPageAccounts";
-            this.tabPageAccounts.Padding = new System.Windows.Forms.Padding(2);
-            this.tabPageAccounts.Size = new System.Drawing.Size(879, 344);
+            this.tabPageAccounts.Padding = new System.Windows.Forms.Padding(2, 2, 2, 27);
+            this.tabPageAccounts.Size = new System.Drawing.Size(978, 363);
             this.tabPageAccounts.TabIndex = 0;
             this.tabPageAccounts.Text = "Accounts";
             this.tabPageAccounts.UseVisualStyleBackColor = true;
             // 
-            // numericUpDownSimAcc
-            // 
-            this.numericUpDownSimAcc.Location = new System.Drawing.Point(221, 320);
-            this.numericUpDownSimAcc.Name = "numericUpDownSimAcc";
-            this.numericUpDownSimAcc.Size = new System.Drawing.Size(42, 20);
-            this.numericUpDownSimAcc.TabIndex = 3;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(5, 323);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(211, 13);
-            this.label1.TabIndex = 2;
-            this.label1.Text = "Automatically Start Simultaneous Accounts:";
-            // 
             // btnStartAcc
             // 
-            this.btnStartAcc.Location = new System.Drawing.Point(273, 318);
+            this.btnStartAcc.Location = new System.Drawing.Point(262, 338);
+            this.btnStartAcc.Margin = new System.Windows.Forms.Padding(0);
             this.btnStartAcc.Name = "btnStartAcc";
             this.btnStartAcc.Size = new System.Drawing.Size(38, 23);
             this.btnStartAcc.TabIndex = 1;
             this.btnStartAcc.Text = "Start";
             this.btnStartAcc.UseVisualStyleBackColor = true;
             this.btnStartAcc.Click += new System.EventHandler(this.btnStartAcc_Click);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(2, 343);
+            this.label1.Margin = new System.Windows.Forms.Padding(0);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(211, 13);
+            this.label1.TabIndex = 2;
+            this.label1.Text = "Automatically Start Simultaneous Accounts:";
+            // 
+            // numericUpDownSimAcc
+            // 
+            this.numericUpDownSimAcc.Location = new System.Drawing.Point(214, 340);
+            this.numericUpDownSimAcc.Margin = new System.Windows.Forms.Padding(0);
+            this.numericUpDownSimAcc.Name = "numericUpDownSimAcc";
+            this.numericUpDownSimAcc.Size = new System.Drawing.Size(42, 20);
+            this.numericUpDownSimAcc.TabIndex = 3;
             // 
             // fastObjectListViewMain
             // 
@@ -1363,12 +1366,13 @@
             this.olvColumnLastLogMessage});
             this.fastObjectListViewMain.ContextMenuStrip = this.contextMenuStripAccounts;
             this.fastObjectListViewMain.Cursor = System.Windows.Forms.Cursors.Default;
+            this.fastObjectListViewMain.Dock = System.Windows.Forms.DockStyle.Fill;
             this.fastObjectListViewMain.FullRowSelect = true;
-            this.fastObjectListViewMain.Location = new System.Drawing.Point(2, 1);
+            this.fastObjectListViewMain.Location = new System.Drawing.Point(2, 2);
             this.fastObjectListViewMain.Margin = new System.Windows.Forms.Padding(2);
             this.fastObjectListViewMain.Name = "fastObjectListViewMain";
             this.fastObjectListViewMain.ShowGroups = false;
-            this.fastObjectListViewMain.Size = new System.Drawing.Size(875, 315);
+            this.fastObjectListViewMain.Size = new System.Drawing.Size(974, 334);
             this.fastObjectListViewMain.TabIndex = 0;
             this.fastObjectListViewMain.UseCellFormatEvents = true;
             this.fastObjectListViewMain.UseCompatibleStateImageBehavior = false;
@@ -1398,12 +1402,13 @@
             // 
             this.olvColumnLevel.AspectName = "Level";
             this.olvColumnLevel.Text = "Level";
-            this.olvColumnLevel.Width = 30;
+            this.olvColumnLevel.Width = 43;
             // 
             // olvColumnAccountState
             // 
             this.olvColumnAccountState.AspectName = "AccountState";
             this.olvColumnAccountState.Text = "Account Status";
+            this.olvColumnAccountState.Width = 85;
             // 
             // olvColumnPokestopsFarmed
             // 
@@ -1414,6 +1419,7 @@
             // 
             this.olvColumnPokemonCaught.AspectName = "PokemonCaught";
             this.olvColumnPokemonCaught.Text = "Pokemon/23hr";
+            this.olvColumnPokemonCaught.Width = 84;
             // 
             // olvColumnExp
             // 
@@ -1466,7 +1472,7 @@
             this.tabControlMain.Margin = new System.Windows.Forms.Padding(2);
             this.tabControlMain.Name = "tabControlMain";
             this.tabControlMain.SelectedIndex = 0;
-            this.tabControlMain.Size = new System.Drawing.Size(887, 370);
+            this.tabControlMain.Size = new System.Drawing.Size(986, 389);
             this.tabControlMain.TabIndex = 2;
             this.tabControlMain.SelectedIndexChanged += new System.EventHandler(this.TabControlMain_SelectedIndexChanged);
             // 
@@ -1480,7 +1486,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(887, 392);
+            this.ClientSize = new System.Drawing.Size(986, 411);
             this.Controls.Add(this.tabControlMain);
             this.Controls.Add(this.statusStripStats);
             this.Margin = new System.Windows.Forms.Padding(2);
@@ -1663,9 +1669,9 @@
         private System.Windows.Forms.ToolStripMenuItem exportGMModelToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator10;
         private System.Windows.Forms.ToolStripMenuItem exportAccountsRMFormatToolStripMenuItem;
-        private System.Windows.Forms.NumericUpDown numericUpDownSimAcc;
-        private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button btnStartAcc;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.NumericUpDown numericUpDownSimAcc;
     }
 }
 
