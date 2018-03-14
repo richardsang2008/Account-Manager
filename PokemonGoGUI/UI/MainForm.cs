@@ -18,6 +18,7 @@ using System.Net.Http;
 using System.Reflection;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Threading;
 
 namespace PokemonGoGUI
 {
@@ -2520,15 +2521,14 @@ namespace PokemonGoGUI
 
                     for (int i = 1; i <= simultAcc; i++)
                     {
-                        var hasAccStart = _managers.FirstOrDefault(acc => acc.IsRunning == false && 
-                                                                   acc.Level < 30 && 
-                                                                   acc.AccountState == AccountState.Good);
+                        var hasAccStart = _managers.FirstOrDefault(acc => acc.IsRunning == false && acc.Level < 30 && acc.AccountState == AccountState.Good);
                         if (hasAccStart.IsRunning)
                         {
                             hasAccStart.Start();
                         }
                     }
                 }
+                Thread.Sleep(10000);
             }
         }
     }
