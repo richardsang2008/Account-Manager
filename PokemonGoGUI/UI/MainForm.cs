@@ -2500,7 +2500,7 @@ namespace PokemonGoGUI
         }
         #endregion
 
-        private async void btnStartAcc_Click(object sender, EventArgs e)
+        private void btnStartAcc_Click(object sender, EventArgs e)
         {
             int simultAcc = Convert.ToInt32(numericUpDownSimAcc.Value);
                         
@@ -2519,18 +2519,22 @@ namespace PokemonGoGUI
                 {
                     var startAccCount = simultAcc - runningCount;
 
-                    for (int i = 1; i <= simultAcc; i++)
+                    if (startAccCount == 0)
                     {
-                        var hasAccStart = _managers.FirstOrDefault(acc => acc.IsRunning == false && acc.Level < 30 && acc.AccountState == AccountState.Good);
-                        if (!hasAccStart.IsRunning)
-                        {
-                            hasAccStart.UserSettings.HashKeys = _hashKeys.Select(x => x.Key).ToList();
-                            hasAccStart.UserSettings.SPF = _spf;
-                            hasAccStart.Start();
-                        }
+                        break;
+                    }
+
+                    var hasAccStart = _managers.FirstOrDefault(acc => acc.IsRunning == false && 
+                                                                acc.Level < acc.MaxLevel && 
+                                                                acc.AccountState == AccountState.Good);
+                    if (!hasAccStart.IsRunning)
+                    {
+                        hasAccStart.UserSettings.HashKeys = _hashKeys.Select(x => x.Key).ToList();
+                        hasAccStart.UserSettings.SPF = _spf;
+                        hasAccStart.Start();
                     }
                 }
-                await Task.Delay(2000);
+                Task.Delay(5000);
             }
         }
     }
