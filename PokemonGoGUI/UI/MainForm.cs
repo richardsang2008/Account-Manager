@@ -2501,7 +2501,35 @@ namespace PokemonGoGUI
 
         private void btnStartAcc_Click(object sender, EventArgs e)
         {
-            int teste = 0;
+            int simultAcc = Convert.ToInt32(numericUpDownSimAcc.Value);
+                        
+            while (true)
+            {
+                var runningCount = 0;
+                foreach (var account in _managers)
+                {
+                    if (account.IsRunning == true)
+                    {
+                        runningCount += 1;
+                    }
+                }
+
+                if (runningCount <= simultAcc)
+                {
+                    var startAccCount = simultAcc - runningCount;
+
+                    for (int i = 1; i <= simultAcc; i++)
+                    {
+                        var hasAccStart = _managers.FirstOrDefault(acc => acc.IsRunning == false && 
+                                                                   acc.Level < 30 && 
+                                                                   acc.AccountState == AccountState.Good);
+                        if (hasAccStart.IsRunning)
+                        {
+                            hasAccStart.Start();
+                        }
+                    }
+                }
+            }
         }
     }
 }
