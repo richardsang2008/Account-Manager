@@ -2500,7 +2500,7 @@ namespace PokemonGoGUI
         }
         #endregion
 
-        private void btnStartAcc_Click(object sender, EventArgs e)
+        private async void btnStartAcc_Click(object sender, EventArgs e)
         {
             int simultAcc = Convert.ToInt32(numericUpDownSimAcc.Value);
                         
@@ -2528,7 +2528,7 @@ namespace PokemonGoGUI
                         }
                     }
                 }
-                Thread.Sleep(10000);
+                await Task.Delay(2000);
             }
         }
     }
