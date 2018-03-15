@@ -2500,7 +2500,7 @@ namespace PokemonGoGUI
         }
         #endregion
 
-        private void btnStartAcc_Click(object sender, EventArgs e)
+        private async void btnStartAcc_Click(object sender, EventArgs e)
         {
             int simultAcc = Convert.ToInt32(numericUpDownSimAcc.Value);
                         
@@ -2532,9 +2532,9 @@ namespace PokemonGoGUI
                         hasAccStart.UserSettings.HashKeys = _hashKeys.Select(x => x.Key).ToList();
                         hasAccStart.UserSettings.SPF = _spf;
                         hasAccStart.Start();
+                        await Task.Delay(5000);
                     }
                 }
-                Task.Delay(5000);
             }
         }
     }

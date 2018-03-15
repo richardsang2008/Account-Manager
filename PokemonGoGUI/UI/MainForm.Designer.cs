@@ -183,6 +183,7 @@
             this.olvColumnLastLogMessage = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.tabControlMain = new System.Windows.Forms.TabControl();
             this.Trayicon = new System.Windows.Forms.NotifyIcon(this.components);
+            this.label2 = new System.Windows.Forms.Label();
             this.contextMenuStripAccounts.SuspendLayout();
             this.statusStripStats.SuspendLayout();
             this.contextMenuStripScheduler.SuspendLayout();
@@ -781,7 +782,7 @@
             this.statusStripStats.Location = new System.Drawing.Point(0, 389);
             this.statusStripStats.Name = "statusStripStats";
             this.statusStripStats.Padding = new System.Windows.Forms.Padding(1, 0, 10, 0);
-            this.statusStripStats.Size = new System.Drawing.Size(986, 22);
+            this.statusStripStats.Size = new System.Drawing.Size(1084, 22);
             this.statusStripStats.TabIndex = 1;
             this.statusStripStats.Text = "statusStrip1";
             // 
@@ -1296,7 +1297,7 @@
             this.tabPageAccounts.Margin = new System.Windows.Forms.Padding(2);
             this.tabPageAccounts.Name = "tabPageAccounts";
             this.tabPageAccounts.Padding = new System.Windows.Forms.Padding(2);
-            this.tabPageAccounts.Size = new System.Drawing.Size(978, 363);
+            this.tabPageAccounts.Size = new System.Drawing.Size(1076, 363);
             this.tabPageAccounts.TabIndex = 0;
             this.tabPageAccounts.Text = "Accounts";
             this.tabPageAccounts.UseVisualStyleBackColor = true;
@@ -1305,6 +1306,7 @@
             // 
             this.panel1.BackColor = System.Drawing.Color.White;
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.panel1.Controls.Add(this.label2);
             this.panel1.Controls.Add(this.label1);
             this.panel1.Controls.Add(this.btnStartAcc);
             this.panel1.Controls.Add(this.numericUpDownSimAcc);
@@ -1312,7 +1314,7 @@
             this.panel1.ForeColor = System.Drawing.SystemColors.WindowText;
             this.panel1.Location = new System.Drawing.Point(2, 333);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(974, 28);
+            this.panel1.Size = new System.Drawing.Size(1072, 28);
             this.panel1.TabIndex = 4;
             // 
             // label1
@@ -1343,6 +1345,11 @@
             this.numericUpDownSimAcc.Name = "numericUpDownSimAcc";
             this.numericUpDownSimAcc.Size = new System.Drawing.Size(42, 20);
             this.numericUpDownSimAcc.TabIndex = 3;
+            this.numericUpDownSimAcc.Value = new decimal(new int[] {
+            5,
+            0,
+            0,
+            0});
             // 
             // fastObjectListViewMain
             // 
@@ -1386,7 +1393,7 @@
             this.fastObjectListViewMain.Margin = new System.Windows.Forms.Padding(2);
             this.fastObjectListViewMain.Name = "fastObjectListViewMain";
             this.fastObjectListViewMain.ShowGroups = false;
-            this.fastObjectListViewMain.Size = new System.Drawing.Size(974, 359);
+            this.fastObjectListViewMain.Size = new System.Drawing.Size(1072, 359);
             this.fastObjectListViewMain.TabIndex = 0;
             this.fastObjectListViewMain.UseCellFormatEvents = true;
             this.fastObjectListViewMain.UseCompatibleStateImageBehavior = false;
@@ -1428,6 +1435,7 @@
             // 
             this.olvColumnPokestopsFarmed.AspectName = "PokestopsFarmed";
             this.olvColumnPokestopsFarmed.Text = "Pokestops/23hr";
+            this.olvColumnPokestopsFarmed.Width = 94;
             // 
             // olvColumnPokemonCaught
             // 
@@ -1439,7 +1447,7 @@
             // 
             this.olvColumnExp.AspectName = "ExpRatio";
             this.olvColumnExp.Text = "Exp";
-            this.olvColumnExp.Width = 40;
+            this.olvColumnExp.Width = 67;
             // 
             // olvColumnExpPerHour
             // 
@@ -1461,6 +1469,7 @@
             // 
             this.olvColumnRunningTime.AspectName = "RunningTime";
             this.olvColumnRunningTime.Text = "Time";
+            this.olvColumnRunningTime.Width = 71;
             // 
             // olvColumnProxy
             // 
@@ -1486,7 +1495,7 @@
             this.tabControlMain.Margin = new System.Windows.Forms.Padding(2);
             this.tabControlMain.Name = "tabControlMain";
             this.tabControlMain.SelectedIndex = 0;
-            this.tabControlMain.Size = new System.Drawing.Size(986, 389);
+            this.tabControlMain.Size = new System.Drawing.Size(1084, 389);
             this.tabControlMain.TabIndex = 2;
             this.tabControlMain.SelectedIndexChanged += new System.EventHandler(this.TabControlMain_SelectedIndexChanged);
             // 
@@ -1496,11 +1505,21 @@
             this.Trayicon.Visible = true;
             this.Trayicon.MouseClick += new System.Windows.Forms.MouseEventHandler(this.TrayIcon_MouseClick);
             // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.ForeColor = System.Drawing.Color.Crimson;
+            this.label2.Location = new System.Drawing.Point(304, 7);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(172, 13);
+            this.label2.TabIndex = 4;
+            this.label2.Text = "Starts an account every 5 seconds";
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(986, 411);
+            this.ClientSize = new System.Drawing.Size(1084, 411);
             this.Controls.Add(this.tabControlMain);
             this.Controls.Add(this.statusStripStats);
             this.Margin = new System.Windows.Forms.Padding(2);
@@ -1688,6 +1707,7 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.NumericUpDown numericUpDownSimAcc;
         private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Label label2;
     }
 }
 
