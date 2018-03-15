@@ -125,8 +125,6 @@ namespace PokemonGoGUI
                                 Configuration.Hasher = new PokeHashHasher(ClientManager.UserSettings.AuthAPIKey);
                                 Configuration.HasherUrl = ClientManager.UserSettings.HashHost;
                                 Configuration.HashEndpoint = ClientManager.UserSettings.HashEndpoint;
-
-                                //Configuration.HashBuilder = () => new PokeHashHasher(ClientManager.UserSettings.AuthAPIKey);
                             }
                             else
                             {

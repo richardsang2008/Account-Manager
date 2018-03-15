@@ -34,7 +34,6 @@ namespace PokemonGoGUI.GoManager
             }
         }
 
-
         public MethodResult<AccountExportModel> GetAccountExport()
         {
             if(Stats == null)
