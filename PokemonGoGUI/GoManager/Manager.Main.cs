@@ -79,7 +79,7 @@ namespace PokemonGoGUI.GoManager
             int retries = 1;
             initretrie:
 
-            LogCaller(new LoggerEventArgs(String.Format("Attempting to login retry: #{0} ...", retries ), LoggerTypes.Debug));
+            LogCaller(new LoggerEventArgs(String.Format("Attempting to login retry: #{0} ...", retries ), LoggerTypes.Info));
             AccountState = AccountState.Conecting;
 
             MethodResult result = await _client.DoLogin(this);
@@ -451,7 +451,7 @@ namespace PokemonGoGUI.GoManager
                     {
                         LogCaller(new LoggerEventArgs("Setting default location ...", LoggerTypes.Debug));
 
-                        result = UpdateLocation(new GeoCoordinate(UserSettings.Latitude, UserSettings.Longitude));
+                        result = await UpdateLocation(new GeoCoordinate(UserSettings.Latitude, UserSettings.Longitude));
 
                         if (!result.Success)
                         {

@@ -17,7 +17,7 @@ namespace PokemonGoGUI.GoManager
         {
             if (!UserSettings.MimicWalking)
             {
-                MethodResult result = UpdateLocation(location);
+                MethodResult result = await UpdateLocation(location);
 
                 await Task.Delay(CalculateDelay(UserSettings.DelayBetweenLocationUpdates, UserSettings.LocationupdateDelayRandom));
 
@@ -131,7 +131,7 @@ namespace PokemonGoGUI.GoManager
             var requestSendDateTime = DateTime.Now;
             var requestVariantDateTime = DateTime.Now;
 
-            MethodResult _result = UpdateLocation(waypoint);
+            MethodResult _result = await UpdateLocation(waypoint);
             await Task.Delay(CalculateDelay(UserSettings.DelayBetweenLocationUpdates, UserSettings.LocationupdateDelayRandom));
 
             do
@@ -167,7 +167,7 @@ namespace PokemonGoGUI.GoManager
 
                 requestSendDateTime = DateTime.Now;
 
-                MethodResult result = UpdateLocation(waypoint);
+                MethodResult result = await UpdateLocation(waypoint);
                 await Task.Delay(CalculateDelay(UserSettings.DelayBetweenLocationUpdates, UserSettings.LocationupdateDelayRandom));
 
                 if (functionExecutedWhileWalking != null)
@@ -185,7 +185,7 @@ namespace PokemonGoGUI.GoManager
             };
         }
 
-        private MethodResult UpdateLocation(GeoCoordinate location)
+        private async Task<MethodResult> UpdateLocation(GeoCoordinate location)
         {
             try
             {
@@ -209,6 +209,8 @@ namespace PokemonGoGUI.GoManager
                 UserSettings.Latitude = _client.ClientSession.Player.Latitude;
                 UserSettings.Longitude = _client.ClientSession.Player.Longitude;
                 UserSettings.Altitude = _client.ClientSession.Player.Altitude;
+
+                await Task.Delay(CalculateDelay(UserSettings.DelayBetweenLocationUpdates, UserSettings.LocationupdateDelayRandom));
 
                 //string message = String.Format("Location updated to {0}, {1}. Distance: {2:0.00}m", location.Latitude, location.Longitude, distance);
                 string message = String.Format("Walked distance: {0:0.00}m", distance);
