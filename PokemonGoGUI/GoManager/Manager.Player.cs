@@ -171,7 +171,8 @@ namespace PokemonGoGUI.GoManager
                 {
                     using (var client = new HttpClient())
                     {
-                        client.BaseAddress = new Uri(_mainForm.PGPoolTextBox.Text);
+                        var endpoint = string.IsNullOrEmpty(UserSettings.PGPoolEndpoint) ? _mainForm.PGPoolTextBox.Text : UserSettings.PGPoolEndpoint;
+                        client.BaseAddress = new Uri(endpoint);
                         var content = new StringContent("level=30&condition=good&accounts=ptc," + UserSettings.AccountName + "," + UserSettings.Password, Encoding.UTF8, "application/x-www-form-urlencoded");
                         
                         using(var request = new HttpRequestMessage(HttpMethod.Post, "account/add"))

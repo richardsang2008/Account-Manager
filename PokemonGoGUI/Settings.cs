@@ -20,6 +20,7 @@ namespace PokemonGoGUI
         public string AuthAPIKey { get; set; }
         public Uri HashHost { get; set; }
         public string HashEndpoint { get; set; }
+        internal string PGPoolEndpoint { get; set; }
 
         public double Latitude { get; set; }
         public double Longitude { get; set; }
@@ -246,6 +247,7 @@ namespace PokemonGoGUI
             LevelForConstLukky = 9;
             MaxPokestopMeters = 0.00; // disabled
             MaxPokestopMetersRandom = 0;
+            PGPoolEndpoint = "";
         }
 
         public void LoadCatchSettings()
