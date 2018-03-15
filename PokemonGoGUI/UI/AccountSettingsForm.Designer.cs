@@ -59,6 +59,7 @@
             this.cbTeam = new System.Windows.Forms.ComboBox();
             this.checkBoxCompleteTutorial = new System.Windows.Forms.CheckBox();
             this.groupBoxPlayerActions = new System.Windows.Forms.GroupBox();
+            this.numericUpDownLvForConsLukky = new System.Windows.Forms.NumericUpDown();
             this.cbUseLuckEggConst = new System.Windows.Forms.CheckBox();
             this.checkBoxTooBalls = new System.Windows.Forms.CheckBox();
             this.numericUpDownTooBalls = new System.Windows.Forms.NumericUpDown();
@@ -111,6 +112,11 @@
             this.label44 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
             this.tabPageSettingsNavigation = new System.Windows.Forms.TabPage();
+            this.numericUpDownMaxMetersStopRandom = new System.Windows.Forms.NumericUpDown();
+            this.label61 = new System.Windows.Forms.Label();
+            this.label60 = new System.Windows.Forms.Label();
+            this.numericUpDownMaxMetersStop = new System.Windows.Forms.NumericUpDown();
+            this.label59 = new System.Windows.Forms.Label();
             this.checkBoxShufflePokestops = new System.Windows.Forms.CheckBox();
             this.cbTimeZones = new System.Windows.Forms.ComboBox();
             this.label53 = new System.Windows.Forms.Label();
@@ -278,12 +284,7 @@
             this.toolTipProxy = new System.Windows.Forms.ToolTip(this.components);
             this.toolTipMinAccountState = new System.Windows.Forms.ToolTip(this.components);
             this.toolTipHumanizeThrows = new System.Windows.Forms.ToolTip(this.components);
-            this.numericUpDownLvForConsLukky = new System.Windows.Forms.NumericUpDown();
-            this.label59 = new System.Windows.Forms.Label();
-            this.numericUpDownMaxMetersStop = new System.Windows.Forms.NumericUpDown();
-            this.label60 = new System.Windows.Forms.Label();
-            this.label61 = new System.Windows.Forms.Label();
-            this.numericUpDownMaxMetersStopRandom = new System.Windows.Forms.NumericUpDown();
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.tabControlMain.SuspendLayout();
             this.tabPageDetails.SuspendLayout();
             this.tabControlSettings.SuspendLayout();
@@ -294,6 +295,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownStopsDayLimit)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownPokemonsDayLimit)).BeginInit();
             this.groupBoxPlayerActions.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownLvForConsLukky)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownTooBalls)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownDisableCatchDelay)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownForceEvolveAbove)).BeginInit();
@@ -302,6 +304,8 @@
             this.tabPageProxy.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMaxFailBeforeReset)).BeginInit();
             this.tabPageSettingsNavigation.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMaxMetersStopRandom)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMaxMetersStop)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownWalkingOffset)).BeginInit();
             this.tabPageDevice.SuspendLayout();
             this.tabPageHumanization.SuspendLayout();
@@ -334,9 +338,7 @@
             this.tabPageUpgrade.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.fastObjectListViewUpgrade)).BeginInit();
             this.contextMenuStripUpgrade.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownLvForConsLukky)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMaxMetersStop)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMaxMetersStopRandom)).BeginInit();
+            this.groupBox3.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabControlMain
@@ -529,9 +531,9 @@
             this.tabPageActions.Controls.Add(this.checkBoxStopOnAPIUpdate);
             this.tabPageActions.Controls.Add(this.checkBoxClaimLevelUp);
             this.tabPageActions.Location = new System.Drawing.Point(4, 25);
-            this.tabPageActions.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tabPageActions.Margin = new System.Windows.Forms.Padding(4);
             this.tabPageActions.Name = "tabPageActions";
-            this.tabPageActions.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tabPageActions.Padding = new System.Windows.Forms.Padding(4);
             this.tabPageActions.Size = new System.Drawing.Size(633, 445);
             this.tabPageActions.TabIndex = 6;
             this.tabPageActions.Text = "Actions";
@@ -573,7 +575,7 @@
             // textBoxPercTransItems
             // 
             this.textBoxPercTransItems.Location = new System.Drawing.Point(491, 412);
-            this.textBoxPercTransItems.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.textBoxPercTransItems.Margin = new System.Windows.Forms.Padding(4);
             this.textBoxPercTransItems.Name = "textBoxPercTransItems";
             this.textBoxPercTransItems.Size = new System.Drawing.Size(43, 22);
             this.textBoxPercTransItems.TabIndex = 86;
@@ -581,7 +583,7 @@
             // textBoxPercTransPoke
             // 
             this.textBoxPercTransPoke.Location = new System.Drawing.Point(491, 382);
-            this.textBoxPercTransPoke.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.textBoxPercTransPoke.Margin = new System.Windows.Forms.Padding(4);
             this.textBoxPercTransPoke.Name = "textBoxPercTransPoke";
             this.textBoxPercTransPoke.Size = new System.Drawing.Size(43, 22);
             this.textBoxPercTransPoke.TabIndex = 85;
@@ -735,19 +737,42 @@
             this.groupBoxPlayerActions.Controls.Add(this.textBoxPokemonBeforeEvolve);
             this.groupBoxPlayerActions.Controls.Add(this.label46);
             this.groupBoxPlayerActions.Location = new System.Drawing.Point(8, 11);
-            this.groupBoxPlayerActions.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBoxPlayerActions.Margin = new System.Windows.Forms.Padding(4);
             this.groupBoxPlayerActions.Name = "groupBoxPlayerActions";
-            this.groupBoxPlayerActions.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBoxPlayerActions.Padding = new System.Windows.Forms.Padding(4);
             this.groupBoxPlayerActions.Size = new System.Drawing.Size(319, 426);
             this.groupBoxPlayerActions.TabIndex = 73;
             this.groupBoxPlayerActions.TabStop = false;
             this.groupBoxPlayerActions.Text = "Player Actions";
             // 
+            // numericUpDownLvForConsLukky
+            // 
+            this.numericUpDownLvForConsLukky.Location = new System.Drawing.Point(234, 399);
+            this.numericUpDownLvForConsLukky.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.numericUpDownLvForConsLukky.Maximum = new decimal(new int[] {
+            40,
+            0,
+            0,
+            0});
+            this.numericUpDownLvForConsLukky.Minimum = new decimal(new int[] {
+            9,
+            0,
+            0,
+            0});
+            this.numericUpDownLvForConsLukky.Name = "numericUpDownLvForConsLukky";
+            this.numericUpDownLvForConsLukky.Size = new System.Drawing.Size(57, 22);
+            this.numericUpDownLvForConsLukky.TabIndex = 89;
+            this.numericUpDownLvForConsLukky.Value = new decimal(new int[] {
+            9,
+            0,
+            0,
+            0});
+            // 
             // cbUseLuckEggConst
             // 
             this.cbUseLuckEggConst.AutoSize = true;
             this.cbUseLuckEggConst.Location = new System.Drawing.Point(5, 402);
-            this.cbUseLuckEggConst.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.cbUseLuckEggConst.Margin = new System.Windows.Forms.Padding(4);
             this.cbUseLuckEggConst.Name = "cbUseLuckEggConst";
             this.cbUseLuckEggConst.Size = new System.Drawing.Size(229, 21);
             this.cbUseLuckEggConst.TabIndex = 85;
@@ -1341,6 +1366,61 @@
             this.tabPageSettingsNavigation.Text = "Navigation";
             this.tabPageSettingsNavigation.UseVisualStyleBackColor = true;
             // 
+            // numericUpDownMaxMetersStopRandom
+            // 
+            this.numericUpDownMaxMetersStopRandom.DecimalPlaces = 2;
+            this.numericUpDownMaxMetersStopRandom.Location = new System.Drawing.Point(410, 237);
+            this.numericUpDownMaxMetersStopRandom.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.numericUpDownMaxMetersStopRandom.Maximum = new decimal(new int[] {
+            999999,
+            0,
+            0,
+            0});
+            this.numericUpDownMaxMetersStopRandom.Name = "numericUpDownMaxMetersStopRandom";
+            this.numericUpDownMaxMetersStopRandom.Size = new System.Drawing.Size(84, 22);
+            this.numericUpDownMaxMetersStopRandom.TabIndex = 63;
+            // 
+            // label61
+            // 
+            this.label61.AutoSize = true;
+            this.label61.Location = new System.Drawing.Point(379, 239);
+            this.label61.Name = "label61";
+            this.label61.Size = new System.Drawing.Size(25, 17);
+            this.label61.TabIndex = 62;
+            this.label61.Text = "+/-";
+            // 
+            // label60
+            // 
+            this.label60.AutoSize = true;
+            this.label60.Location = new System.Drawing.Point(513, 239);
+            this.label60.Name = "label60";
+            this.label60.Size = new System.Drawing.Size(114, 17);
+            this.label60.TabIndex = 61;
+            this.label60.Text = "(0.00 = Disabed)";
+            // 
+            // numericUpDownMaxMetersStop
+            // 
+            this.numericUpDownMaxMetersStop.DecimalPlaces = 2;
+            this.numericUpDownMaxMetersStop.Location = new System.Drawing.Point(289, 237);
+            this.numericUpDownMaxMetersStop.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.numericUpDownMaxMetersStop.Maximum = new decimal(new int[] {
+            999999,
+            0,
+            0,
+            0});
+            this.numericUpDownMaxMetersStop.Name = "numericUpDownMaxMetersStop";
+            this.numericUpDownMaxMetersStop.Size = new System.Drawing.Size(84, 22);
+            this.numericUpDownMaxMetersStop.TabIndex = 60;
+            // 
+            // label59
+            // 
+            this.label59.AutoSize = true;
+            this.label59.Location = new System.Drawing.Point(6, 239);
+            this.label59.Name = "label59";
+            this.label59.Size = new System.Drawing.Size(280, 17);
+            this.label59.TabIndex = 59;
+            this.label59.Text = "Max distance in meters Player -> Pokestop:";
+            // 
             // checkBoxShufflePokestops
             // 
             this.checkBoxShufflePokestops.AutoSize = true;
@@ -1716,24 +1796,9 @@
             // 
             // tabPageHumanization
             // 
-            this.tabPageHumanization.Controls.Add(this.label57);
-            this.tabPageHumanization.Controls.Add(this.numericUpDownThrottles);
-            this.tabPageHumanization.Controls.Add(this.checkBoxUsePOGOLibHeartbeat);
+            this.tabPageHumanization.Controls.Add(this.groupBox3);
             this.tabPageHumanization.Controls.Add(this.groupBox1);
-            this.tabPageHumanization.Controls.Add(this.numericUpDownLocationUpdateDelay);
-            this.tabPageHumanization.Controls.Add(this.numericUpDownLocationUpdateRandom);
-            this.tabPageHumanization.Controls.Add(this.numericUpDownGeneralDelayRandom);
-            this.tabPageHumanization.Controls.Add(this.numericUpDownPlayerActionRandomiz);
-            this.tabPageHumanization.Controls.Add(this.numericUpDownGeneralDelay);
-            this.tabPageHumanization.Controls.Add(this.numericUpDownPlayerActionDelay);
             this.tabPageHumanization.Controls.Add(this.numericUpDownInsideReticuleChance);
-            this.tabPageHumanization.Controls.Add(this.label34);
-            this.tabPageHumanization.Controls.Add(this.label36);
-            this.tabPageHumanization.Controls.Add(this.label40);
-            this.tabPageHumanization.Controls.Add(this.checkBoxHumanizeThrows);
-            this.tabPageHumanization.Controls.Add(this.label35);
-            this.tabPageHumanization.Controls.Add(this.label39);
-            this.tabPageHumanization.Controls.Add(this.label33);
             this.tabPageHumanization.Controls.Add(this.label32);
             this.tabPageHumanization.Location = new System.Drawing.Point(4, 25);
             this.tabPageHumanization.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
@@ -1746,45 +1811,35 @@
             // label57
             // 
             this.label57.AutoSize = true;
-            this.label57.Location = new System.Drawing.Point(347, 52);
+            this.label57.Location = new System.Drawing.Point(338, 31);
             this.label57.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label57.Name = "label57";
-            this.label57.Size = new System.Drawing.Size(136, 17);
+            this.label57.Size = new System.Drawing.Size(141, 17);
             this.label57.TabIndex = 11;
-            this.label57.Text = "Min API throttles ms:";
+            this.label57.Text = "Min API throttles ms*:";
             // 
             // numericUpDownThrottles
             // 
-            this.numericUpDownThrottles.Location = new System.Drawing.Point(491, 50);
+            this.numericUpDownThrottles.Location = new System.Drawing.Point(480, 29);
             this.numericUpDownThrottles.Margin = new System.Windows.Forms.Padding(4, 2, 4, 2);
             this.numericUpDownThrottles.Maximum = new decimal(new int[] {
-            99999,
-            0,
-            0,
-            0});
-            this.numericUpDownThrottles.Minimum = new decimal(new int[] {
-            50,
+            10000,
             0,
             0,
             0});
             this.numericUpDownThrottles.Name = "numericUpDownThrottles";
             this.numericUpDownThrottles.Size = new System.Drawing.Size(105, 22);
             this.numericUpDownThrottles.TabIndex = 10;
-            this.numericUpDownThrottles.Value = new decimal(new int[] {
-            200,
-            0,
-            0,
-            0});
             // 
             // checkBoxUsePOGOLibHeartbeat
             // 
             this.checkBoxUsePOGOLibHeartbeat.AutoSize = true;
-            this.checkBoxUsePOGOLibHeartbeat.Location = new System.Drawing.Point(409, 25);
-            this.checkBoxUsePOGOLibHeartbeat.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.checkBoxUsePOGOLibHeartbeat.Location = new System.Drawing.Point(136, 30);
+            this.checkBoxUsePOGOLibHeartbeat.Margin = new System.Windows.Forms.Padding(4);
             this.checkBoxUsePOGOLibHeartbeat.Name = "checkBoxUsePOGOLibHeartbeat";
             this.checkBoxUsePOGOLibHeartbeat.Size = new System.Drawing.Size(192, 21);
             this.checkBoxUsePOGOLibHeartbeat.TabIndex = 9;
-            this.checkBoxUsePOGOLibHeartbeat.Text = "*Use POGOLib Heartbeat";
+            this.checkBoxUsePOGOLibHeartbeat.Text = "Use POGOLib Heartbeat*";
             this.checkBoxUsePOGOLibHeartbeat.UseVisualStyleBackColor = true;
             // 
             // groupBox1
@@ -1793,10 +1848,10 @@
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Controls.Add(this.numericUpDownAwareness);
             this.groupBox1.Controls.Add(this.numericUpDownProximity);
-            this.groupBox1.Location = new System.Drawing.Point(129, 94);
-            this.groupBox1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox1.Location = new System.Drawing.Point(26, 173);
+            this.groupBox1.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox1.Padding = new System.Windows.Forms.Padding(4);
             this.groupBox1.Size = new System.Drawing.Size(272, 95);
             this.groupBox1.TabIndex = 8;
             this.groupBox1.TabStop = false;
@@ -1870,7 +1925,7 @@
             // 
             // numericUpDownLocationUpdateDelay
             // 
-            this.numericUpDownLocationUpdateDelay.Location = new System.Drawing.Point(217, 286);
+            this.numericUpDownLocationUpdateDelay.Location = new System.Drawing.Point(207, 111);
             this.numericUpDownLocationUpdateDelay.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.numericUpDownLocationUpdateDelay.Maximum = new decimal(new int[] {
             1000000,
@@ -1893,7 +1948,7 @@
             // 
             // numericUpDownLocationUpdateRandom
             // 
-            this.numericUpDownLocationUpdateRandom.Location = new System.Drawing.Point(349, 286);
+            this.numericUpDownLocationUpdateRandom.Location = new System.Drawing.Point(341, 111);
             this.numericUpDownLocationUpdateRandom.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.numericUpDownLocationUpdateRandom.Maximum = new decimal(new int[] {
             1000000,
@@ -1911,7 +1966,7 @@
             // 
             // numericUpDownGeneralDelayRandom
             // 
-            this.numericUpDownGeneralDelayRandom.Location = new System.Drawing.Point(349, 230);
+            this.numericUpDownGeneralDelayRandom.Location = new System.Drawing.Point(341, 59);
             this.numericUpDownGeneralDelayRandom.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.numericUpDownGeneralDelayRandom.Maximum = new decimal(new int[] {
             1000000,
@@ -1929,7 +1984,7 @@
             // 
             // numericUpDownPlayerActionRandomiz
             // 
-            this.numericUpDownPlayerActionRandomiz.Location = new System.Drawing.Point(349, 258);
+            this.numericUpDownPlayerActionRandomiz.Location = new System.Drawing.Point(341, 85);
             this.numericUpDownPlayerActionRandomiz.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.numericUpDownPlayerActionRandomiz.Maximum = new decimal(new int[] {
             1000000,
@@ -1947,7 +2002,7 @@
             // 
             // numericUpDownGeneralDelay
             // 
-            this.numericUpDownGeneralDelay.Location = new System.Drawing.Point(217, 230);
+            this.numericUpDownGeneralDelay.Location = new System.Drawing.Point(207, 59);
             this.numericUpDownGeneralDelay.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.numericUpDownGeneralDelay.Maximum = new decimal(new int[] {
             1000000,
@@ -1970,7 +2025,7 @@
             // 
             // numericUpDownPlayerActionDelay
             // 
-            this.numericUpDownPlayerActionDelay.Location = new System.Drawing.Point(217, 258);
+            this.numericUpDownPlayerActionDelay.Location = new System.Drawing.Point(207, 85);
             this.numericUpDownPlayerActionDelay.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.numericUpDownPlayerActionDelay.Maximum = new decimal(new int[] {
             1000000,
@@ -1993,7 +2048,7 @@
             // 
             // numericUpDownInsideReticuleChance
             // 
-            this.numericUpDownInsideReticuleChance.Location = new System.Drawing.Point(215, 50);
+            this.numericUpDownInsideReticuleChance.Location = new System.Drawing.Point(476, 173);
             this.numericUpDownInsideReticuleChance.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.numericUpDownInsideReticuleChance.Name = "numericUpDownInsideReticuleChance";
             this.numericUpDownInsideReticuleChance.Size = new System.Drawing.Size(79, 22);
@@ -2002,7 +2057,7 @@
             // label34
             // 
             this.label34.AutoSize = true;
-            this.label34.Location = new System.Drawing.Point(33, 288);
+            this.label34.Location = new System.Drawing.Point(13, 113);
             this.label34.Name = "label34";
             this.label34.Size = new System.Drawing.Size(188, 17);
             this.label34.TabIndex = 0;
@@ -2011,7 +2066,7 @@
             // label36
             // 
             this.label36.AutoSize = true;
-            this.label36.Location = new System.Drawing.Point(320, 288);
+            this.label36.Location = new System.Drawing.Point(310, 113);
             this.label36.Name = "label36";
             this.label36.Size = new System.Drawing.Size(25, 17);
             this.label36.TabIndex = 0;
@@ -2020,7 +2075,7 @@
             // label40
             // 
             this.label40.AutoSize = true;
-            this.label40.Location = new System.Drawing.Point(320, 233);
+            this.label40.Location = new System.Drawing.Point(310, 61);
             this.label40.Name = "label40";
             this.label40.Size = new System.Drawing.Size(25, 17);
             this.label40.TabIndex = 0;
@@ -2029,13 +2084,13 @@
             // checkBoxHumanizeThrows
             // 
             this.checkBoxHumanizeThrows.AutoSize = true;
-            this.checkBoxHumanizeThrows.Location = new System.Drawing.Point(88, 25);
+            this.checkBoxHumanizeThrows.Location = new System.Drawing.Point(6, 30);
             this.checkBoxHumanizeThrows.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.checkBoxHumanizeThrows.Name = "checkBoxHumanizeThrows";
             this.checkBoxHumanizeThrows.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.checkBoxHumanizeThrows.Size = new System.Drawing.Size(143, 21);
+            this.checkBoxHumanizeThrows.Size = new System.Drawing.Size(74, 21);
             this.checkBoxHumanizeThrows.TabIndex = 0;
-            this.checkBoxHumanizeThrows.Text = "Humanize Throws";
+            this.checkBoxHumanizeThrows.Text = "Enable";
             this.toolTipHumanizeThrows.SetToolTip(this.checkBoxHumanizeThrows, "This randomizes the reticule size on throws.");
             this.checkBoxHumanizeThrows.UseVisualStyleBackColor = true;
             this.checkBoxHumanizeThrows.Click += new System.EventHandler(this.CheckBoxHumanizeThrows_Click);
@@ -2043,7 +2098,7 @@
             // label35
             // 
             this.label35.AutoSize = true;
-            this.label35.Location = new System.Drawing.Point(320, 260);
+            this.label35.Location = new System.Drawing.Point(310, 87);
             this.label35.Name = "label35";
             this.label35.Size = new System.Drawing.Size(25, 17);
             this.label35.TabIndex = 0;
@@ -2052,7 +2107,7 @@
             // label39
             // 
             this.label39.AutoSize = true;
-            this.label39.Location = new System.Drawing.Point(84, 233);
+            this.label39.Location = new System.Drawing.Point(66, 61);
             this.label39.Name = "label39";
             this.label39.Size = new System.Drawing.Size(135, 17);
             this.label39.TabIndex = 0;
@@ -2061,7 +2116,7 @@
             // label33
             // 
             this.label33.AutoSize = true;
-            this.label33.Location = new System.Drawing.Point(53, 260);
+            this.label33.Location = new System.Drawing.Point(34, 87);
             this.label33.Name = "label33";
             this.label33.Size = new System.Drawing.Size(167, 17);
             this.label33.TabIndex = 0;
@@ -2070,7 +2125,7 @@
             // label32
             // 
             this.label32.AutoSize = true;
-            this.label32.Location = new System.Drawing.Point(75, 52);
+            this.label32.Location = new System.Drawing.Point(324, 175);
             this.label32.Name = "label32";
             this.label32.Size = new System.Drawing.Size(146, 17);
             this.label32.TabIndex = 0;
@@ -2093,8 +2148,6 @@
             // checkBoxDownloadResources
             // 
             this.checkBoxDownloadResources.AutoSize = true;
-            this.checkBoxDownloadResources.Checked = true;
-            this.checkBoxDownloadResources.CheckState = System.Windows.Forms.CheckState.Checked;
             this.checkBoxDownloadResources.Location = new System.Drawing.Point(221, 164);
             this.checkBoxDownloadResources.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.checkBoxDownloadResources.Name = "checkBoxDownloadResources";
@@ -2123,9 +2176,9 @@
             this.groupBox2.Controls.Add(this.cbHashEndpoint);
             this.groupBox2.Controls.Add(this.label51);
             this.groupBox2.Location = new System.Drawing.Point(7, 6);
-            this.groupBox2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox2.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox2.Padding = new System.Windows.Forms.Padding(4);
             this.groupBox2.Size = new System.Drawing.Size(552, 135);
             this.groupBox2.TabIndex = 69;
             this.groupBox2.TabStop = false;
@@ -3100,83 +3153,30 @@
             this.olvColumnPinap.Text = "Use Pinap";
             this.olvColumnPinap.Width = 70;
             // 
-            // numericUpDownLvForConsLukky
+            // groupBox3
             // 
-            this.numericUpDownLvForConsLukky.Location = new System.Drawing.Point(234, 399);
-            this.numericUpDownLvForConsLukky.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.numericUpDownLvForConsLukky.Maximum = new decimal(new int[] {
-            40,
-            0,
-            0,
-            0});
-            this.numericUpDownLvForConsLukky.Minimum = new decimal(new int[] {
-            9,
-            0,
-            0,
-            0});
-            this.numericUpDownLvForConsLukky.Name = "numericUpDownLvForConsLukky";
-            this.numericUpDownLvForConsLukky.Size = new System.Drawing.Size(57, 22);
-            this.numericUpDownLvForConsLukky.TabIndex = 89;
-            this.numericUpDownLvForConsLukky.Value = new decimal(new int[] {
-            9,
-            0,
-            0,
-            0});
-            // 
-            // label59
-            // 
-            this.label59.AutoSize = true;
-            this.label59.Location = new System.Drawing.Point(6, 239);
-            this.label59.Name = "label59";
-            this.label59.Size = new System.Drawing.Size(280, 17);
-            this.label59.TabIndex = 59;
-            this.label59.Text = "Max distance in meters Player -> Pokestop:";
-            // 
-            // numericUpDownMaxMetersStop
-            // 
-            this.numericUpDownMaxMetersStop.DecimalPlaces = 2;
-            this.numericUpDownMaxMetersStop.Location = new System.Drawing.Point(289, 237);
-            this.numericUpDownMaxMetersStop.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.numericUpDownMaxMetersStop.Maximum = new decimal(new int[] {
-            999999,
-            0,
-            0,
-            0});
-            this.numericUpDownMaxMetersStop.Name = "numericUpDownMaxMetersStop";
-            this.numericUpDownMaxMetersStop.Size = new System.Drawing.Size(84, 22);
-            this.numericUpDownMaxMetersStop.TabIndex = 60;
-            // 
-            // label60
-            // 
-            this.label60.AutoSize = true;
-            this.label60.Location = new System.Drawing.Point(513, 239);
-            this.label60.Name = "label60";
-            this.label60.Size = new System.Drawing.Size(114, 17);
-            this.label60.TabIndex = 61;
-            this.label60.Text = "(0.00 = Disabed)";
-            // 
-            // label61
-            // 
-            this.label61.AutoSize = true;
-            this.label61.Location = new System.Drawing.Point(379, 239);
-            this.label61.Name = "label61";
-            this.label61.Size = new System.Drawing.Size(25, 17);
-            this.label61.TabIndex = 62;
-            this.label61.Text = "+/-";
-            // 
-            // numericUpDownMaxMetersStopRandom
-            // 
-            this.numericUpDownMaxMetersStopRandom.DecimalPlaces = 2;
-            this.numericUpDownMaxMetersStopRandom.Location = new System.Drawing.Point(410, 237);
-            this.numericUpDownMaxMetersStopRandom.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.numericUpDownMaxMetersStopRandom.Maximum = new decimal(new int[] {
-            999999,
-            0,
-            0,
-            0});
-            this.numericUpDownMaxMetersStopRandom.Name = "numericUpDownMaxMetersStopRandom";
-            this.numericUpDownMaxMetersStopRandom.Size = new System.Drawing.Size(84, 22);
-            this.numericUpDownMaxMetersStopRandom.TabIndex = 63;
+            this.groupBox3.Controls.Add(this.label34);
+            this.groupBox3.Controls.Add(this.numericUpDownThrottles);
+            this.groupBox3.Controls.Add(this.label57);
+            this.groupBox3.Controls.Add(this.numericUpDownLocationUpdateDelay);
+            this.groupBox3.Controls.Add(this.label36);
+            this.groupBox3.Controls.Add(this.checkBoxUsePOGOLibHeartbeat);
+            this.groupBox3.Controls.Add(this.numericUpDownLocationUpdateRandom);
+            this.groupBox3.Controls.Add(this.label33);
+            this.groupBox3.Controls.Add(this.numericUpDownGeneralDelay);
+            this.groupBox3.Controls.Add(this.checkBoxHumanizeThrows);
+            this.groupBox3.Controls.Add(this.numericUpDownGeneralDelayRandom);
+            this.groupBox3.Controls.Add(this.label39);
+            this.groupBox3.Controls.Add(this.numericUpDownPlayerActionDelay);
+            this.groupBox3.Controls.Add(this.label40);
+            this.groupBox3.Controls.Add(this.numericUpDownPlayerActionRandomiz);
+            this.groupBox3.Controls.Add(this.label35);
+            this.groupBox3.Location = new System.Drawing.Point(26, 14);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Size = new System.Drawing.Size(595, 145);
+            this.groupBox3.TabIndex = 12;
+            this.groupBox3.TabStop = false;
+            this.groupBox3.Text = "Humanize Throws";
             // 
             // AccountSettingsForm
             // 
@@ -3204,6 +3204,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownPokemonsDayLimit)).EndInit();
             this.groupBoxPlayerActions.ResumeLayout(false);
             this.groupBoxPlayerActions.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownLvForConsLukky)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownTooBalls)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownDisableCatchDelay)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownForceEvolveAbove)).EndInit();
@@ -3214,6 +3215,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMaxFailBeforeReset)).EndInit();
             this.tabPageSettingsNavigation.ResumeLayout(false);
             this.tabPageSettingsNavigation.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMaxMetersStopRandom)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMaxMetersStop)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownWalkingOffset)).EndInit();
             this.tabPageDevice.ResumeLayout(false);
             this.tabPageDevice.PerformLayout();
@@ -3252,9 +3255,8 @@
             this.tabPageUpgrade.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.fastObjectListViewUpgrade)).EndInit();
             this.contextMenuStripUpgrade.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownLvForConsLukky)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMaxMetersStop)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMaxMetersStopRandom)).EndInit();
+            this.groupBox3.ResumeLayout(false);
+            this.groupBox3.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -3516,5 +3518,6 @@
         private System.Windows.Forms.Label label60;
         private System.Windows.Forms.NumericUpDown numericUpDownMaxMetersStopRandom;
         private System.Windows.Forms.Label label61;
+        private System.Windows.Forms.GroupBox groupBox3;
     }
 }

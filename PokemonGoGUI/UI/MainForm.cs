@@ -845,19 +845,31 @@ namespace PokemonGoGUI
 
                 if (ExpPerHour >= 80000)
                 {
-                    if (ExpPerHour >= 800000)
+                    if (ExpPerHour >= 2000000)
+                    {
+                        e.SubItem.ForeColor = Color.Red;
+                    }
+                    else if(ExpPerHour >= 1500000)
+                    {
+                        e.SubItem.ForeColor = Color.Yellow;
+                    }
+                    else if (ExpPerHour >= 1000000)
+                    {
+                        e.SubItem.ForeColor = Color.Orange;
+                    }
+                    else if (ExpPerHour >= 900000)
                     {
                         e.SubItem.ForeColor = Color.Goldenrod;
                     }
-                    else if (ExpPerHour >= 400000)
+                    else if (ExpPerHour >= 750000)
                     {
                         e.SubItem.ForeColor = Color.LightSkyBlue;
                     }
-                    else if (ExpPerHour >= 200000)
+                    else if (ExpPerHour >= 400000)
                     {
                         e.SubItem.ForeColor = Color.LightGreen;
                     }
-                    else if (ExpPerHour >= 100000)
+                    else if (ExpPerHour >= 200000)
                     {
                         e.SubItem.ForeColor = Color.Green;
                     }
