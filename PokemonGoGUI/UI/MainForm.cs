@@ -2502,6 +2502,7 @@ namespace PokemonGoGUI
 
         private async void btnStartAcc_Click(object sender, EventArgs e)
         {
+            btnStartAcc.Enabled = false;
             int simultAcc = Convert.ToInt32(numericUpDownSimAcc.Value);
                         
             while (true)
@@ -2521,6 +2522,7 @@ namespace PokemonGoGUI
 
                     if (startAccCount == 0)
                     {
+                        btnStartAcc.Enabled = true;
                         break;
                     }
 
