@@ -2525,5 +2525,11 @@ namespace PokemonGoGUI
             }
         }
         #endregion
+
+        private void PGPoolEnabled_Click(object sender, EventArgs e)
+        {
+            // Toggle the item
+            PGPoolEnabled.Checked = !PGPoolEnabled.Checked;
+        }
     }
 }

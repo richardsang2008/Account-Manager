@@ -99,6 +99,10 @@
             this.largeAddressAwareToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.enableSpoofToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpInfoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator9 = new System.Windows.Forms.ToolStripSeparator();
+            this.PGPoolEnabled = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
+            this.PGPoolTextBox = new System.Windows.Forms.ToolStripTextBox();
             this.timerUpdate = new System.Windows.Forms.Timer(this.components);
             this.statusStripStats = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
@@ -179,9 +183,6 @@
             this.olvColumnLastLogMessage = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.tabControlMain = new System.Windows.Forms.TabControl();
             this.Trayicon = new System.Windows.Forms.NotifyIcon(this.components);
-            this.toolStripSeparator9 = new System.Windows.Forms.ToolStripSeparator();
-            this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
-            this.PGPoolTextBox = new System.Windows.Forms.ToolStripTextBox();
             this.contextMenuStripAccounts.SuspendLayout();
             this.statusStripStats.SuspendLayout();
             this.contextMenuStripScheduler.SuspendLayout();
@@ -236,80 +237,81 @@
             this.devToolsToolStripMenuItem,
             this.helpInfoToolStripMenuItem,
             this.toolStripSeparator9,
+            this.PGPoolEnabled,
             this.toolStripMenuItem3});
             this.contextMenuStripAccounts.Name = "contextMenuStrip1";
-            this.contextMenuStripAccounts.Size = new System.Drawing.Size(164, 546);
+            this.contextMenuStripAccounts.Size = new System.Drawing.Size(213, 568);
             this.contextMenuStripAccounts.Opening += new System.ComponentModel.CancelEventHandler(this.ContextMenuStripAccounts_Opening);
             // 
             // aboutToolStripMenuItem
             // 
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(163, 22);
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(212, 22);
             this.aboutToolStripMenuItem.Text = "About";
             this.aboutToolStripMenuItem.Click += new System.EventHandler(this.AboutToolStripMenuItem_Click);
             // 
             // toolStripSeparator6
             // 
             this.toolStripSeparator6.Name = "toolStripSeparator6";
-            this.toolStripSeparator6.Size = new System.Drawing.Size(160, 6);
+            this.toolStripSeparator6.Size = new System.Drawing.Size(209, 6);
             // 
             // schedulerToolStripMenuItem
             // 
             this.schedulerToolStripMenuItem.Name = "schedulerToolStripMenuItem";
-            this.schedulerToolStripMenuItem.Size = new System.Drawing.Size(163, 22);
+            this.schedulerToolStripMenuItem.Size = new System.Drawing.Size(212, 22);
             this.schedulerToolStripMenuItem.Text = "Scheduler";
             // 
             // updateDetailsToolStripMenuItem
             // 
             this.updateDetailsToolStripMenuItem.Name = "updateDetailsToolStripMenuItem";
-            this.updateDetailsToolStripMenuItem.Size = new System.Drawing.Size(163, 22);
+            this.updateDetailsToolStripMenuItem.Size = new System.Drawing.Size(212, 22);
             this.updateDetailsToolStripMenuItem.Text = "Update Stats";
             this.updateDetailsToolStripMenuItem.Click += new System.EventHandler(this.UpdateDetailsToolStripMenuItem_Click);
             // 
             // viewDetailsToolStripMenuItem
             // 
             this.viewDetailsToolStripMenuItem.Name = "viewDetailsToolStripMenuItem";
-            this.viewDetailsToolStripMenuItem.Size = new System.Drawing.Size(163, 22);
+            this.viewDetailsToolStripMenuItem.Size = new System.Drawing.Size(212, 22);
             this.viewDetailsToolStripMenuItem.Text = "View Details";
             this.viewDetailsToolStripMenuItem.Click += new System.EventHandler(this.ViewDetailsToolStripMenuItem_Click);
             // 
             // toolStripSeparator3
             // 
             this.toolStripSeparator3.Name = "toolStripSeparator3";
-            this.toolStripSeparator3.Size = new System.Drawing.Size(160, 6);
+            this.toolStripSeparator3.Size = new System.Drawing.Size(209, 6);
             // 
             // startToolStripMenuItem
             // 
             this.startToolStripMenuItem.Name = "startToolStripMenuItem";
-            this.startToolStripMenuItem.Size = new System.Drawing.Size(163, 22);
+            this.startToolStripMenuItem.Size = new System.Drawing.Size(212, 22);
             this.startToolStripMenuItem.Text = "Start";
             this.startToolStripMenuItem.Click += new System.EventHandler(this.StartToolStripMenuItem_Click);
             // 
             // restartToolStripMenuItem
             // 
             this.restartToolStripMenuItem.Name = "restartToolStripMenuItem";
-            this.restartToolStripMenuItem.Size = new System.Drawing.Size(163, 22);
+            this.restartToolStripMenuItem.Size = new System.Drawing.Size(212, 22);
             this.restartToolStripMenuItem.Text = "Restart";
             this.restartToolStripMenuItem.Click += new System.EventHandler(this.RestartToolStripMenuItem_Click);
             // 
             // pauseUnPauseToolStripMenuItem
             // 
             this.pauseUnPauseToolStripMenuItem.Name = "pauseUnPauseToolStripMenuItem";
-            this.pauseUnPauseToolStripMenuItem.Size = new System.Drawing.Size(163, 22);
+            this.pauseUnPauseToolStripMenuItem.Size = new System.Drawing.Size(212, 22);
             this.pauseUnPauseToolStripMenuItem.Text = "Toggle Pause";
             this.pauseUnPauseToolStripMenuItem.Click += new System.EventHandler(this.PauseUnPauseToolStripMenuItem_Click);
             // 
             // stopToolStripMenuItem
             // 
             this.stopToolStripMenuItem.Name = "stopToolStripMenuItem";
-            this.stopToolStripMenuItem.Size = new System.Drawing.Size(163, 22);
+            this.stopToolStripMenuItem.Size = new System.Drawing.Size(212, 22);
             this.stopToolStripMenuItem.Text = "Stop";
             this.stopToolStripMenuItem.Click += new System.EventHandler(this.StopToolStripMenuItem_Click);
             // 
             // toolStripSeparator4
             // 
             this.toolStripSeparator4.Name = "toolStripSeparator4";
-            this.toolStripSeparator4.Size = new System.Drawing.Size(160, 6);
+            this.toolStripSeparator4.Size = new System.Drawing.Size(209, 6);
             // 
             // settingsToolStripMenuItem
             // 
@@ -327,7 +329,7 @@
             this.catchPokemonToolStripMenuItem,
             this.importConfigToolStripMenuItem});
             this.settingsToolStripMenuItem.Name = "settingsToolStripMenuItem";
-            this.settingsToolStripMenuItem.Size = new System.Drawing.Size(163, 22);
+            this.settingsToolStripMenuItem.Size = new System.Drawing.Size(212, 22);
             this.settingsToolStripMenuItem.Text = "Settings";
             // 
             // setGroupToolStripMenuItem
@@ -492,7 +494,7 @@
             this.countsToolStripMenuItem,
             this.logsToolStripMenuItem});
             this.clearCountsToolStripMenuItem.Name = "clearCountsToolStripMenuItem";
-            this.clearCountsToolStripMenuItem.Size = new System.Drawing.Size(163, 22);
+            this.clearCountsToolStripMenuItem.Size = new System.Drawing.Size(212, 22);
             this.clearCountsToolStripMenuItem.Text = "Clear ";
             // 
             // countsToolStripMenuItem
@@ -512,14 +514,14 @@
             // addNewToolStripMenuItem
             // 
             this.addNewToolStripMenuItem.Name = "addNewToolStripMenuItem";
-            this.addNewToolStripMenuItem.Size = new System.Drawing.Size(163, 22);
+            this.addNewToolStripMenuItem.Size = new System.Drawing.Size(212, 22);
             this.addNewToolStripMenuItem.Text = "Add New";
             this.addNewToolStripMenuItem.Click += new System.EventHandler(this.AddNewToolStripMenuItem_Click);
             // 
             // editToolStripMenuItem
             // 
             this.editToolStripMenuItem.Name = "editToolStripMenuItem";
-            this.editToolStripMenuItem.Size = new System.Drawing.Size(163, 22);
+            this.editToolStripMenuItem.Size = new System.Drawing.Size(212, 22);
             this.editToolStripMenuItem.Text = "Edit";
             this.editToolStripMenuItem.Click += new System.EventHandler(this.EditToolStripMenuItem_Click);
             // 
@@ -532,7 +534,7 @@
             this.toolStripSeparator8,
             this.importJsonToolStripMenuItem});
             this.importToolStripMenuItem.Name = "importToolStripMenuItem";
-            this.importToolStripMenuItem.Size = new System.Drawing.Size(163, 22);
+            this.importToolStripMenuItem.Size = new System.Drawing.Size(212, 22);
             this.importToolStripMenuItem.Text = "Import Accounts";
             // 
             // wConfigToolStripMenuItem
@@ -573,7 +575,7 @@
             // toolStripSeparator5
             // 
             this.toolStripSeparator5.Name = "toolStripSeparator5";
-            this.toolStripSeparator5.Size = new System.Drawing.Size(160, 6);
+            this.toolStripSeparator5.Size = new System.Drawing.Size(209, 6);
             // 
             // proxiesToolStripMenuItem
             // 
@@ -582,7 +584,7 @@
             this.toolStripSeparator2,
             this.clearProxiesToolStripMenuItem});
             this.proxiesToolStripMenuItem.Name = "proxiesToolStripMenuItem";
-            this.proxiesToolStripMenuItem.Size = new System.Drawing.Size(163, 22);
+            this.proxiesToolStripMenuItem.Size = new System.Drawing.Size(212, 22);
             this.proxiesToolStripMenuItem.Text = "Proxies";
             // 
             // importProxiesToolStripMenuItem
@@ -615,7 +617,7 @@
             this.toolStripSeparator10,
             this.exportJsonToolStripMenuItem});
             this.exportToolStripMenuItem.Name = "exportToolStripMenuItem";
-            this.exportToolStripMenuItem.Size = new System.Drawing.Size(163, 22);
+            this.exportToolStripMenuItem.Size = new System.Drawing.Size(212, 22);
             this.exportToolStripMenuItem.Text = "Export";
             // 
             // exportProxiesToolStripMenuItem
@@ -668,14 +670,14 @@
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(160, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(209, 6);
             // 
             // enableColorsToolStripMenuItem
             // 
             this.enableColorsToolStripMenuItem.Checked = true;
             this.enableColorsToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
             this.enableColorsToolStripMenuItem.Name = "enableColorsToolStripMenuItem";
-            this.enableColorsToolStripMenuItem.Size = new System.Drawing.Size(163, 22);
+            this.enableColorsToolStripMenuItem.Size = new System.Drawing.Size(212, 22);
             this.enableColorsToolStripMenuItem.Text = "Enable Colors";
             this.enableColorsToolStripMenuItem.Click += new System.EventHandler(this.EnableColorsToolStripMenuItem_Click);
             // 
@@ -685,14 +687,14 @@
             this.showStatusBarToolStripMenuItem.CheckOnClick = true;
             this.showStatusBarToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
             this.showStatusBarToolStripMenuItem.Name = "showStatusBarToolStripMenuItem";
-            this.showStatusBarToolStripMenuItem.Size = new System.Drawing.Size(163, 22);
+            this.showStatusBarToolStripMenuItem.Size = new System.Drawing.Size(212, 22);
             this.showStatusBarToolStripMenuItem.Text = "Show Status Bar";
             this.showStatusBarToolStripMenuItem.Click += new System.EventHandler(this.ShowStatusBarToolStripMenuItem_Click);
             // 
             // showGroupsToolStripMenuItem
             // 
             this.showGroupsToolStripMenuItem.Name = "showGroupsToolStripMenuItem";
-            this.showGroupsToolStripMenuItem.Size = new System.Drawing.Size(163, 22);
+            this.showGroupsToolStripMenuItem.Size = new System.Drawing.Size(212, 22);
             this.showGroupsToolStripMenuItem.Text = "Show Groups";
             this.showGroupsToolStripMenuItem.Visible = false;
             this.showGroupsToolStripMenuItem.Click += new System.EventHandler(this.ShowGroupsToolStripMenuItem_Click);
@@ -700,7 +702,7 @@
             // deleteToolStripMenuItem
             // 
             this.deleteToolStripMenuItem.Name = "deleteToolStripMenuItem";
-            this.deleteToolStripMenuItem.Size = new System.Drawing.Size(163, 22);
+            this.deleteToolStripMenuItem.Size = new System.Drawing.Size(212, 22);
             this.deleteToolStripMenuItem.Text = "Delete";
             this.deleteToolStripMenuItem.Click += new System.EventHandler(this.DeleteToolStripMenuItem_Click);
             // 
@@ -712,7 +714,7 @@
             this.largeAddressAwareToolStripMenuItem,
             this.enableSpoofToolStripMenuItem});
             this.devToolsToolStripMenuItem.Name = "devToolsToolStripMenuItem";
-            this.devToolsToolStripMenuItem.Size = new System.Drawing.Size(163, 22);
+            this.devToolsToolStripMenuItem.Size = new System.Drawing.Size(212, 22);
             this.devToolsToolStripMenuItem.Text = "Dev Tools";
             this.devToolsToolStripMenuItem.Visible = false;
             // 
@@ -747,9 +749,35 @@
             // helpInfoToolStripMenuItem
             // 
             this.helpInfoToolStripMenuItem.Name = "helpInfoToolStripMenuItem";
-            this.helpInfoToolStripMenuItem.Size = new System.Drawing.Size(163, 22);
+            this.helpInfoToolStripMenuItem.Size = new System.Drawing.Size(212, 22);
             this.helpInfoToolStripMenuItem.Text = "Help/Info";
             this.helpInfoToolStripMenuItem.Visible = false;
+            // 
+            // toolStripSeparator9
+            // 
+            this.toolStripSeparator9.Name = "toolStripSeparator9";
+            this.toolStripSeparator9.Size = new System.Drawing.Size(209, 6);
+            // 
+            // PGPoolEnabled
+            // 
+            this.PGPoolEnabled.Name = "PGPoolEnabled";
+            this.PGPoolEnabled.Size = new System.Drawing.Size(212, 22);
+            this.PGPoolEnabled.Text = "Enable PGPool Integration";
+            this.PGPoolEnabled.Click += new System.EventHandler(this.PGPoolEnabled_Click);
+            // 
+            // toolStripMenuItem3
+            // 
+            this.toolStripMenuItem3.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.PGPoolTextBox});
+            this.toolStripMenuItem3.Name = "toolStripMenuItem3";
+            this.toolStripMenuItem3.Size = new System.Drawing.Size(212, 22);
+            this.toolStripMenuItem3.Text = "PGPool URL";
+            // 
+            // PGPoolTextBox
+            // 
+            this.PGPoolTextBox.Name = "PGPoolTextBox";
+            this.PGPoolTextBox.Size = new System.Drawing.Size(145, 23);
+            this.PGPoolTextBox.Text = "http://127.0.0.1:4242/";
             // 
             // timerUpdate
             // 
@@ -1062,10 +1090,10 @@
             // 
             this.tabPageHashKeys.Controls.Add(this.fastObjectListViewHashKeys);
             this.tabPageHashKeys.Location = new System.Drawing.Point(4, 22);
-            this.tabPageHashKeys.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.tabPageHashKeys.Margin = new System.Windows.Forms.Padding(2);
             this.tabPageHashKeys.Name = "tabPageHashKeys";
-            this.tabPageHashKeys.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
-            this.tabPageHashKeys.Size = new System.Drawing.Size(879, 345);
+            this.tabPageHashKeys.Padding = new System.Windows.Forms.Padding(2);
+            this.tabPageHashKeys.Size = new System.Drawing.Size(879, 344);
             this.tabPageHashKeys.TabIndex = 3;
             this.tabPageHashKeys.Text = "HashKeys";
             this.tabPageHashKeys.UseVisualStyleBackColor = true;
@@ -1085,10 +1113,10 @@
             this.fastObjectListViewHashKeys.ForeColor = System.Drawing.Color.Red;
             this.fastObjectListViewHashKeys.FullRowSelect = true;
             this.fastObjectListViewHashKeys.Location = new System.Drawing.Point(2, 2);
-            this.fastObjectListViewHashKeys.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.fastObjectListViewHashKeys.Margin = new System.Windows.Forms.Padding(2);
             this.fastObjectListViewHashKeys.Name = "fastObjectListViewHashKeys";
             this.fastObjectListViewHashKeys.ShowGroups = false;
-            this.fastObjectListViewHashKeys.Size = new System.Drawing.Size(875, 341);
+            this.fastObjectListViewHashKeys.Size = new System.Drawing.Size(875, 340);
             this.fastObjectListViewHashKeys.TabIndex = 3;
             this.fastObjectListViewHashKeys.UseCellFormatEvents = true;
             this.fastObjectListViewHashKeys.UseCompatibleStateImageBehavior = false;
@@ -1113,10 +1141,10 @@
             // 
             this.tabPageScheduler.Controls.Add(this.fastObjectListViewScheduler);
             this.tabPageScheduler.Location = new System.Drawing.Point(4, 22);
-            this.tabPageScheduler.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.tabPageScheduler.Margin = new System.Windows.Forms.Padding(2);
             this.tabPageScheduler.Name = "tabPageScheduler";
-            this.tabPageScheduler.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
-            this.tabPageScheduler.Size = new System.Drawing.Size(879, 345);
+            this.tabPageScheduler.Padding = new System.Windows.Forms.Padding(2);
+            this.tabPageScheduler.Size = new System.Drawing.Size(879, 344);
             this.tabPageScheduler.TabIndex = 2;
             this.tabPageScheduler.Text = "Scheduler";
             this.tabPageScheduler.UseVisualStyleBackColor = true;
@@ -1147,10 +1175,10 @@
             this.fastObjectListViewScheduler.Dock = System.Windows.Forms.DockStyle.Fill;
             this.fastObjectListViewScheduler.FullRowSelect = true;
             this.fastObjectListViewScheduler.Location = new System.Drawing.Point(2, 2);
-            this.fastObjectListViewScheduler.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.fastObjectListViewScheduler.Margin = new System.Windows.Forms.Padding(2);
             this.fastObjectListViewScheduler.Name = "fastObjectListViewScheduler";
             this.fastObjectListViewScheduler.ShowGroups = false;
-            this.fastObjectListViewScheduler.Size = new System.Drawing.Size(875, 341);
+            this.fastObjectListViewScheduler.Size = new System.Drawing.Size(875, 340);
             this.fastObjectListViewScheduler.TabIndex = 2;
             this.fastObjectListViewScheduler.UseCellFormatEvents = true;
             this.fastObjectListViewScheduler.UseCompatibleStateImageBehavior = false;
@@ -1211,10 +1239,10 @@
             // 
             this.tabPageProxies.Controls.Add(this.fastObjectListViewProxies);
             this.tabPageProxies.Location = new System.Drawing.Point(4, 22);
-            this.tabPageProxies.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.tabPageProxies.Margin = new System.Windows.Forms.Padding(2);
             this.tabPageProxies.Name = "tabPageProxies";
-            this.tabPageProxies.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
-            this.tabPageProxies.Size = new System.Drawing.Size(879, 345);
+            this.tabPageProxies.Padding = new System.Windows.Forms.Padding(2);
+            this.tabPageProxies.Size = new System.Drawing.Size(879, 344);
             this.tabPageProxies.TabIndex = 1;
             this.tabPageProxies.Text = "Proxies";
             this.tabPageProxies.UseVisualStyleBackColor = true;
@@ -1241,10 +1269,10 @@
             this.fastObjectListViewProxies.Dock = System.Windows.Forms.DockStyle.Fill;
             this.fastObjectListViewProxies.FullRowSelect = true;
             this.fastObjectListViewProxies.Location = new System.Drawing.Point(2, 2);
-            this.fastObjectListViewProxies.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.fastObjectListViewProxies.Margin = new System.Windows.Forms.Padding(2);
             this.fastObjectListViewProxies.Name = "fastObjectListViewProxies";
             this.fastObjectListViewProxies.ShowGroups = false;
-            this.fastObjectListViewProxies.Size = new System.Drawing.Size(875, 341);
+            this.fastObjectListViewProxies.Size = new System.Drawing.Size(875, 340);
             this.fastObjectListViewProxies.TabIndex = 1;
             this.fastObjectListViewProxies.UseCellFormatEvents = true;
             this.fastObjectListViewProxies.UseCompatibleStateImageBehavior = false;
@@ -1291,9 +1319,9 @@
             this.tabPageAccounts.BackColor = System.Drawing.Color.Transparent;
             this.tabPageAccounts.Controls.Add(this.fastObjectListViewMain);
             this.tabPageAccounts.Location = new System.Drawing.Point(4, 22);
-            this.tabPageAccounts.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.tabPageAccounts.Margin = new System.Windows.Forms.Padding(2);
             this.tabPageAccounts.Name = "tabPageAccounts";
-            this.tabPageAccounts.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.tabPageAccounts.Padding = new System.Windows.Forms.Padding(2);
             this.tabPageAccounts.Size = new System.Drawing.Size(879, 344);
             this.tabPageAccounts.TabIndex = 0;
             this.tabPageAccounts.Text = "Accounts";
@@ -1338,7 +1366,7 @@
             this.fastObjectListViewMain.Dock = System.Windows.Forms.DockStyle.Fill;
             this.fastObjectListViewMain.FullRowSelect = true;
             this.fastObjectListViewMain.Location = new System.Drawing.Point(2, 2);
-            this.fastObjectListViewMain.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.fastObjectListViewMain.Margin = new System.Windows.Forms.Padding(2);
             this.fastObjectListViewMain.Name = "fastObjectListViewMain";
             this.fastObjectListViewMain.ShowGroups = false;
             this.fastObjectListViewMain.Size = new System.Drawing.Size(875, 340);
@@ -1436,7 +1464,7 @@
             this.tabControlMain.Controls.Add(this.tabPageHashKeys);
             this.tabControlMain.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControlMain.Location = new System.Drawing.Point(0, 0);
-            this.tabControlMain.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.tabControlMain.Margin = new System.Windows.Forms.Padding(2);
             this.tabControlMain.Name = "tabControlMain";
             this.tabControlMain.SelectedIndex = 0;
             this.tabControlMain.Size = new System.Drawing.Size(887, 370);
@@ -1449,24 +1477,6 @@
             this.Trayicon.Visible = true;
             this.Trayicon.MouseClick += new System.Windows.Forms.MouseEventHandler(this.TrayIcon_MouseClick);
             // 
-            // toolStripSeparator9
-            // 
-            this.toolStripSeparator9.Name = "toolStripSeparator9";
-            this.toolStripSeparator9.Size = new System.Drawing.Size(160, 6);
-            // 
-            // toolStripMenuItem3
-            // 
-            this.toolStripMenuItem3.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.PGPoolTextBox});
-            this.toolStripMenuItem3.Name = "toolStripMenuItem3";
-            this.toolStripMenuItem3.Size = new System.Drawing.Size(163, 22);
-            this.toolStripMenuItem3.Text = "PGPool URL";
-            // 
-            // PGPoolTextBox
-            // 
-            this.PGPoolTextBox.Name = "PGPoolTextBox";
-            this.PGPoolTextBox.Size = new System.Drawing.Size(100, 23);
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1474,7 +1484,7 @@
             this.ClientSize = new System.Drawing.Size(887, 392);
             this.Controls.Add(this.tabControlMain);
             this.Controls.Add(this.statusStripStats);
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Account Manager";
@@ -1655,6 +1665,7 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator9;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem3;
         internal System.Windows.Forms.ToolStripTextBox PGPoolTextBox;
+        internal System.Windows.Forms.ToolStripMenuItem PGPoolEnabled;
     }
 }
 
