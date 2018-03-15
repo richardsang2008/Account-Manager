@@ -139,6 +139,8 @@ namespace PokemonGoGUI
         public int BallsToIgnoreStops { get; set; }
         public bool IgnoreStopsIfTooBalls { get; set; }
         public bool UseSoftBanBypass { get; set; }
+        public bool IgnoreHashSemafore { get; set; }
+        public bool IgnoreRPCSemafore { get; set; }
 
         public AccountState StopAtMinAccountState { get; set; }
 
