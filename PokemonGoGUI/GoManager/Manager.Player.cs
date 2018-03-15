@@ -165,8 +165,7 @@ namespace PokemonGoGUI.GoManager
             string rewards = StringUtil.GetSummedFriendlyNameOfItemAwardList(levelUpRewardsResponse.ItemsAwarded);
             LogCaller(new LoggerEventArgs(String.Format("Grabbed rewards for level {0}. Rewards: {1}", level, rewards), LoggerTypes.LevelUp));
 
-            // Send to pgpool if level > 29 (basically 30 since we're talking about ints here and not doubles)
-            if (level >= 30)
+            if (level >= 30 && _mainForm.PGPoolEnabled.Checked)
             {
                 try
                 {
@@ -199,16 +198,13 @@ namespace PokemonGoGUI.GoManager
                         }
                         
                     }
-
-                        
-
+                    
                 }
                 catch (Exception ex)
                 {
                     LogCaller(new LoggerEventArgs(String.Format(ex.Message), LoggerTypes.Warning));
                 }
-
-
+                
             }
 
             return new MethodResult
