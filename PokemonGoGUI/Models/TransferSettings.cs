@@ -1,8 +1,10 @@
 ﻿using POGOProtos.Enums;
 using PokemonGoGUI.Enums;
+using System;
 
 namespace PokemonGoGUI.Models
 {
+    [Serializable]
     public class TransferSetting
     {
         public PokemonId Id { get; set; }

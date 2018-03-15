@@ -12,6 +12,7 @@ using System.Security.Cryptography;
 
 namespace PokemonGoGUI
 {
+    [Serializable]
     public class Settings
     {
         public List<string> HashKeys { get; set; }

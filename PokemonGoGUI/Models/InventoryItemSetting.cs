@@ -1,7 +1,9 @@
 ﻿using POGOProtos.Inventory.Item;
+using System;
 
 namespace PokemonGoGUI.Models
 {
+    [Serializable]
     public class InventoryItemSetting
     {
         public ItemId Id { get; set; }
