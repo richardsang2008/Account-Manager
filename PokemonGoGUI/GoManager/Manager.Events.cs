@@ -50,5 +50,6 @@ namespace PokemonGoGUI.GoManager
             Message = message;
             Exception = exception;
         }
+        
     }
 }
