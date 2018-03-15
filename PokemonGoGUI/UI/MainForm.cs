@@ -340,7 +340,7 @@ namespace PokemonGoGUI
 
         private void AddNewToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var manager = new Manager(_proxyHandler);
+            var manager = new Manager(_proxyHandler, this);
 
             var asForm = new AccountSettingsForm(manager)
             {
@@ -463,6 +463,7 @@ namespace PokemonGoGUI
             {
                 manager.UserSettings.HashKeys = _hashKeys.Select(x => x.Key).ToList();
                 manager.UserSettings.SPF = _spf;
+                manager._mainForm = this;
                 manager.Start();
 
                 await Task.Delay(200);
@@ -596,6 +597,32 @@ namespace PokemonGoGUI
             }
         }
 
+        internal void AddAccount(string username, string password)
+        {
+            List<Manager> managers = new List<Manager>(_managers);
+
+
+            Manager newAccount = new Manager();  // Copy the first manager's settings to get all settings instead of pulling in manually 
+            newAccount.UserSettings = managers.ElementAt(0).UserSettings.DeepClone();
+            newAccount.RandomDeviceId();
+            newAccount.UserSettings.AccountName = username.Trim();
+            newAccount.UserSettings.Username = username.Trim();
+            newAccount.UserSettings.Password = password.Trim();
+
+            newAccount.UserSettings.AuthType = AuthType.Ptc;
+            newAccount.UserSettings.MaxLevel = 30;
+            newAccount.Level = 0;
+            newAccount.ExpGained = 0;
+            newAccount.PokestopsFarmed = 0;
+            newAccount.PokemonCaught = 0;
+
+
+            AddManager(newAccount);
+            
+
+            fastObjectListViewMain.SetObjects(_managers);
+        }
+
         private async void WConfigToolStripMenuItem_Click(object sender, EventArgs e)
         {
             var tSMI = sender as ToolStripMenuItem;
@@ -650,7 +677,7 @@ namespace PokemonGoGUI
                         continue;
                     }
 
-                    var manager = new Manager(_proxyHandler);
+                    var manager = new Manager(_proxyHandler, this);
 
                     if (useConfig)
                     {
@@ -2344,7 +2371,7 @@ namespace PokemonGoGUI
                         Password = parts[2]
                     };
 
-                    var manager = new Manager(_proxyHandler);
+                    var manager = new Manager(_proxyHandler, this);
 
                     manager.UserSettings.AuthType = (parts[0].Trim().ToLower() == "ptc") ? AuthType.Ptc : AuthType.Google;
                     manager.UserSettings.AccountName = importModel.Username.Trim();
@@ -2510,5 +2537,11 @@ namespace PokemonGoGUI
             }
         }
         #endregion
+
+        private void PGPoolEnabled_Click(object sender, EventArgs e)
+        {
+            // Toggle the item
+            PGPoolEnabled.Checked = !PGPoolEnabled.Checked;
+        }
     }
 }

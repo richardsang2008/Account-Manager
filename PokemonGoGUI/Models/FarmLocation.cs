@@ -1,5 +1,8 @@
-﻿namespace PokemonGoGUI.Models
+﻿using System;
+
+namespace PokemonGoGUI.Models
 {
+    [Serializable]
     public class FarmLocation
     {
         public string Name { get; set; }

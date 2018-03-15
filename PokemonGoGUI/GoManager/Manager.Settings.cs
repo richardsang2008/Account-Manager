@@ -364,6 +364,7 @@ namespace PokemonGoGUI.GoManager
                     settings.ProxyPort = UserSettings.ProxyPort;
                     settings.ProxyUsername = UserSettings.ProxyUsername;
                     settings.GroupName = UserSettings.GroupName;
+                    settings.PGPoolEndpoint = UserSettings.PGPoolEndpoint;
 
                     //Randomize device id
                     var device = DeviceInfoUtil.GetRandomDevice();

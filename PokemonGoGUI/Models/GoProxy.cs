@@ -1,7 +1,9 @@
 ﻿using PokemonGoGUI.Extensions;
+using System;
 
 namespace PokemonGoGUI.Models
 {
+    [Serializable]
     public class GoProxy : ProxyEx
     {
         public int MaxConcurrentFails { get; set; }

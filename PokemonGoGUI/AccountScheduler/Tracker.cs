@@ -15,10 +15,10 @@ namespace PokemonGoGUI.AccountScheduler
         }
 
         [JsonIgnore]
-        public int PokemonCaught { get; private set; }
+        public int PokemonCaught { get;  set; }
 
         [JsonIgnore]
-        public int PokestopsFarmed { get; private set; }
+        public int PokestopsFarmed { get;  set; }
 
         public void AddValues(int pokemon = 0, int pokestops = 0)
         {
