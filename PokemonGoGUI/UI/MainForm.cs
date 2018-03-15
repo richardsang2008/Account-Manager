@@ -2530,7 +2530,7 @@ namespace PokemonGoGUI
                     }
                 }
 
-                if (runningCount <= simultAcc)
+                if (runningCount < simultAcc)
                 {
                     var startAccCount = simultAcc - runningCount;
 
@@ -2544,14 +2544,17 @@ namespace PokemonGoGUI
                     var hasAccStart = _managers.FirstOrDefault(acc => acc.IsRunning == false && 
                                                                 acc.Level < acc.MaxLevel && 
                                                                 acc.AccountState == AccountState.Good);
-                    if (!hasAccStart.IsRunning)
+                    if (!(hasAccStart == null))
                     {
-                        hasAccStart.UserSettings.HashKeys = _hashKeys.Select(x => x.Key).ToList();
-                        hasAccStart.UserSettings.SPF = _spf;
-                        hasAccStart.Start();
-                        await Task.Delay(2000);
+                        if (!hasAccStart.IsRunning)
+                        {
+                            hasAccStart.UserSettings.HashKeys = _hashKeys.Select(x => x.Key).ToList();
+                            hasAccStart.UserSettings.SPF = _spf;
+                            hasAccStart.Start();
+                        }
                     }
                 }
+                await Task.Delay(2000);
             }
         }
 
