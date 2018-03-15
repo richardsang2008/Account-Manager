@@ -34,6 +34,7 @@ namespace PokemonGoGUI
         private bool _autoupdate = true;
         private readonly string _saveFile = "data";
         private string _versionNumber = $"v{Assembly.GetExecutingAssembly().GetName().Version} - Forked GoManager Version";
+        private bool _stop = false;
 
         public MainForm()
         {
@@ -2503,6 +2504,7 @@ namespace PokemonGoGUI
         private async void btnStartAcc_Click(object sender, EventArgs e)
         {
             btnStartAcc.Enabled = false;
+            btnStopAcc.Enabled = true;
             int simultAcc = Convert.ToInt32(numericUpDownSimAcc.Value);
                         
             while (true)
@@ -2520,9 +2522,10 @@ namespace PokemonGoGUI
                 {
                     var startAccCount = simultAcc - runningCount;
 
-                    if (startAccCount == 0)
+                    if (startAccCount == 0 || _stop)
                     {
                         btnStartAcc.Enabled = true;
+                        btnStopAcc.Enabled = false;
                         break;
                     }
 
@@ -2534,10 +2537,16 @@ namespace PokemonGoGUI
                         hasAccStart.UserSettings.HashKeys = _hashKeys.Select(x => x.Key).ToList();
                         hasAccStart.UserSettings.SPF = _spf;
                         hasAccStart.Start();
-                        await Task.Delay(5000);
+                        await Task.Delay(2000);
                     }
                 }
             }
+        }
+
+        private void btnStoptAcc_Click(object sender, EventArgs e)
+        {
+            btnStopAcc.Enabled = false;
+            _stop = true;
         }
     }
 }

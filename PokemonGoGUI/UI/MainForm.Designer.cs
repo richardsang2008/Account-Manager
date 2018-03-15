@@ -163,6 +163,8 @@
             this.olvColumnProxyBanned = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.tabPageAccounts = new System.Windows.Forms.TabPage();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.btnStopAcc = new System.Windows.Forms.Button();
+            this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.btnStartAcc = new System.Windows.Forms.Button();
             this.numericUpDownSimAcc = new System.Windows.Forms.NumericUpDown();
@@ -183,7 +185,6 @@
             this.olvColumnLastLogMessage = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.tabControlMain = new System.Windows.Forms.TabControl();
             this.Trayicon = new System.Windows.Forms.NotifyIcon(this.components);
-            this.label2 = new System.Windows.Forms.Label();
             this.contextMenuStripAccounts.SuspendLayout();
             this.statusStripStats.SuspendLayout();
             this.contextMenuStripScheduler.SuspendLayout();
@@ -1067,7 +1068,7 @@
             this.tabPageHashKeys.Margin = new System.Windows.Forms.Padding(2);
             this.tabPageHashKeys.Name = "tabPageHashKeys";
             this.tabPageHashKeys.Padding = new System.Windows.Forms.Padding(2);
-            this.tabPageHashKeys.Size = new System.Drawing.Size(978, 363);
+            this.tabPageHashKeys.Size = new System.Drawing.Size(1076, 363);
             this.tabPageHashKeys.TabIndex = 3;
             this.tabPageHashKeys.Text = "HashKeys";
             this.tabPageHashKeys.UseVisualStyleBackColor = true;
@@ -1090,7 +1091,7 @@
             this.fastObjectListViewHashKeys.Margin = new System.Windows.Forms.Padding(2);
             this.fastObjectListViewHashKeys.Name = "fastObjectListViewHashKeys";
             this.fastObjectListViewHashKeys.ShowGroups = false;
-            this.fastObjectListViewHashKeys.Size = new System.Drawing.Size(974, 359);
+            this.fastObjectListViewHashKeys.Size = new System.Drawing.Size(1072, 359);
             this.fastObjectListViewHashKeys.TabIndex = 3;
             this.fastObjectListViewHashKeys.UseCellFormatEvents = true;
             this.fastObjectListViewHashKeys.UseCompatibleStateImageBehavior = false;
@@ -1118,7 +1119,7 @@
             this.tabPageScheduler.Margin = new System.Windows.Forms.Padding(2);
             this.tabPageScheduler.Name = "tabPageScheduler";
             this.tabPageScheduler.Padding = new System.Windows.Forms.Padding(2);
-            this.tabPageScheduler.Size = new System.Drawing.Size(978, 363);
+            this.tabPageScheduler.Size = new System.Drawing.Size(1076, 363);
             this.tabPageScheduler.TabIndex = 2;
             this.tabPageScheduler.Text = "Scheduler";
             this.tabPageScheduler.UseVisualStyleBackColor = true;
@@ -1152,7 +1153,7 @@
             this.fastObjectListViewScheduler.Margin = new System.Windows.Forms.Padding(2);
             this.fastObjectListViewScheduler.Name = "fastObjectListViewScheduler";
             this.fastObjectListViewScheduler.ShowGroups = false;
-            this.fastObjectListViewScheduler.Size = new System.Drawing.Size(974, 359);
+            this.fastObjectListViewScheduler.Size = new System.Drawing.Size(1072, 359);
             this.fastObjectListViewScheduler.TabIndex = 2;
             this.fastObjectListViewScheduler.UseCellFormatEvents = true;
             this.fastObjectListViewScheduler.UseCompatibleStateImageBehavior = false;
@@ -1216,7 +1217,7 @@
             this.tabPageProxies.Margin = new System.Windows.Forms.Padding(2);
             this.tabPageProxies.Name = "tabPageProxies";
             this.tabPageProxies.Padding = new System.Windows.Forms.Padding(2);
-            this.tabPageProxies.Size = new System.Drawing.Size(978, 363);
+            this.tabPageProxies.Size = new System.Drawing.Size(1076, 363);
             this.tabPageProxies.TabIndex = 1;
             this.tabPageProxies.Text = "Proxies";
             this.tabPageProxies.UseVisualStyleBackColor = true;
@@ -1246,7 +1247,7 @@
             this.fastObjectListViewProxies.Margin = new System.Windows.Forms.Padding(2);
             this.fastObjectListViewProxies.Name = "fastObjectListViewProxies";
             this.fastObjectListViewProxies.ShowGroups = false;
-            this.fastObjectListViewProxies.Size = new System.Drawing.Size(974, 359);
+            this.fastObjectListViewProxies.Size = new System.Drawing.Size(1072, 359);
             this.fastObjectListViewProxies.TabIndex = 1;
             this.fastObjectListViewProxies.UseCellFormatEvents = true;
             this.fastObjectListViewProxies.UseCompatibleStateImageBehavior = false;
@@ -1306,6 +1307,7 @@
             // 
             this.panel1.BackColor = System.Drawing.Color.White;
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.panel1.Controls.Add(this.btnStopAcc);
             this.panel1.Controls.Add(this.label2);
             this.panel1.Controls.Add(this.label1);
             this.panel1.Controls.Add(this.btnStartAcc);
@@ -1316,6 +1318,27 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(1072, 28);
             this.panel1.TabIndex = 4;
+            // 
+            // btnStopAcc
+            // 
+            this.btnStopAcc.Enabled = false;
+            this.btnStopAcc.Location = new System.Drawing.Point(304, 2);
+            this.btnStopAcc.Name = "btnStopAcc";
+            this.btnStopAcc.Size = new System.Drawing.Size(38, 23);
+            this.btnStopAcc.TabIndex = 5;
+            this.btnStopAcc.Text = "Stop";
+            this.btnStopAcc.UseVisualStyleBackColor = true;
+            this.btnStopAcc.Click += new System.EventHandler(this.btnStoptAcc_Click);
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.ForeColor = System.Drawing.Color.Crimson;
+            this.label2.Location = new System.Drawing.Point(351, 7);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(172, 13);
+            this.label2.TabIndex = 4;
+            this.label2.Text = "Starts an account every 2 seconds";
             // 
             // label1
             // 
@@ -1504,16 +1527,6 @@
             this.Trayicon.Text = "Account Manager";
             this.Trayicon.Visible = true;
             this.Trayicon.MouseClick += new System.Windows.Forms.MouseEventHandler(this.TrayIcon_MouseClick);
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.ForeColor = System.Drawing.Color.Crimson;
-            this.label2.Location = new System.Drawing.Point(304, 7);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(172, 13);
-            this.label2.TabIndex = 4;
-            this.label2.Text = "Starts an account every 5 seconds";
             // 
             // MainForm
             // 
@@ -1708,6 +1721,7 @@
         private System.Windows.Forms.NumericUpDown numericUpDownSimAcc;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Button btnStopAcc;
     }
 }
 
