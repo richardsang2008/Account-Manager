@@ -88,6 +88,10 @@ namespace PokemonGoGUI.GoManager
             {
                 return Tracker == null ? 0 : Tracker.PokemonCaught;
             }
+            set
+            {
+                Tracker.PokemonCaught = value;
+            }
         }
 
         [JsonIgnore]
@@ -96,6 +100,10 @@ namespace PokemonGoGUI.GoManager
             get
             {
                 return Tracker == null ? 0 : Tracker.PokestopsFarmed;
+            }
+            set
+            {
+                Tracker.PokestopsFarmed = value;
             }
         }
 
@@ -210,6 +218,10 @@ namespace PokemonGoGUI.GoManager
             get
             {
                 return Stats == null ? 0 : Stats.Level;
+            }
+            set
+            {
+                Stats.Level = value;
             }
         }
 
@@ -392,6 +404,10 @@ namespace PokemonGoGUI.GoManager
             get
             {
                 return _expGained;
+            }
+            set
+            {
+                _expGained = value;
             }
         }
 
