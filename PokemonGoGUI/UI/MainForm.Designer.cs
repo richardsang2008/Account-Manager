@@ -1322,7 +1322,7 @@
             // btnStopAcc
             // 
             this.btnStopAcc.Enabled = false;
-            this.btnStopAcc.Location = new System.Drawing.Point(304, 2);
+            this.btnStopAcc.Location = new System.Drawing.Point(225, 2);
             this.btnStopAcc.Name = "btnStopAcc";
             this.btnStopAcc.Size = new System.Drawing.Size(38, 23);
             this.btnStopAcc.TabIndex = 5;
@@ -1334,7 +1334,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.ForeColor = System.Drawing.Color.Crimson;
-            this.label2.Location = new System.Drawing.Point(346, 7);
+            this.label2.Location = new System.Drawing.Point(267, 7);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(172, 13);
             this.label2.TabIndex = 4;
@@ -1346,13 +1346,13 @@
             this.label1.Location = new System.Drawing.Point(3, 7);
             this.label1.Margin = new System.Windows.Forms.Padding(0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(211, 13);
+            this.label1.Size = new System.Drawing.Size(130, 13);
             this.label1.TabIndex = 2;
-            this.label1.Text = "Automatically Start Simultaneous Accounts:";
+            this.label1.Text = "Max Concurrent Accounts";
             // 
             // btnStartAcc
             // 
-            this.btnStartAcc.Location = new System.Drawing.Point(263, 2);
+            this.btnStartAcc.Location = new System.Drawing.Point(184, 2);
             this.btnStartAcc.Margin = new System.Windows.Forms.Padding(0);
             this.btnStartAcc.Name = "btnStartAcc";
             this.btnStartAcc.Size = new System.Drawing.Size(38, 23);
@@ -1363,7 +1363,7 @@
             // 
             // numericUpDownSimAcc
             // 
-            this.numericUpDownSimAcc.Location = new System.Drawing.Point(215, 4);
+            this.numericUpDownSimAcc.Location = new System.Drawing.Point(136, 4);
             this.numericUpDownSimAcc.Margin = new System.Windows.Forms.Padding(0);
             this.numericUpDownSimAcc.Name = "numericUpDownSimAcc";
             this.numericUpDownSimAcc.Size = new System.Drawing.Size(42, 20);
