@@ -43,7 +43,7 @@ namespace PokemonGoGUI.GoManager
                 Success = true
             };
         }
-        
+
         public async Task<MethodResult> SnipeAllNearyPokemon()
         {
             if (!UserSettings.CatchPokemon)
@@ -56,7 +56,7 @@ namespace PokemonGoGUI.GoManager
 
             MethodResult<List<NearbyPokemon>> pokeSniperResult = RequestPokeSniperRares();
 
-            if(!pokeSniperResult.Success)
+            if (!pokeSniperResult.Success)
             {
                 return new MethodResult
                 {
@@ -82,14 +82,11 @@ namespace PokemonGoGUI.GoManager
 
                 var ids = Pokedex.Select(x => x.PokemonId);
                 pokemonToSnipe = pokeSniperResult.Data.Where(x => x.EncounterId != _lastPokeSniperId && !ids.Contains(x.PokemonId) && x.DistanceInMeters < UserSettings.MaxTravelDistance && !LastedEncountersIds.Contains(x.EncounterId)).OrderBy(x => x.DistanceInMeters).ToList();
-
-                if (pokemonToSnipe.Count > 0)
-                    LogCaller(new LoggerEventArgs("Found pokemons no into pokedex, go to sniping ...", LoggerTypes.Snipe));
             }
 
-            if (pokemonToSnipe.Count == 0) 
+            if (pokemonToSnipe.Count == 0)
             {
-                LogCaller(new LoggerEventArgs("No pokemon to snipe within catch settings", LoggerTypes.Info));
+                LogCaller(new LoggerEventArgs("No pokemon to snipe within catch settings", LoggerTypes.Debug));
 
                 return new MethodResult
                 {
@@ -102,52 +99,63 @@ namespace PokemonGoGUI.GoManager
             await Task.Delay(CalculateDelay(UserSettings.GeneralDelay, UserSettings.GeneralDelayRandom));
 
             //Long running, so can't let this continue
-            while (pokemonToSnipe.Any() && IsRunning && !AlreadySnipped)
+            try
+            {
+                while (pokemonToSnipe.Any() && IsRunning && !AlreadySnipped)
+                {
+                    AlreadySnipped = false;
+
+                    NearbyPokemon nearbyPokemon = pokemonToSnipe.First();
+                    pokemonToSnipe.Remove(nearbyPokemon);
+
+                    var forts = _client.ClientSession.Map.Cells.SelectMany(x => x.Forts);
+                    var fortNearby = forts.Where(x => x.Id == nearbyPokemon.FortId).FirstOrDefault();
+
+                    if (fortNearby == null || nearbyPokemon == null || nearbyPokemon.PokemonId == PokemonId.Missingno)
+                    {
+                        continue;
+                    }
+
+                    GeoCoordinate coords = new GeoCoordinate
+                    {
+                        Latitude = fortNearby.Latitude,
+                        Longitude = fortNearby.Longitude
+                    };
+
+                    await CaptureSnipePokemon(coords.Latitude, coords.Longitude, nearbyPokemon.PokemonId);
+
+                    await Task.Delay(CalculateDelay(UserSettings.GeneralDelay, UserSettings.GeneralDelayRandom));
+
+                    pokemonToSnipe = pokemonToSnipe.Where(x => UserSettings.CatchSettings.FirstOrDefault(p => p.Id == x.PokemonId).Snipe && fortNearby.CooldownCompleteTimestampMs >= DateTime.Now.AddSeconds(30).ToUnixTime() && !LastedEncountersIds.Contains(x.EncounterId) && IsValidLocation(fortNearby.Latitude, fortNearby.Longitude)).OrderBy(x => x.DistanceInMeters).ToList();
+
+                    if (UserSettings.SnipeAllPokemonsNoInPokedex)
+                    {
+                        LogCaller(new LoggerEventArgs("Search pokemons no into pokedex ...", LoggerTypes.Debug));
+
+                        var ids = Pokedex.Select(x => x.PokemonId);
+                        pokemonToSnipe = pokemonToSnipe.Where(x => x.EncounterId != _lastPokeSniperId && !ids.Contains(x.PokemonId)).OrderBy(x => x.DistanceInMeters).ToList();
+
+                        if (pokemonToSnipe.Count > 0)
+                            LogCaller(new LoggerEventArgs("Found pokemons no into pokedex, go to sniping ...", LoggerTypes.Debug));
+                    }
+                }
+
+                return new MethodResult
+                {
+                    Success = true
+                };
+            }
+            catch (Exception ex)
+            {
+                LogCaller(new LoggerEventArgs("Error, sniping ...", LoggerTypes.Warning, ex));
+            }
+            finally
             {
                 AlreadySnipped = false;
-
-                NearbyPokemon nearbyPokemon = pokemonToSnipe.First();
-                pokemonToSnipe.Remove(nearbyPokemon);
-
-                var forts = _client.ClientSession.Map.Cells.SelectMany(x => x.Forts);
-                var fortNearby = forts.Where(x => x.Id == nearbyPokemon.FortId).FirstOrDefault();
-
-                if (fortNearby == null)
-                {
-                    continue;
-                }
-
-                GeoCoordinate coords = new GeoCoordinate
-                {
-                    Latitude = fortNearby.Latitude,
-                    Longitude = fortNearby.Longitude
-                };
-
-                await CaptureSnipePokemon(coords.Latitude, coords.Longitude, nearbyPokemon.PokemonId);
-
-                await Task.Delay(CalculateDelay(UserSettings.GeneralDelay, UserSettings.GeneralDelayRandom));
-
-                pokemonToSnipe = pokemonToSnipe.Where(x => UserSettings.CatchSettings.FirstOrDefault(p => p.Id == x.PokemonId).Snipe && fortNearby.CooldownCompleteTimestampMs >= DateTime.Now.AddSeconds(30).ToUnixTime() && !LastedEncountersIds.Contains(x.EncounterId)).OrderBy(x => x.DistanceInMeters).ToList();
-
-                if (UserSettings.SnipeAllPokemonsNoInPokedex)
-                {
-                    LogCaller(new LoggerEventArgs("Search pokemons no into pokedex ...", LoggerTypes.Debug));
-
-                    var ids = Pokedex.Select(x => x.PokemonId);
-                    pokemonToSnipe = pokemonToSnipe.Where(x => x.EncounterId != _lastPokeSniperId && !ids.Contains(x.PokemonId)).OrderBy(x => x.DistanceInMeters).ToList();
-
-                    if (pokemonToSnipe.Count > 0)
-                        LogCaller(new LoggerEventArgs("Found pokemons no into pokedex, go to sniping ...", LoggerTypes.Debug));
-                }
             }
 
-            AlreadySnipped = false;
-
-            return new MethodResult
-            {
-                Success = true
-            };
-        }
+            return new MethodResult();
+       }
 
         private async Task<MethodResult> CaptureSnipePokemon(double latitude, double longitude, PokemonId pokemon)
         {
@@ -171,11 +179,12 @@ namespace PokemonGoGUI.GoManager
                 return result;
             }
 
-            await Task.Delay(10000); //wait for pogolib refreshmapobjects
+            if (UserSettings.UsePOGOLibHeartbeat)
+                await Task.Delay(10000); //wait for pogolib refreshmapobjects
 
             //Get catchable pokemon
 
-            MethodResult<List<MapPokemon>> pokemonResult = GetCatchablePokemon();
+            MethodResult<List<MapPokemon>> pokemonResult = await GetCatchablePokemonAsync();
 
             if(!pokemonResult.Success)
             {

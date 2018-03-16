@@ -982,10 +982,10 @@ namespace PokemonGoGUI.GoManager
             foreach (var _pokemon in defendersFromConfig.OrderByDescending(o => o.Cp))
             {
                 if (_pokemon.Stamina <= 0)
-                    await RevivePokemon(_pokemon).ConfigureAwait(false);
+                    await RevivePokemon(_pokemon);
 
                 if (_pokemon.Stamina < _pokemon.StaminaMax && _pokemon.Stamina > 0)
-                    await HealPokemon(_pokemon).ConfigureAwait(false);
+                    await HealPokemon(_pokemon);
 
                 if (_pokemon.Stamina < _pokemon.StaminaMax)
                     excluded.Add(_pokemon.Id);
@@ -1010,10 +1010,10 @@ namespace PokemonGoGUI.GoManager
                 );
 
                 if (pokemon.Stamina <= 0)
-                    await RevivePokemon(pokemon).ConfigureAwait(false);
+                    await RevivePokemon(pokemon);
 
                 if (pokemon.Stamina < pokemon.StaminaMax && pokemon.Stamina > 0)
-                    await HealPokemon(pokemon).ConfigureAwait(false);
+                    await HealPokemon(pokemon);
 
                 if (pokemon.Stamina < pokemon.StaminaMax)
                 {
@@ -1035,7 +1035,7 @@ namespace PokemonGoGUI.GoManager
 
             if (healPower < (pokemon.StaminaMax - pokemon.Stamina) && maxPotions > 0)
             {
-                if (await UseMaxPotion(pokemon, maxPotions).ConfigureAwait(false))
+                if (await UseMaxPotion(pokemon, maxPotions))
                 {
                     UpdateInventory(InventoryRefresh.Items);
                     return true;
@@ -1046,7 +1046,7 @@ namespace PokemonGoGUI.GoManager
             {
                 if (((pokemon.StaminaMax - pokemon.Stamina) > 200 || ((normalPotions * 20 + superPotions * 50) < (pokemon.StaminaMax - pokemon.Stamina))) && hyperPotions > 0)
                 {
-                    if (!await UseHyperPotion(pokemon, hyperPotions).ConfigureAwait(false))
+                    if (!await UseHyperPotion(pokemon, hyperPotions))
                         return false;
                     hyperPotions--;
                     UpdateInventory(InventoryRefresh.Items);
@@ -1054,14 +1054,14 @@ namespace PokemonGoGUI.GoManager
                 else
                 if (((pokemon.StaminaMax - pokemon.Stamina) > 50 || normalPotions * 20 < (pokemon.StaminaMax - pokemon.Stamina)) && superPotions > 0)
                 {
-                    if (!await UseSuperPotion(pokemon, superPotions).ConfigureAwait(false))
+                    if (!await UseSuperPotion(pokemon, superPotions))
                         return false;
                     superPotions--;
                     UpdateInventory(InventoryRefresh.Items);
                 }
                 else
                 {
-                    if (!await UsePotion(pokemon, normalPotions).ConfigureAwait(false))
+                    if (!await UsePotion(pokemon, normalPotions))
                         return false;
                     normalPotions--;
                     UpdateInventory(InventoryRefresh.Items);

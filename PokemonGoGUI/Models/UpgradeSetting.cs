@@ -1,7 +1,9 @@
 ﻿using POGOProtos.Enums;
+using System;
 
 namespace PokemonGoGUI.Models
 {
+    [Serializable]
     public class UpgradeSetting
     {
         public PokemonId Id { get; set; }

@@ -12,6 +12,7 @@ using System.Security.Cryptography;
 
 namespace PokemonGoGUI
 {
+    [Serializable]
     public class Settings
     {
         public List<string> HashKeys { get; set; }
@@ -19,6 +20,7 @@ namespace PokemonGoGUI
         public string AuthAPIKey { get; set; }
         public Uri HashHost { get; set; }
         public string HashEndpoint { get; set; }
+        internal string PGPoolEndpoint { get; set; }
 
         public double Latitude { get; set; }
         public double Longitude { get; set; }
@@ -54,6 +56,8 @@ namespace PokemonGoGUI
 
         public bool AutoFavoritShiny { get; set; }
         public bool UseIncense { get; set; }
+        public bool UseLuckEggConst { get; set; }
+        public int LevelForConstLukky { get; set; }
         public string DefaultTeam { get; set; }
         public double DisableCatchDelay { get; set; }
         public bool SpinGyms { get; set; }
@@ -67,6 +71,8 @@ namespace PokemonGoGUI
         public bool MimicWalking { get; set; }
         public int WalkingSpeed { get; set; }
         public bool EncounterWhileWalking { get; set; }
+        public double MaxPokestopMeters { get; set; }
+        public int MaxPokestopMetersRandom { get; set; }
         public int MaxTravelDistance { get; set; }
         public bool UseLuckyEgg { get; set; }
         public bool ClaimLevelUpRewards { get; set; }
@@ -78,6 +84,8 @@ namespace PokemonGoGUI
         public bool CatchPokemon { get; set; }
         public bool IncubateEggs { get; set; }
         public int MaxLevel { get; set; }
+        public int PercTransItems { get; set; }
+        public int PercTransPoke { get; set; }
         public bool SPF { get; set; }
 
         public double SearchFortBelowPercent { get; set; }
@@ -86,6 +94,9 @@ namespace PokemonGoGUI
         public bool SnipeAllPokemonsNoInPokedex { get; set; }
         public double ForceEvolveAbovePercent { get; set; }
         public bool StopOnAPIUpdate { get; set; }
+        public bool UsePOGOLibHeartbeat { get; set; }
+        public int APIThrottles { get; set; }
+        public int SoftBanBypassTimes { get; set; }
 
         public int MaxLogs { get; set; }
         public double RunForHours { get; set; }
@@ -126,6 +137,12 @@ namespace PokemonGoGUI
         public bool TransferAtOnce { get; set; }
         public bool ShowDebugLogs { get; set; }
         public bool DownloadResources { get; set; }
+        public bool RequestFortDetails { get; set; }
+        public int BallsToIgnoreStops { get; set; }
+        public bool IgnoreStopsIfTooBalls { get; set; }
+        public bool UseSoftBanBypass { get; set; }
+        public bool IgnoreHashSemafore { get; set; }
+        public bool IgnoreRPCSemafore { get; set; }
 
         public AccountState StopAtMinAccountState { get; set; }
 
@@ -171,10 +188,10 @@ namespace PokemonGoGUI
         {
             GroupName = "Default";
             AuthType = AuthType.Ptc;
-            MimicWalking = true;
+            MimicWalking = false;
             CatchPokemon = true;
-            WalkingSpeed = 7;
-            MaxTravelDistance = 1000;
+            WalkingSpeed = 200;
+            MaxTravelDistance = 50000;
             EncounterWhileWalking = false;
             EnableHumanization = false;
             InsideReticuleChance = 100;
@@ -190,8 +207,10 @@ namespace PokemonGoGUI
             CatchPokemonDayLimit = 500;
             SpinPokestopsDayLimit = 700;
             ForceEvolveAbovePercent = 1000;
+            PercTransItems = 90;
+            PercTransPoke = 40;
             StopOnAPIUpdate = true;
-            SpinGyms = true;
+            SpinGyms = false;
             HashHost = new Uri("https://pokehash.buddyauth.com/");
             HashEndpoint = "api/v159_1/hash";
             AuthAPIKey = "XXXXXXXXXXXXXXXXXXXX";
@@ -201,10 +220,10 @@ namespace PokemonGoGUI
             Language = "en";
             TimeZone = "America/New_York";
             POSIX = "en-us";
-            DisableCatchDelay = 8;
-            DownloadResources = true;
+            DisableCatchDelay = 3;
+            DownloadResources = false;
             AllowManualCaptchaResolve = true;
-            ManualCaptchaTimeout = 120;
+            ManualCaptchaTimeout = 160;
             PlaySoundOnCaptcha = true;
             DisplayOnTop = true;
             Enable2Captcha = false;
@@ -217,8 +236,20 @@ namespace PokemonGoGUI
             ShowDebugLogs = false;
             GoOnlyToGyms = false;
             AutoFavoritShiny = true;
-            SnipeAllPokemonsNoInPokedex = true;
+            SnipeAllPokemonsNoInPokedex = false;
             EncounterWhileWalking = true;
+            RequestFortDetails = false;
+            BallsToIgnoreStops = 80;
+            IgnoreStopsIfTooBalls = false;
+            UsePOGOLibHeartbeat = false;
+            APIThrottles = 200;
+            MinPokemonBeforeEvolve = 1;
+            UseSoftBanBypass = true;
+            SoftBanBypassTimes = 40;
+            LevelForConstLukky = 9;
+            MaxPokestopMeters = 0.00; // disabled
+            MaxPokestopMetersRandom = 0;
+            PGPoolEndpoint = "";
         }
 
         public void LoadCatchSettings()
@@ -274,7 +305,8 @@ namespace PokemonGoGUI
 
                 var setting = new EvolveSetting
                 {
-                    Id = pokemon
+                    Id = pokemon,
+                    Evolve = true
                 };
 
                 EvolveSettings.Add(setting);

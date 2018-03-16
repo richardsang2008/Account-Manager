@@ -314,6 +314,25 @@ namespace PokemonGoGUI.GoManager
                 };
             }
 
+            int itemsCount = 0;
+
+            foreach (ItemData item in Items)
+            {
+                itemsCount += item.Count;
+            }
+
+            double configPercentItems = UserSettings.PercTransItems * 0.01;
+
+            double percentInventory = PlayerData.MaxItemStorage * configPercentItems;
+
+            if (percentInventory > itemsCount)
+            {
+                return new MethodResult
+                {
+                    Message = "It has not yet reached 90% of inventory"
+                };
+            }
+
             //TODO: skip ThrowInvalidOperationException(ExceptionResource resource)
             try
             {

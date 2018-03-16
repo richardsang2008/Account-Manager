@@ -16,8 +16,11 @@ namespace PokemonGoGUI.GoManager
 {
     public partial class Manager
     {
-        public int CalculateDelay(int baseDelay, int offset)
+        private int CalculateDelay(int baseDelay, int offset)
         {
+            if (!UserSettings.EnableHumanization)
+                return UserSettings.APIThrottles; //200 min i thinks
+
             lock(_rand)
             {
                 int maxOffset = offset * 2;
@@ -66,7 +69,7 @@ namespace PokemonGoGUI.GoManager
             };
         }
 
-        public async Task<MethodResult<Dictionary<PokemonId, PokemonSettings>>> GetItemTemplates()
+        private async Task<MethodResult<Dictionary<PokemonId, PokemonSettings>>> GetItemTemplates()
         {
             if (PokeSettings != null && PokeSettings.Count != 0)
             {
@@ -361,6 +364,7 @@ namespace PokemonGoGUI.GoManager
                     settings.ProxyPort = UserSettings.ProxyPort;
                     settings.ProxyUsername = UserSettings.ProxyUsername;
                     settings.GroupName = UserSettings.GroupName;
+                    settings.PGPoolEndpoint = UserSettings.PGPoolEndpoint;
 
                     //Randomize device id
                     var device = DeviceInfoUtil.GetRandomDevice();

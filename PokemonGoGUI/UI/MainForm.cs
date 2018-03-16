@@ -102,8 +102,11 @@ namespace PokemonGoGUI
 
             foreach (Manager manager in managers)
             {
+                if (manager == null)
+                    continue;
+
                 var checkWindow = new ConsoleHelper();
-                var window = checkWindow.FindWindowByCaption(manager.UserSettings.Username);
+                var window = checkWindow.FindWindowByCaption(manager.AccountName);
 
                 if (window == IntPtr.Zero)
                 {
@@ -212,7 +215,6 @@ namespace PokemonGoGUI
 
             try
             {
-
                 if (!File.Exists(gzipFile))
                     return false;
 
@@ -310,6 +312,7 @@ namespace PokemonGoGUI
             }
         }
 
+        /*
         private void Manager_OnInventoryUpdate(object sender, EventArgs e)
         {
             var manager = sender as Manager;
@@ -321,6 +324,7 @@ namespace PokemonGoGUI
 
             RefreshManager(manager);
         }
+        */
 
         private void Manager_OnLog(object sender, LoggerEventArgs e)
         {
@@ -336,7 +340,7 @@ namespace PokemonGoGUI
 
         private void AddNewToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var manager = new Manager(_proxyHandler);
+            var manager = new Manager(_proxyHandler, this);
 
             var asForm = new AccountSettingsForm(manager)
             {
@@ -459,6 +463,7 @@ namespace PokemonGoGUI
             {
                 manager.UserSettings.HashKeys = _hashKeys.Select(x => x.Key).ToList();
                 manager.UserSettings.SPF = _spf;
+                manager._mainForm = this;
                 manager.Start();
 
                 await Task.Delay(200);
@@ -592,6 +597,32 @@ namespace PokemonGoGUI
             }
         }
 
+        internal void AddAccount(string username, string password)
+        {
+            List<Manager> managers = new List<Manager>(_managers);
+
+
+            Manager newAccount = new Manager();  // Copy the first manager's settings to get all settings instead of pulling in manually 
+            newAccount.UserSettings = managers.ElementAt(0).UserSettings.DeepClone();
+            newAccount.RandomDeviceId();
+            newAccount.UserSettings.AccountName = username.Trim();
+            newAccount.UserSettings.Username = username.Trim();
+            newAccount.UserSettings.Password = password.Trim();
+
+            newAccount.UserSettings.AuthType = AuthType.Ptc;
+            newAccount.UserSettings.MaxLevel = 30;
+            newAccount.Level = 0;
+            newAccount.ExpGained = 0;
+            newAccount.PokestopsFarmed = 0;
+            newAccount.PokemonCaught = 0;
+
+
+            AddManager(newAccount);
+            
+
+            fastObjectListViewMain.SetObjects(_managers);
+        }
+
         private async void WConfigToolStripMenuItem_Click(object sender, EventArgs e)
         {
             var tSMI = sender as ToolStripMenuItem;
@@ -646,7 +677,7 @@ namespace PokemonGoGUI
                         continue;
                     }
 
-                    var manager = new Manager(_proxyHandler);
+                    var manager = new Manager(_proxyHandler, this);
 
                     if (useConfig)
                     {
@@ -839,21 +870,33 @@ namespace PokemonGoGUI
             {
                 int ExpPerHour = manager.ExpPerHour; // Convert.ToDouble(olvColumnExpPerHour.GetValue(manager));
 
-                if (ExpPerHour >= 40000)
+                if (ExpPerHour >= 80000)
                 {
-                    if (ExpPerHour >= 200000)
+                    if (ExpPerHour >= 2000000)
+                    {
+                        e.SubItem.ForeColor = Color.Red;
+                    }
+                    else if(ExpPerHour >= 1500000)
+                    {
+                        e.SubItem.ForeColor = Color.Yellow;
+                    }
+                    else if (ExpPerHour >= 1000000)
+                    {
+                        e.SubItem.ForeColor = Color.Orange;
+                    }
+                    else if (ExpPerHour >= 900000)
                     {
                         e.SubItem.ForeColor = Color.Goldenrod;
                     }
-                    else if (ExpPerHour >= 150000)
+                    else if (ExpPerHour >= 750000)
                     {
                         e.SubItem.ForeColor = Color.LightSkyBlue;
                     }
-                    else if (ExpPerHour >= 100000)
+                    else if (ExpPerHour >= 400000)
                     {
                         e.SubItem.ForeColor = Color.LightGreen;
                     }
-                    else if (ExpPerHour >= 75000)
+                    else if (ExpPerHour >= 200000)
                     {
                         e.SubItem.ForeColor = Color.Green;
                     }
@@ -1275,6 +1318,12 @@ namespace PokemonGoGUI
             foreach (Manager manager in fastObjectListViewMain.SelectedObjects)
             {
                 manager.UserSettings.AutoRotateProxies = !enableRotateProxiesToolStripMenuItem.Checked;
+
+                if (!manager.UserSettings.AutoRotateProxies)
+                {
+                    manager.UserSettings.ProxyIP = String.Empty;
+                    manager.UserSettings.ProxyPort = 0;
+                }
             }
 
             fastObjectListViewMain.RefreshSelectedObjects();
@@ -2322,7 +2371,7 @@ namespace PokemonGoGUI
                         Password = parts[2]
                     };
 
-                    var manager = new Manager(_proxyHandler);
+                    var manager = new Manager(_proxyHandler, this);
 
                     manager.UserSettings.AuthType = (parts[0].Trim().ToLower() == "ptc") ? AuthType.Ptc : AuthType.Google;
                     manager.UserSettings.AccountName = importModel.Username.Trim();
@@ -2393,6 +2442,34 @@ namespace PokemonGoGUI
             }
         }
 
+        private void ExportAccountsRMFormatToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (fastObjectListViewMain.SelectedObjects.Count == 0)
+            {
+                return;
+            }
+
+            string filename = GetSaveFileName();
+
+            if (String.IsNullOrEmpty(filename))
+            {
+                return;
+            }
+
+            try
+            {
+                IEnumerable<string> accounts = fastObjectListViewMain.SelectedObjects.Cast<Manager>().Select(x => String.Format("{0},{1},{2}", x.UserSettings.AuthType.ToString().ToLower(), x.UserSettings.Username, x.UserSettings.Password));
+
+                File.WriteAllLines(filename, accounts);
+
+                MessageBox.Show(String.Format("Exported {0} accounts RocketMap format", accounts.Count()));
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(String.Format("Failed to export accounts RocketMap format. Ex: {0}", ex.Message));
+            }
+        }
+
         private async void ExportGMModelToolStripMenuItem_Click(object sender, EventArgs e)
         {
             string fileName = String.Empty;
@@ -2459,6 +2536,12 @@ namespace PokemonGoGUI
                 MessageBox.Show(String.Format("Failed to save to file. Ex: {0}", ex.Message));
             }
         }
-        #endregion 
+        #endregion
+
+        private void PGPoolEnabled_Click(object sender, EventArgs e)
+        {
+            // Toggle the item
+            PGPoolEnabled.Checked = !PGPoolEnabled.Checked;
+        }
     }
 }

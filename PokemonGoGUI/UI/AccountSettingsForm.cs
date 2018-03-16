@@ -95,6 +95,15 @@ namespace PokemonGoGUI.UI
 
             comboBoxLocationPresets.DataSource = _manager.FarmLocations;
             comboBoxLocationPresets.DisplayMember = "Name";
+            //Set other satus
+            numericUpDownThrottles.Enabled = !_manager.UserSettings.EnableHumanization;
+            numericUpDownGeneralDelay.Enabled = _manager.UserSettings.EnableHumanization;
+            numericUpDownGeneralDelayRandom.Enabled = _manager.UserSettings.EnableHumanization;
+            numericUpDownPlayerActionDelay.Enabled = _manager.UserSettings.EnableHumanization;
+            numericUpDownPlayerActionRandomiz.Enabled = _manager.UserSettings.EnableHumanization; ;
+            numericUpDownLocationUpdateDelay.Enabled = _manager.UserSettings.EnableHumanization;
+            numericUpDownLocationUpdateRandom.Enabled = _manager.UserSettings.EnableHumanization;
+            //
         }
 
         private void UpdateListViews()
@@ -117,6 +126,8 @@ namespace PokemonGoGUI.UI
             textBoxWalkSpeed.Text = settings.WalkingSpeed.ToString();
             textBoxPokemonBeforeEvolve.Text = settings.MinPokemonBeforeEvolve.ToString();
             textBoxMaxLevel.Text = settings.MaxLevel.ToString();
+            textBoxPercTransItems.Text = settings.PercTransItems.ToString();
+            textBoxPercTransPoke.Text = settings.PercTransPoke.ToString();
             textBoxProxy.Text = settings.Proxy.ToString();
             checkBoxMimicWalking.Checked = settings.MimicWalking;
             checkBoxShufflePokestops.Checked = settings.ShufflePokestops;
@@ -130,6 +141,8 @@ namespace PokemonGoGUI.UI
             checkBoxOnlyUnlimitedIncubator.Checked = settings.OnlyUnlimitedIncubator;
             checkBoxCatchPokemon.Checked = settings.CatchPokemon;
             numericUpDownRunForHours.Value = new Decimal(settings.RunForHours);
+            numericUpDownMaxMetersStop.Value = new Decimal(settings.MaxPokestopMeters);
+            numericUpDownMaxMetersStopRandom.Value = new Decimal(settings.MaxPokestopMetersRandom);
             numericUpDownMaxLogs.Value = settings.MaxLogs;
             numericUpDownMaxFailBeforeReset.Value = settings.MaxFailBeforeReset;
             checkBoxStopOnIPBan.Checked = settings.StopOnIPBan;
@@ -162,6 +175,8 @@ namespace PokemonGoGUI.UI
             }
 
             cbUseIncense.Checked = settings.UseIncense;
+            cbUseLuckEggConst.Checked = settings.UseLuckEggConst;
+            checkBoxReqFortDetails.Checked = settings.RequestFortDetails;
 
             //Humanization
             checkBoxHumanizeThrows.Checked = settings.EnableHumanization;
@@ -203,6 +218,7 @@ namespace PokemonGoGUI.UI
             numericUpDownProximity.Value = settings.ARBonusProximity;
             numericUpDownAwareness.Value = settings.ARBonusAwareness;
             checkBoxUpgradePokemons.Checked = settings.UpgradePokemon;
+            checkBoxUsePOGOLibHeartbeat.Checked = settings.UsePOGOLibHeartbeat;
 
             cbUseOnlyThisHashKey.Checked = _manager.UserSettings.UseOnlyOneKey;
             tbAuthHashKey.Text = _manager.UserSettings.AuthAPIKey;
@@ -230,6 +246,14 @@ namespace PokemonGoGUI.UI
             TwoCaptchaAPIKey.Text = settings.TwoCaptchaAPIKey;
             checkBoxAutoFavShiny.Checked = settings.AutoFavoritShiny;
             checkBoxSniperNoInPokedex.Checked = settings.SnipeAllPokemonsNoInPokedex;
+            checkBoxTooBalls.Checked = settings.IgnoreStopsIfTooBalls;
+            numericUpDownTooBalls.Value = new Decimal(settings.BallsToIgnoreStops);
+            numericUpDownThrottles.Value = new Decimal(settings.APIThrottles);
+            checkBoxSoftBypass.Checked = settings.UseSoftBanBypass;
+            numericUpDownSoftBypass.Value = new Decimal(settings.SoftBanBypassTimes);
+            numericUpDownLvForConsLukky.Value = new Decimal(settings.LevelForConstLukky);
+            checkBoxIgRPCSem.Checked = settings.IgnoreRPCSemafore;
+            checkBoxIgHashSem.Checked = settings.IgnoreHashSemafore;
 
             //Location time zones
             var zones = new TimeZoneIds().GetTimeZoneIds();
@@ -291,6 +315,20 @@ namespace PokemonGoGUI.UI
             if (!Int32.TryParse(textBoxMaxLevel.Text, out maxLevel) || maxLevel < 0)
             {
                 MessageBox.Show("Invalid Max level", "Warning");
+                return false;
+            }
+
+            int perctransitems;
+            if (!Int32.TryParse(textBoxPercTransItems.Text, out perctransitems) || perctransitems < 0)
+            {
+                MessageBox.Show("Invalid % Transfer Items", "Warning");
+                return false;
+            }
+
+            int perctranspoke;
+            if (!Int32.TryParse(textBoxPercTransPoke.Text, out perctranspoke) || perctranspoke < 0)
+            {
+                MessageBox.Show("Invalid % Transfer Pokemon", "Warning");
                 return false;
             }
 
@@ -376,6 +414,8 @@ namespace PokemonGoGUI.UI
             userSettings.IncubateEggs = checkBoxIncubateEggs.Checked;
             userSettings.OnlyUnlimitedIncubator = checkBoxOnlyUnlimitedIncubator.Checked;
             userSettings.MaxLevel = maxLevel;
+            userSettings.PercTransItems = perctransitems;
+            userSettings.PercTransPoke = perctranspoke;
             userSettings.CatchPokemon = checkBoxCatchPokemon.Checked;
             userSettings.StopAtMinAccountState = (AccountState)comboBoxMinAccountState.SelectedItem;
             userSettings.SearchFortBelowPercent = (double)numericUpDownSearchFortBelow.Value;
@@ -390,12 +430,17 @@ namespace PokemonGoGUI.UI
             userSettings.UseBerries = checkBoxUseBerries.Checked;
             userSettings.DisableCatchDelay = (int)numericUpDownDisableCatchDelay.Value;
             userSettings.UseIncense = cbUseIncense.Checked;
+            userSettings.UseLuckEggConst = cbUseLuckEggConst.Checked;
             userSettings.RunForHours = (double)numericUpDownRunForHours.Value;
             userSettings.MaxLogs = (int)numericUpDownMaxLogs.Value;
             userSettings.StopOnIPBan = checkBoxStopOnIPBan.Checked;
             userSettings.MaxFailBeforeReset = (int)numericUpDownMaxFailBeforeReset.Value;
             userSettings.AutoRotateProxies = checkBoxAutoRotateProxies.Checked;
             userSettings.AutoRemoveOnStop = checkBoxRemoveOnStop.Checked;
+            userSettings.RequestFortDetails = checkBoxReqFortDetails.Checked;
+            userSettings.IgnoreStopsIfTooBalls = checkBoxTooBalls.Checked;
+            userSettings.BallsToIgnoreStops = (int)numericUpDownTooBalls.Value;
+            userSettings.MaxPokestopMeters = (double)numericUpDownMaxMetersStop.Value;
 
             //Humanization
             userSettings.EnableHumanization = checkBoxHumanizeThrows.Checked;
@@ -468,7 +513,7 @@ namespace PokemonGoGUI.UI
             //Captcha Config
             userSettings.AllowManualCaptchaResolve = AllowManualCaptchaResolve.Checked;
             int manualCaptchaTimeout;
-            if (!Int32.TryParse(ManualCaptchaTimeout.Text, out manualCaptchaTimeout) || maxLevel < 0)
+            if (!Int32.TryParse(ManualCaptchaTimeout.Text, out manualCaptchaTimeout))
             {
                 MessageBox.Show("InvalidTimeOut", "Warning");
                 return false;
@@ -481,7 +526,7 @@ namespace PokemonGoGUI.UI
             userSettings.AntiCaptchaAPIKey = AntiCaptchaAPIKey.Text;
             userSettings.ProxyHostCaptcha = ProxyHostCaptcha.Text;
             int proxyPortCaptcha;
-            if (!Int32.TryParse(ProxyPortCaptcha.Text, out proxyPortCaptcha) || maxLevel < 0)
+            if (!Int32.TryParse(ProxyPortCaptcha.Text, out proxyPortCaptcha))
             {
                 MessageBox.Show("InvalidProxyCaptchaPort", "Warning");
                 return false;
@@ -491,14 +536,14 @@ namespace PokemonGoGUI.UI
             userSettings.CaptchaSolutionAPIKey = CaptchaSolutionAPIKey.Text;
             userSettings.CaptchaSolutionsSecretKey = CaptchaSolutionsSecretKey.Text;
             int autoCaptchaTimeout;
-            if (!Int32.TryParse(AutoCaptchaTimeout.Text, out autoCaptchaTimeout) || maxLevel < 0)
+            if (!Int32.TryParse(AutoCaptchaTimeout.Text, out autoCaptchaTimeout))
             {
                 MessageBox.Show("InvalidAutoCaptchaTimeout", "Warning");
                 return false;
             }
             userSettings.AutoCaptchaTimeout = autoCaptchaTimeout;
             int autoCaptchaRetries;
-            if (!Int32.TryParse(AutoCaptchaRetries.Text, out autoCaptchaRetries) || maxLevel < 0)
+            if (!Int32.TryParse(AutoCaptchaRetries.Text, out autoCaptchaRetries))
             {
                 MessageBox.Show("InvalidAutoCaptchaRetries", "Warning");
                 return false;
@@ -510,6 +555,35 @@ namespace PokemonGoGUI.UI
             userSettings.UpgradePokemon = checkBoxUpgradePokemons.Checked;
             userSettings.AutoFavoritShiny = checkBoxAutoFavShiny.Checked;
             userSettings.SnipeAllPokemonsNoInPokedex = checkBoxSniperNoInPokedex.Checked;
+            userSettings.UsePOGOLibHeartbeat = checkBoxUsePOGOLibHeartbeat.Checked;
+            userSettings.UseSoftBanBypass = checkBoxSoftBypass.Checked;
+            userSettings.MaxPokestopMetersRandom = (int)numericUpDownMaxMetersStopRandom.Value;
+            userSettings.IgnoreHashSemafore = checkBoxIgHashSem.Checked;
+            userSettings.IgnoreRPCSemafore = checkBoxIgRPCSem.Checked;
+
+            int apithrottles;
+            if (!Int32.TryParse(numericUpDownThrottles.Text, out apithrottles))
+            {
+                MessageBox.Show("API Throttles value", "Warning");
+                return false;
+            }
+            userSettings.APIThrottles = apithrottles;
+
+            int softbanbypass;
+            if (!Int32.TryParse(numericUpDownSoftBypass.Text, out softbanbypass))
+            {
+                MessageBox.Show("SoftBan Bypass value", "Warning");
+                return false;
+            }
+            userSettings.SoftBanBypassTimes = softbanbypass;
+
+            int lvforconslukky;
+            if (!Int32.TryParse(numericUpDownLvForConsLukky.Text, out lvforconslukky))
+            {
+                MessageBox.Show("Min level for use lukky constantly value", "Warning");
+                return false;
+            }
+            userSettings.LevelForConstLukky = lvforconslukky;
 
             return true;
         }
@@ -953,6 +1027,17 @@ namespace PokemonGoGUI.UI
                 checkBoxGoToGymsOnly.Enabled = false;
                 checkBoxGoToGymsOnly.Checked = false;
             }
+        }
+
+        private void CheckBoxHumanizeThrows_Click(object sender, EventArgs e)
+        {
+            numericUpDownThrottles.Enabled = !checkBoxHumanizeThrows.Checked;
+            numericUpDownGeneralDelay.Enabled = checkBoxHumanizeThrows.Checked;
+            numericUpDownGeneralDelayRandom.Enabled = checkBoxHumanizeThrows.Checked;
+            numericUpDownPlayerActionDelay.Enabled = checkBoxHumanizeThrows.Checked;
+            numericUpDownPlayerActionRandomiz.Enabled = checkBoxHumanizeThrows.Checked;
+            numericUpDownLocationUpdateDelay.Enabled = checkBoxHumanizeThrows.Checked;
+            numericUpDownLocationUpdateRandom.Enabled = checkBoxHumanizeThrows.Checked;
         }
     }
 }

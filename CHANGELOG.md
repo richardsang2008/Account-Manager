@@ -1,5 +1,60 @@
 # Change Log
 
+## [v2.22.0.27](https://github.com/Furtif/Account-Manager/tree/v2.22.0.27) (2018-03-13)
+
+[Full Changelog](https://github.com/Furtif/Account-Manager/compare/v2.22.0.26...v2.22.0.27)
+
+## [v2.22.0.26](https://github.com/Furtif/Account-Manager/tree/v2.22.0.26) (2018-03-12)
+
+[Full Changelog](https://github.com/Furtif/Account-Manager/compare/v2.22.0.25...v2.22.0.26)
+
+**Closed issues:**
+
+- New shared idees of test pt 1  [\#73](https://github.com/Furtif/Account-Manager/issues/73)
+
+**Merged pull requests:**
+
+- Fix ThrottleDifference in 0 and Luck Egg Constantly [\#74](https://github.com/Furtif/Account-Manager/pull/74) ([henriquemaciel](https://github.com/henriquemaciel))
+
+## [v2.22.0.25](https://github.com/Furtif/Account-Manager/tree/v2.22.0.25) (2018-03-09)
+
+[Full Changelog](https://github.com/Furtif/Account-Manager/compare/v2.22.0.24...v2.22.0.25)
+
+**Merged pull requests:**
+
+- New Configs: Transfer items and Pokemons [\#71](https://github.com/Furtif/Account-Manager/pull/71) ([henriquemaciel](https://github.com/henriquemaciel))
+
+## [v2.22.0.24](https://github.com/Furtif/Account-Manager/tree/v2.22.0.24) (2018-03-07)
+
+[Full Changelog](https://github.com/Furtif/Account-Manager/compare/v2.22.0.23...v2.22.0.24)
+
+**Closed issues:**
+
+- Test webook [\#70](https://github.com/Furtif/Account-Manager/issues/70)
+- Unknown exception occured [\#65](https://github.com/Furtif/Account-Manager/issues/65)
+
+**Merged pull requests:**
+
+- fixed problem with bot closing with new accounts and recycling only with 90% of full inventory [\#69](https://github.com/Furtif/Account-Manager/pull/69) ([henriquemaciel](https://github.com/henriquemaciel))
+- Merge pull request \#67 from Furtif/master [\#68](https://github.com/Furtif/Account-Manager/pull/68) ([Furtif](https://github.com/Furtif))
+- sync close cm branch [\#67](https://github.com/Furtif/Account-Manager/pull/67) ([Furtif](https://github.com/Furtif))
+
+## [v2.22.0.23](https://github.com/Furtif/Account-Manager/tree/v2.22.0.23) (2018-03-03)
+
+[Full Changelog](https://github.com/Furtif/Account-Manager/compare/v2.22.0.22...v2.22.0.23)
+
+## [v2.22.0.22](https://github.com/Furtif/Account-Manager/tree/v2.22.0.22) (2018-03-01)
+
+[Full Changelog](https://github.com/Furtif/Account-Manager/compare/v2.22.0.21...v2.22.0.22)
+
+## [v2.22.0.21](https://github.com/Furtif/Account-Manager/tree/v2.22.0.21) (2018-03-01)
+
+[Full Changelog](https://github.com/Furtif/Account-Manager/compare/v2.22.0.20...v2.22.0.21)
+
+**Merged pull requests:**
+
+- Fixed the bug that manages without an Alias are not able to open the Details-Form [\#64](https://github.com/Furtif/Account-Manager/pull/64) ([Arkanin](https://github.com/Arkanin))
+
 ## [v2.22.0.20](https://github.com/Furtif/Account-Manager/tree/v2.22.0.20) (2018-02-21)
 
 [Full Changelog](https://github.com/Furtif/Account-Manager/compare/v2.22.0.19...v2.22.0.20)

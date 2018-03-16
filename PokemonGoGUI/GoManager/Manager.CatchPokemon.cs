@@ -123,7 +123,7 @@ namespace PokemonGoGUI.GoManager
                 };
             }
 
-            MethodResult<List<MapPokemon>> catchableResponse = GetCatchablePokemon();
+            MethodResult<List<MapPokemon>> catchableResponse = await GetCatchablePokemonAsync();
 
             if (!catchableResponse.Success || catchableResponse.Data == null || catchableResponse.Data.Count == 0)
             {
@@ -354,7 +354,7 @@ namespace PokemonGoGUI.GoManager
                         var arPlusValues = new ARPlusEncounterValues();
                         if (UserSettings.GetArBonus)
                         {
-                            LogCaller(new LoggerEventArgs("Using AR Bonus Values", LoggerTypes.Debug));
+                            LogCaller(new LoggerEventArgs("Using AR Bonus Values", LoggerTypes.Info));
                             arPlusValues.Awareness = (float)UserSettings.ARBonusAwareness;
                             arPlusValues.Proximity = (float)UserSettings.ARBonusProximity;
                             arPlusValues.PokemonFrightened = false;
@@ -462,6 +462,9 @@ namespace PokemonGoGUI.GoManager
                 case DiskEncounterResponse.Types.Result.NotInRange:
                     break;
                 case DiskEncounterResponse.Types.Result.PokemonInventoryFull:
+                    //Transfert if full
+                    LogCaller(new LoggerEventArgs("Faill PokemonInventoryFull.", LoggerTypes.Warning));
+                    await TransferFilteredPokemon();
                     break;
                 case DiskEncounterResponse.Types.Result.Unknown:
                     break;
@@ -554,6 +557,9 @@ namespace PokemonGoGUI.GoManager
                         Message = "Success"
                     };
                 case EncounterResponse.Types.Status.PokemonInventoryFull:
+                    //Transfert if full
+                    LogCaller(new LoggerEventArgs("Faill PokemonInventoryFull.", LoggerTypes.Warning));
+                    await TransferFilteredPokemon();
                     break;
             }
 
@@ -676,10 +682,11 @@ namespace PokemonGoGUI.GoManager
                     reticuleSize = (double)_rand.Next(10, 195) / 100;
                     hitInsideReticule = HitInsideReticle();
                 }
+
                 var arPlusValues = new ARPlusEncounterValues();
                 if (UserSettings.GetArBonus)
                 {
-                    LogCaller(new LoggerEventArgs("Using AR Bonus Values", LoggerTypes.Debug));
+                    LogCaller(new LoggerEventArgs("Using AR Bonus Values", LoggerTypes.Info));
                     arPlusValues.Awareness = (float)UserSettings.ARBonusAwareness;
                     arPlusValues.Proximity = (float)UserSettings.ARBonusProximity;
                     arPlusValues.PokemonFrightened = false;
