@@ -10,6 +10,7 @@ using PokemonGoGUI.UI;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Configuration;
 using System.Drawing;
 using System.Globalization;
 using System.IO;
@@ -20,6 +21,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Threading;
 using System.Diagnostics;
+using PokemonGoGUI.proxy;
 
 namespace PokemonGoGUI
 {
@@ -353,6 +355,13 @@ namespace PokemonGoGUI
             if (asForm.ShowDialog() == DialogResult.OK)
             {
                 _autoupdate = asForm.AutoUpdate;
+                var username =manager.UserSettings.Username;
+                var password = manager.UserSettings.Password;
+                var baseUrl = ConfigurationManager.AppSettings["pgpoolurl"];
+                PgProxy pg = new PgProxy(baseUrl);
+                var account = new PgAccount() { AuthService = "ptc", Username = username, Password = password };
+                var x = Task.Run(() => pg.AddPgAccount(1, account)).IsCompleted;
+
                 AddManager(manager);
             }
 
