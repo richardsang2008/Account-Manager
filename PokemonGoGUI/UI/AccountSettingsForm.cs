@@ -252,6 +252,8 @@ namespace PokemonGoGUI.UI
             checkBoxSoftBypass.Checked = settings.UseSoftBanBypass;
             numericUpDownSoftBypass.Value = new Decimal(settings.SoftBanBypassTimes);
             numericUpDownLvForConsLukky.Value = new Decimal(settings.LevelForConstLukky);
+            checkBoxIgRPCSem.Checked = settings.IgnoreRPCSemafore;
+            checkBoxIgHashSem.Checked = settings.IgnoreHashSemafore;
 
             //Location time zones
             var zones = new TimeZoneIds().GetTimeZoneIds();
@@ -556,6 +558,8 @@ namespace PokemonGoGUI.UI
             userSettings.UsePOGOLibHeartbeat = checkBoxUsePOGOLibHeartbeat.Checked;
             userSettings.UseSoftBanBypass = checkBoxSoftBypass.Checked;
             userSettings.MaxPokestopMetersRandom = (int)numericUpDownMaxMetersStopRandom.Value;
+            userSettings.IgnoreHashSemafore = checkBoxIgHashSem.Checked;
+            userSettings.IgnoreRPCSemafore = checkBoxIgRPCSem.Checked;
 
             int apithrottles;
             if (!Int32.TryParse(numericUpDownThrottles.Text, out apithrottles))
