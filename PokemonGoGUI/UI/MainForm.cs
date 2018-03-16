@@ -19,6 +19,7 @@ using System.Reflection;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Threading;
+using System.Diagnostics;
 
 namespace PokemonGoGUI
 {
@@ -1745,6 +1746,68 @@ namespace PokemonGoGUI
             }
         }
 
+        private async void BtnStartAcc_Click(object sender, EventArgs e)
+        {
+            btnStartAcc.Enabled = false;
+            btnStopAcc.Enabled = true;
+            int simultAcc = Convert.ToInt32(numericUpDownSimAcc.Value);
+
+            while (true)
+            {
+                var runningCount = 0;
+                foreach (var account in _managers)
+                {
+                    if (account.IsRunning == true)
+                    {
+                        runningCount += 1;
+                    }
+                }
+
+                if (runningCount < simultAcc)
+                {
+                    var startAccCount = simultAcc - runningCount;
+
+                    if (startAccCount == 0 || _stop)
+                    {
+                        btnStartAcc.Enabled = true;
+                        btnStopAcc.Enabled = false;
+                        break;
+                    }
+
+                    var hasAccStart = _managers.FirstOrDefault(acc => acc.IsRunning == false &&
+                                                                acc.Level < acc.MaxLevel &&
+                                                                acc.AccountState == AccountState.Good);
+                    if (!(hasAccStart == null))
+                    {
+                        if (!hasAccStart.IsRunning)
+                        {
+                            hasAccStart.UserSettings.HashKeys = _hashKeys.Select(x => x.Key).ToList();
+                            hasAccStart.UserSettings.SPF = _spf;
+                            hasAccStart.Start();
+                        }
+                    }
+                }
+                await Task.Delay(2000);
+            }
+        }
+
+        private void BtnStoptAcc_Click(object sender, EventArgs e)
+        {
+            btnStopAcc.Enabled = false;
+            _stop = true;
+        }
+
+        private void PGPoolEnabled_Click(object sender, EventArgs e)
+        {
+            // Toggle the item
+            PGPoolEnabled.Checked = !PGPoolEnabled.Checked;
+        }
+
+        private void BtnPayPal_Click(object sender, EventArgs e)
+        {
+            Process.Start("https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=SNATC29B4ZJD4");
+        }
+
         #region Proxies
 
         private void ResetBanStateToolStripMenuItem_Click(object sender, EventArgs e)
@@ -2539,62 +2602,5 @@ namespace PokemonGoGUI
             }
         }
         #endregion
-
-        private async void btnStartAcc_Click(object sender, EventArgs e)
-        {
-            btnStartAcc.Enabled = false;
-            btnStopAcc.Enabled = true;
-            int simultAcc = Convert.ToInt32(numericUpDownSimAcc.Value);
-                        
-            while (true)
-            {
-                var runningCount = 0;
-                foreach (var account in _managers)
-                {
-                    if (account.IsRunning == true)
-                    {
-                        runningCount += 1;
-                    }
-                }
-
-                if (runningCount < simultAcc)
-                {
-                    var startAccCount = simultAcc - runningCount;
-
-                    if (startAccCount == 0 || _stop)
-                    {
-                        btnStartAcc.Enabled = true;
-                        btnStopAcc.Enabled = false;
-                        break;
-                    }
-
-                    var hasAccStart = _managers.FirstOrDefault(acc => acc.IsRunning == false && 
-                                                                acc.Level < acc.MaxLevel && 
-                                                                acc.AccountState == AccountState.Good);
-                    if (!(hasAccStart == null))
-                    {
-                        if (!hasAccStart.IsRunning)
-                        {
-                            hasAccStart.UserSettings.HashKeys = _hashKeys.Select(x => x.Key).ToList();
-                            hasAccStart.UserSettings.SPF = _spf;
-                            hasAccStart.Start();
-                        }
-                    }
-                }
-                await Task.Delay(2000);
-            }
-        }
-
-        private void btnStoptAcc_Click(object sender, EventArgs e)
-        {
-            btnStopAcc.Enabled = false;
-            _stop = true;
-        }
-
-        private void PGPoolEnabled_Click(object sender, EventArgs e)
-        {
-            // Toggle the item
-            PGPoolEnabled.Checked = !PGPoolEnabled.Checked;
-        }
     }
 }
