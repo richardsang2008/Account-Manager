@@ -939,6 +939,8 @@ namespace PokemonGoGUI.GoManager
                             {
                                 UserSettings.Username = accounts[0].Username;
                                 UserSettings.Password = accounts[0].Password;
+                                ClearStats();
+                                ClearLog();
                                 Restart();
                             }
                             else
