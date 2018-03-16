@@ -123,6 +123,9 @@
     <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.11.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
+      <HintPath>..\packages\NLog.4.4.13\lib\net45\NLog.dll</HintPath>
+    </Reference>
     <Reference Include="ObjectListView, Version=2.9.1.1072, Culture=neutral, PublicKeyToken=b1c5bf581481bcd4, processorArchitecture=MSIL">
       <HintPath>..\packages\ObjectListView.Official.2.9.1\lib\net20\ObjectListView.dll</HintPath>
     </Reference>
@@ -137,10 +140,14 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.IO.Compression" />
     <Reference Include="System.IO.Compression.FileSystem" />
     <Reference Include="System.Net.Http" />
+    <Reference Include="System.Net.Http.Formatting, Version=5.2.4.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.4\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
     <Reference Include="System.Numerics" />
     <Reference Include="System.Runtime.InteropServices.RuntimeInformation, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Runtime.InteropServices.RuntimeInformation.4.3.0\lib\net45\System.Runtime.InteropServices.RuntimeInformation.dll</HintPath>
@@ -213,6 +220,8 @@
     <Compile Include="GoManager\Manager.Sniper.cs" />
     <Compile Include="GoManager\Manager.Tutorial.cs" />
     <Compile Include="Extensions\MethodResult.cs" />
+    <Compile Include="Helper\HttpClientHandler.cs" />
+    <Compile Include="Helper\IHttpHandler.cs" />
     <Compile Include="Models\AccountExportModel.cs" />
     <Compile Include="Models\AccountImport.cs" />
     <Compile Include="Models\CatchSetting.cs" />
@@ -224,11 +233,13 @@
     <Compile Include="GoManager\Manager.Events.cs" />
     <Compile Include="GoManager\Manager.Inventory.cs" />
     <Compile Include="GoManager\Manager.Log.cs" />
+    <Compile Include="Models\PgAccount.cs" />
     <Compile Include="Models\ProgramExportModel.cs" />
     <Compile Include="Models\TransferSettings.cs" />
     <Compile Include="Extensions\ProxyEx.cs" />
     <Compile Include="Models\UpgradeSetting.cs" />
     <Compile Include="ProxyManager\ProxyHandler.cs" />
+    <Compile Include="proxy\PgProxycs.cs" />
     <Compile Include="UI\AccountSettingsForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -325,6 +336,13 @@
     <EmbeddedResource Include="UI\TransferSettingsForm.resx">
       <DependentUpon>TransferSettingsForm.cs</DependentUpon>
     </EmbeddedResource>
+    <None Include="App.config" />
+    <Content Include="NLog.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <None Include="NLog.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="packages.config" />
     <None Include="cert.pfx">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

@@ -11,6 +11,7 @@ using PokemonGoGUI.Models;
 using PokemonGoGUI.ProxyManager;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Net;
 using System.Threading;
@@ -18,6 +19,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using POGOLib.Official.Exceptions;
 using PokemonGoGUI.Captcha;
+using PokemonGoGUI.proxy;
 using POGOLib.Official.Extensions;
 using POGOLib.Official.Net;
 
@@ -923,8 +925,27 @@ namespace PokemonGoGUI.GoManager
 
                         if (UserSettings.MaxLevel > 0 && Level >= UserSettings.MaxLevel)
                         {
+                            //use pgpool to update when MaxLevel is set to x
                             LogCaller(new LoggerEventArgs(String.Format("Max level of {0} reached.", UserSettings.MaxLevel), LoggerTypes.Info));
-                            Stop();
+                            //add the logic to call service 
+                            var baseUrl = ConfigurationManager.AppSettings["pgpoolurl"];
+                            PgProxy pg = new PgProxy(baseUrl);
+                            var account = new PgAccount() { AuthService = "ptc", Username = UserSettings.Username, Password = UserSettings.Password };
+                            var x =Task.Run(() => pg.AddPgAccount(Level, account)).IsCompleted;
+                            
+                            //get a new lvl 1 account to continue
+                            var accounts = Task.Run(() => pg.GetPgAccounts("Account-Manager", true, 1)).Result;
+                            if (accounts != null && accounts.Count > 0)
+                            {
+                                UserSettings.Username = accounts[0].Username;
+                                UserSettings.Password = accounts[0].Password;
+                                Restart();
+                            }
+                            else
+                            {
+                                Stop();
+                            }
+                            
                         }
 
                         if (_totalZeroExpStops > 25)
