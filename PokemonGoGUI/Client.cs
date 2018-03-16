@@ -137,6 +137,7 @@ namespace PokemonGoGUI
                         //Configuration.IgnoreHashVersion = true;
                         //int rand = new Random().Next(1000);
                         Configuration.ThrottleDifference = ClientManager.UserSettings.APIThrottles;
+
                         VersionStr = Configuration.Hasher.PokemonVersion;
                         AppVersion = Configuration.Hasher.AppVersion;
                         Configuration.EnableHeartbeat = ClientManager.UserSettings.UsePOGOLibHeartbeat;
