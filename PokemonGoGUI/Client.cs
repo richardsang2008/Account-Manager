@@ -136,8 +136,7 @@ namespace PokemonGoGUI
                         // TODO: make this configurable. To avoid bans (may be with a checkbox in hash keys tab).
                         //Configuration.IgnoreHashVersion = true;
                         //int rand = new Random().Next(1000);
-                        Configuration.ThrottleDifference = ClientManager.UserSettings.APIThrottles;
-
+                        Configuration.ThrottleDifference = ClientManager.UserSettings.EnableHumanization ? 1000 : ClientManager.UserSettings.APIThrottles;
                         VersionStr = Configuration.Hasher.PokemonVersion;
                         AppVersion = Configuration.Hasher.AppVersion;
                         Configuration.EnableHeartbeat = ClientManager.UserSettings.UsePOGOLibHeartbeat;

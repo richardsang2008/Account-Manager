@@ -250,6 +250,8 @@ namespace PokemonGoGUI
             MaxPokestopMeters = 0.00; // disabled
             MaxPokestopMetersRandom = 0;
             PGPoolEndpoint = "";
+            IgnoreHashSemafore = false;
+            IgnoreRPCSemafore = false;
         }
 
         public void LoadCatchSettings()

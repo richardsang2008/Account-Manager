@@ -167,6 +167,7 @@
             this.olvColumnProxyBanned = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.tabPageAccounts = new System.Windows.Forms.TabPage();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.btnPayPal = new System.Windows.Forms.Button();
             this.btnStopAcc = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
@@ -189,7 +190,6 @@
             this.olvColumnLastLogMessage = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.tabControlMain = new System.Windows.Forms.TabControl();
             this.Trayicon = new System.Windows.Forms.NotifyIcon(this.components);
-            this.btnPayPal = new System.Windows.Forms.Button();
             this.contextMenuStripAccounts.SuspendLayout();
             this.statusStripStats.SuspendLayout();
             this.contextMenuStripScheduler.SuspendLayout();
@@ -1102,7 +1102,7 @@
             this.tabPageHashKeys.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tabPageHashKeys.Name = "tabPageHashKeys";
             this.tabPageHashKeys.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.tabPageHashKeys.Size = new System.Drawing.Size(1175, 426);
+            this.tabPageHashKeys.Size = new System.Drawing.Size(1175, 428);
             this.tabPageHashKeys.TabIndex = 3;
             this.tabPageHashKeys.Text = "HashKeys";
             this.tabPageHashKeys.UseVisualStyleBackColor = true;
@@ -1125,7 +1125,7 @@
             this.fastObjectListViewHashKeys.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.fastObjectListViewHashKeys.Name = "fastObjectListViewHashKeys";
             this.fastObjectListViewHashKeys.ShowGroups = false;
-            this.fastObjectListViewHashKeys.Size = new System.Drawing.Size(1169, 422);
+            this.fastObjectListViewHashKeys.Size = new System.Drawing.Size(1169, 424);
             this.fastObjectListViewHashKeys.TabIndex = 3;
             this.fastObjectListViewHashKeys.UseCellFormatEvents = true;
             this.fastObjectListViewHashKeys.UseCompatibleStateImageBehavior = false;
@@ -1153,7 +1153,7 @@
             this.tabPageScheduler.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tabPageScheduler.Name = "tabPageScheduler";
             this.tabPageScheduler.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.tabPageScheduler.Size = new System.Drawing.Size(1175, 426);
+            this.tabPageScheduler.Size = new System.Drawing.Size(1175, 428);
             this.tabPageScheduler.TabIndex = 2;
             this.tabPageScheduler.Text = "Scheduler";
             this.tabPageScheduler.UseVisualStyleBackColor = true;
@@ -1187,7 +1187,7 @@
             this.fastObjectListViewScheduler.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.fastObjectListViewScheduler.Name = "fastObjectListViewScheduler";
             this.fastObjectListViewScheduler.ShowGroups = false;
-            this.fastObjectListViewScheduler.Size = new System.Drawing.Size(1169, 422);
+            this.fastObjectListViewScheduler.Size = new System.Drawing.Size(1169, 424);
             this.fastObjectListViewScheduler.TabIndex = 2;
             this.fastObjectListViewScheduler.UseCellFormatEvents = true;
             this.fastObjectListViewScheduler.UseCompatibleStateImageBehavior = false;
@@ -1251,7 +1251,7 @@
             this.tabPageProxies.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tabPageProxies.Name = "tabPageProxies";
             this.tabPageProxies.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.tabPageProxies.Size = new System.Drawing.Size(1175, 426);
+            this.tabPageProxies.Size = new System.Drawing.Size(1175, 428);
             this.tabPageProxies.TabIndex = 1;
             this.tabPageProxies.Text = "Proxies";
             this.tabPageProxies.UseVisualStyleBackColor = true;
@@ -1281,7 +1281,7 @@
             this.fastObjectListViewProxies.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.fastObjectListViewProxies.Name = "fastObjectListViewProxies";
             this.fastObjectListViewProxies.ShowGroups = false;
-            this.fastObjectListViewProxies.Size = new System.Drawing.Size(1169, 422);
+            this.fastObjectListViewProxies.Size = new System.Drawing.Size(1169, 424);
             this.fastObjectListViewProxies.TabIndex = 1;
             this.fastObjectListViewProxies.UseCellFormatEvents = true;
             this.fastObjectListViewProxies.UseCompatibleStateImageBehavior = false;
@@ -1350,16 +1350,27 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.panel1.ForeColor = System.Drawing.SystemColors.WindowText;
             this.panel1.Location = new System.Drawing.Point(3, 392);
-            this.panel1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.panel1.Margin = new System.Windows.Forms.Padding(4);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(1169, 34);
             this.panel1.TabIndex = 4;
+            // 
+            // btnPayPal
+            // 
+            this.btnPayPal.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnPayPal.Location = new System.Drawing.Point(989, 4);
+            this.btnPayPal.Name = "btnPayPal";
+            this.btnPayPal.Size = new System.Drawing.Size(160, 23);
+            this.btnPayPal.TabIndex = 6;
+            this.btnPayPal.Text = "Donate by PayPal";
+            this.btnPayPal.UseVisualStyleBackColor = true;
+            this.btnPayPal.Click += new System.EventHandler(this.BtnPayPal_Click);
             // 
             // btnStopAcc
             // 
             this.btnStopAcc.Enabled = false;
             this.btnStopAcc.Location = new System.Drawing.Point(300, 2);
-            this.btnStopAcc.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnStopAcc.Margin = new System.Windows.Forms.Padding(4);
             this.btnStopAcc.Name = "btnStopAcc";
             this.btnStopAcc.Size = new System.Drawing.Size(51, 28);
             this.btnStopAcc.TabIndex = 5;
@@ -1565,16 +1576,6 @@
             this.Trayicon.Text = "Account Manager";
             this.Trayicon.Visible = true;
             this.Trayicon.MouseClick += new System.Windows.Forms.MouseEventHandler(this.TrayIcon_MouseClick);
-            // 
-            // btnPayPal
-            // 
-            this.btnPayPal.Location = new System.Drawing.Point(989, 4);
-            this.btnPayPal.Name = "btnPayPal";
-            this.btnPayPal.Size = new System.Drawing.Size(160, 23);
-            this.btnPayPal.TabIndex = 6;
-            this.btnPayPal.Text = "Donate by PayPal";
-            this.btnPayPal.UseVisualStyleBackColor = true;
-            this.btnPayPal.Click += new System.EventHandler(this.BtnPayPal_Click);
             // 
             // MainForm
             // 
