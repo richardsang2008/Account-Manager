@@ -19,6 +19,7 @@ using System.Reflection;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Threading;
+using System.Diagnostics;
 
 namespace PokemonGoGUI
 {
@@ -2540,7 +2541,7 @@ namespace PokemonGoGUI
         }
         #endregion
 
-        private async void btnStartAcc_Click(object sender, EventArgs e)
+        private async void BtnStartAcc_Click(object sender, EventArgs e)
         {
             btnStartAcc.Enabled = false;
             btnStopAcc.Enabled = true;
@@ -2585,7 +2586,7 @@ namespace PokemonGoGUI
             }
         }
 
-        private void btnStoptAcc_Click(object sender, EventArgs e)
+        private void BtnStoptAcc_Click(object sender, EventArgs e)
         {
             btnStopAcc.Enabled = false;
             _stop = true;
@@ -2595,6 +2596,11 @@ namespace PokemonGoGUI
         {
             // Toggle the item
             PGPoolEnabled.Checked = !PGPoolEnabled.Checked;
+        }
+
+        private void BtnPayPal_Click(object sender, EventArgs e)
+        {
+            Process.Start("https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=SNATC29B4ZJD4");
         }
     }
 }
