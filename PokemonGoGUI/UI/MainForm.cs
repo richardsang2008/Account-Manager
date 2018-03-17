@@ -1803,7 +1803,7 @@ namespace PokemonGoGUI
             PGPoolEnabled.Checked = !PGPoolEnabled.Checked;
         }
 
-        private void BtnPayPal_Click(object sender, EventArgs e)
+        private void PictureBox1_Click(object sender, EventArgs e)
         {
             Process.Start("https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=SNATC29B4ZJD4");
         }

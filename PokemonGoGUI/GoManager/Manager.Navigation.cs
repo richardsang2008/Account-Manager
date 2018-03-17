@@ -44,6 +44,8 @@ namespace PokemonGoGUI.GoManager
 
                     if (walkResponse.Success)
                     {
+                        await Task.Delay(CalculateDelay(UserSettings.DelayBetweenLocationUpdates, UserSettings.LocationupdateDelayRandom));
+
                         return new MethodResult
                         {
                             Success = true,
@@ -52,8 +54,6 @@ namespace PokemonGoGUI.GoManager
                     }
 
                     LogCaller(new LoggerEventArgs(String.Format("Failed to walk to location. Retry #{0}", currentTries + 1), LoggerTypes.Warning));
-
-                    await Task.Delay(CalculateDelay(UserSettings.DelayBetweenLocationUpdates, UserSettings.LocationupdateDelayRandom));
                 }
                 catch (SessionStateException ex)
                 {
@@ -209,8 +209,6 @@ namespace PokemonGoGUI.GoManager
                 UserSettings.Latitude = _client.ClientSession.Player.Latitude;
                 UserSettings.Longitude = _client.ClientSession.Player.Longitude;
                 UserSettings.Altitude = _client.ClientSession.Player.Altitude;
-
-                await Task.Delay(CalculateDelay(UserSettings.DelayBetweenLocationUpdates, UserSettings.LocationupdateDelayRandom));
 
                 //string message = String.Format("Location updated to {0}, {1}. Distance: {2:0.00}m", location.Latitude, location.Longitude, distance);
                 string message = String.Format("Walked distance: {0:0.00}m", distance);
