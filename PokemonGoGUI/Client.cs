@@ -140,8 +140,8 @@ namespace PokemonGoGUI
                         VersionStr = Configuration.Hasher.PokemonVersion;
                         AppVersion = Configuration.Hasher.AppVersion;
                         Configuration.EnableHeartbeat = ClientManager.UserSettings.UsePOGOLibHeartbeat;
-                        //Configuration.IgnoreHashSemafore = ClientManager.UserSettings.IgnoreHashSemafore;
-                        //Configuration.IgnoreRPCSemafore = ClientManager.UserSettings.IgnoreRPCSemafore;
+                        Configuration.IgnoreHashSemafore = ClientManager.UserSettings.IgnoreHashSemafore;
+                        Configuration.IgnoreRPCSemafore = ClientManager.UserSettings.IgnoreRPCSemafore;
 
                         switch (ClientManager.UserSettings.AuthType)
                         {
