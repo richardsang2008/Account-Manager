@@ -1358,9 +1358,10 @@
             // btnPayPal
             // 
             this.btnPayPal.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnPayPal.Location = new System.Drawing.Point(989, 4);
+            this.btnPayPal.Location = new System.Drawing.Point(989, 2);
+            this.btnPayPal.Margin = new System.Windows.Forms.Padding(4);
             this.btnPayPal.Name = "btnPayPal";
-            this.btnPayPal.Size = new System.Drawing.Size(160, 23);
+            this.btnPayPal.Size = new System.Drawing.Size(160, 28);
             this.btnPayPal.TabIndex = 6;
             this.btnPayPal.Text = "Donate by PayPal";
             this.btnPayPal.UseVisualStyleBackColor = true;
