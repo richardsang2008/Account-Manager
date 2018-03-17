@@ -1368,7 +1368,7 @@
             this.pictureBoxAbout.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
             this.pictureBoxAbout.TabIndex = 6;
             this.pictureBoxAbout.TabStop = false;
-            this.pictureBoxAbout.Click += new System.EventHandler(this.PictureBox1_Click);
+            this.pictureBoxAbout.Click += new System.EventHandler(this.PictureBoxAbout_Click);
             // 
             // btnStopAcc
             // 
