@@ -192,7 +192,7 @@ namespace PokemonGoGUI
             CatchPokemon = true;
             WalkingSpeed = 200;
             MaxTravelDistance = 50000;
-            EncounterWhileWalking = false;
+            EncounterWhileWalking = true;
             EnableHumanization = false;
             InsideReticuleChance = 100;
             MinPokemonBeforeEvolve = 0;
@@ -242,14 +242,17 @@ namespace PokemonGoGUI
             BallsToIgnoreStops = 80;
             IgnoreStopsIfTooBalls = false;
             UsePOGOLibHeartbeat = false;
-            APIThrottles = 200;
+            APIThrottles = 1000;
             MinPokemonBeforeEvolve = 1;
             UseSoftBanBypass = true;
             SoftBanBypassTimes = 40;
             LevelForConstLukky = 9;
-            MaxPokestopMeters = 0.00; // disabled
-            MaxPokestopMetersRandom = 0;
-            PGPoolEndpoint = "";
+            UseLuckEggConst = false;
+            UseLuckyEgg = true;
+            UseIncense = true;
+            MaxPokestopMeters = 100.00;
+            MaxPokestopMetersRandom = 50;
+            PGPoolEndpoint = String.Empty;
             IgnoreHashSemafore = false;
             IgnoreRPCSemafore = false;
         }

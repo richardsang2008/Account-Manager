@@ -154,13 +154,16 @@
             this.label21 = new System.Windows.Forms.Label();
             this.label18 = new System.Windows.Forms.Label();
             this.tabPageHumanization = new System.Windows.Forms.TabPage();
+            this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.checkBoxIgRPCSem = new System.Windows.Forms.CheckBox();
+            this.checkBoxIgHashSem = new System.Windows.Forms.CheckBox();
+            this.checkBoxUsePOGOLibHeartbeat = new System.Windows.Forms.CheckBox();
+            this.label57 = new System.Windows.Forms.Label();
+            this.numericUpDownThrottles = new System.Windows.Forms.NumericUpDown();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.label34 = new System.Windows.Forms.Label();
-            this.numericUpDownThrottles = new System.Windows.Forms.NumericUpDown();
-            this.label57 = new System.Windows.Forms.Label();
             this.numericUpDownLocationUpdateDelay = new System.Windows.Forms.NumericUpDown();
             this.label36 = new System.Windows.Forms.Label();
-            this.checkBoxUsePOGOLibHeartbeat = new System.Windows.Forms.CheckBox();
             this.numericUpDownLocationUpdateRandom = new System.Windows.Forms.NumericUpDown();
             this.label33 = new System.Windows.Forms.Label();
             this.numericUpDownGeneralDelay = new System.Windows.Forms.NumericUpDown();
@@ -285,9 +288,6 @@
             this.toolTipProxy = new System.Windows.Forms.ToolTip(this.components);
             this.toolTipMinAccountState = new System.Windows.Forms.ToolTip(this.components);
             this.toolTipHumanizeThrows = new System.Windows.Forms.ToolTip(this.components);
-            this.checkBoxIgHashSem = new System.Windows.Forms.CheckBox();
-            this.groupBox4 = new System.Windows.Forms.GroupBox();
-            this.checkBoxIgRPCSem = new System.Windows.Forms.CheckBox();
             this.tabControlMain.SuspendLayout();
             this.tabPageDetails.SuspendLayout();
             this.tabControlSettings.SuspendLayout();
@@ -312,8 +312,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownWalkingOffset)).BeginInit();
             this.tabPageDevice.SuspendLayout();
             this.tabPageHumanization.SuspendLayout();
-            this.groupBox3.SuspendLayout();
+            this.groupBox4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownThrottles)).BeginInit();
+            this.groupBox3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownLocationUpdateDelay)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownLocationUpdateRandom)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownGeneralDelay)).BeginInit();
@@ -342,7 +343,6 @@
             this.tabPageUpgrade.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.fastObjectListViewUpgrade)).BeginInit();
             this.contextMenuStripUpgrade.SuspendLayout();
-            this.groupBox4.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabControlMain
@@ -1813,6 +1813,79 @@
             this.tabPageHumanization.Text = "Humanization";
             this.tabPageHumanization.UseVisualStyleBackColor = true;
             // 
+            // groupBox4
+            // 
+            this.groupBox4.Controls.Add(this.checkBoxIgRPCSem);
+            this.groupBox4.Controls.Add(this.checkBoxIgHashSem);
+            this.groupBox4.Controls.Add(this.checkBoxUsePOGOLibHeartbeat);
+            this.groupBox4.Controls.Add(this.label57);
+            this.groupBox4.Controls.Add(this.numericUpDownThrottles);
+            this.groupBox4.Location = new System.Drawing.Point(19, 275);
+            this.groupBox4.Name = "groupBox4";
+            this.groupBox4.Size = new System.Drawing.Size(582, 150);
+            this.groupBox4.TabIndex = 13;
+            this.groupBox4.TabStop = false;
+            this.groupBox4.Text = "POGOLib.Core Config";
+            // 
+            // checkBoxIgRPCSem
+            // 
+            this.checkBoxIgRPCSem.AutoSize = true;
+            this.checkBoxIgRPCSem.Location = new System.Drawing.Point(7, 110);
+            this.checkBoxIgRPCSem.Name = "checkBoxIgRPCSem";
+            this.checkBoxIgRPCSem.Size = new System.Drawing.Size(172, 21);
+            this.checkBoxIgRPCSem.TabIndex = 13;
+            this.checkBoxIgRPCSem.Text = "Ignore RPC Semafore*";
+            this.checkBoxIgRPCSem.UseVisualStyleBackColor = true;
+            // 
+            // checkBoxIgHashSem
+            // 
+            this.checkBoxIgHashSem.AutoSize = true;
+            this.checkBoxIgHashSem.Location = new System.Drawing.Point(7, 83);
+            this.checkBoxIgHashSem.Name = "checkBoxIgHashSem";
+            this.checkBoxIgHashSem.Size = new System.Drawing.Size(177, 21);
+            this.checkBoxIgHashSem.TabIndex = 12;
+            this.checkBoxIgHashSem.Text = "Ignore Hash Semafore*";
+            this.checkBoxIgHashSem.UseVisualStyleBackColor = true;
+            // 
+            // checkBoxUsePOGOLibHeartbeat
+            // 
+            this.checkBoxUsePOGOLibHeartbeat.AutoSize = true;
+            this.checkBoxUsePOGOLibHeartbeat.Location = new System.Drawing.Point(7, 30);
+            this.checkBoxUsePOGOLibHeartbeat.Margin = new System.Windows.Forms.Padding(4);
+            this.checkBoxUsePOGOLibHeartbeat.Name = "checkBoxUsePOGOLibHeartbeat";
+            this.checkBoxUsePOGOLibHeartbeat.Size = new System.Drawing.Size(192, 21);
+            this.checkBoxUsePOGOLibHeartbeat.TabIndex = 9;
+            this.checkBoxUsePOGOLibHeartbeat.Text = "Use POGOLib Heartbeat*";
+            this.checkBoxUsePOGOLibHeartbeat.UseVisualStyleBackColor = true;
+            // 
+            // label57
+            // 
+            this.label57.AutoSize = true;
+            this.label57.Location = new System.Drawing.Point(4, 59);
+            this.label57.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label57.Name = "label57";
+            this.label57.Size = new System.Drawing.Size(141, 17);
+            this.label57.TabIndex = 11;
+            this.label57.Text = "Min API throttles ms*:";
+            // 
+            // numericUpDownThrottles
+            // 
+            this.numericUpDownThrottles.Location = new System.Drawing.Point(153, 57);
+            this.numericUpDownThrottles.Margin = new System.Windows.Forms.Padding(4, 2, 4, 2);
+            this.numericUpDownThrottles.Maximum = new decimal(new int[] {
+            10000,
+            0,
+            0,
+            0});
+            this.numericUpDownThrottles.Name = "numericUpDownThrottles";
+            this.numericUpDownThrottles.Size = new System.Drawing.Size(105, 22);
+            this.numericUpDownThrottles.TabIndex = 10;
+            this.numericUpDownThrottles.Value = new decimal(new int[] {
+            400,
+            0,
+            0,
+            0});
+            // 
             // groupBox3
             // 
             this.groupBox3.Controls.Add(this.label34);
@@ -1843,29 +1916,6 @@
             this.label34.Size = new System.Drawing.Size(188, 17);
             this.label34.TabIndex = 0;
             this.label34.Text = "Location Update Delay (ms):";
-            // 
-            // numericUpDownThrottles
-            // 
-            this.numericUpDownThrottles.Location = new System.Drawing.Point(153, 57);
-            this.numericUpDownThrottles.Margin = new System.Windows.Forms.Padding(4, 2, 4, 2);
-            this.numericUpDownThrottles.Maximum = new decimal(new int[] {
-            10000,
-            0,
-            0,
-            0});
-            this.numericUpDownThrottles.Name = "numericUpDownThrottles";
-            this.numericUpDownThrottles.Size = new System.Drawing.Size(105, 22);
-            this.numericUpDownThrottles.TabIndex = 10;
-            // 
-            // label57
-            // 
-            this.label57.AutoSize = true;
-            this.label57.Location = new System.Drawing.Point(4, 59);
-            this.label57.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label57.Name = "label57";
-            this.label57.Size = new System.Drawing.Size(141, 17);
-            this.label57.TabIndex = 11;
-            this.label57.Text = "Min API throttles ms*:";
             // 
             // numericUpDownLocationUpdateDelay
             // 
@@ -1898,17 +1948,6 @@
             this.label36.Size = new System.Drawing.Size(25, 17);
             this.label36.TabIndex = 0;
             this.label36.Text = "+/-";
-            // 
-            // checkBoxUsePOGOLibHeartbeat
-            // 
-            this.checkBoxUsePOGOLibHeartbeat.AutoSize = true;
-            this.checkBoxUsePOGOLibHeartbeat.Location = new System.Drawing.Point(7, 30);
-            this.checkBoxUsePOGOLibHeartbeat.Margin = new System.Windows.Forms.Padding(4);
-            this.checkBoxUsePOGOLibHeartbeat.Name = "checkBoxUsePOGOLibHeartbeat";
-            this.checkBoxUsePOGOLibHeartbeat.Size = new System.Drawing.Size(192, 21);
-            this.checkBoxUsePOGOLibHeartbeat.TabIndex = 9;
-            this.checkBoxUsePOGOLibHeartbeat.Text = "Use POGOLib Heartbeat*";
-            this.checkBoxUsePOGOLibHeartbeat.UseVisualStyleBackColor = true;
             // 
             // numericUpDownLocationUpdateRandom
             // 
@@ -3180,40 +3219,6 @@
             this.olvColumnPinap.Text = "Use Pinap";
             this.olvColumnPinap.Width = 70;
             // 
-            // checkBoxIgHashSem
-            // 
-            this.checkBoxIgHashSem.AutoSize = true;
-            this.checkBoxIgHashSem.Location = new System.Drawing.Point(7, 83);
-            this.checkBoxIgHashSem.Name = "checkBoxIgHashSem";
-            this.checkBoxIgHashSem.Size = new System.Drawing.Size(177, 21);
-            this.checkBoxIgHashSem.TabIndex = 12;
-            this.checkBoxIgHashSem.Text = "Ignore Hash Semafore*";
-            this.checkBoxIgHashSem.UseVisualStyleBackColor = true;
-            // 
-            // groupBox4
-            // 
-            this.groupBox4.Controls.Add(this.checkBoxIgRPCSem);
-            this.groupBox4.Controls.Add(this.checkBoxIgHashSem);
-            this.groupBox4.Controls.Add(this.checkBoxUsePOGOLibHeartbeat);
-            this.groupBox4.Controls.Add(this.label57);
-            this.groupBox4.Controls.Add(this.numericUpDownThrottles);
-            this.groupBox4.Location = new System.Drawing.Point(19, 275);
-            this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(582, 150);
-            this.groupBox4.TabIndex = 13;
-            this.groupBox4.TabStop = false;
-            this.groupBox4.Text = "POGOLib.Core Config";
-            // 
-            // checkBoxIgRPCSem
-            // 
-            this.checkBoxIgRPCSem.AutoSize = true;
-            this.checkBoxIgRPCSem.Location = new System.Drawing.Point(7, 110);
-            this.checkBoxIgRPCSem.Name = "checkBoxIgRPCSem";
-            this.checkBoxIgRPCSem.Size = new System.Drawing.Size(172, 21);
-            this.checkBoxIgRPCSem.TabIndex = 13;
-            this.checkBoxIgRPCSem.Text = "Ignore RPC Semafore*";
-            this.checkBoxIgRPCSem.UseVisualStyleBackColor = true;
-            // 
             // AccountSettingsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -3258,9 +3263,11 @@
             this.tabPageDevice.PerformLayout();
             this.tabPageHumanization.ResumeLayout(false);
             this.tabPageHumanization.PerformLayout();
+            this.groupBox4.ResumeLayout(false);
+            this.groupBox4.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownThrottles)).EndInit();
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownThrottles)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownLocationUpdateDelay)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownLocationUpdateRandom)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownGeneralDelay)).EndInit();
@@ -3293,8 +3300,6 @@
             this.tabPageUpgrade.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.fastObjectListViewUpgrade)).EndInit();
             this.contextMenuStripUpgrade.ResumeLayout(false);
-            this.groupBox4.ResumeLayout(false);
-            this.groupBox4.PerformLayout();
             this.ResumeLayout(false);
 
         }
