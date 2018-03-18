@@ -16,7 +16,7 @@ namespace PokemonGoGUI.GoManager
 {
     public partial class Manager
     {
-        private int CalculateDelay(int baseDelay, int offset)
+        public int CalculateDelay(int baseDelay, int offset)
         {
             if (!UserSettings.EnableHumanization)
                 return UserSettings.APIThrottles; //200 min i thinks

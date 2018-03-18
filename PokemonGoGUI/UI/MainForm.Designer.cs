@@ -167,7 +167,7 @@
             this.olvColumnProxyBanned = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.tabPageAccounts = new System.Windows.Forms.TabPage();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.btnPayPal = new System.Windows.Forms.Button();
+            this.pictureBoxAbout = new System.Windows.Forms.PictureBox();
             this.btnStopAcc = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
@@ -203,6 +203,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.fastObjectListViewProxies)).BeginInit();
             this.tabPageAccounts.SuspendLayout();
             this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxAbout)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownSimAcc)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.fastObjectListViewMain)).BeginInit();
             this.tabControlMain.SuspendLayout();
@@ -1341,7 +1342,7 @@
             // 
             this.panel1.BackColor = System.Drawing.Color.White;
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.panel1.Controls.Add(this.btnPayPal);
+            this.panel1.Controls.Add(this.pictureBoxAbout);
             this.panel1.Controls.Add(this.btnStopAcc);
             this.panel1.Controls.Add(this.label2);
             this.panel1.Controls.Add(this.label1);
@@ -1355,17 +1356,19 @@
             this.panel1.Size = new System.Drawing.Size(1169, 34);
             this.panel1.TabIndex = 4;
             // 
-            // btnPayPal
+            // pictureBoxAbout
             // 
-            this.btnPayPal.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnPayPal.Location = new System.Drawing.Point(989, 2);
-            this.btnPayPal.Margin = new System.Windows.Forms.Padding(4);
-            this.btnPayPal.Name = "btnPayPal";
-            this.btnPayPal.Size = new System.Drawing.Size(160, 28);
-            this.btnPayPal.TabIndex = 6;
-            this.btnPayPal.Text = "Donate by PayPal";
-            this.btnPayPal.UseVisualStyleBackColor = true;
-            this.btnPayPal.Click += new System.EventHandler(this.BtnPayPal_Click);
+            this.pictureBoxAbout.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.pictureBoxAbout.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.pictureBoxAbout.Image = global::PokemonGoGUI.Properties.Resources.PayPalDonateNow;
+            this.pictureBoxAbout.Location = new System.Drawing.Point(1025, 2);
+            this.pictureBoxAbout.Margin = new System.Windows.Forms.Padding(4);
+            this.pictureBoxAbout.Name = "pictureBoxAbout";
+            this.pictureBoxAbout.Size = new System.Drawing.Size(94, 20);
+            this.pictureBoxAbout.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
+            this.pictureBoxAbout.TabIndex = 6;
+            this.pictureBoxAbout.TabStop = false;
+            this.pictureBoxAbout.Click += new System.EventHandler(this.PictureBoxAbout_Click);
             // 
             // btnStopAcc
             // 
@@ -1607,6 +1610,7 @@
             this.tabPageAccounts.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxAbout)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownSimAcc)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.fastObjectListViewMain)).EndInit();
             this.tabControlMain.ResumeLayout(false);
@@ -1776,7 +1780,7 @@
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem3;
         internal System.Windows.Forms.ToolStripTextBox PGPoolTextBox;
         internal System.Windows.Forms.ToolStripMenuItem PGPoolEnabled;
-        private System.Windows.Forms.Button btnPayPal;
+        private System.Windows.Forms.PictureBox pictureBoxAbout;
     }
 }
 
