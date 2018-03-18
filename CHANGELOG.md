@@ -1,5 +1,14 @@
 # Change Log
 
+## [v2.22.0.28](https://github.com/Furtif/Account-Manager/tree/v2.22.0.28) (2018-03-17)
+
+[Full Changelog](https://github.com/Furtif/Account-Manager/compare/v2.22.0.27...v2.22.0.28)
+
+**Merged pull requests:**
+
+- PGPool Integration [\#76](https://github.com/Furtif/Account-Manager/pull/76) ([JerryLosey](https://github.com/JerryLosey))
+- Auto Start: Alternative [\#75](https://github.com/Furtif/Account-Manager/pull/75) ([henriquemaciel](https://github.com/henriquemaciel))
+
 ## [v2.22.0.27](https://github.com/Furtif/Account-Manager/tree/v2.22.0.27) (2018-03-13)
 
 [Full Changelog](https://github.com/Furtif/Account-Manager/compare/v2.22.0.26...v2.22.0.27)

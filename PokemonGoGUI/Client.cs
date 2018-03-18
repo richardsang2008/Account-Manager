@@ -135,13 +135,13 @@ namespace PokemonGoGUI
 
                         // TODO: make this configurable. To avoid bans (may be with a checkbox in hash keys tab).
                         //Configuration.IgnoreHashVersion = true;
-                        //int rand = new Random().Next(1000);
-                        Configuration.ThrottleDifference = ClientManager.UserSettings.EnableHumanization ? 1000 : ClientManager.UserSettings.APIThrottles;
+                        int humanizeUsed = ClientManager.CalculateDelay(ClientManager.UserSettings.GeneralDelay, ClientManager.UserSettings.GeneralDelayRandom) + ClientManager.CalculateDelay(ClientManager.UserSettings.DelayBetweenPlayerActions, ClientManager.UserSettings.PlayerActionDelayRandom);
+                        Configuration.ThrottleDifference = ClientManager.UserSettings.EnableHumanization ? humanizeUsed : ClientManager.UserSettings.APIThrottles;
                         VersionStr = Configuration.Hasher.PokemonVersion;
                         AppVersion = Configuration.Hasher.AppVersion;
                         Configuration.EnableHeartbeat = ClientManager.UserSettings.UsePOGOLibHeartbeat;
-                        //Configuration.IgnoreHashSemafore = ClientManager.UserSettings.IgnoreHashSemafore;
-                        //Configuration.IgnoreRPCSemafore = ClientManager.UserSettings.IgnoreRPCSemafore;
+                        Configuration.IgnoreHashSemafore = ClientManager.UserSettings.IgnoreHashSemafore;
+                        Configuration.IgnoreRPCSemafore = ClientManager.UserSettings.IgnoreRPCSemafore;
 
                         switch (ClientManager.UserSettings.AuthType)
                         {
