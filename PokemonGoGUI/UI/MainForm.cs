@@ -1755,14 +1755,7 @@ namespace PokemonGoGUI
 
             while (true)
             {
-                var runningCount = 0;
-                foreach (var account in _managers)
-                {
-                    if (account.IsRunning == true)
-                    {
-                        runningCount += 1;
-                    }
-                }
+                var runningCount = _managers.Where(x => x.IsRunning).Count();
 
                 if (runningCount < simultAcc)
                 {
@@ -1771,11 +1764,12 @@ namespace PokemonGoGUI
                     if (startAccCount == 0 || _stop)
                     {
                         btnStartAcc.Enabled = true;
-                        btnStopAcc.Enabled = false;
+                        if (runningCount < 1)
+                            btnStopAcc.Enabled = false;
                         break;
                     }
 
-                    var hasAccStart = _managers.FirstOrDefault(acc => acc.IsRunning == false &&
+                    var hasAccStart = _managers.FirstOrDefault(acc => !acc.IsRunning &&
                                                                 acc.Level < acc.MaxLevel &&
                                                                 acc.AccountState == AccountState.Good);
                     if (!(hasAccStart == null))
@@ -1790,7 +1784,6 @@ namespace PokemonGoGUI
                 }
                 await Task.Delay(2000);
             }
-            btnStartAcc.Enabled = true;
         }
 
         private void BtnStoptAcc_Click(object sender, EventArgs e)
@@ -1798,7 +1791,7 @@ namespace PokemonGoGUI
             btnStopAcc.Enabled = false;
             _stop = true;
             int simultAcc = Convert.ToInt32(numericUpDownSimAcc.Value);
-            int i = 1;
+            int i = 0;
 
             var accRuns = _managers.Where(x => x.IsRunning).OrderBy(x => x.Level);
 
@@ -1807,7 +1800,7 @@ namespace PokemonGoGUI
                 foreach (var manager in accRuns)
                 {
                     i++;
-                    if (simultAcc == i)
+                    if (simultAcc + 1 == i)
                         return;
 
                     manager.Stop();
