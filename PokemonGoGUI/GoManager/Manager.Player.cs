@@ -172,7 +172,7 @@ namespace PokemonGoGUI.GoManager
                     using (var client = new HttpClient())
                     {
                         //Set settings
-                        if (string.IsNullOrEmpty(UserSettings.PGPoolEndpoint))
+                        if (string.IsNullOrEmpty(UserSettings.PGPoolEndpoint) || UserSettings.PGPoolEndpoint != _mainForm.PGPoolTextBox.Text)
                         {
                             UserSettings.PGPoolEndpoint = _mainForm.PGPoolTextBox.Text;
                         }
