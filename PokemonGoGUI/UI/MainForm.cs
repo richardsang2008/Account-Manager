@@ -264,6 +264,15 @@ namespace PokemonGoGUI
                         manager.AccountState = AccountState.Good;
                     }
 
+                    if (String.IsNullOrEmpty(manager.UserSettings.PGPoolEndpoint))
+                    {
+                        manager.UserSettings.PGPoolEndpoint = PGPoolTextBox.Text;
+                    }
+                    else
+                    {
+                        PGPoolTextBox.Text = manager.UserSettings.PGPoolEndpoint;
+                    }
+
                     _managers.Add(manager);
                 }
 

@@ -20,8 +20,6 @@ namespace PokemonGoGUI
         public string AuthAPIKey { get; set; }
         public Uri HashHost { get; set; }
         public string HashEndpoint { get; set; }
-        internal string PGPoolEndpoint { get; set; }
-
         public double Latitude { get; set; }
         public double Longitude { get; set; }
         public double Altitude { get; set; }
@@ -123,7 +121,6 @@ namespace PokemonGoGUI
         public string ProxyPassword { get; set; }
         public bool AutoRotateProxies { get; set; }
         public bool AutoRemoveOnStop { get; set; }
-
         public bool StopOnIPBan { get; set; }
         public int MaxFailBeforeReset { get; set; }
         public bool UseBerries { get; set; }
@@ -143,6 +140,8 @@ namespace PokemonGoGUI
         public bool UseSoftBanBypass { get; set; }
         public bool IgnoreHashSemafore { get; set; }
         public bool IgnoreRPCSemafore { get; set; }
+        public string PGPoolEndpoint { get; set; }
+        public bool EnablePGPool { get; set; }
 
         public AccountState StopAtMinAccountState { get; set; }
 
@@ -253,6 +252,7 @@ namespace PokemonGoGUI
             MaxPokestopMeters = 100.00;
             MaxPokestopMetersRandom = 50;
             PGPoolEndpoint = String.Empty;
+            EnablePGPool = false;
             IgnoreHashSemafore = false;
             IgnoreRPCSemafore = false;
         }

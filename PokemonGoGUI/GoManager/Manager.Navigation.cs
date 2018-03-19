@@ -204,7 +204,7 @@ namespace PokemonGoGUI.GoManager
 
                 var moveTo = new GeoCoordinate(location.Latitude, location.Longitude);
 
-                _client.ClientSession.Player.SetCoordinates(moveTo);
+                await Task.Run(() => _client.ClientSession.Player.SetCoordinates(moveTo));
 
                 UserSettings.Latitude = _client.ClientSession.Player.Latitude;
                 UserSettings.Longitude = _client.ClientSession.Player.Longitude;

@@ -1877,6 +1877,11 @@
             0,
             0,
             0});
+            this.numericUpDownThrottles.Minimum = new decimal(new int[] {
+            400,
+            0,
+            0,
+            0});
             this.numericUpDownThrottles.Name = "numericUpDownThrottles";
             this.numericUpDownThrottles.Size = new System.Drawing.Size(105, 22);
             this.numericUpDownThrottles.TabIndex = 10;

@@ -488,6 +488,11 @@ namespace PokemonGoGUI.UI
             userSettings.CompleteTutorial = checkBoxCompleteTutorial.Checked;
             userSettings.TransferAtOnce = checkBoxTransferAtOnce.Checked;
 
+            //PGPool Values
+            userSettings.PGPoolEndpoint = _manager._mainForm.PGPoolTextBox.Text;
+            userSettings.EnablePGPool = _manager._mainForm.PGPoolEnabled.Checked;
+            //
+
             if (proxyEx != null)
             {
                 userSettings.ProxyIP = proxyEx.Address;
