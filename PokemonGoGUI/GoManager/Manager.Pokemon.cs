@@ -400,7 +400,9 @@ namespace PokemonGoGUI.GoManager
 
             if (candyToEvolve == 0)
             {
-                return pokemon.OrderByDescending(x => x.Cp).ToList();
+                //Not thinks good
+                //return pokemon.OrderByDescending(x => x.Cp).ToList();
+                return new List<PokemonData>();
             }
 
             int maxPokemon = pokemonCandy / candyToEvolve;

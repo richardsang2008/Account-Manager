@@ -171,8 +171,13 @@ namespace PokemonGoGUI.GoManager
                 {
                     using (var client = new HttpClient())
                     {
-                        var endpoint = string.IsNullOrEmpty(UserSettings.PGPoolEndpoint) ? _mainForm.PGPoolTextBox.Text : UserSettings.PGPoolEndpoint;
-                        client.BaseAddress = new Uri(endpoint);
+                        //Set settings
+                        if (UserSettings.PGPoolEndpoint != _mainForm.PGPoolTextBox.Text)
+                        {
+                            UserSettings.PGPoolEndpoint = _mainForm.PGPoolTextBox.Text;
+                        }
+
+                        client.BaseAddress = new Uri(UserSettings.PGPoolEndpoint);
                         var content = new StringContent("level=30&condition=good&accounts=ptc," + UserSettings.AccountName + "," + UserSettings.Password, Encoding.UTF8, "application/x-www-form-urlencoded");
                         
                         using(var request = new HttpRequestMessage(HttpMethod.Post, "account/add"))
@@ -186,7 +191,7 @@ namespace PokemonGoGUI.GoManager
                                 {
                                     LogCaller(new LoggerEventArgs(String.Format(res), LoggerTypes.Info));
                                     LogCaller(new LoggerEventArgs(String.Format("Error Sending Account To PGPool!"), LoggerTypes.Warning));
-                                    LogCaller(new LoggerEventArgs(String.Format("PGPool Response: {)}", responseTask.Result), LoggerTypes.Warning));
+                                    LogCaller(new LoggerEventArgs(String.Format("PGPool Response: {0}", responseTask.Result), LoggerTypes.Warning));
                                 }
                                 else
                                 {
