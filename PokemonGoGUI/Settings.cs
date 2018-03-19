@@ -140,8 +140,6 @@ namespace PokemonGoGUI
         public bool UseSoftBanBypass { get; set; }
         public bool IgnoreHashSemafore { get; set; }
         public bool IgnoreRPCSemafore { get; set; }
-        public string PGPoolEndpoint { get; set; }
-        public bool EnablePGPool { get; set; }
 
         public AccountState StopAtMinAccountState { get; set; }
 
@@ -251,8 +249,6 @@ namespace PokemonGoGUI
             UseIncense = true;
             MaxPokestopMeters = 100.00;
             MaxPokestopMetersRandom = 50;
-            PGPoolEndpoint = String.Empty;
-            EnablePGPool = false;
             IgnoreHashSemafore = false;
             IgnoreRPCSemafore = false;
         }

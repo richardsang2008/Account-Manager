@@ -239,12 +239,15 @@ namespace PokemonGoGUI
                 _spf = model.SPF;
                 _showStartup = model.ShowWelcomeMessage;
                 _autoupdate = model.AutoUpdate;
+                PGPoolTextBox.Text = !String.IsNullOrEmpty(model.PGPoolEndpoint) ? model.PGPoolEndpoint : PGPoolTextBox.Text;
+                PGPoolEnabled.Checked = model.EnablePGPool;
 
                 foreach (Manager manager in tempManagers)
                 {
                     manager.AddSchedulerEvent();
                     manager.ProxyHandler = _proxyHandler;
                     manager.OnLog += Manager_OnLog;
+                    manager._programExportModel = model;
 
                     //Patch for version upgrade
                     if (String.IsNullOrEmpty(manager.UserSettings.DeviceId))
@@ -261,15 +264,6 @@ namespace PokemonGoGUI
                     if (manager.AccountState == AccountState.Conecting || manager.AccountState == AccountState.HashIssues)
                     {
                         manager.AccountState = AccountState.Good;
-                    }
-
-                    if (String.IsNullOrEmpty(manager.UserSettings.PGPoolEndpoint))
-                    {
-                        manager.UserSettings.PGPoolEndpoint = PGPoolTextBox.Text;
-                    }
-                    else
-                    {
-                        PGPoolTextBox.Text = manager.UserSettings.PGPoolEndpoint;
                     }
 
                     _managers.Add(manager);
@@ -308,7 +302,9 @@ namespace PokemonGoGUI
                     HashKeys = _hashKeys,
                     SPF = _spf,
                     ShowWelcomeMessage = _showStartup,
-                    AutoUpdate = _autoupdate
+                    AutoUpdate = _autoupdate,
+                    PGPoolEndpoint = PGPoolTextBox.Text,
+                    EnablePGPool = PGPoolEnabled.Checked
                 };
 
                 string data = Serializer.ToJson(model);
@@ -351,7 +347,7 @@ namespace PokemonGoGUI
 
         private void AddNewToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var manager = new Manager(_proxyHandler, this);
+            var manager = new Manager(_proxyHandler);
 
             var asForm = new AccountSettingsForm(manager)
             {
@@ -474,7 +470,6 @@ namespace PokemonGoGUI
             {
                 manager.UserSettings.HashKeys = _hashKeys.Select(x => x.Key).ToList();
                 manager.UserSettings.SPF = _spf;
-                manager._mainForm = this;
                 manager.Start();
 
                 await Task.Delay(200);
@@ -688,7 +683,7 @@ namespace PokemonGoGUI
                         continue;
                     }
 
-                    var manager = new Manager(_proxyHandler, this);
+                    var manager = new Manager(_proxyHandler);
 
                     if (useConfig)
                     {
@@ -2445,7 +2440,7 @@ namespace PokemonGoGUI
                         Password = parts[2]
                     };
 
-                    var manager = new Manager(_proxyHandler, this);
+                    var manager = new Manager(_proxyHandler);
 
                     manager.UserSettings.AuthType = (parts[0].Trim().ToLower() == "ptc") ? AuthType.Ptc : AuthType.Google;
                     manager.UserSettings.AccountName = importModel.Username.Trim();

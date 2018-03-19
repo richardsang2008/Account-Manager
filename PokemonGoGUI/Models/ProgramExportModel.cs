@@ -14,6 +14,8 @@ namespace PokemonGoGUI.Models
         public bool SPF { get; set; }
         public bool ShowWelcomeMessage { get; set; }
         public bool AutoUpdate { get; set; }
+        public string PGPoolEndpoint { get; set; }
+        public bool EnablePGPool { get; set; }
     }
 
     public class HashKey {
