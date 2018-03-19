@@ -1751,13 +1751,13 @@ namespace PokemonGoGUI
             btnStartAcc.Enabled = false;
             btnStopAcc.Enabled = true;
             _stop = false;
-            int simultAcc = Convert.ToInt32(numericUpDownSimAcc.Value);
 
             while (true)
             {
                 var runningCount = _managers.Where(x => x.IsRunning).Count();
+                int simultAcc = Convert.ToInt32(numericUpDownSimAcc.Value);
 
-                if (runningCount < simultAcc)
+                if (runningCount <= simultAcc)
                 {
                     var startAccCount = simultAcc - runningCount;
 
@@ -1772,7 +1772,7 @@ namespace PokemonGoGUI
                     var hasAccStart = _managers.FirstOrDefault(acc => !acc.IsRunning &&
                                                                 acc.Level < acc.MaxLevel &&
                                                                 acc.AccountState == AccountState.Good);
-                    if (!(hasAccStart == null))
+                    if (hasAccStart != null)
                     {
                         if (!hasAccStart.IsRunning)
                         {
@@ -1782,6 +1782,24 @@ namespace PokemonGoGUI
                         }
                     }
                 }
+                /*
+                runningCount = _managers.Where(x => x.IsRunning).Count();
+
+                if (runningCount > simultAcc)
+                {
+                    //stops all more ....
+                    int cur = runningCount;
+
+                    foreach (var x in _managers.Where(acc => acc.IsRunning))
+                    {
+                        if (simultAcc == cur)
+                            break;
+
+                        x.Stop();
+                        cur--;
+                    }
+                }
+                */
                 await Task.Delay(2000);
             }
         }
@@ -1795,20 +1813,20 @@ namespace PokemonGoGUI
 
             var accRuns = _managers.Where(x => x.IsRunning).OrderBy(x => x.Level);
 
-            if (accRuns.Count() >= simultAcc)
+            foreach (var manager in accRuns)
             {
-                foreach (var manager in accRuns)
+                i++;
+                var runningCount = _managers.Where(x => x.IsRunning).Count();
+                if (simultAcc + 1 == i && runningCount >= simultAcc)
                 {
-                    i++;
-                    if (simultAcc + 1 == i)
-                    {
-                        btnStopAcc.Enabled = true;
-                        return;
-                    }
-
-                    manager.Stop();
+                    _stop = false;
+                    btnStopAcc.Enabled = true;
+                    return;
                 }
+
+                manager.Stop();
             }
+
             btnStopAcc.Enabled = true;
         }
 
