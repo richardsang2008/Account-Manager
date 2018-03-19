@@ -35,7 +35,6 @@ namespace PokemonGoGUI
         private bool _autoupdate = true;
         private readonly string _saveFile = "data";
         private string _versionNumber = $"v{Assembly.GetExecutingAssembly().GetName().Version} - Forked GoManager Version";
-        private bool _stop = false;
 
         public MainForm()
         {
@@ -1759,9 +1758,8 @@ namespace PokemonGoGUI
         {
             btnStartAcc.Enabled = false;
             btnStopAcc.Enabled = true;
-            _stop = false;
 
-            while (!_stop)
+            while (btnStopAcc.Enabled)
             {
                 var runningCount = _managers.Where(x => x.IsRunning).Count();
 
@@ -1799,10 +1797,7 @@ namespace PokemonGoGUI
         }
 
         private void BtnStoptAcc_Click(object sender, EventArgs e)
-        {
-            //Stops while
-            _stop = true;
- 
+        { 
             foreach (var manager in _managers.Where(x => x.IsRunning))
             {
                 manager.Stop();
