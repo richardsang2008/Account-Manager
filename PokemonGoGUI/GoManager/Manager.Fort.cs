@@ -1,5 +1,4 @@
 ﻿using Google.Protobuf;
-using POGOLib.Official.Extensions;
 using POGOProtos.Inventory.Item;
 using POGOProtos.Map.Fort;
 using POGOProtos.Networking.Requests;

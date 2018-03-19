@@ -14,7 +14,6 @@ using Google.Protobuf;
 using PokemonGoGUI.Enums;
 using POGOProtos.Enums;
 using System.Net.Http;
-using System.Net;
 
 namespace PokemonGoGUI.GoManager
 {

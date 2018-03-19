@@ -18,14 +18,12 @@ using System.Net.Http;
 using System.Reflection;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Threading;
 using System.Diagnostics;
 
 namespace PokemonGoGUI
 {
-    public partial class MainForm : System.Windows.Forms.Form
+    public partial class MainForm : Form
     {
-
         private List<Manager> _managers = new List<Manager>();
         private ProxyHandler _proxyHandler = new ProxyHandler();
         private List<Scheduler> _schedulers = new List<Scheduler>();
@@ -1805,6 +1803,11 @@ namespace PokemonGoGUI
         {
             // Toggle the item
             PGPoolEnabled.Checked = !PGPoolEnabled.Checked;
+
+            foreach (var m in _managers)
+            {
+                m.ManagerExportModel.EnablePGPool = PGPoolEnabled.Checked;
+            }
         }
 
         private void PictureBoxAbout_Click(object sender, EventArgs e)
@@ -2603,6 +2606,14 @@ namespace PokemonGoGUI
             catch (Exception ex)
             {
                 MessageBox.Show(String.Format("Failed to save to file. Ex: {0}", ex.Message));
+            }
+        }
+
+        private void PGPoolTextBox_TextChanged(object sender, EventArgs e)
+        {
+            foreach (var m in _managers)
+            {
+                m.ManagerExportModel.PGPoolEndpoint = PGPoolTextBox.Text;
             }
         }
         #endregion

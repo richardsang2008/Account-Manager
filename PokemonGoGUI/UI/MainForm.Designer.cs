@@ -788,6 +788,7 @@
             this.PGPoolTextBox.Name = "PGPoolTextBox";
             this.PGPoolTextBox.Size = new System.Drawing.Size(145, 27);
             this.PGPoolTextBox.Text = "http://127.0.0.1:4242/";
+            this.PGPoolTextBox.TextChanged += new System.EventHandler(this.PGPoolTextBox_TextChanged);
             // 
             // timerUpdate
             // 
