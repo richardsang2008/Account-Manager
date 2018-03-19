@@ -1761,23 +1761,16 @@ namespace PokemonGoGUI
             btnStopAcc.Enabled = true;
             _stop = false;
 
-            while (true)
+            while (!_stop)
             {
                 var runningCount = _managers.Where(x => x.IsRunning).Count();
+
+                //If up number 5 to 6 this run one more
+
                 int simultAcc = Convert.ToInt32(numericUpDownSimAcc.Value);
 
-                if (runningCount <= simultAcc)
+                if (runningCount < simultAcc)
                 {
-                    var startAccCount = simultAcc - runningCount;
-
-                    if (startAccCount == 0 || _stop)
-                    {
-                        btnStartAcc.Enabled = true;
-                        if (runningCount < 1)
-                            btnStopAcc.Enabled = false;
-                        break;
-                    }
-
                     var hasAccStart = _managers.FirstOrDefault(acc => !acc.IsRunning &&
                                                                 acc.Level < acc.MaxLevel &&
                                                                 acc.AccountState == AccountState.Good);
@@ -1791,52 +1784,28 @@ namespace PokemonGoGUI
                         }
                     }
                 }
-                /*
-                runningCount = _managers.Where(x => x.IsRunning).Count();
 
-                if (runningCount > simultAcc)
-                {
-                    //stops all more ....
-                    int cur = runningCount;
+                //need observation if down number
+                //else
+                // _managers.FirstOrDefault(acc => acc.IsRunning).Stop();
 
-                    foreach (var x in _managers.Where(acc => acc.IsRunning))
-                    {
-                        if (simultAcc == cur)
-                            break;
-
-                        x.Stop();
-                        cur--;
-                    }
-                }
-                */
                 await Task.Delay(2000);
             }
+
+            btnStartAcc.Enabled = true;
         }
 
         private void BtnStoptAcc_Click(object sender, EventArgs e)
         {
-            btnStopAcc.Enabled = false;
+            //Stops while
             _stop = true;
-            int simultAcc = Convert.ToInt32(numericUpDownSimAcc.Value);
-            int i = 0;
-
-            var accRuns = _managers.Where(x => x.IsRunning).OrderBy(x => x.Level);
-
-            foreach (var manager in accRuns)
+ 
+            foreach (var manager in _managers.Where(x => x.IsRunning))
             {
-                i++;
-                var runningCount = _managers.Where(x => x.IsRunning).Count();
-                if (simultAcc + 1 == i && runningCount >= simultAcc)
-                {
-                    _stop = false;
-                    btnStopAcc.Enabled = true;
-                    return;
-                }
-
                 manager.Stop();
             }
 
-            btnStopAcc.Enabled = true;
+            btnStopAcc.Enabled = false;
         }
 
         private void PGPoolEnabled_Click(object sender, EventArgs e)
