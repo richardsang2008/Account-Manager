@@ -1790,17 +1790,30 @@ namespace PokemonGoGUI
                 }
                 await Task.Delay(2000);
             }
+            btnStartAcc.Enabled = true;
         }
 
         private void BtnStoptAcc_Click(object sender, EventArgs e)
         {
             btnStopAcc.Enabled = false;
             _stop = true;
+            int simultAcc = Convert.ToInt32(numericUpDownSimAcc.Value);
+            int i = 1;
 
-            foreach (var manager in _managers)
+            var accRuns = _managers.Where(x => x.IsRunning).OrderBy(x => x.Level);
+
+            if (accRuns.Count() >= simultAcc)
             {
-                manager.Stop();
+                foreach (var manager in accRuns)
+                {
+                    i++;
+                    if (simultAcc == i)
+                        return;
+
+                    manager.Stop();
+                }
             }
+            btnStopAcc.Enabled = true;
         }
 
         private void PGPoolEnabled_Click(object sender, EventArgs e)

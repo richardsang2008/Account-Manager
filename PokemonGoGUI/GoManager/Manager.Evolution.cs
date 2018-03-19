@@ -148,22 +148,22 @@ namespace PokemonGoGUI.GoManager
 
                         continue;
                     case EvolvePokemonResponse.Types.Result.FailedInsufficientResources:
-                        LogCaller(new LoggerEventArgs("Evolve request failed: Failed Insufficient Resources", LoggerTypes.Debug));
+                        LogCaller(new LoggerEventArgs("Evolve request failed: Failed Insufficient Resources", LoggerTypes.Warning));
                         continue;
                     case EvolvePokemonResponse.Types.Result.FailedInvalidItemRequirement:
-                        LogCaller(new LoggerEventArgs("Evolve request failed: Failed Invalid Item Requirement", LoggerTypes.Debug));
+                        LogCaller(new LoggerEventArgs("Evolve request failed: Failed Invalid Item Requirement", LoggerTypes.Warning));
                         continue;
                     case EvolvePokemonResponse.Types.Result.FailedPokemonCannotEvolve:
-                        LogCaller(new LoggerEventArgs("Evolve request failed: Failed Pokemon Cannot Evolve", LoggerTypes.Debug));
+                        LogCaller(new LoggerEventArgs("Evolve request failed: Failed Pokemon Cannot Evolve", LoggerTypes.Warning));
                         continue;
                     case EvolvePokemonResponse.Types.Result.FailedPokemonIsDeployed:
-                        LogCaller(new LoggerEventArgs("Evolve request failed: Failed Pokemon IsDeployed", LoggerTypes.Debug));
+                        LogCaller(new LoggerEventArgs("Evolve request failed: Failed Pokemon IsDeployed", LoggerTypes.Warning));
                         continue;
                     case EvolvePokemonResponse.Types.Result.FailedPokemonMissing:
-                        LogCaller(new LoggerEventArgs("Evolve request failed: Failed Pokemon Missing", LoggerTypes.Debug));
+                        LogCaller(new LoggerEventArgs("Evolve request failed: Failed Pokemon Missing", LoggerTypes.Warning));
                         continue;
                     case EvolvePokemonResponse.Types.Result.Unset:
-                        LogCaller(new LoggerEventArgs("Evolve request failed", LoggerTypes.Debug));
+                        LogCaller(new LoggerEventArgs("Evolve request failed", LoggerTypes.Warning));
                         continue;
                 }
             }
