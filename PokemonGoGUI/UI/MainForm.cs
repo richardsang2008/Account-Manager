@@ -1785,9 +1785,12 @@ namespace PokemonGoGUI
                     }
                 }
 
-                //need observation if down number
-                //else
-                // _managers.FirstOrDefault(acc => acc.IsRunning).Stop();
+                int runState = _managers.Where(x => x.State == BotState.Running).Count();
+
+                if (runState > simultAcc)
+                {
+                    _managers.FirstOrDefault(acc => acc.IsRunning && acc.State == BotState.Running).Stop();
+                }
 
                 await Task.Delay(2000);
             }
