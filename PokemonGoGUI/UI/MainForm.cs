@@ -1801,7 +1801,10 @@ namespace PokemonGoGUI
                 {
                     i++;
                     if (simultAcc + 1 == i)
+                    {
+                        btnStopAcc.Enabled = true;
                         return;
+                    }
 
                     manager.Stop();
                 }
