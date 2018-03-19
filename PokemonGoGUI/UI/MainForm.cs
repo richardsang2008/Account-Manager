@@ -1750,6 +1750,7 @@ namespace PokemonGoGUI
         {
             btnStartAcc.Enabled = false;
             btnStopAcc.Enabled = true;
+            _stop = false;
             int simultAcc = Convert.ToInt32(numericUpDownSimAcc.Value);
 
             while (true)
@@ -1795,6 +1796,11 @@ namespace PokemonGoGUI
         {
             btnStopAcc.Enabled = false;
             _stop = true;
+
+            foreach (var manager in _managers)
+            {
+                manager.Stop();
+            }
         }
 
         private void PGPoolEnabled_Click(object sender, EventArgs e)
