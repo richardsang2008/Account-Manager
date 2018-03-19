@@ -165,13 +165,13 @@ namespace PokemonGoGUI.GoManager
             string rewards = StringUtil.GetSummedFriendlyNameOfItemAwardList(levelUpRewardsResponse.ItemsAwarded);
             LogCaller(new LoggerEventArgs(String.Format("Grabbed rewards for level {0}. Rewards: {1}", level, rewards), LoggerTypes.LevelUp));
 
-            if (level >= 30 && _programExportModel.EnablePGPool)
+            if (level >= 30 && ManagerExportModel.EnablePGPool)
             {
                 try
                 {
                     using (var client = new HttpClient())
                     {
-                        client.BaseAddress = new Uri(_programExportModel.PGPoolEndpoint);
+                        client.BaseAddress = new Uri(ManagerExportModel.PGPoolEndpoint);
                         var content = new StringContent("level=30&condition=good&accounts=ptc," + UserSettings.AccountName + "," + UserSettings.Password, Encoding.UTF8, "application/x-www-form-urlencoded");
                         
                         using(var request = new HttpRequestMessage(HttpMethod.Post, "account/add"))

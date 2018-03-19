@@ -247,7 +247,7 @@ namespace PokemonGoGUI
                     manager.AddSchedulerEvent();
                     manager.ProxyHandler = _proxyHandler;
                     manager.OnLog += Manager_OnLog;
-                    manager._programExportModel = model;
+                    manager.ManagerExportModel = model;
 
                     //Patch for version upgrade
                     if (String.IsNullOrEmpty(manager.UserSettings.DeviceId))

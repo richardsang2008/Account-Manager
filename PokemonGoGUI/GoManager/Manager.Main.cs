@@ -42,7 +42,7 @@ namespace PokemonGoGUI.GoManager
         private ManualResetEvent _pauser = new ManualResetEvent(true);
         private DateTime TimeAutoCatch = DateTime.Now;
         private bool CatchDisabled = false;
-        public ProgramExportModel _programExportModel = new ProgramExportModel();
+        public ProgramExportModel ManagerExportModel = new ProgramExportModel();
 
         public bool _proxyIssue = false;
         //Manager captcha solver
