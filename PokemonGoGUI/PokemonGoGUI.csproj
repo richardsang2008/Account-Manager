@@ -173,6 +173,7 @@
     <Compile Include="Captcha\CaptchaSolutionClient.cs" />
     <Compile Include="Captcha\TwoCaptchaClient.cs" />
     <Compile Include="Client.cs" />
+    <Compile Include="Models\CommandLineUtility.cs" />
     <Compile Include="Enums\AuthType.cs" />
     <Compile Include="Enums\AccountState.cs" />
     <Compile Include="Enums\BotState.cs" />

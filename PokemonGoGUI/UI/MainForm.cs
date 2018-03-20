@@ -19,6 +19,7 @@ using System.Reflection;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Diagnostics;
+using PokemonGoGUI.Models.CommandLineUtility;
 
 namespace PokemonGoGUI
 {
@@ -33,9 +34,11 @@ namespace PokemonGoGUI
         private bool _autoupdate = true;
         private readonly string _saveFile = "data";
         private string _versionNumber = $"v{Assembly.GetExecutingAssembly().GetName().Version} - Forked GoManager Version";
+        private static string[] _args;
 
-        public MainForm()
+        public MainForm(string[] args)
         {
+            _args = args;
             InitializeComponent();
 
             fastObjectListViewMain.BackColor = Color.FromArgb(0, 0, 0);
@@ -143,6 +146,26 @@ namespace PokemonGoGUI
         {
             this.Icon = Icon.ExtractAssociatedIcon(Application.ExecutablePath);
 
+            if (_args.Count() > 0)
+            {
+                // Command line parsing
+                var commandLine = new Arguments(_args);
+                // Look for specific arguments values
+                if (commandLine["import"] != null && commandLine["import"].Length > 0)
+                {
+                    //Open file commandLine["import"]
+                    //
+                }
+                if (commandLine["config"] != null && commandLine["config"].Length > 0)
+                {
+                    //Open file commandLine["config"]
+                    //
+                }
+            }
+            //else 
+            // 
+
+            //
             await LoadSettings();
 
             if (_autoupdate)
