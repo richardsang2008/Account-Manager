@@ -162,7 +162,7 @@ namespace PokemonGoGUI.GoManager
 
             if (!_wasAutoRestarted)
             {
-                _expGained = 0;
+                ExpGained = 0;
             }
 
             IsRunning = true;

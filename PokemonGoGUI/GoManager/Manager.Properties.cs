@@ -382,7 +382,7 @@ namespace PokemonGoGUI.GoManager
                     return 0;
                 }
 
-                double expPerHour = _expGained / totalHours;
+                double expPerHour = ExpGained / totalHours;
 
                 return (int)expPerHour;
             }
@@ -399,17 +399,7 @@ namespace PokemonGoGUI.GoManager
         }
 
         [JsonIgnore]
-        public int ExpGained
-        {
-            get
-            {
-                return _expGained;
-            }
-            set
-            {
-                _expGained = value;
-            }
-        }
+        public int ExpGained { get; set; } = 0;
 
         [JsonIgnore]
         public int TotalPokeStopExp { get; set; }
@@ -437,11 +427,9 @@ namespace PokemonGoGUI.GoManager
 
         private Stopwatch _runningStopwatch = new Stopwatch();
 
-        private int _expGained = 0;
-
         private void ExpIncrease(int amount)
         {
-            _expGained += amount;
+            ExpGained += amount;
             Stats.Experience += amount;
         }
 
