@@ -909,6 +909,7 @@ namespace PokemonGoGUI.GoManager
                         if (UserSettings.MaxLevel > 0 && Level >= UserSettings.MaxLevel)
                         {
                             LogCaller(new LoggerEventArgs(String.Format("Max level of {0} reached.", UserSettings.MaxLevel), LoggerTypes.Info));
+                            await ExportToPGPool();
                             Stop();
                         }
 
