@@ -363,7 +363,7 @@ namespace PokemonGoGUI.GoManager
                                 {
                                     LogCaller(new LoggerEventArgs(String.Format(res), LoggerTypes.Info));
                                     LogCaller(new LoggerEventArgs(String.Format("Account successfully sent to PGPool"), LoggerTypes.Success));
-                                    //_mainForm.AddAccount("AAAA","BBBB");
+                                    UserSettings.GroupName = $"PGPool lv{UserSettings.MaxLevel}";
                                 }
                             });
                         }
