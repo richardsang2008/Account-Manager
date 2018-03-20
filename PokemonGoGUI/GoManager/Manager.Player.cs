@@ -162,7 +162,7 @@ namespace PokemonGoGUI.GoManager
             string rewards = StringUtil.GetSummedFriendlyNameOfItemAwardList(levelUpRewardsResponse.ItemsAwarded);
             LogCaller(new LoggerEventArgs(String.Format("Grabbed rewards for level {0}. Rewards: {1}", level, rewards), LoggerTypes.LevelUp));
 
-            if (level >= 30 && UserSettings.EnablePGPool)
+            if (level >= UserSettings.MaxLevel && UserSettings.EnablePGPool)
             {
                 try
                 {
