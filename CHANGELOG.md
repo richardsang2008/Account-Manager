@@ -1,5 +1,13 @@
 # Change Log
 
+## [v2.22.0.29](https://github.com/Furtif/Account-Manager/tree/v2.22.0.29) (2018-03-19)
+
+[Full Changelog](https://github.com/Furtif/Account-Manager/compare/v2.22.0.28...v2.22.0.29)
+
+**Merged pull requests:**
+
+- Correction of a problem and improvement in the stop button. [\#77](https://github.com/Furtif/Account-Manager/pull/77) ([henriquemaciel](https://github.com/henriquemaciel))
+
 ## [v2.22.0.28](https://github.com/Furtif/Account-Manager/tree/v2.22.0.28) (2018-03-17)
 
 [Full Changelog](https://github.com/Furtif/Account-Manager/compare/v2.22.0.27...v2.22.0.28)
