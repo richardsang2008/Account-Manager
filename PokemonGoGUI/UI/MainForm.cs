@@ -785,7 +785,6 @@ namespace PokemonGoGUI
             foreach (Manager manager in fastObjectListViewMain.SelectedObjects)
             {
                 manager.RemoveProxy();
-
                 manager.UserSettings.ProxyIP = null;
                 manager.UserSettings.ProxyPort = 0;
                 manager.UserSettings.ProxyUsername = null;
@@ -807,7 +806,6 @@ namespace PokemonGoGUI
 
             if (isChecked)
             {
-
                 fastObjectListViewMain.BackColor = Color.FromArgb(0, 0, 0);
                 fastObjectListViewMain.ForeColor = Color.LightGray;
 
@@ -819,7 +817,6 @@ namespace PokemonGoGUI
 
                 fastObjectListViewHashKeys.BackColor = Color.FromArgb(0, 0, 0);
                 fastObjectListViewHashKeys.ForeColor = Color.LightGray;
-
             }
             else
             {
@@ -829,13 +826,11 @@ namespace PokemonGoGUI
                 fastObjectListViewProxies.BackColor = SystemColors.Window;
                 fastObjectListViewProxies.ForeColor = SystemColors.WindowText;
 
-
                 fastObjectListViewScheduler.BackColor = SystemColors.Window;
                 fastObjectListViewScheduler.ForeColor = SystemColors.WindowText;
 
                 fastObjectListViewHashKeys.BackColor = SystemColors.Window;
                 fastObjectListViewHashKeys.ForeColor = SystemColors.WindowText;
-
             }
         }
 
@@ -867,7 +862,7 @@ namespace PokemonGoGUI
             }
             else if (e.Column == olvColumnExpPerHour)
             {
-                int ExpPerHour = manager.ExpPerHour; // Convert.ToDouble(olvColumnExpPerHour.GetValue(manager));
+                int ExpPerHour = manager.ExpPerHour;
 
                 if (ExpPerHour >= 80000)
                 {

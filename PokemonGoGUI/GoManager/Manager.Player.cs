@@ -341,16 +341,16 @@ namespace PokemonGoGUI.GoManager
             switch (setBuddyPokemonResponse.Result)
             {
                 case SetBuddyPokemonResponse.Types.Result.ErrorInvalidPokemon:
-                    LogCaller(new LoggerEventArgs($"Faill to set buddy pokemon, reason: {setBuddyPokemonResponse.Result.ToString()}", LoggerTypes.Info));
+                    LogCaller(new LoggerEventArgs($"Faill to set buddy pokemon, reason: {setBuddyPokemonResponse.Result.ToString()}", LoggerTypes.Warning));
                     break;
                 case SetBuddyPokemonResponse.Types.Result.ErrorPokemonDeployed:
-                    LogCaller(new LoggerEventArgs($"Faill to set buddy pokemon, reason: {setBuddyPokemonResponse.Result.ToString()}", LoggerTypes.Info));
+                    LogCaller(new LoggerEventArgs($"Faill to set buddy pokemon, reason: {setBuddyPokemonResponse.Result.ToString()}", LoggerTypes.Warning));
                     break;
                 case SetBuddyPokemonResponse.Types.Result.ErrorPokemonIsEgg:
-                    LogCaller(new LoggerEventArgs($"Faill to set buddy pokemon, reason: {setBuddyPokemonResponse.Result.ToString()}", LoggerTypes.Info));
+                    LogCaller(new LoggerEventArgs($"Faill to set buddy pokemon, reason: {setBuddyPokemonResponse.Result.ToString()}", LoggerTypes.Warning));
                     break;
                 case SetBuddyPokemonResponse.Types.Result.ErrorPokemonNotOwned:
-                    LogCaller(new LoggerEventArgs($"Faill to set buddy pokemon, reason: {setBuddyPokemonResponse.Result.ToString()}", LoggerTypes.Info));
+                    LogCaller(new LoggerEventArgs($"Faill to set buddy pokemon, reason: {setBuddyPokemonResponse.Result.ToString()}", LoggerTypes.Warning));
                     break;
                 case SetBuddyPokemonResponse.Types.Result.Success:
                     PlayerData.BuddyPokemon = new BuddyPokemon
@@ -371,7 +371,7 @@ namespace PokemonGoGUI.GoManager
                         Success = true
                     };
                 case SetBuddyPokemonResponse.Types.Result.Unest:
-                    LogCaller(new LoggerEventArgs($"Faill to set buddy pokemon, reason: {setBuddyPokemonResponse.Result.ToString()}", LoggerTypes.Info));
+                    LogCaller(new LoggerEventArgs($"Faill to set buddy pokemon, reason: {setBuddyPokemonResponse.Result.ToString()}", LoggerTypes.Warning));
                     break;
             }
             return new MethodResult();
