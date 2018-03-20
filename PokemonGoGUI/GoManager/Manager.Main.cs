@@ -44,11 +44,11 @@ namespace PokemonGoGUI.GoManager
         private ManualResetEvent _pauser = new ManualResetEvent(true);
         private DateTime TimeAutoCatch = DateTime.Now;
         private bool CatchDisabled = false;
+        public ProgramExportModel ManagerExportModel = new ProgramExportModel();
 
         public bool _proxyIssue = false;
         //Manager captcha solver
         public CaptchaManager CaptchaSolver = new CaptchaManager();
-        internal MainForm _mainForm;
 
         //Needs to be saved on close
         public GoProxy CurrentProxy { get; set; }
@@ -67,7 +67,7 @@ namespace PokemonGoGUI.GoManager
             LoadFarmLocations();
         }
 
-        public Manager(ProxyHandler handler, MainForm mf)
+        public Manager(ProxyHandler handler)
         {
             UserSettings = new Settings();
             Logs = new List<Log>();
@@ -75,8 +75,6 @@ namespace PokemonGoGUI.GoManager
             Tracker = new Tracker();
             ProxyHandler = handler;
             LoadFarmLocations();
-
-            this._mainForm = mf;
         }
 
         //public Manager(ProxyHandler handler, MainForm mf)

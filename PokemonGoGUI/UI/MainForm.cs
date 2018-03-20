@@ -19,15 +19,13 @@ using System.Net.Http;
 using System.Reflection;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Threading;
 using System.Diagnostics;
 using PokemonGoGUI.proxy;
 
 namespace PokemonGoGUI
 {
-    public partial class MainForm : System.Windows.Forms.Form
+    public partial class MainForm : Form
     {
-
         private List<Manager> _managers = new List<Manager>();
         private ProxyHandler _proxyHandler = new ProxyHandler();
         private List<Scheduler> _schedulers = new List<Scheduler>();
@@ -37,7 +35,6 @@ namespace PokemonGoGUI
         private bool _autoupdate = true;
         private readonly string _saveFile = "data";
         private string _versionNumber = $"v{Assembly.GetExecutingAssembly().GetName().Version} - Forked GoManager Version";
-        private bool _stop = false;
 
         public MainForm()
         {
@@ -242,12 +239,15 @@ namespace PokemonGoGUI
                 _spf = model.SPF;
                 _showStartup = model.ShowWelcomeMessage;
                 _autoupdate = model.AutoUpdate;
+                PGPoolTextBox.Text = !String.IsNullOrEmpty(model.PGPoolEndpoint) ? model.PGPoolEndpoint : PGPoolTextBox.Text;
+                PGPoolEnabled.Checked = model.EnablePGPool;
 
                 foreach (Manager manager in tempManagers)
                 {
                     manager.AddSchedulerEvent();
                     manager.ProxyHandler = _proxyHandler;
                     manager.OnLog += Manager_OnLog;
+                    manager.ManagerExportModel = model;
 
                     //Patch for version upgrade
                     if (String.IsNullOrEmpty(manager.UserSettings.DeviceId))
@@ -264,15 +264,6 @@ namespace PokemonGoGUI
                     if (manager.AccountState == AccountState.Conecting || manager.AccountState == AccountState.HashIssues)
                     {
                         manager.AccountState = AccountState.Good;
-                    }
-
-                    if (String.IsNullOrEmpty(manager.UserSettings.PGPoolEndpoint))
-                    {
-                        manager.UserSettings.PGPoolEndpoint = PGPoolTextBox.Text;
-                    }
-                    else
-                    {
-                        PGPoolTextBox.Text = manager.UserSettings.PGPoolEndpoint;
                     }
 
                     _managers.Add(manager);
@@ -311,7 +302,9 @@ namespace PokemonGoGUI
                     HashKeys = _hashKeys,
                     SPF = _spf,
                     ShowWelcomeMessage = _showStartup,
-                    AutoUpdate = _autoupdate
+                    AutoUpdate = _autoupdate,
+                    PGPoolEndpoint = PGPoolTextBox.Text,
+                    EnablePGPool = PGPoolEnabled.Checked
                 };
 
                 string data = Serializer.ToJson(model);
@@ -354,7 +347,7 @@ namespace PokemonGoGUI
 
         private void AddNewToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var manager = new Manager(_proxyHandler, this);
+            var manager = new Manager(_proxyHandler);
 
             var asForm = new AccountSettingsForm(manager)
             {
@@ -484,7 +477,6 @@ namespace PokemonGoGUI
             {
                 manager.UserSettings.HashKeys = _hashKeys.Select(x => x.Key).ToList();
                 manager.UserSettings.SPF = _spf;
-                manager._mainForm = this;
                 manager.Start();
 
                 await Task.Delay(200);
@@ -698,7 +690,7 @@ namespace PokemonGoGUI
                         continue;
                     }
 
-                    var manager = new Manager(_proxyHandler, this);
+                    var manager = new Manager(_proxyHandler);
 
                     if (useConfig)
                     {
@@ -1768,25 +1760,17 @@ namespace PokemonGoGUI
         {
             btnStartAcc.Enabled = false;
             btnStopAcc.Enabled = true;
-            _stop = false;
 
-            while (true)
+            while (btnStopAcc.Enabled)
             {
                 var runningCount = _managers.Where(x => x.IsRunning).Count();
+
+                //If up number 5 to 6 this run one more
+
                 int simultAcc = Convert.ToInt32(numericUpDownSimAcc.Value);
 
-                if (runningCount <= simultAcc)
+                if (runningCount < simultAcc)
                 {
-                    var startAccCount = simultAcc - runningCount;
-
-                    if (startAccCount == 0 || _stop)
-                    {
-                        btnStartAcc.Enabled = true;
-                        if (runningCount < 1)
-                            btnStopAcc.Enabled = false;
-                        break;
-                    }
-
                     var hasAccStart = _managers.FirstOrDefault(acc => !acc.IsRunning &&
                                                                 acc.Level < acc.MaxLevel &&
                                                                 acc.AccountState == AccountState.Good);
@@ -1800,58 +1784,39 @@ namespace PokemonGoGUI
                         }
                     }
                 }
-                /*
-                runningCount = _managers.Where(x => x.IsRunning).Count();
 
-                if (runningCount > simultAcc)
+                int runState = _managers.Where(x => x.State == BotState.Running).Count();
+
+                if (runState > simultAcc)
                 {
-                    //stops all more ....
-                    int cur = runningCount;
-
-                    foreach (var x in _managers.Where(acc => acc.IsRunning))
-                    {
-                        if (simultAcc == cur)
-                            break;
-
-                        x.Stop();
-                        cur--;
-                    }
+                    _managers.FirstOrDefault(acc => acc.IsRunning && acc.State == BotState.Running).Stop();
                 }
-                */
+
                 await Task.Delay(2000);
             }
+
+            btnStartAcc.Enabled = true;
         }
 
         private void BtnStoptAcc_Click(object sender, EventArgs e)
-        {
-            btnStopAcc.Enabled = false;
-            _stop = true;
-            int simultAcc = Convert.ToInt32(numericUpDownSimAcc.Value);
-            int i = 0;
-
-            var accRuns = _managers.Where(x => x.IsRunning).OrderBy(x => x.Level);
-
-            foreach (var manager in accRuns)
+        { 
+            foreach (var manager in _managers.Where(x => x.IsRunning))
             {
-                i++;
-                var runningCount = _managers.Where(x => x.IsRunning).Count();
-                if (simultAcc + 1 == i && runningCount >= simultAcc)
-                {
-                    _stop = false;
-                    btnStopAcc.Enabled = true;
-                    return;
-                }
-
                 manager.Stop();
             }
 
-            btnStopAcc.Enabled = true;
+            btnStopAcc.Enabled = false;
         }
 
         private void PGPoolEnabled_Click(object sender, EventArgs e)
         {
             // Toggle the item
             PGPoolEnabled.Checked = !PGPoolEnabled.Checked;
+
+            foreach (var m in _managers)
+            {
+                m.ManagerExportModel.EnablePGPool = PGPoolEnabled.Checked;
+            }
         }
 
         private void PictureBoxAbout_Click(object sender, EventArgs e)
@@ -2487,7 +2452,7 @@ namespace PokemonGoGUI
                         Password = parts[2]
                     };
 
-                    var manager = new Manager(_proxyHandler, this);
+                    var manager = new Manager(_proxyHandler);
 
                     manager.UserSettings.AuthType = (parts[0].Trim().ToLower() == "ptc") ? AuthType.Ptc : AuthType.Google;
                     manager.UserSettings.AccountName = importModel.Username.Trim();
@@ -2650,6 +2615,14 @@ namespace PokemonGoGUI
             catch (Exception ex)
             {
                 MessageBox.Show(String.Format("Failed to save to file. Ex: {0}", ex.Message));
+            }
+        }
+
+        private void PGPoolTextBox_TextChanged(object sender, EventArgs e)
+        {
+            foreach (var m in _managers)
+            {
+                m.ManagerExportModel.PGPoolEndpoint = PGPoolTextBox.Text;
             }
         }
         #endregion

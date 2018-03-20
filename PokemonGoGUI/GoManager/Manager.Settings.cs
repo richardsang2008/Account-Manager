@@ -19,7 +19,7 @@ namespace PokemonGoGUI.GoManager
         public int CalculateDelay(int baseDelay, int offset)
         {
             if (!UserSettings.EnableHumanization)
-                return UserSettings.APIThrottles; //200 min i thinks
+                return UserSettings.APIThrottles; //1000 for well
 
             lock(_rand)
             {
@@ -364,7 +364,6 @@ namespace PokemonGoGUI.GoManager
                     settings.ProxyPort = UserSettings.ProxyPort;
                     settings.ProxyUsername = UserSettings.ProxyUsername;
                     settings.GroupName = UserSettings.GroupName;
-                    settings.PGPoolEndpoint = UserSettings.PGPoolEndpoint;
 
                     //Randomize device id
                     var device = DeviceInfoUtil.GetRandomDevice();
