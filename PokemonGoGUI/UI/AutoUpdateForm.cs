@@ -16,7 +16,7 @@ namespace PokemonGoGUI.UI
         public string DownloadLink { get; set; }
         public string ChangelogLink { get; set; }
         public string Destination { get; set; }
-        private WebClient Client = new WebClient();
+        private WebClient _webclient = new WebClient();
 
         public AutoUpdateForm()
         {
@@ -35,8 +35,8 @@ namespace PokemonGoGUI.UI
             //richTextBox1.SetInnerMargins(25, 25, 25, 25);
             lblCurrent.Text = $"v{CurrentVersion}";
             lblLatest.Text = $"v{LatestVersion}";
-            var Client = new WebClient();
-            var ChangelogRaw = Client.DownloadString(ChangelogLink);
+            var client = new WebClient();
+            var ChangelogRaw = client.DownloadString(ChangelogLink);
             var ChangelogFormatted = StripHTML(Markdown.ToHtml(ChangelogRaw)).Replace("Full Changelog", "").Replace("Change Log", "");
             if (ChangelogFormatted.Length > 0)
             {
@@ -59,16 +59,14 @@ namespace PokemonGoGUI.UI
         {
             try
             {
-                Client.DownloadFileCompleted += Client_DownloadFileCompleted;
-                Client.DownloadProgressChanged += Client_DownloadProgressChanged;
-
-                Client.DownloadFileAsync(new Uri(url), dest);
-                //Client. (dest, LogLevel.Info);
+                _webclient.DownloadFileCompleted += Client_DownloadFileCompleted;
+                _webclient.DownloadProgressChanged += Client_DownloadProgressChanged;
+                _webclient.DownloadFileAsync(new Uri(url), dest);
             }
             catch
             {
-                Client.DownloadFileCompleted -= Client_DownloadFileCompleted;
-                Client.DownloadProgressChanged -= Client_DownloadProgressChanged;
+                _webclient.DownloadFileCompleted -= Client_DownloadFileCompleted;
+                _webclient.DownloadProgressChanged -= Client_DownloadProgressChanged;
                 Close();
             }
             return true;
@@ -79,8 +77,8 @@ namespace PokemonGoGUI.UI
             Invoke(new Action(() =>
             {
                 DialogResult = DialogResult.OK;
-                Client.DownloadFileCompleted -= Client_DownloadFileCompleted;
-                Client.DownloadProgressChanged -= Client_DownloadProgressChanged;
+                _webclient.DownloadFileCompleted -= Client_DownloadFileCompleted;
+                _webclient.DownloadProgressChanged -= Client_DownloadProgressChanged;
                 Close();
             }));
         }
@@ -95,7 +93,6 @@ namespace PokemonGoGUI.UI
 
         public void StartDownload()
         {
-            //Logger.Write(DownloadLink, LogLevel.Info);
             DownloadFile(DownloadLink, Destination);
         }
 
@@ -108,8 +105,8 @@ namespace PokemonGoGUI.UI
 
         private void Btncancel_Click(object sender, EventArgs e)
         {
-            Client.DownloadFileCompleted -= Client_DownloadFileCompleted;
-            Client.DownloadProgressChanged -= Client_DownloadProgressChanged;
+            _webclient.DownloadFileCompleted -= Client_DownloadFileCompleted;
+            _webclient.DownloadProgressChanged -= Client_DownloadProgressChanged;
             Close();
         }
     }
