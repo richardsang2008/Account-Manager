@@ -182,6 +182,11 @@
             this.numericUpDownInsideReticuleChance = new System.Windows.Forms.NumericUpDown();
             this.label32 = new System.Windows.Forms.Label();
             this.tabPageOthers = new System.Windows.Forms.TabPage();
+            this.groupBox6 = new System.Windows.Forms.GroupBox();
+            this.textBoxPGPoolEndPoint = new System.Windows.Forms.TextBox();
+            this.label62 = new System.Windows.Forms.Label();
+            this.checkBoxEnablePGPool = new System.Windows.Forms.CheckBox();
+            this.groupBox5 = new System.Windows.Forms.GroupBox();
             this.checkBoxDownloadResources = new System.Windows.Forms.CheckBox();
             this.checkBoxShowDebugLogs = new System.Windows.Forms.CheckBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
@@ -288,11 +293,6 @@
             this.toolTipProxy = new System.Windows.Forms.ToolTip(this.components);
             this.toolTipMinAccountState = new System.Windows.Forms.ToolTip(this.components);
             this.toolTipHumanizeThrows = new System.Windows.Forms.ToolTip(this.components);
-            this.groupBox5 = new System.Windows.Forms.GroupBox();
-            this.groupBox6 = new System.Windows.Forms.GroupBox();
-            this.checkBoxEnablePGPool = new System.Windows.Forms.CheckBox();
-            this.label62 = new System.Windows.Forms.Label();
-            this.textBoxPGPoolEndPoint = new System.Windows.Forms.TextBox();
             this.tabControlMain.SuspendLayout();
             this.tabPageDetails.SuspendLayout();
             this.tabControlSettings.SuspendLayout();
@@ -331,6 +331,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownProximity)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownInsideReticuleChance)).BeginInit();
             this.tabPageOthers.SuspendLayout();
+            this.groupBox6.SuspendLayout();
+            this.groupBox5.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.tabPageCaptchaConfig.SuspendLayout();
             this.tabPageRecycling.SuspendLayout();
@@ -348,8 +350,6 @@
             this.tabPageUpgrade.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.fastObjectListViewUpgrade)).BeginInit();
             this.contextMenuStripUpgrade.SuspendLayout();
-            this.groupBox5.SuspendLayout();
-            this.groupBox6.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabControlMain
@@ -2223,6 +2223,55 @@
             this.tabPageOthers.Text = "Others/Addons";
             this.tabPageOthers.UseVisualStyleBackColor = true;
             // 
+            // groupBox6
+            // 
+            this.groupBox6.Controls.Add(this.textBoxPGPoolEndPoint);
+            this.groupBox6.Controls.Add(this.label62);
+            this.groupBox6.Controls.Add(this.checkBoxEnablePGPool);
+            this.groupBox6.Location = new System.Drawing.Point(8, 216);
+            this.groupBox6.Name = "groupBox6";
+            this.groupBox6.Size = new System.Drawing.Size(604, 59);
+            this.groupBox6.TabIndex = 73;
+            this.groupBox6.TabStop = false;
+            this.groupBox6.Text = "PGPool";
+            // 
+            // textBoxPGPoolEndPoint
+            // 
+            this.textBoxPGPoolEndPoint.Location = new System.Drawing.Point(273, 19);
+            this.textBoxPGPoolEndPoint.Name = "textBoxPGPoolEndPoint";
+            this.textBoxPGPoolEndPoint.Size = new System.Drawing.Size(268, 22);
+            this.textBoxPGPoolEndPoint.TabIndex = 2;
+            // 
+            // label62
+            // 
+            this.label62.AutoSize = true;
+            this.label62.Location = new System.Drawing.Point(185, 22);
+            this.label62.Name = "label62";
+            this.label62.Size = new System.Drawing.Size(82, 17);
+            this.label62.TabIndex = 1;
+            this.label62.Text = "PGPool Url:";
+            // 
+            // checkBoxEnablePGPool
+            // 
+            this.checkBoxEnablePGPool.AutoSize = true;
+            this.checkBoxEnablePGPool.Location = new System.Drawing.Point(7, 21);
+            this.checkBoxEnablePGPool.Name = "checkBoxEnablePGPool";
+            this.checkBoxEnablePGPool.Size = new System.Drawing.Size(126, 21);
+            this.checkBoxEnablePGPool.TabIndex = 0;
+            this.checkBoxEnablePGPool.Text = "Enable PGPool";
+            this.checkBoxEnablePGPool.UseVisualStyleBackColor = true;
+            // 
+            // groupBox5
+            // 
+            this.groupBox5.Controls.Add(this.checkBoxDownloadResources);
+            this.groupBox5.Controls.Add(this.checkBoxShowDebugLogs);
+            this.groupBox5.Location = new System.Drawing.Point(8, 148);
+            this.groupBox5.Name = "groupBox5";
+            this.groupBox5.Size = new System.Drawing.Size(604, 62);
+            this.groupBox5.TabIndex = 72;
+            this.groupBox5.TabStop = false;
+            this.groupBox5.Text = "Misc";
+            // 
             // checkBoxDownloadResources
             // 
             this.checkBoxDownloadResources.AutoSize = true;
@@ -3231,55 +3280,6 @@
             this.olvColumnPinap.Text = "Use Pinap";
             this.olvColumnPinap.Width = 70;
             // 
-            // groupBox5
-            // 
-            this.groupBox5.Controls.Add(this.checkBoxDownloadResources);
-            this.groupBox5.Controls.Add(this.checkBoxShowDebugLogs);
-            this.groupBox5.Location = new System.Drawing.Point(8, 148);
-            this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Size = new System.Drawing.Size(604, 62);
-            this.groupBox5.TabIndex = 72;
-            this.groupBox5.TabStop = false;
-            this.groupBox5.Text = "Misc";
-            // 
-            // groupBox6
-            // 
-            this.groupBox6.Controls.Add(this.textBoxPGPoolEndPoint);
-            this.groupBox6.Controls.Add(this.label62);
-            this.groupBox6.Controls.Add(this.checkBoxEnablePGPool);
-            this.groupBox6.Location = new System.Drawing.Point(8, 216);
-            this.groupBox6.Name = "groupBox6";
-            this.groupBox6.Size = new System.Drawing.Size(604, 59);
-            this.groupBox6.TabIndex = 73;
-            this.groupBox6.TabStop = false;
-            this.groupBox6.Text = "PGPool";
-            // 
-            // checkBoxEnablePGPool
-            // 
-            this.checkBoxEnablePGPool.AutoSize = true;
-            this.checkBoxEnablePGPool.Location = new System.Drawing.Point(7, 21);
-            this.checkBoxEnablePGPool.Name = "checkBoxEnablePGPool";
-            this.checkBoxEnablePGPool.Size = new System.Drawing.Size(126, 21);
-            this.checkBoxEnablePGPool.TabIndex = 0;
-            this.checkBoxEnablePGPool.Text = "Enable PGPool";
-            this.checkBoxEnablePGPool.UseVisualStyleBackColor = true;
-            // 
-            // label62
-            // 
-            this.label62.AutoSize = true;
-            this.label62.Location = new System.Drawing.Point(185, 22);
-            this.label62.Name = "label62";
-            this.label62.Size = new System.Drawing.Size(125, 17);
-            this.label62.TabIndex = 1;
-            this.label62.Text = "PGPool End Point:";
-            // 
-            // textBoxPGPoolEndPoint
-            // 
-            this.textBoxPGPoolEndPoint.Location = new System.Drawing.Point(316, 19);
-            this.textBoxPGPoolEndPoint.Name = "textBoxPGPoolEndPoint";
-            this.textBoxPGPoolEndPoint.Size = new System.Drawing.Size(268, 22);
-            this.textBoxPGPoolEndPoint.TabIndex = 2;
-            // 
             // AccountSettingsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -3341,6 +3341,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownProximity)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownInsideReticuleChance)).EndInit();
             this.tabPageOthers.ResumeLayout(false);
+            this.groupBox6.ResumeLayout(false);
+            this.groupBox6.PerformLayout();
+            this.groupBox5.ResumeLayout(false);
+            this.groupBox5.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             this.tabPageCaptchaConfig.ResumeLayout(false);
@@ -3360,10 +3364,6 @@
             this.tabPageUpgrade.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.fastObjectListViewUpgrade)).EndInit();
             this.contextMenuStripUpgrade.ResumeLayout(false);
-            this.groupBox5.ResumeLayout(false);
-            this.groupBox5.PerformLayout();
-            this.groupBox6.ResumeLayout(false);
-            this.groupBox6.PerformLayout();
             this.ResumeLayout(false);
 
         }
