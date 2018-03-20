@@ -169,7 +169,7 @@ namespace PokemonGoGUI.GoManager
                     using (var client = new HttpClient())
                     {
                         client.BaseAddress = new Uri(UserSettings.PGPoolEndpoint);
-                        var content = new StringContent("level=30&condition=good&accounts=ptc," + UserSettings.AccountName + "," + UserSettings.Password, Encoding.UTF8, "application/x-www-form-urlencoded");
+                        var content = new StringContent($"level={UserSettings.MaxLevel}&condition=good&accounts={UserSettings.AuthType.ToString().ToLower()}," + UserSettings.AccountName + "," + UserSettings.Password, Encoding.UTF8, "application/x-www-form-urlencoded");
                         
                         using(var request = new HttpRequestMessage(HttpMethod.Post, "account/add"))
                         {
