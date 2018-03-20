@@ -237,15 +237,12 @@ namespace PokemonGoGUI
                 _spf = model.SPF;
                 _showStartup = model.ShowWelcomeMessage;
                 _autoupdate = model.AutoUpdate;
-                PGPoolTextBox.Text = !String.IsNullOrEmpty(model.PGPoolEndpoint) ? model.PGPoolEndpoint : PGPoolTextBox.Text;
-                PGPoolEnabled.Checked = model.EnablePGPool;
 
                 foreach (Manager manager in tempManagers)
                 {
                     manager.AddSchedulerEvent();
                     manager.ProxyHandler = _proxyHandler;
                     manager.OnLog += Manager_OnLog;
-                    manager.ManagerExportModel = model;
 
                     //Patch for version upgrade
                     if (String.IsNullOrEmpty(manager.UserSettings.DeviceId))
@@ -301,8 +298,6 @@ namespace PokemonGoGUI
                     SPF = _spf,
                     ShowWelcomeMessage = _showStartup,
                     AutoUpdate = _autoupdate,
-                    PGPoolEndpoint = PGPoolTextBox.Text,
-                    EnablePGPool = PGPoolEnabled.Checked
                 };
 
                 string data = Serializer.ToJson(model);
@@ -1799,17 +1794,6 @@ namespace PokemonGoGUI
             btnStopAcc.Enabled = false;
         }
 
-        private void PGPoolEnabled_Click(object sender, EventArgs e)
-        {
-            // Toggle the item
-            PGPoolEnabled.Checked = !PGPoolEnabled.Checked;
-
-            foreach (var m in _managers)
-            {
-                m.ManagerExportModel.EnablePGPool = PGPoolEnabled.Checked;
-            }
-        }
-
         private void PictureBoxAbout_Click(object sender, EventArgs e)
         {
             Process.Start("https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=SNATC29B4ZJD4");
@@ -2606,14 +2590,6 @@ namespace PokemonGoGUI
             catch (Exception ex)
             {
                 MessageBox.Show(String.Format("Failed to save to file. Ex: {0}", ex.Message));
-            }
-        }
-
-        private void PGPoolTextBox_TextChanged(object sender, EventArgs e)
-        {
-            foreach (var m in _managers)
-            {
-                m.ManagerExportModel.PGPoolEndpoint = PGPoolTextBox.Text;
             }
         }
         #endregion

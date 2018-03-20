@@ -254,6 +254,8 @@ namespace PokemonGoGUI.UI
             numericUpDownLvForConsLukky.Value = new Decimal(settings.LevelForConstLukky);
             checkBoxIgRPCSem.Checked = settings.IgnoreRPCSemafore;
             checkBoxIgHashSem.Checked = settings.IgnoreHashSemafore;
+            checkBoxEnablePGPool.Checked = settings.EnablePGPool;
+            textBoxPGPoolEndPoint.Text = settings.PGPoolEndpoint;
 
             //Location time zones
             var zones = new TimeZoneIds().GetTimeZoneIds();
@@ -560,6 +562,8 @@ namespace PokemonGoGUI.UI
             userSettings.MaxPokestopMetersRandom = (int)numericUpDownMaxMetersStopRandom.Value;
             userSettings.IgnoreHashSemafore = checkBoxIgHashSem.Checked;
             userSettings.IgnoreRPCSemafore = checkBoxIgRPCSem.Checked;
+            userSettings.EnablePGPool = checkBoxEnablePGPool.Checked;
+            userSettings.PGPoolEndpoint = textBoxPGPoolEndPoint.Text;
 
             int apithrottles;
             if (!Int32.TryParse(numericUpDownThrottles.Text, out apithrottles))

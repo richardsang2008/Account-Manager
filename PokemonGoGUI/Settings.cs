@@ -140,6 +140,8 @@ namespace PokemonGoGUI
         public bool UseSoftBanBypass { get; set; }
         public bool IgnoreHashSemafore { get; set; }
         public bool IgnoreRPCSemafore { get; set; }
+        public string PGPoolEndpoint { get; set; }
+        public bool EnablePGPool { get; set; }
 
         public AccountState StopAtMinAccountState { get; set; }
 
@@ -251,6 +253,8 @@ namespace PokemonGoGUI
             MaxPokestopMetersRandom = 50;
             IgnoreHashSemafore = false;
             IgnoreRPCSemafore = false;
+            EnablePGPool = false;
+            PGPoolEndpoint = "http://127.0.0.1:4242/";
         }
 
         public void LoadCatchSettings()
