@@ -10,5 +10,6 @@ namespace PokemonGoGUI.Helper
         Task<HttpResponseMessage> GetAsync(string url);
         Task<HttpResponseMessage> PostAsync(string url, HttpContent content);
         Task<HttpResponseMessage> PostAsJsonAsync<T>(string url, T value);
+        Task<HttpResponseMessage> PatchAsJsonAsync<T>(string url, T value);
     }
 }

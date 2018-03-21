@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using System;
+using Newtonsoft.Json;
 
 namespace PokemonGoGUI.Models
 {
@@ -22,8 +23,9 @@ namespace PokemonGoGUI.Models
         public string Username { get; set; }
         [JsonProperty("system_id")]
         public string SystemId { get; set; }
-        [JsonProperty("input_level")]
-        public int InputLevel { get; set; }
-
+        [JsonProperty("level")]
+        public int Level { get; set; }
+        [JsonProperty("reach_lvl30_datetime")]
+        public DateTime? ReachLevel30DateTime{get; set;}
     }
 }

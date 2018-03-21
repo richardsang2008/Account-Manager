@@ -928,11 +928,13 @@ namespace PokemonGoGUI.GoManager
                             //add the logic to call service 
                             var baseUrl = ConfigurationManager.AppSettings["pgpoolurl"];
                             PgProxy pg = new PgProxy(baseUrl);
-                            var account = new PgAccount() { AuthService = "ptc", Username = UserSettings.Username, Password = UserSettings.Password };
-                            var x =Task.Run(() => pg.AddPgAccount(Level, account)).IsCompleted;
-                            
-                            //get a new lvl 1 account to continue
-                            var accounts = Task.Run(() => pg.GetPgAccounts("Account-Manager", true, 1)).Result;
+                            var account = new PgAccount() { AuthService = "ptc", SystemId = "Account-Manager",Username = UserSettings.Username, Password = UserSettings.Password,ReachLevel30DateTime = DateTime.Now,Level = Level };
+                            account.ReachLevel30DateTime=DateTime.Now;
+                            var x=Task.Run(() => pg.AddPgAccount(Level, account)).IsCompleted;
+                            x = Task.Run(() => pg.ReleaseAccount(account)).IsCompleted;
+                                
+                             //get a new lvl 1 account to continue
+                            var accounts = Task.Run(() => pg.GetPgAccounts("Account-Manager", Level, 1)).Result;
                             if (accounts != null && accounts.Count > 0)
                             {
                                 UserSettings.Username = accounts[0].Username;

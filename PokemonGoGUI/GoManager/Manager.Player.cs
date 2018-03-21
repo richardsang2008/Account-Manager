@@ -3,6 +3,7 @@ using POGOProtos.Inventory;
 using POGOProtos.Networking.Responses;
 using POGOProtos.Settings.Master;
 using System;
+using System.Configuration;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -14,6 +15,8 @@ using Google.Protobuf;
 using PokemonGoGUI.Enums;
 using POGOProtos.Enums;
 using System.Net.Http;
+using PokemonGoGUI.Models;
+using PokemonGoGUI.proxy;
 
 namespace PokemonGoGUI.GoManager
 {
@@ -163,6 +166,15 @@ namespace PokemonGoGUI.GoManager
             levelUpRewardsResponse = LevelUpRewardsResponse.Parser.ParseFrom(response);
             string rewards = StringUtil.GetSummedFriendlyNameOfItemAwardList(levelUpRewardsResponse.ItemsAwarded);
             LogCaller(new LoggerEventArgs(String.Format("Grabbed rewards for level {0}. Rewards: {1}", level, rewards), LoggerTypes.LevelUp));
+            if (level >= 10)
+            {
+                var baseUrl = ConfigurationManager.AppSettings["pgpoolurl"];
+                PgProxy pg = new PgProxy(baseUrl);
+                var account = new PgAccount() { AuthService = "ptc", SystemId = "Account-Manager", Username = UserSettings.Username, Password = UserSettings.Password, ReachLevel30DateTime = DateTime.Now, Level = Level };
+                account.ReachLevel30DateTime = DateTime.Now;
+                var x = Task.Run(() => pg.AddPgAccount(Level, account)).IsCompleted;
+            }
+
 
             if (level >= 30 && ManagerExportModel.EnablePGPool)
             {

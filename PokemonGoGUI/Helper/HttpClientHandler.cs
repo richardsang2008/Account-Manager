@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
+using System.Net.Http.Formatting;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -34,6 +35,18 @@ namespace PokemonGoGUI.Helper
         public async Task<HttpResponseMessage> PostAsJsonAsync<T>(string url, T value)
         {
             return await _client.PostAsJsonAsync(url, value);
+        }
+
+        public async Task<HttpResponseMessage> PatchAsJsonAsync<T>(string url, T value)
+        {
+            
+            var content = new ObjectContent<T>(value, new JsonMediaTypeFormatter());
+            var requestUri = new UriBuilder(url).Uri;
+
+            var request = new HttpRequestMessage(new HttpMethod("PATCH"), requestUri) { Content = content };
+
+            return await _client.SendAsync(request);
+            
         }
     }
 }

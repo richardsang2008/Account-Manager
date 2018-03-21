@@ -361,7 +361,8 @@ namespace PokemonGoGUI
                 var password = manager.UserSettings.Password;
                 var baseUrl = ConfigurationManager.AppSettings["pgpoolurl"];
                 PgProxy pg = new PgProxy(baseUrl);
-                var account = new PgAccount() { AuthService = "ptc", Username = username, Password = password };
+                var account = new PgAccount() { AuthService = "ptc", SystemId = "Account-Manager",Username = username, Password = password };
+                
                 var x = Task.Run(() => pg.AddPgAccount(1, account)).IsCompleted;
 
                 AddManager(manager);
@@ -2433,7 +2434,8 @@ namespace PokemonGoGUI
 
                 int totalSuccess = 0;
                 int total = accounts.Count;
-
+                var baseUrl = ConfigurationManager.AppSettings["pgpoolurl"];
+                PgProxy pg = new PgProxy(baseUrl);
                 foreach (string account in accounts)
                 {
                     string[] parts = account.Split(',');
@@ -2451,7 +2453,10 @@ namespace PokemonGoGUI
                         Username = parts[1],
                         Password = parts[2]
                     };
-
+                    
+                    var pgaccount = new PgAccount() { AuthService = "ptc", SystemId = "Account-Manager", Username = importModel.Username.Trim(), Password = importModel.Password.Trim(), Level = 1 };
+                    pgaccount.ReachLevel30DateTime = DateTime.Now;
+                    var x = Task.Run(() => pg.AddPgAccount(1, pgaccount)).IsCompleted;
                     var manager = new Manager(_proxyHandler);
 
                     manager.UserSettings.AuthType = (parts[0].Trim().ToLower() == "ptc") ? AuthType.Ptc : AuthType.Google;
