@@ -29,8 +29,6 @@ namespace PokemonGoGUI.GoManager
 
             if (newNearbyPokemons.Count == 0)
             {
-                LogCaller(new LoggerEventArgs("Local sniper return no pokemon to snipe", LoggerTypes.Info));
-
                 return new MethodResult<List<NearbyPokemon>>
                 {
                     Message = "No pokemon found"
@@ -79,15 +77,12 @@ namespace PokemonGoGUI.GoManager
             if (UserSettings.SnipeAllPokemonsNoInPokedex)
             {
                 LogCaller(new LoggerEventArgs("Search pokemons no into pokedex ...", LoggerTypes.Info));
-
                 var ids = Pokedex.Select(x => x.PokemonId);
                 pokemonToSnipe = pokeSniperResult.Data.Where(x => x.EncounterId != _lastPokeSniperId && !ids.Contains(x.PokemonId) && x.DistanceInMeters < UserSettings.MaxTravelDistance && !LastedEncountersIds.Contains(x.EncounterId)).OrderBy(x => x.DistanceInMeters).ToList();
             }
 
             if (pokemonToSnipe.Count == 0)
             {
-                LogCaller(new LoggerEventArgs("No pokemon to snipe within catch settings", LoggerTypes.Debug));
-
                 return new MethodResult
                 {
                     Message = "No catchable pokemon found"

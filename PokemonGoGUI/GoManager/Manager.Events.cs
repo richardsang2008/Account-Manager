@@ -9,7 +9,6 @@ namespace PokemonGoGUI.GoManager
         public delegate void LoggerHandler(object sender, LoggerEventArgs e);
         public event LoggerHandler OnLog;
 
-
         public void LogCaller(LoggerEventArgs args)
         {
             string eMessage = String.Empty;

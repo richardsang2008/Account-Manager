@@ -181,7 +181,12 @@
             this.numericUpDownProximity = new System.Windows.Forms.NumericUpDown();
             this.numericUpDownInsideReticuleChance = new System.Windows.Forms.NumericUpDown();
             this.label32 = new System.Windows.Forms.Label();
-            this.tabPageHash = new System.Windows.Forms.TabPage();
+            this.tabPageOthers = new System.Windows.Forms.TabPage();
+            this.groupBox6 = new System.Windows.Forms.GroupBox();
+            this.textBoxPGPoolEndPoint = new System.Windows.Forms.TextBox();
+            this.label62 = new System.Windows.Forms.Label();
+            this.checkBoxEnablePGPool = new System.Windows.Forms.CheckBox();
+            this.groupBox5 = new System.Windows.Forms.GroupBox();
             this.checkBoxDownloadResources = new System.Windows.Forms.CheckBox();
             this.checkBoxShowDebugLogs = new System.Windows.Forms.CheckBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
@@ -325,7 +330,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownAwareness)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownProximity)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownInsideReticuleChance)).BeginInit();
-            this.tabPageHash.SuspendLayout();
+            this.tabPageOthers.SuspendLayout();
+            this.groupBox6.SuspendLayout();
+            this.groupBox5.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.tabPageCaptchaConfig.SuspendLayout();
             this.tabPageRecycling.SuspendLayout();
@@ -389,7 +396,7 @@
             this.tabControlSettings.Controls.Add(this.tabPageSettingsNavigation);
             this.tabControlSettings.Controls.Add(this.tabPageDevice);
             this.tabControlSettings.Controls.Add(this.tabPageHumanization);
-            this.tabControlSettings.Controls.Add(this.tabPageHash);
+            this.tabControlSettings.Controls.Add(this.tabPageOthers);
             this.tabControlSettings.Controls.Add(this.tabPageCaptchaConfig);
             this.tabControlSettings.Location = new System.Drawing.Point(0, 0);
             this.tabControlSettings.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
@@ -2202,24 +2209,73 @@
             this.label32.TabIndex = 0;
             this.label32.Text = "Hit inside reticule (%):";
             // 
-            // tabPageHash
+            // tabPageOthers
             // 
-            this.tabPageHash.Controls.Add(this.checkBoxDownloadResources);
-            this.tabPageHash.Controls.Add(this.checkBoxShowDebugLogs);
-            this.tabPageHash.Controls.Add(this.groupBox2);
-            this.tabPageHash.Location = new System.Drawing.Point(4, 25);
-            this.tabPageHash.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.tabPageHash.Name = "tabPageHash";
-            this.tabPageHash.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.tabPageHash.Size = new System.Drawing.Size(633, 445);
-            this.tabPageHash.TabIndex = 5;
-            this.tabPageHash.Text = "Developers";
-            this.tabPageHash.UseVisualStyleBackColor = true;
+            this.tabPageOthers.Controls.Add(this.groupBox6);
+            this.tabPageOthers.Controls.Add(this.groupBox5);
+            this.tabPageOthers.Controls.Add(this.groupBox2);
+            this.tabPageOthers.Location = new System.Drawing.Point(4, 25);
+            this.tabPageOthers.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.tabPageOthers.Name = "tabPageOthers";
+            this.tabPageOthers.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.tabPageOthers.Size = new System.Drawing.Size(633, 445);
+            this.tabPageOthers.TabIndex = 5;
+            this.tabPageOthers.Text = "Others/Addons";
+            this.tabPageOthers.UseVisualStyleBackColor = true;
+            // 
+            // groupBox6
+            // 
+            this.groupBox6.Controls.Add(this.textBoxPGPoolEndPoint);
+            this.groupBox6.Controls.Add(this.label62);
+            this.groupBox6.Controls.Add(this.checkBoxEnablePGPool);
+            this.groupBox6.Location = new System.Drawing.Point(8, 216);
+            this.groupBox6.Name = "groupBox6";
+            this.groupBox6.Size = new System.Drawing.Size(604, 59);
+            this.groupBox6.TabIndex = 73;
+            this.groupBox6.TabStop = false;
+            this.groupBox6.Text = "PGPool";
+            // 
+            // textBoxPGPoolEndPoint
+            // 
+            this.textBoxPGPoolEndPoint.Location = new System.Drawing.Point(273, 19);
+            this.textBoxPGPoolEndPoint.Name = "textBoxPGPoolEndPoint";
+            this.textBoxPGPoolEndPoint.Size = new System.Drawing.Size(268, 22);
+            this.textBoxPGPoolEndPoint.TabIndex = 2;
+            // 
+            // label62
+            // 
+            this.label62.AutoSize = true;
+            this.label62.Location = new System.Drawing.Point(185, 22);
+            this.label62.Name = "label62";
+            this.label62.Size = new System.Drawing.Size(82, 17);
+            this.label62.TabIndex = 1;
+            this.label62.Text = "PGPool Url:";
+            // 
+            // checkBoxEnablePGPool
+            // 
+            this.checkBoxEnablePGPool.AutoSize = true;
+            this.checkBoxEnablePGPool.Location = new System.Drawing.Point(7, 21);
+            this.checkBoxEnablePGPool.Name = "checkBoxEnablePGPool";
+            this.checkBoxEnablePGPool.Size = new System.Drawing.Size(126, 21);
+            this.checkBoxEnablePGPool.TabIndex = 0;
+            this.checkBoxEnablePGPool.Text = "Enable PGPool";
+            this.checkBoxEnablePGPool.UseVisualStyleBackColor = true;
+            // 
+            // groupBox5
+            // 
+            this.groupBox5.Controls.Add(this.checkBoxDownloadResources);
+            this.groupBox5.Controls.Add(this.checkBoxShowDebugLogs);
+            this.groupBox5.Location = new System.Drawing.Point(8, 148);
+            this.groupBox5.Name = "groupBox5";
+            this.groupBox5.Size = new System.Drawing.Size(604, 62);
+            this.groupBox5.TabIndex = 72;
+            this.groupBox5.TabStop = false;
+            this.groupBox5.Text = "Misc";
             // 
             // checkBoxDownloadResources
             // 
             this.checkBoxDownloadResources.AutoSize = true;
-            this.checkBoxDownloadResources.Location = new System.Drawing.Point(221, 164);
+            this.checkBoxDownloadResources.Location = new System.Drawing.Point(7, 29);
             this.checkBoxDownloadResources.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.checkBoxDownloadResources.Name = "checkBoxDownloadResources";
             this.checkBoxDownloadResources.Size = new System.Drawing.Size(164, 21);
@@ -2230,7 +2286,7 @@
             // checkBoxShowDebugLogs
             // 
             this.checkBoxShowDebugLogs.AutoSize = true;
-            this.checkBoxShowDebugLogs.Location = new System.Drawing.Point(24, 164);
+            this.checkBoxShowDebugLogs.Location = new System.Drawing.Point(188, 29);
             this.checkBoxShowDebugLogs.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.checkBoxShowDebugLogs.Name = "checkBoxShowDebugLogs";
             this.checkBoxShowDebugLogs.Size = new System.Drawing.Size(145, 21);
@@ -2246,11 +2302,11 @@
             this.groupBox2.Controls.Add(this.cbUseOnlyThisHashKey);
             this.groupBox2.Controls.Add(this.cbHashEndpoint);
             this.groupBox2.Controls.Add(this.label51);
-            this.groupBox2.Location = new System.Drawing.Point(7, 6);
+            this.groupBox2.Location = new System.Drawing.Point(8, 6);
             this.groupBox2.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Padding = new System.Windows.Forms.Padding(4);
-            this.groupBox2.Size = new System.Drawing.Size(552, 135);
+            this.groupBox2.Size = new System.Drawing.Size(604, 135);
             this.groupBox2.TabIndex = 69;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Api";
@@ -2365,7 +2421,7 @@
             this.tabPageCaptchaConfig.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tabPageCaptchaConfig.Size = new System.Drawing.Size(633, 445);
             this.tabPageCaptchaConfig.TabIndex = 7;
-            this.tabPageCaptchaConfig.Text = "CaptchaConfig";
+            this.tabPageCaptchaConfig.Text = "Captcha";
             this.tabPageCaptchaConfig.UseVisualStyleBackColor = true;
             // 
             // TwoCaptchaAPIKey
@@ -3284,8 +3340,11 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownAwareness)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownProximity)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownInsideReticuleChance)).EndInit();
-            this.tabPageHash.ResumeLayout(false);
-            this.tabPageHash.PerformLayout();
+            this.tabPageOthers.ResumeLayout(false);
+            this.groupBox6.ResumeLayout(false);
+            this.groupBox6.PerformLayout();
+            this.groupBox5.ResumeLayout(false);
+            this.groupBox5.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             this.tabPageCaptchaConfig.ResumeLayout(false);
@@ -3450,7 +3509,7 @@
         private System.Windows.Forms.CheckBox checkBoxStopOnAPIUpdate;
         private System.Windows.Forms.NumericUpDown numericUpDownForceEvolveAbove;
         private System.Windows.Forms.Label label49;
-        private System.Windows.Forms.TabPage tabPageHash;
+        private System.Windows.Forms.TabPage tabPageOthers;
         private System.Windows.Forms.Label label51;
         private System.Windows.Forms.ComboBox cbHashEndpoint;
         private System.Windows.Forms.ComboBox cbHashHost;
@@ -3570,5 +3629,10 @@
         private System.Windows.Forms.GroupBox groupBox4;
         private System.Windows.Forms.CheckBox checkBoxIgRPCSem;
         private System.Windows.Forms.CheckBox checkBoxIgHashSem;
+        private System.Windows.Forms.GroupBox groupBox6;
+        private System.Windows.Forms.TextBox textBoxPGPoolEndPoint;
+        private System.Windows.Forms.Label label62;
+        private System.Windows.Forms.CheckBox checkBoxEnablePGPool;
+        private System.Windows.Forms.GroupBox groupBox5;
     }
 }

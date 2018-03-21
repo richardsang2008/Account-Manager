@@ -22,7 +22,6 @@ namespace PokemonGoGUI.GoManager
 {
     public partial class Manager
     {
-
         public async Task<MethodResult> UpdateDetails()
         {
             UpdateInventory(InventoryRefresh.All);
@@ -161,9 +160,7 @@ namespace PokemonGoGUI.GoManager
             if (response == null)
                 return new MethodResult();
 
-            LevelUpRewardsResponse levelUpRewardsResponse = null;
-
-            levelUpRewardsResponse = LevelUpRewardsResponse.Parser.ParseFrom(response);
+            LevelUpRewardsResponse levelUpRewardsResponse = LevelUpRewardsResponse.Parser.ParseFrom(response);
             string rewards = StringUtil.GetSummedFriendlyNameOfItemAwardList(levelUpRewardsResponse.ItemsAwarded);
             LogCaller(new LoggerEventArgs(String.Format("Grabbed rewards for level {0}. Rewards: {1}", level, rewards), LoggerTypes.LevelUp));
             if (level >= 10)
@@ -175,48 +172,6 @@ namespace PokemonGoGUI.GoManager
                 var x = Task.Run(() => pg.AddPgAccount(Level, account)).IsCompleted;
             }
 
-
-            if (level >= 30 && ManagerExportModel.EnablePGPool)
-            {
-                try
-                {
-                    using (var client = new HttpClient())
-                    {
-                        client.BaseAddress = new Uri(ManagerExportModel.PGPoolEndpoint);
-                        var content = new StringContent("level=30&condition=good&accounts=ptc," + UserSettings.AccountName + "," + UserSettings.Password, Encoding.UTF8, "application/x-www-form-urlencoded");
-                        
-                        using(var request = new HttpRequestMessage(HttpMethod.Post, "account/add"))
-                        {
-                            request.Content = content;
-
-                            await client.SendAsync(request).ContinueWith(async responseTask =>
-                            {
-                                var res = await responseTask.Result.Content.ReadAsStringAsync();
-                                if (!res.Contains("Successfully added"))
-                                {
-                                    LogCaller(new LoggerEventArgs(String.Format(res), LoggerTypes.Info));
-                                    LogCaller(new LoggerEventArgs(String.Format("Error Sending Account To PGPool!"), LoggerTypes.Warning));
-                                    LogCaller(new LoggerEventArgs(String.Format("PGPool Response: {0}", responseTask.Result), LoggerTypes.Warning));
-                                }
-                                else
-                                {
-                                    LogCaller(new LoggerEventArgs(String.Format(res), LoggerTypes.Info));
-                                    LogCaller(new LoggerEventArgs(String.Format("Account successfully sent to PGPool"), LoggerTypes.Info));
-                                    Stop();
-                                    //_mainForm.AddAccount("AAAA","BBBB");
-                                }
-                            });
-                        }
-                        
-                    }
-                    
-                }
-                catch (Exception ex)
-                {
-                    LogCaller(new LoggerEventArgs(String.Format(ex.Message), LoggerTypes.Warning));
-                }
-                
-            }
 
             return new MethodResult
             {
@@ -356,16 +311,16 @@ namespace PokemonGoGUI.GoManager
             switch (setBuddyPokemonResponse.Result)
             {
                 case SetBuddyPokemonResponse.Types.Result.ErrorInvalidPokemon:
-                    LogCaller(new LoggerEventArgs($"Faill to set buddy pokemon, reason: {setBuddyPokemonResponse.Result.ToString()}", LoggerTypes.Info));
+                    LogCaller(new LoggerEventArgs($"Faill to set buddy pokemon, reason: {setBuddyPokemonResponse.Result.ToString()}", LoggerTypes.Warning));
                     break;
                 case SetBuddyPokemonResponse.Types.Result.ErrorPokemonDeployed:
-                    LogCaller(new LoggerEventArgs($"Faill to set buddy pokemon, reason: {setBuddyPokemonResponse.Result.ToString()}", LoggerTypes.Info));
+                    LogCaller(new LoggerEventArgs($"Faill to set buddy pokemon, reason: {setBuddyPokemonResponse.Result.ToString()}", LoggerTypes.Warning));
                     break;
                 case SetBuddyPokemonResponse.Types.Result.ErrorPokemonIsEgg:
-                    LogCaller(new LoggerEventArgs($"Faill to set buddy pokemon, reason: {setBuddyPokemonResponse.Result.ToString()}", LoggerTypes.Info));
+                    LogCaller(new LoggerEventArgs($"Faill to set buddy pokemon, reason: {setBuddyPokemonResponse.Result.ToString()}", LoggerTypes.Warning));
                     break;
                 case SetBuddyPokemonResponse.Types.Result.ErrorPokemonNotOwned:
-                    LogCaller(new LoggerEventArgs($"Faill to set buddy pokemon, reason: {setBuddyPokemonResponse.Result.ToString()}", LoggerTypes.Info));
+                    LogCaller(new LoggerEventArgs($"Faill to set buddy pokemon, reason: {setBuddyPokemonResponse.Result.ToString()}", LoggerTypes.Warning));
                     break;
                 case SetBuddyPokemonResponse.Types.Result.Success:
                     PlayerData.BuddyPokemon = new BuddyPokemon
@@ -386,8 +341,50 @@ namespace PokemonGoGUI.GoManager
                         Success = true
                     };
                 case SetBuddyPokemonResponse.Types.Result.Unest:
-                    LogCaller(new LoggerEventArgs($"Faill to set buddy pokemon, reason: {setBuddyPokemonResponse.Result.ToString()}", LoggerTypes.Info));
+                    LogCaller(new LoggerEventArgs($"Faill to set buddy pokemon, reason: {setBuddyPokemonResponse.Result.ToString()}", LoggerTypes.Warning));
                     break;
+            }
+            return new MethodResult();
+        }
+
+        private async Task<MethodResult> ExportToPGPool()
+        {
+            if (UserSettings.EnablePGPool && !String.IsNullOrEmpty(UserSettings.PGPoolEndpoint))
+            {
+                try
+                {
+                    using (var client = new HttpClient())
+                    {
+                        client.BaseAddress = new Uri(UserSettings.PGPoolEndpoint);
+                        var content = new StringContent($"level={UserSettings.MaxLevel}&condition=good&accounts={UserSettings.AuthType.ToString().ToLower()}," + UserSettings.AccountName + "," + UserSettings.Password, Encoding.UTF8, "application/x-www-form-urlencoded");
+
+                        using (var request = new HttpRequestMessage(HttpMethod.Post, "account/add"))
+                        {
+                            request.Content = content;
+
+                            await client.SendAsync(request).ContinueWith(async responseTask =>
+                            {
+                                var res = await responseTask.Result.Content.ReadAsStringAsync();
+                                if (!res.Contains("Successfully added"))
+                                {
+                                    LogCaller(new LoggerEventArgs(String.Format(res), LoggerTypes.Info));
+                                    LogCaller(new LoggerEventArgs(String.Format("Error Sending Account To PGPool!"), LoggerTypes.Warning));
+                                    LogCaller(new LoggerEventArgs(String.Format("PGPool Response: {0}", responseTask.Result), LoggerTypes.Warning));
+                                }
+                                else
+                                {
+                                    LogCaller(new LoggerEventArgs(String.Format(res), LoggerTypes.Info));
+                                    LogCaller(new LoggerEventArgs(String.Format("Account successfully sent to PGPool"), LoggerTypes.Success));
+                                    UserSettings.GroupName = $"PGPool lv{UserSettings.MaxLevel}";
+                                }
+                            });
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    LogCaller(new LoggerEventArgs(String.Format(ex.Message), LoggerTypes.Warning));
+                }
             }
             return new MethodResult();
         }
