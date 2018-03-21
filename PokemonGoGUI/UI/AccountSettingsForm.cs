@@ -257,6 +257,12 @@ namespace PokemonGoGUI.UI
             checkBoxEnablePGPool.Checked = settings.EnablePGPool;
             textBoxPGPoolEndPoint.Text = settings.PGPoolEndpoint;
 
+            enableShuffleADSCheckBox.Checked = settings.ShuffleADS_Enable;
+            ShuffleADSAPITextBox.Text = settings.ShuffleADS_API;
+            ShuffleADSGetNewPTC.Checked = settings.ShuffleADS_GetNewPTC;
+            ShuffleADSStartAfterGet.Checked = settings.ShuffleADS_StartAfterGet;
+
+
             //Location time zones
             var zones = new TimeZoneIds().GetTimeZoneIds();
             foreach (var tz in zones)
@@ -476,6 +482,18 @@ namespace PokemonGoGUI.UI
             userSettings.HashEndpoint = cbHashEndpoint.Text;
             userSettings.AuthAPIKey = tbAuthHashKey.Text;
             userSettings.UseOnlyOneKey = cbUseOnlyThisHashKey.Checked;
+
+            if (enableShuffleADSCheckBox.Checked && String.IsNullOrEmpty(ShuffleADSAPITextBox.Text.Trim()))
+            {
+                MessageBox.Show("Shuffle ADS API empty", "Warning");
+                return false;
+            }
+
+            userSettings.ShuffleADS_Enable = enableShuffleADSCheckBox.Checked;
+            userSettings.ShuffleADS_API = ShuffleADSAPITextBox.Text.Trim();
+            userSettings.ShuffleADS_GetNewPTC = ShuffleADSGetNewPTC.Checked;
+            userSettings.ShuffleADS_StartAfterGet = ShuffleADSStartAfterGet.Checked;
+
             //End api config
 
             //Location time zones

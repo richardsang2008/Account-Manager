@@ -911,6 +911,7 @@ namespace PokemonGoGUI.GoManager
                             LogCaller(new LoggerEventArgs(String.Format("Max level of {0} reached.", UserSettings.MaxLevel), LoggerTypes.Info));
                             await ExportToPGPool();
                             Stop();
+                            await ExportToShuffleADS();
                         }
 
                         if (_totalZeroExpStops > 25)
