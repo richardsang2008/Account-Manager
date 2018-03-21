@@ -317,6 +317,13 @@ namespace PokemonGoGUI.GoManager
                     userSettings.EnableCaptchaSolutions = false;
                     userSettings.EnableAntiCaptcha = false;
                     userSettings.AutoFavoritShiny = true;
+
+                    //ShuffleADS
+                    userSettings.ShuffleADS_API = String.Empty;
+                    userSettings.ShuffleADS_Enable = false;
+                    userSettings.ShuffleADS_GetNewPTC = false;
+                    userSettings.ShuffleADS_StartAfterGet = false;
+
                     // gyms
                     userSettings.DefaultTeam = "Neutral";
                     userSettings.SpinGyms = false;
