@@ -271,7 +271,7 @@ namespace PokemonGoGUI
             PGPoolEndpoint = "http://127.0.0.1:4242/";
 
             //ShuffleADS
-            ShuffleADS_API = "";
+            ShuffleADS_API = String.Empty;
             ShuffleADS_Enable = false;
             ShuffleADS_GetNewPTC = false;
             ShuffleADS_StartAfterGet = false;
