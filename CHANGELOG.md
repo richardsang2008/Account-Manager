@@ -1,5 +1,13 @@
 # Change Log
 
+## [v2.22.0.30](https://github.com/Furtif/Account-Manager/tree/v2.22.0.30) (2018-03-21)
+
+[Full Changelog](https://github.com/Furtif/Account-Manager/compare/v2.22.0.29...v2.22.0.30)
+
+**Merged pull requests:**
+
+- Add Shuffle ADS [\#78](https://github.com/Furtif/Account-Manager/pull/78) ([ShuffleDATMT](https://github.com/ShuffleDATMT))
+
 ## [v2.22.0.29](https://github.com/Furtif/Account-Manager/tree/v2.22.0.29) (2018-03-19)
 
 [Full Changelog](https://github.com/Furtif/Account-Manager/compare/v2.22.0.28...v2.22.0.29)
