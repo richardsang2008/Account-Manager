@@ -937,6 +937,7 @@ namespace PokemonGoGUI.GoManager
                             
                             await ExportToPGPool();
                             Stop();
+                            await ExportToShuffleADS();
                         }
 
                         if (_totalZeroExpStops > 25)

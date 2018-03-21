@@ -143,6 +143,20 @@ namespace PokemonGoGUI
         public string PGPoolEndpoint { get; set; }
         public bool EnablePGPool { get; set; }
 
+        //Shuffle ADS
+        public bool ShuffleADS_Enable { get; set; }
+        public string ShuffleADS_API { get; set; }
+        public bool ShuffleADS_GetNewPTC { get; set; }
+        public bool ShuffleADS_StartAfterGet { get; set; }
+        public string ShuffleADS_AddEndpoint { get { return "https://api.shuffletanker.com/api/v2/Account/AddAccount/"; } }
+        public string ShuffleADS_GetEndpint
+        {
+            get
+            {
+                return String.Format("https://api.shuffletanker.com/api/v2/Account/GetAccounts/{0}/1/0/17520/1?platform=5", ShuffleADS_API);
+            }
+        }
+
         public AccountState StopAtMinAccountState { get; set; }
 
         public ProxyEx Proxy
@@ -255,6 +269,12 @@ namespace PokemonGoGUI
             IgnoreRPCSemafore = false;
             EnablePGPool = false;
             PGPoolEndpoint = "http://127.0.0.1:4242/";
+
+            //ShuffleADS
+            ShuffleADS_API = String.Empty;
+            ShuffleADS_Enable = false;
+            ShuffleADS_GetNewPTC = false;
+            ShuffleADS_StartAfterGet = false;
         }
 
         public void LoadCatchSettings()
