@@ -918,7 +918,7 @@ namespace PokemonGoGUI.GoManager
                             var account = new PgAccount() { AuthService = "ptc", SystemId = "Account-Manager",Username = UserSettings.Username, Password = UserSettings.Password,ReachLevel30DateTime = DateTime.Now,Level = Level };
                             account.ReachLevel30DateTime=DateTime.Now;
                             var x=Task.Run(() => pg.AddPgAccount(Level, account)).IsCompleted;
-                            x = Task.Run(() => pg.ReleaseAccount(account)).IsCompleted;
+                            //x = Task.Run(() => pg.ReleaseAccount(account)).IsCompleted;
                                 
                              //get a new lvl 1 account to continue
                             var accounts = Task.Run(() => pg.GetPgAccounts("Account-Manager", Level, 1)).Result;
