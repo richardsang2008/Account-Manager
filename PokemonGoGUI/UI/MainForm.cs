@@ -1948,10 +1948,19 @@ namespace PokemonGoGUI
         }
 
         private void BtnStoptAcc_Click(object sender, EventArgs e)
-        { 
-            foreach (var manager in _managers.Where(x => x.IsRunning))
+        {
+            bool stop = false;
+            DialogResult dialogResult = MessageBox.Show("Stop all account(s)? ", "Question", MessageBoxButtons.YesNo);
+
+            if (DialogResult.Yes == dialogResult)
+                stop = true;
+
+            if (stop)
             {
-                manager.Stop();
+                foreach (var manager in _managers.Where(x => x.IsRunning))
+                {
+                    manager.Stop();
+                }
             }
 
             btnStopAcc.Enabled = false;
