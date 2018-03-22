@@ -1914,6 +1914,7 @@ namespace PokemonGoGUI
             btnStartAcc.Enabled = false;
             btnStopAcc.Enabled = true;
 
+            //Close pause and run async..
             await Task.Run(() =>
             {
                 while (btnStopAcc.Enabled)
