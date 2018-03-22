@@ -1025,18 +1025,14 @@ namespace PokemonGoGUI.GoManager
                 _firstRun = false;
             }
 
-            State = BotState.Stopped;
             Stop();
+            State = BotState.Stopped;
             LogCaller(new LoggerEventArgs(String.Format("Bot fully stopped at {0}", DateTime.Now), LoggerTypes.Info));
 
             if (_autoRestart)
             {
                 _wasAutoRestarted = true;
                 Start();
-            }
-            else if (UserSettings.AutoRemoveOnStop)
-            {
-                RemoveProxy();
             }
         }
 
