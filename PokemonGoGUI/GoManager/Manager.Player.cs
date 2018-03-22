@@ -392,6 +392,7 @@ namespace PokemonGoGUI.GoManager
 
                         if (!UserSettings.ShuffleADS_StartAfterGet && AccountScheduler != null && AccountScheduler.Enabled)
                         {
+                            LogCaller(new LoggerEventArgs("Waiting for scheduler to expire...", LoggerTypes.Info));
                             while (AccountScheduler.WithinTime()) { await Task.Delay(5000); }
                         }
                         else
