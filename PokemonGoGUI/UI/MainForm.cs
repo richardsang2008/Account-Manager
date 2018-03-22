@@ -1914,41 +1914,44 @@ namespace PokemonGoGUI
             btnStartAcc.Enabled = false;
             btnStopAcc.Enabled = true;
 
-            while (btnStopAcc.Enabled)
+            await Task.Run(() =>
             {
-                var runningCount = _managers.Where(x => x.IsRunning).Count();
-
-                //If up number 5 to 6 this run one more
-
-                int simultAcc = Convert.ToInt32(numericUpDownSimAcc.Value);
-
-                if (runningCount < simultAcc)
+                while (btnStopAcc.Enabled)
                 {
-                    var hasAccStart = _managers.FirstOrDefault(acc => !acc.IsRunning &&
-                                                                acc.Level < acc.MaxLevel &&
-                                                                acc.AccountState == AccountState.Good);
-                    if (hasAccStart != null)
+                    var runningCount = _managers.Where(x => x.IsRunning).Count();
+
+                    //If up number 5 to 6 this run one more
+
+                    int simultAcc = Convert.ToInt32(numericUpDownSimAcc.Value);
+
+                    if (runningCount < simultAcc)
                     {
-                        if (!hasAccStart.IsRunning)
+                        var hasAccStart = _managers.FirstOrDefault(acc => !acc.IsRunning &&
+                                                                    acc.Level < acc.MaxLevel &&
+                                                                    acc.AccountState == AccountState.Good);
+                        if (hasAccStart != null)
                         {
-                            hasAccStart.UserSettings.HashKeys = _hashKeys.Select(x => x.Key).ToList();
-                            hasAccStart.UserSettings.SPF = _spf;
-                            hasAccStart.Start();
+                            if (!hasAccStart.IsRunning)
+                            {
+                                hasAccStart.UserSettings.HashKeys = _hashKeys.Select(x => x.Key).ToList();
+                                hasAccStart.UserSettings.SPF = _spf;
+                                hasAccStart.Start();
+                            }
                         }
                     }
+
+                    int runState = _managers.Where(x => x.State == BotState.Running).Count();
+
+                    if (runState > simultAcc)
+                    {
+                        _managers.FirstOrDefault(acc => acc.IsRunning && acc.State == BotState.Running).Stop();
+                    }
+
+                    //Unnedded await Task.Delay(2000);
                 }
 
-                int runState = _managers.Where(x => x.State == BotState.Running).Count();
-
-                if (runState > simultAcc)
-                {
-                    _managers.FirstOrDefault(acc => acc.IsRunning && acc.State == BotState.Running).Stop();
-                }
-
-                await Task.Delay(2000);
-            }
-
-            btnStartAcc.Enabled = true;
+                btnStartAcc.Enabled = true;
+            });
         }
 
         private void BtnStoptAcc_Click(object sender, EventArgs e)
