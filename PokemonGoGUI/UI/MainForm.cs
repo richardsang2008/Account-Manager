@@ -1919,9 +1919,6 @@ namespace PokemonGoGUI
                 while (btnStopAcc.Enabled)
                 {
                     var runningCount = _managers.Where(x => x.IsRunning).Count();
-
-                    //If up number 5 to 6 this run one more
-
                     int simultAcc = Convert.ToInt32(numericUpDownSimAcc.Value);
 
                     if (runningCount < simultAcc)
@@ -1946,11 +1943,7 @@ namespace PokemonGoGUI
                     {
                         _managers.FirstOrDefault(acc => acc.IsRunning && acc.State == BotState.Running).Stop();
                     }
-
-                    //Unnedded await Task.Delay(2000);
                 }
-
-                btnStartAcc.Enabled = true;
             });
         }
 
@@ -1962,6 +1955,7 @@ namespace PokemonGoGUI
             }
 
             btnStopAcc.Enabled = false;
+            btnStartAcc.Enabled = true;
         }
 
         private void PictureBoxAbout_Click(object sender, EventArgs e)
