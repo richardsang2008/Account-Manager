@@ -146,6 +146,11 @@ namespace PokemonGoGUI
                 // Command line parsing
                 var commandLine = new Arguments(_args);
                 // Look for specific arguments values
+                if (commandLine["?"] == null || commandLine["help"] == null)
+                {
+                    MessageBox.Show("Help wanted! used /? or /help or -? --help", "Information");
+                    //
+                }
                 if (commandLine["import"] != null && commandLine["import"].Length > 0)
                 {
                     //Open file commandLine["import"]
