@@ -54,12 +54,6 @@ namespace PokemonGoGUI
             fastObjectListViewHashKeys.BackColor = Color.FromArgb(0, 0, 0);
             fastObjectListViewHashKeys.ForeColor = Color.LightGray;
 
-            //BackColor = Color.FromArgb(43, 43, 43);
-
-            //tabPage1.BorderStyle = BorderStyle.None;
-            //tabPage1.BackColor = Color.FromArgb(43, 43, 43);
-            //fastOjectListViewMain.AlwaysGroupByColumn = olvColumnGroup;
-
             Text = "Account Manager - " + _versionNumber;
 
             olvColumnProxyAuth.AspectGetter = delegate (object x)
@@ -165,9 +159,8 @@ namespace PokemonGoGUI
             }
             //else 
             // 
-
-            //
             await LoadSettings();
+            //
 
             if (_autoupdate)
             {
@@ -207,7 +200,8 @@ namespace PokemonGoGUI
                 e.Cancel = true;
             }
 
-            SaveSettings();
+            if (_args.Count() <= 0)
+                SaveSettings();
         }
 
         private void MainForm_Resize(object sender, EventArgs e)
