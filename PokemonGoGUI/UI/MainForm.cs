@@ -764,7 +764,7 @@ namespace PokemonGoGUI
             }
         }
 
-        private async void shuffleADSWConfigToolStripMenuItem_Click(object sender, EventArgs e)
+        private async void ShuffleADSWConfigToolStripMenuItem_Click(object sender, EventArgs e)
         {
             var tSMI = sender as ToolStripMenuItem;
 
