@@ -220,7 +220,6 @@ namespace PokemonGoGUI.GoManager
 
             _pauser.Reset();
             _runningStopwatch.Stop();
-            //_client.ClientSession.Pause();
 
             LogCaller(new LoggerEventArgs("Pausing bot ...", LoggerTypes.Info));
 
@@ -236,9 +235,6 @@ namespace PokemonGoGUI.GoManager
 
             _pauser.Set();
             _runningStopwatch.Start();
-
-            //if (_client.ClientSession.State == SessionState.Paused)
-            //    await _client.ClientSession.ResumeAsync();
 
             LogCaller(new LoggerEventArgs("Unpausing bot ...", LoggerTypes.Info));
 
@@ -939,7 +935,7 @@ namespace PokemonGoGUI.GoManager
                             
                             await ExportToPGPool();
                             Stop();
-                            await ExportToShuffleADS();
+                            await ShuffleADSProcess();
                         }
 
                         if (_totalZeroExpStops > 25)
@@ -1053,18 +1049,14 @@ namespace PokemonGoGUI.GoManager
                 _firstRun = false;
             }
 
-            State = BotState.Stopped;
             Stop();
+            State = BotState.Stopped;
             LogCaller(new LoggerEventArgs(String.Format("Bot fully stopped at {0}", DateTime.Now), LoggerTypes.Info));
 
             if (_autoRestart)
             {
                 _wasAutoRestarted = true;
                 Start();
-            }
-            else if (UserSettings.AutoRemoveOnStop)
-            {
-                RemoveProxy();
             }
         }
 

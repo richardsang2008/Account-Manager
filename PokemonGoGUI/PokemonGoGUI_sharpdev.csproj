@@ -184,7 +184,6 @@
     <Compile Include="AccountScheduler\Tracker.cs" />
     <Compile Include="AccountScheduler\TrackerValues.cs" />
     <Compile Include="Client.cs" />
-	<Compile Include="Models\CommandLineUtility.cs" />
     <Compile Include="Enums\AuthType.cs" />
     <Compile Include="Enums\AccountState.cs" />
     <Compile Include="Enums\BotState.cs" />
@@ -228,6 +227,7 @@
     <Compile Include="Models\AccountExportModel.cs" />
     <Compile Include="Models\AccountImport.cs" />
     <Compile Include="Models\CatchSetting.cs" />
+    <Compile Include="Models\CommandLineUtility.cs" />
     <Compile Include="Models\EvolveSetting.cs" />
     <Compile Include="Models\FarmLocation.cs" />
     <Compile Include="Models\GoProxy.cs" />
