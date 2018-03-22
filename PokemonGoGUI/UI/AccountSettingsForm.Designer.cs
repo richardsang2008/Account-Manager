@@ -181,7 +181,7 @@
             this.numericUpDownProximity = new System.Windows.Forms.NumericUpDown();
             this.numericUpDownInsideReticuleChance = new System.Windows.Forms.NumericUpDown();
             this.label32 = new System.Windows.Forms.Label();
-            this.tabPageOthers = new System.Windows.Forms.TabPage();
+            this.tabPageAddons = new System.Windows.Forms.TabPage();
             this.ShuffleADSGroupBox = new System.Windows.Forms.GroupBox();
             this.ShuffleADSStartAfterGet = new System.Windows.Forms.CheckBox();
             this.ShuffleADSGetNewPTC = new System.Windows.Forms.CheckBox();
@@ -336,7 +336,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownAwareness)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownProximity)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownInsideReticuleChance)).BeginInit();
-            this.tabPageOthers.SuspendLayout();
+            this.tabPageAddons.SuspendLayout();
             this.ShuffleADSGroupBox.SuspendLayout();
             this.groupBox6.SuspendLayout();
             this.groupBox5.SuspendLayout();
@@ -403,7 +403,7 @@
             this.tabControlSettings.Controls.Add(this.tabPageSettingsNavigation);
             this.tabControlSettings.Controls.Add(this.tabPageDevice);
             this.tabControlSettings.Controls.Add(this.tabPageHumanization);
-            this.tabControlSettings.Controls.Add(this.tabPageOthers);
+            this.tabControlSettings.Controls.Add(this.tabPageAddons);
             this.tabControlSettings.Controls.Add(this.tabPageCaptchaConfig);
             this.tabControlSettings.Location = new System.Drawing.Point(0, 0);
             this.tabControlSettings.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
@@ -549,9 +549,9 @@
             this.tabPageActions.Controls.Add(this.checkBoxStopOnAPIUpdate);
             this.tabPageActions.Controls.Add(this.checkBoxClaimLevelUp);
             this.tabPageActions.Location = new System.Drawing.Point(4, 25);
-            this.tabPageActions.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tabPageActions.Margin = new System.Windows.Forms.Padding(4);
             this.tabPageActions.Name = "tabPageActions";
-            this.tabPageActions.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tabPageActions.Padding = new System.Windows.Forms.Padding(4);
             this.tabPageActions.Size = new System.Drawing.Size(633, 445);
             this.tabPageActions.TabIndex = 6;
             this.tabPageActions.Text = "Actions";
@@ -593,7 +593,7 @@
             // textBoxPercTransItems
             // 
             this.textBoxPercTransItems.Location = new System.Drawing.Point(491, 412);
-            this.textBoxPercTransItems.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.textBoxPercTransItems.Margin = new System.Windows.Forms.Padding(4);
             this.textBoxPercTransItems.Name = "textBoxPercTransItems";
             this.textBoxPercTransItems.Size = new System.Drawing.Size(43, 22);
             this.textBoxPercTransItems.TabIndex = 86;
@@ -601,7 +601,7 @@
             // textBoxPercTransPoke
             // 
             this.textBoxPercTransPoke.Location = new System.Drawing.Point(491, 382);
-            this.textBoxPercTransPoke.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.textBoxPercTransPoke.Margin = new System.Windows.Forms.Padding(4);
             this.textBoxPercTransPoke.Name = "textBoxPercTransPoke";
             this.textBoxPercTransPoke.Size = new System.Drawing.Size(43, 22);
             this.textBoxPercTransPoke.TabIndex = 85;
@@ -755,9 +755,9 @@
             this.groupBoxPlayerActions.Controls.Add(this.textBoxPokemonBeforeEvolve);
             this.groupBoxPlayerActions.Controls.Add(this.label46);
             this.groupBoxPlayerActions.Location = new System.Drawing.Point(8, 11);
-            this.groupBoxPlayerActions.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBoxPlayerActions.Margin = new System.Windows.Forms.Padding(4);
             this.groupBoxPlayerActions.Name = "groupBoxPlayerActions";
-            this.groupBoxPlayerActions.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBoxPlayerActions.Padding = new System.Windows.Forms.Padding(4);
             this.groupBoxPlayerActions.Size = new System.Drawing.Size(319, 426);
             this.groupBoxPlayerActions.TabIndex = 73;
             this.groupBoxPlayerActions.TabStop = false;
@@ -790,7 +790,7 @@
             // 
             this.cbUseLuckEggConst.AutoSize = true;
             this.cbUseLuckEggConst.Location = new System.Drawing.Point(5, 402);
-            this.cbUseLuckEggConst.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.cbUseLuckEggConst.Margin = new System.Windows.Forms.Padding(4);
             this.cbUseLuckEggConst.Name = "cbUseLuckEggConst";
             this.cbUseLuckEggConst.Size = new System.Drawing.Size(229, 21);
             this.cbUseLuckEggConst.TabIndex = 85;
@@ -1633,7 +1633,7 @@
             this.tabPageDevice.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tabPageDevice.Size = new System.Drawing.Size(633, 445);
             this.tabPageDevice.TabIndex = 2;
-            this.tabPageDevice.Text = "Device*";
+            this.tabPageDevice.Text = "Device *";
             this.tabPageDevice.UseVisualStyleBackColor = true;
             // 
             // buttonResetDefaults
@@ -1824,7 +1824,7 @@
             this.tabPageHumanization.Name = "tabPageHumanization";
             this.tabPageHumanization.Size = new System.Drawing.Size(633, 445);
             this.tabPageHumanization.TabIndex = 3;
-            this.tabPageHumanization.Text = "Humanization";
+            this.tabPageHumanization.Text = "Humanization (*)";
             this.tabPageHumanization.UseVisualStyleBackColor = true;
             // 
             // groupBox4
@@ -1841,7 +1841,7 @@
             this.groupBox4.Size = new System.Drawing.Size(581, 150);
             this.groupBox4.TabIndex = 13;
             this.groupBox4.TabStop = false;
-            this.groupBox4.Text = "POGOLib.Core Config";
+            this.groupBox4.Text = "POGOLib.Core Config *";
             // 
             // checkBoxIgRPCSem
             // 
@@ -1849,9 +1849,9 @@
             this.checkBoxIgRPCSem.Location = new System.Drawing.Point(7, 110);
             this.checkBoxIgRPCSem.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.checkBoxIgRPCSem.Name = "checkBoxIgRPCSem";
-            this.checkBoxIgRPCSem.Size = new System.Drawing.Size(172, 21);
+            this.checkBoxIgRPCSem.Size = new System.Drawing.Size(167, 21);
             this.checkBoxIgRPCSem.TabIndex = 13;
-            this.checkBoxIgRPCSem.Text = "Ignore RPC Semafore*";
+            this.checkBoxIgRPCSem.Text = "Ignore RPC Semafore";
             this.checkBoxIgRPCSem.UseVisualStyleBackColor = true;
             // 
             // checkBoxIgHashSem
@@ -1860,20 +1860,20 @@
             this.checkBoxIgHashSem.Location = new System.Drawing.Point(7, 82);
             this.checkBoxIgHashSem.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.checkBoxIgHashSem.Name = "checkBoxIgHashSem";
-            this.checkBoxIgHashSem.Size = new System.Drawing.Size(177, 21);
+            this.checkBoxIgHashSem.Size = new System.Drawing.Size(172, 21);
             this.checkBoxIgHashSem.TabIndex = 12;
-            this.checkBoxIgHashSem.Text = "Ignore Hash Semafore*";
+            this.checkBoxIgHashSem.Text = "Ignore Hash Semafore";
             this.checkBoxIgHashSem.UseVisualStyleBackColor = true;
             // 
             // checkBoxUsePOGOLibHeartbeat
             // 
             this.checkBoxUsePOGOLibHeartbeat.AutoSize = true;
             this.checkBoxUsePOGOLibHeartbeat.Location = new System.Drawing.Point(7, 30);
-            this.checkBoxUsePOGOLibHeartbeat.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.checkBoxUsePOGOLibHeartbeat.Margin = new System.Windows.Forms.Padding(4);
             this.checkBoxUsePOGOLibHeartbeat.Name = "checkBoxUsePOGOLibHeartbeat";
-            this.checkBoxUsePOGOLibHeartbeat.Size = new System.Drawing.Size(192, 21);
+            this.checkBoxUsePOGOLibHeartbeat.Size = new System.Drawing.Size(187, 21);
             this.checkBoxUsePOGOLibHeartbeat.TabIndex = 9;
-            this.checkBoxUsePOGOLibHeartbeat.Text = "Use POGOLib Heartbeat*";
+            this.checkBoxUsePOGOLibHeartbeat.Text = "Use POGOLib Heartbeat";
             this.checkBoxUsePOGOLibHeartbeat.UseVisualStyleBackColor = true;
             // 
             // label57
@@ -1882,9 +1882,9 @@
             this.label57.Location = new System.Drawing.Point(4, 59);
             this.label57.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label57.Name = "label57";
-            this.label57.Size = new System.Drawing.Size(141, 17);
+            this.label57.Size = new System.Drawing.Size(136, 17);
             this.label57.TabIndex = 11;
-            this.label57.Text = "Min API throttles ms*:";
+            this.label57.Text = "Min API throttles ms:";
             // 
             // numericUpDownThrottles
             // 
@@ -1931,7 +1931,7 @@
             this.groupBox3.Size = new System.Drawing.Size(595, 145);
             this.groupBox3.TabIndex = 12;
             this.groupBox3.TabStop = false;
-            this.groupBox3.Text = "Humanize Throws";
+            this.groupBox3.Text = "Humanize Throws *";
             // 
             // label34
             // 
@@ -2131,9 +2131,9 @@
             this.groupBox1.Controls.Add(this.numericUpDownAwareness);
             this.groupBox1.Controls.Add(this.numericUpDownProximity);
             this.groupBox1.Location = new System.Drawing.Point(19, 174);
-            this.groupBox1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox1.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox1.Padding = new System.Windows.Forms.Padding(4);
             this.groupBox1.Size = new System.Drawing.Size(272, 95);
             this.groupBox1.TabIndex = 8;
             this.groupBox1.TabStop = false;
@@ -2222,20 +2222,20 @@
             this.label32.TabIndex = 0;
             this.label32.Text = "Hit inside reticule (%):";
             // 
-            // tabPageOthers
+            // tabPageAddons
             // 
-            this.tabPageOthers.Controls.Add(this.ShuffleADSGroupBox);
-            this.tabPageOthers.Controls.Add(this.groupBox6);
-            this.tabPageOthers.Controls.Add(this.groupBox5);
-            this.tabPageOthers.Controls.Add(this.groupBox2);
-            this.tabPageOthers.Location = new System.Drawing.Point(4, 25);
-            this.tabPageOthers.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.tabPageOthers.Name = "tabPageOthers";
-            this.tabPageOthers.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.tabPageOthers.Size = new System.Drawing.Size(633, 445);
-            this.tabPageOthers.TabIndex = 5;
-            this.tabPageOthers.Text = "Others/Addons";
-            this.tabPageOthers.UseVisualStyleBackColor = true;
+            this.tabPageAddons.Controls.Add(this.ShuffleADSGroupBox);
+            this.tabPageAddons.Controls.Add(this.groupBox6);
+            this.tabPageAddons.Controls.Add(this.groupBox5);
+            this.tabPageAddons.Controls.Add(this.groupBox2);
+            this.tabPageAddons.Location = new System.Drawing.Point(4, 25);
+            this.tabPageAddons.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.tabPageAddons.Name = "tabPageAddons";
+            this.tabPageAddons.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.tabPageAddons.Size = new System.Drawing.Size(633, 445);
+            this.tabPageAddons.TabIndex = 5;
+            this.tabPageAddons.Text = "Addons";
+            this.tabPageAddons.UseVisualStyleBackColor = true;
             // 
             // ShuffleADSGroupBox
             // 
@@ -2257,7 +2257,7 @@
             // 
             this.ShuffleADSStartAfterGet.AutoSize = true;
             this.ShuffleADSStartAfterGet.Location = new System.Drawing.Point(128, 48);
-            this.ShuffleADSStartAfterGet.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.ShuffleADSStartAfterGet.Margin = new System.Windows.Forms.Padding(4);
             this.ShuffleADSStartAfterGet.Name = "ShuffleADSStartAfterGet";
             this.ShuffleADSStartAfterGet.Size = new System.Drawing.Size(154, 21);
             this.ShuffleADSStartAfterGet.TabIndex = 4;
@@ -2268,7 +2268,7 @@
             // 
             this.ShuffleADSGetNewPTC.AutoSize = true;
             this.ShuffleADSGetNewPTC.Location = new System.Drawing.Point(7, 48);
-            this.ShuffleADSGetNewPTC.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.ShuffleADSGetNewPTC.Margin = new System.Windows.Forms.Padding(4);
             this.ShuffleADSGetNewPTC.Name = "ShuffleADSGetNewPTC";
             this.ShuffleADSGetNewPTC.Size = new System.Drawing.Size(113, 21);
             this.ShuffleADSGetNewPTC.TabIndex = 3;
@@ -2278,7 +2278,7 @@
             // ShuffleADSAPITextBox
             // 
             this.ShuffleADSAPITextBox.Location = new System.Drawing.Point(168, 18);
-            this.ShuffleADSAPITextBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.ShuffleADSAPITextBox.Margin = new System.Windows.Forms.Padding(4);
             this.ShuffleADSAPITextBox.Name = "ShuffleADSAPITextBox";
             this.ShuffleADSAPITextBox.Size = new System.Drawing.Size(304, 22);
             this.ShuffleADSAPITextBox.TabIndex = 2;
@@ -2390,9 +2390,9 @@
             this.groupBox2.Controls.Add(this.cbHashEndpoint);
             this.groupBox2.Controls.Add(this.label51);
             this.groupBox2.Location = new System.Drawing.Point(8, 6);
-            this.groupBox2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox2.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox2.Padding = new System.Windows.Forms.Padding(4);
             this.groupBox2.Size = new System.Drawing.Size(610, 75);
             this.groupBox2.TabIndex = 69;
             this.groupBox2.TabStop = false;
@@ -3427,7 +3427,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownAwareness)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownProximity)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownInsideReticuleChance)).EndInit();
-            this.tabPageOthers.ResumeLayout(false);
+            this.tabPageAddons.ResumeLayout(false);
             this.ShuffleADSGroupBox.ResumeLayout(false);
             this.ShuffleADSGroupBox.PerformLayout();
             this.groupBox6.ResumeLayout(false);
@@ -3598,7 +3598,7 @@
         private System.Windows.Forms.CheckBox checkBoxStopOnAPIUpdate;
         private System.Windows.Forms.NumericUpDown numericUpDownForceEvolveAbove;
         private System.Windows.Forms.Label label49;
-        private System.Windows.Forms.TabPage tabPageOthers;
+        private System.Windows.Forms.TabPage tabPageAddons;
         private System.Windows.Forms.Label label51;
         private System.Windows.Forms.ComboBox cbHashEndpoint;
         private System.Windows.Forms.ComboBox cbHashHost;
