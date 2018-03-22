@@ -136,6 +136,7 @@ namespace PokemonGoGUI.GoManager
 
         public MethodResult Start()
         {
+            //Thread.Sleep(35*1000);
             if (IsRunning || AccountState == AccountState.Conecting)
             {
                 return new MethodResult

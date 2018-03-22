@@ -2458,9 +2458,7 @@ namespace PokemonGoGUI
                         Password = parts[2]
                     };
                     
-                    var pgaccount = new PgAccount() { AuthService = "ptc", SystemId = "Account-Manager", Username = importModel.Username.Trim(), Password = importModel.Password.Trim(), Level = 1 };
-                    pgaccount.ReachLevel30DateTime = DateTime.Now;
-                    var x = Task.Run(() => pg.AddPgAccount(1, pgaccount)).IsCompleted;
+                    
                     var manager = new Manager(_proxyHandler);
 
                     manager.UserSettings.AuthType = (parts[0].Trim().ToLower() == "ptc") ? AuthType.Ptc : AuthType.Google;
