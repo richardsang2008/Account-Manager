@@ -20,6 +20,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Diagnostics;
 using PokemonGoGUI.Models.CommandLineUtility;
+using PokemonGoGUI.UI.PluginUI.ShuffleADS;
 
 namespace PokemonGoGUI
 {
@@ -522,6 +523,24 @@ namespace PokemonGoGUI
             return new List<string>();
         }
 
+        private async Task<List<string>> ShuffleADSImportAccounts(string api, int amount)
+        {
+            List<string> account = new List<string>();
+            using (HttpClient client = new HttpClient())
+            {
+                HttpResponseMessage response = await client.GetAsync(String.Format("https://api.shuffletanker.com/api/v2/Account/GetAccounts/{0}/Pokemon/0/17520/{1}", api, amount));
+                if (response.IsSuccessStatusCode)
+                {
+                    account = (await response.Content.ReadAsStringAsync()).Replace("\"", "").Split(';').ToList();
+                }
+                else
+                {
+                    MessageBox.Show(await response.Content.ReadAsStringAsync(), "Warning");
+                }
+            }
+            return account;
+        }
+
         private string ImportConfig()
         {
             using (var ofd = new OpenFileDialog())
@@ -739,6 +758,121 @@ namespace PokemonGoGUI
                 fastObjectListViewMain.SetObjects(_managers);
 
                 MessageBox.Show(String.Format("Successfully imported {0} out of {1} accounts", totalSuccess, total));
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(String.Format("Failed to import usernames. Ex: {0}", ex.Message));
+            }
+        }
+
+        private async void shuffleADSWConfigToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var tSMI = sender as ToolStripMenuItem;
+
+            bool useConfig;
+            if (tSMI == null || !Boolean.TryParse(tSMI.Tag.ToString(), out useConfig))
+            {
+                return;
+            }
+
+            try
+            {
+                ShuffleADS_ImportForm f = new ShuffleADS_ImportForm();
+                DialogResult dialogResult = f.ShowDialog();
+                if (dialogResult == DialogResult.OK)
+                {
+                    string api = f.api;
+                    int amount = f.amount;
+                    f.Dispose();
+                    List<string> accounts = await ShuffleADSImportAccounts(api, amount);
+                    if (accounts.Count == 0)
+                    {
+                        return;
+                    }
+
+                    string configFile = String.Empty;
+
+                    if (useConfig)
+                    {
+                        configFile = ImportConfig();
+                    }
+
+                    var tempManagers = new HashSet<Manager>(_managers);
+
+                    if (useConfig && String.IsNullOrEmpty(configFile))
+                    {
+                        return;
+                    }
+
+                    int totalSuccess = 0;
+                    int total = accounts.Count;
+
+                    foreach (string account in accounts)
+                    {
+                        string[] parts = account.Split(':');
+
+                        /*
+                         * User:Pass = 2
+                         * User:Pass:MaxLevel = 3
+                         * User:Pass:IP:Port = 4
+                         * User:Pass:IP:Port:MaxLevel = 5
+                         * User:Pass:IP:Port:pUsername:pPassword = 6
+                         * User:Pass:IP:Port:pUsername:pPassword:MaxLevel = 7
+                         */
+                        if (parts.Length < 2 || parts.Length > 7)
+                        {
+                            continue;
+                        }
+
+                        var importModel = new AccountImport();
+
+                        if (!importModel.ParseAccount(account))
+                        {
+                            continue;
+                        }
+
+                        var manager = new Manager(_proxyHandler);
+
+                        if (useConfig)
+                        {
+                            MethodResult result = await manager.ImportConfigFromFile(configFile);
+
+                            if (!result.Success)
+                            {
+                                MessageBox.Show("Failed to import configuration file");
+
+                                return;
+                            }
+                        }
+                        //Randomize device id;
+                        manager.RandomDeviceId();
+                        manager.UserSettings.AccountName = importModel.Username.Trim();
+                        manager.UserSettings.Username = importModel.Username.Trim();
+                        manager.UserSettings.Password = importModel.Password.Trim();
+                        manager.UserSettings.ProxyIP = importModel.Address;
+                        manager.UserSettings.ProxyPort = importModel.Port;
+                        manager.UserSettings.ProxyUsername = importModel.ProxyUsername;
+                        manager.UserSettings.ProxyPassword = importModel.ProxyPassword;
+
+                        manager.UserSettings.AuthType = importModel.Username.Contains("@") ? AuthType.Google : AuthType.Ptc;
+
+                        if (parts.Length % 2 == 1)
+                        {
+                            manager.UserSettings.MaxLevel = importModel.MaxLevel;
+                        }
+
+                        if (tempManagers.Add(manager))
+                        {
+                            AddManager(manager);
+                            ++totalSuccess;
+                        }
+                    }
+
+                    fastObjectListViewMain.SetObjects(_managers);
+
+                    MessageBox.Show(String.Format("Successfully imported {0} out of {1} accounts", totalSuccess, total));
+                }
+
             }
             catch (Exception ex)
             {
@@ -1233,6 +1367,21 @@ namespace PokemonGoGUI
             {
                 MessageBox.Show(String.Format("Failed to export accounts. Ex: {0}", ex.Message));
             }
+        }
+
+        private async void exportToShuffleADSToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            startToolStripMenuItem.Enabled = false;
+
+            foreach (Manager manager in fastObjectListViewMain.SelectedObjects)
+            {
+                await manager.ExportToShuffleADS();
+                await Task.Delay(200);
+            }
+
+            startToolStripMenuItem.Enabled = true;
+
+            fastObjectListViewMain.RefreshSelectedObjects();
         }
 
         private void ExportProxiesToolStripMenuItem_Click(object sender, EventArgs e)

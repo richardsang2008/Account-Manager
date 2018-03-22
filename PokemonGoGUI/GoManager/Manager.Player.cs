@@ -378,15 +378,44 @@ namespace PokemonGoGUI.GoManager
             return new MethodResult();
         }
 
-        private async Task<MethodResult> ExportToShuffleADS()
+        private async Task<MethodResult> ShuffleADSProcess()
         {
             if (UserSettings.ShuffleADS_Enable && !String.IsNullOrEmpty(UserSettings.ShuffleADS_API))
             {
                 try
                 {
+                    await ExportToShuffleADS();
+
+                    if (UserSettings.ShuffleADS_GetNewPTC)
+                    {
+                        await ImportFromShuffleADS();
+
+                        if (!UserSettings.ShuffleADS_StartAfterGet && AccountScheduler != null && AccountScheduler.Enabled)
+                        {
+                            while (AccountScheduler.WithinTime()) { await Task.Delay(5000); }
+                        }
+                        else
+                        {
+                            _autoRestart = UserSettings.ShuffleADS_StartAfterGet;
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    LogCaller(new LoggerEventArgs(String.Format(ex.Message), LoggerTypes.Warning));
+                }
+            }
+            return new MethodResult();
+        }
+        public async Task<MethodResult> ExportToShuffleADS()
+        {
+            try
+            {
+                LogCaller(new LoggerEventArgs("Start exporting to ShuffleADS", LoggerTypes.Info));
+                if (UserSettings.ShuffleADS_Enable && !String.IsNullOrEmpty(UserSettings.ShuffleADS_API))
+                {
                     using (HttpClient client = new HttpClient())
                     {
-                        #region Add to DB
                         FormUrlEncodedContent content = new FormUrlEncodedContent(new[] {
                             new KeyValuePair<string, string>("api", UserSettings.ShuffleADS_API),
                             new KeyValuePair<string, string>("type", "Pokemon"),
@@ -406,51 +435,64 @@ namespace PokemonGoGUI.GoManager
                             }
                         });
                         LogCaller(new LoggerEventArgs("Added to database", LoggerTypes.Success));
-                        #endregion
-
-                        #region Get New PTC
-                        if (UserSettings.ShuffleADS_GetNewPTC)
-                        {
-                            await client.GetAsync(UserSettings.ShuffleADS_GetEndpint).ContinueWith(async responseTask =>
-                            {
-                                HttpResponseMessage response = await responseTask;
-                                if (!response.IsSuccessStatusCode)
-                                {
-                                    LogCaller(new LoggerEventArgs(String.Format(await response.Content.ReadAsStringAsync()), LoggerTypes.Info));
-                                    LogCaller(new LoggerEventArgs("Error Getting Account from Shuffle ADS!", LoggerTypes.Warning));
-                                    LogCaller(new LoggerEventArgs(String.Format("ADS Response: {0}", responseTask.Result), LoggerTypes.Warning));
-                                    throw new Exception("Stopping Shuffle ADS...");
-                                }
-
-                                string account = (await response.Content.ReadAsStringAsync()).Replace("\"", "");
-                                string username = account.Split(':')[0];
-                                string password = account.Split(':')[1];
-                                LogCaller(new LoggerEventArgs("Received account from ADS username: " + username, LoggerTypes.Success));
-                                UserSettings.Username = UserSettings.AccountName = username;
-                                UserSettings.Password = password;
-                                UserSettings.CompleteTutorial = true;
-                                Level = 0;
-                                this.ClearStats();
-                                PokemonCaught = 0;
-                                PokestopsFarmed = 0;
-                                _firstRun = true;
-                                _autoRestart = UserSettings.ShuffleADS_StartAfterGet;
-                                LogCaller(new LoggerEventArgs("Received account from ADS username: " + username, LoggerTypes.Success));
-                            });
-                            if (!UserSettings.ShuffleADS_StartAfterGet && AccountScheduler != null && AccountScheduler.Enabled)
-                            {
-                                while (AccountScheduler.WithinTime()) { await Task.Delay(5000); }
-                            }
-
-                        }
-                        #endregion
-
                     }
                 }
-                catch (Exception ex)
+                else
                 {
-                    LogCaller(new LoggerEventArgs(String.Format(ex.Message), LoggerTypes.Warning));
+                    LogCaller(new LoggerEventArgs("Please enable ShuffleADS and set API key...", LoggerTypes.Warning));
                 }
+            }
+            catch (Exception ex)
+            {
+                LogCaller(new LoggerEventArgs(String.Format(ex.Message), LoggerTypes.Warning));
+            }
+            return new MethodResult();
+        }
+
+        public async Task<MethodResult> ImportFromShuffleADS()
+        {
+            try
+            {
+                if (UserSettings.ShuffleADS_Enable && !String.IsNullOrEmpty(UserSettings.ShuffleADS_API))
+                {
+                    LogCaller(new LoggerEventArgs("Start importing from ShuffleADS", LoggerTypes.Info));
+                    using (HttpClient client = new HttpClient())
+                    {
+                        await client.GetAsync(UserSettings.ShuffleADS_GetEndpint).ContinueWith(async responseTask =>
+                        {
+                            HttpResponseMessage response = await responseTask;
+                            if (!response.IsSuccessStatusCode)
+                            {
+                                LogCaller(new LoggerEventArgs(String.Format(await response.Content.ReadAsStringAsync()), LoggerTypes.Info));
+                                LogCaller(new LoggerEventArgs("Error Getting Account from Shuffle ADS!", LoggerTypes.Warning));
+                                LogCaller(new LoggerEventArgs(String.Format("ADS Response: {0}", responseTask.Result), LoggerTypes.Warning));
+                                throw new Exception("Stopping Shuffle ADS...");
+                            }
+
+                            string account = (await response.Content.ReadAsStringAsync()).Replace("\"", "");
+                            string username = account.Split(':')[0];
+                            string password = account.Split(':')[1];
+                            LogCaller(new LoggerEventArgs("Received account from ADS username: " + username, LoggerTypes.Success));
+                            UserSettings.Username = UserSettings.AccountName = username;
+                            UserSettings.Password = password;
+                            UserSettings.CompleteTutorial = true;
+                            Level = 0;
+                            this.ClearStats();
+                            PokemonCaught = 0;
+                            PokestopsFarmed = 0;
+                            _firstRun = true;
+                            LogCaller(new LoggerEventArgs("Previous accout status cleaning complete", LoggerTypes.Success));
+                        });
+                    }
+                }
+                else
+                {
+                    LogCaller(new LoggerEventArgs("Please enable ShuffleADS and set API key...", LoggerTypes.Warning));
+                }
+            }
+            catch (Exception ex)
+            {
+                LogCaller(new LoggerEventArgs(String.Format(ex.Message), LoggerTypes.Warning));
             }
             return new MethodResult();
         }
