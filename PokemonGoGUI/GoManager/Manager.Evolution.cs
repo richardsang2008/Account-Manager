@@ -301,7 +301,7 @@ namespace PokemonGoGUI.GoManager
 
             if (data == null || data.Count == 0)
             {
-                LogCaller(new LoggerEventArgs("No lucky eggs left", LoggerTypes.Info));
+                //LogCaller(new LoggerEventArgs("No lucky eggs left", LoggerTypes.Info));
 
                 return new MethodResult
                 {

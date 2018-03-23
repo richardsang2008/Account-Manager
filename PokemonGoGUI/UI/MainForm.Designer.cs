@@ -570,7 +570,7 @@
             this.shuffleADSWConfigToolStripMenuItem.Size = new System.Drawing.Size(232, 26);
             this.shuffleADSWConfigToolStripMenuItem.Tag = "true";
             this.shuffleADSWConfigToolStripMenuItem.Text = "Shuffle ADS w/ Config";
-            this.shuffleADSWConfigToolStripMenuItem.Click += new System.EventHandler(this.shuffleADSWConfigToolStripMenuItem_Click);
+            this.shuffleADSWConfigToolStripMenuItem.Click += new System.EventHandler(this.ShuffleADSWConfigToolStripMenuItem_Click);
             // 
             // toolStripSeparator8
             // 
