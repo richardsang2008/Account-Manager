@@ -490,7 +490,7 @@ namespace PokemonGoGUI
             ShowDetails(fastObjectListViewMain.SelectedObjects.Cast<Manager>());
         }
 
-        private async void StartToolStripMenuItem_Click(object sender, EventArgs e)
+        private void StartToolStripMenuItem_Click(object sender, EventArgs e)
         {
             startToolStripMenuItem.Enabled = false;
 
@@ -499,8 +499,8 @@ namespace PokemonGoGUI
                 manager.UserSettings.HashKeys = _hashKeys.Select(x => x.Key).ToList();
                 manager.UserSettings.SPF = _spf;
                 manager.Start();
-
-                await Task.Delay(200);
+                Task.Delay(35*1000);
+                // await Task.Delay(200); to enable this need to make this function as aync
             }
 
             startToolStripMenuItem.Enabled = true;
